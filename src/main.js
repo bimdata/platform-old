@@ -3,20 +3,10 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-// import Interceptor from './api/interceptor'
+import Interceptor from './api/interceptor'
 import store from './store'
 
 Vue.config.productionTip = false
-
-router.beforeEach((to, from, next) => {
-  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
-  let isAuthenticated = store.state.isAuthenticated
-  if (requiresAuth && !isAuthenticated) {
-    next('/user/login')
-  } else {
-    next()
-  }
-})
 
 /* eslint-disable no-new */
 new Vue({
@@ -26,7 +16,25 @@ new Vue({
   components: { App },
   template: '<App/>',
   created () {
-    // const interceptor = new Interceptor()
-    // interceptor.enableInterceptor()
+    const token = localStorage.getItem('token')
+    if (token != null) {
+      this.$store.dispatch('authentication/setAuthenticated')
+    }
+    const interceptor = new Interceptor()
+    interceptor.enableInterceptor()
+  }
+})
+
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+  const requiresLogout = to.matched.some(record => record.meta.requiresLogout)
+  let isAuthenticated = store.state.isAuthenticated
+
+  if (requiresAuth && !isAuthenticated) {
+    next({name: 'login'})
+  } else if (requiresLogout && isAuthenticated && to.name === 'Login') {
+    next({name: 'home'})
+  } else {
+    next()
   }
 })

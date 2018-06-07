@@ -9,7 +9,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'PageHome',
+      name: 'home',
       component: PageHome,
       meta: {
         requiresAuth: true
@@ -17,10 +17,11 @@ export default new Router({
     },
     {
       path: '/user/login',
-      name: 'Login',
+      name: 'login',
       component: PageLogin,
       meta: {
-        requiresAuth: false
+        requiresAuth: false,
+        requiresLogout: true
       }
     }
   ]

@@ -9,9 +9,12 @@ export const login = ({ commit, state }, connectionPayload) => {
         resolve()
       },
       err => {
-        debugger
         reject(err)
       }
     )
   })
+}
+
+export const setAuthenticated = ({commit, state}) => {
+  commit('LOGIN', null, {root: true})
 }
