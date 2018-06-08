@@ -17,9 +17,11 @@ new Vue({
   template: '<App/>',
   created () {
     const token = localStorage.getItem('token')
+
     if (token != null) {
       this.$store.dispatch('authentication/setAuthenticated')
     }
+
     const interceptor = new Interceptor()
     interceptor.enableInterceptor()
   }
@@ -32,7 +34,7 @@ router.beforeEach((to, from, next) => {
 
   if (requiresAuth && !isAuthenticated) {
     next({name: 'login'})
-  } else if (requiresLogout && isAuthenticated && to.name === 'Login') {
+  } else if (requiresLogout && isAuthenticated && to.name === 'login') {
     next({name: 'home'})
   } else {
     next()
