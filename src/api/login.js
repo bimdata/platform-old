@@ -17,6 +17,8 @@ export default {
         } else {
           reject(response)
         }
+      }, function (error) {
+        resolve(error)
       })
     })
   }
