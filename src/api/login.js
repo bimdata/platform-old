@@ -18,7 +18,7 @@ export default {
           reject(response)
         }
       }, function (error) {
-        resolve(error)
+        reject(error)
       })
     })
   }

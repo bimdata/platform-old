@@ -13,6 +13,9 @@ export default new Vuex.Store({
   mutations: {
     LOGIN: (state) => {
       state.isAuthenticated = true
+    },
+    LOGOUT: (state) => {
+      state.isAuthenticated = false
     }
   }
 })

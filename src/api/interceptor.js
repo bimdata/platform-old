@@ -1,5 +1,5 @@
 import axios from 'axios'
-import app from '../main'
+// import app from '../main'
 export default class {
   enableInterceptor () {
     axios.interceptors.request.use(config => {
@@ -12,19 +12,16 @@ export default class {
     }, err => Promise.reject(err)
     )
 
-    axios.interceptors.response.use(function (response) {
-      return response
-    }, function (err) {
-      if (err.response && err.response.status === 401) {
-        if (app.$router.currentRoute.name !== 'tunnel_connexion') {
-          // app.$modal.show(LogoutAlert, {}, {height: auto})
-        }
-
-        // app.$store.dispatch('authentication/logoutUser')
-        return Promise.reject(err)
-      } else {
-        return Promise.reject(err)
-      }
-    })
+    // axios.interceptors.response.use(function (response) {
+    //   return response
+    // }, function (err) {
+    //   debugger
+    //   if (err.response && err.response.status === 401) {
+    //     // app.$router.dispatch('authentication/logoutUser')
+    //     return Promise.reject(err)
+    //   } else {
+    //     return Promise.reject(err)
+    //   }
+    // })
   }
 }
