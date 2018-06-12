@@ -1,6 +1,8 @@
 import request from 'axios'
+import bimdata from '@bimdata/bimdata-api-client'
 
 export default {
+  defaultClient: new bimdata.UserApi(),
   getToken ({username, password}) {
     request.defaults.baseURL = process.env.BD_API_BASE_URL
     const dataToken = new FormData()
@@ -20,6 +22,22 @@ export default {
       }, function (error) {
         reject(error)
       })
+    })
+  },
+  forgotPassword (email) {
+    this.defaultClient.askResetPasswordToken({ email }).then(response => {
+      debugger
+    }, err => {
+      console.log(err)
+      debugger
+    })
+  },
+  resetPassword (payload) {
+    this.defaultClient.resetPassword(payload).then(response => {
+      debugger
+    }, err => {
+      console.log(err)
+      debugger
     })
   }
 }

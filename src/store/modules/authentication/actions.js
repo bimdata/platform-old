@@ -23,6 +23,14 @@ export const logoutUser = ({commit}) => {
   App.$router.push({name: 'login'})
 }
 
+export const forgotPassword = ({commit}, email) => {
+  Login.forgotPassword(email)
+}
+
+export const resetPassword = ({commit}, payload) => {
+  Login.resetPassword(payload)
+}
+
 export const setAuthenticated = ({commit}) => {
   commit('LOGIN', null, {root: true})
 }

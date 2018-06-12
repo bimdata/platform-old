@@ -10,6 +10,22 @@ import BootstrapVue from 'bootstrap-vue'
 Vue.use(BootstrapVue)
 Vue.config.productionTip = false
 
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+  const requiresLogout = to.matched.some(record => record.meta.requiresLogout)
+  let isAuthenticated = store.state.isAuthenticated
+
+  if (requiresAuth && !isAuthenticated) {
+    debugger
+    next({name: 'login'})
+  } else if (requiresLogout && isAuthenticated && to.name === 'login') {
+    debugger
+    next({name: 'home'})
+  } else {
+    next()
+  }
+})
+
 /* eslint-disable no-new */
 export default new Vue({
   el: '#app',
@@ -26,19 +42,5 @@ export default new Vue({
 
     const interceptor = new Interceptor()
     interceptor.enableInterceptor()
-  }
-})
-
-router.beforeEach((to, from, next) => {
-  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
-  const requiresLogout = to.matched.some(record => record.meta.requiresLogout)
-  let isAuthenticated = store.state.isAuthenticated
-
-  if (requiresAuth && !isAuthenticated) {
-    next({name: 'login'})
-  } else if (requiresLogout && isAuthenticated && to.name === 'login') {
-    next({name: 'home'})
-  } else {
-    next()
   }
 })
