@@ -5,7 +5,6 @@
         <transition name="slide">
             <router-link :to="{name: 'forgot-password'}">Mot de passe oublié</router-link>
         </transition>
-        <router-view></router-view>
     </div>
 </template>
 <script>
