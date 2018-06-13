@@ -32,6 +32,14 @@ export default {
       debugger
     })
   },
+  signUp (payload) {
+    this.defaultClient.signUp(payload).then(response => {
+      debugger
+    }, err => {
+      console.log(err)
+      debugger
+    })
+  },
   resetPassword (payload) {
     this.defaultClient.resetPassword(payload).then(response => {
       debugger

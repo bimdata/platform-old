@@ -1,6 +1,5 @@
 <template>
     <span>
-        <input type="button" @click="test" value="TEST"/> <p>test ok</p>
         <input type="button" @click="logout" value="logout"/>
     </span>
 </template>
@@ -13,9 +12,6 @@ export default {
     ...mapActions('authentication', [
       'logoutUser'
     ]),
-    test () {
-      debugger
-    },
     logout () {
       this.logoutUser()
     }

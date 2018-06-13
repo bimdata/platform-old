@@ -27,6 +27,10 @@ export const forgotPassword = ({commit}, email) => {
   Login.forgotPassword(email)
 }
 
+export const signUp = (context, payload) => {
+  Login.signUp(payload)
+}
+
 export const resetPassword = ({commit}, payload) => {
   Login.resetPassword(payload)
 }

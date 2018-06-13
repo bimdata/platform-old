@@ -4,6 +4,7 @@ import PageHome from '@/components/PageHome'
 import PageLogin from '@/components/PageLogin'
 import PageLoginForgotPassword from '@/components/PageLoginForgotPassword'
 import PageLoginResetPassword from '@/components/PageLoginResetPassword'
+import PageLoginSignUp from '@/components/PageLoginSignUp'
 import LayoutPageLogin from '@/components/LayoutPageLogin'
 Vue.use(Router)
 
@@ -39,6 +40,15 @@ export default new Router({
           path: '/forgot-password',
           name: 'forgot-password',
           component: PageLoginForgotPassword,
+          meta: {
+            requiresAuth: false,
+            requiresLogout: true
+          }
+        },
+        {
+          path: '/signup',
+          name: 'signup',
+          component: PageLoginSignUp,
           meta: {
             requiresAuth: false,
             requiresLogout: true

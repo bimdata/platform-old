@@ -16,10 +16,8 @@ router.beforeEach((to, from, next) => {
   let isAuthenticated = store.state.isAuthenticated
 
   if (requiresAuth && !isAuthenticated) {
-    debugger
     next({name: 'login'})
   } else if (requiresLogout && isAuthenticated && to.name === 'login') {
-    debugger
     next({name: 'home'})
   } else {
     next()
