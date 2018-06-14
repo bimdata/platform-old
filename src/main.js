@@ -6,6 +6,7 @@ import router from './router'
 import Interceptor from './api/interceptor'
 import store from './store'
 import BootstrapVue from 'bootstrap-vue'
+import { i18n } from './setup/i18n-setup'
 
 Vue.use(BootstrapVue)
 Vue.config.productionTip = false
@@ -27,6 +28,7 @@ router.beforeEach((to, from, next) => {
 /* eslint-disable no-new */
 export default new Vue({
   el: '#app',
+  i18n,
   router,
   store,
   components: { App },

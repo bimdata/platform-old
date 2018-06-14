@@ -1,6 +1,8 @@
 <template>
     <div>
-        <div>page login</div>
+        <div><p>{{ $t("message.hello") }}</p></div>
+        <button @click="setLang('fr')">fr</button>
+        <button @click="setLang('en')">en</button>
         <LoginForm></LoginForm>
         <ul>
             <transition-group name="slide">
@@ -13,6 +15,7 @@
 </template>
 <script>
 import LoginForm from './LoginForm'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'PageLogin',
@@ -31,6 +34,11 @@ export default {
         }
       ]
     }
+  },
+  methods: {
+    ...mapActions([
+      'setLang'
+    ])
   },
   components: {
     LoginForm

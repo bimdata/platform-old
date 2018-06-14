@@ -1,11 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import AuthenticationModule from './modules/authentication'
+import app from '../main'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    isAuthenticated: false
+    isAuthenticated: false,
+    lang: 'fr'
   },
   modules: {
     authentication: AuthenticationModule
@@ -16,6 +19,15 @@ export default new Vuex.Store({
     },
     LOGOUT: (state) => {
       state.isAuthenticated = false
+    },
+    SET_LANG: (state, payload) => {
+      app.$i18n.locale = payload
+      state.lang = payload
+    }
+  },
+  actions: {
+    setLang ({commit}, payload) {
+      commit('SET_LANG', payload)
     }
   }
 })
