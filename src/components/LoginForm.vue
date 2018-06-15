@@ -30,8 +30,12 @@
                 <template v-if="getPassword.errors.length > 0">
                     <li v-for="error in getPassword.errors" :key="error">{{ error }}</li>
                 </template>
+                <transition name="slide">
+                    <router-link class="login__forgot-password" :to="{name: 'forgot-password'}">{{ $t("message.login_forgot_password") }}</router-link>
+                </transition>
             </b-form-group>
-            <b-button type="submit" variant="primary">Submit</b-button>
+            <b-button class="login__submit" type="submit" variant="primary">Submit</b-button>
+            <b-dropdown-divider></b-dropdown-divider>
         </b-form>
     </div>
 </template>

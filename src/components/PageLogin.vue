@@ -1,16 +1,17 @@
 <template>
     <div>
-        <div><p>{{ $t("message.hello") }}</p></div>
-        <button @click="setLang('fr')">fr</button>
-        <button @click="setLang('en')">en</button>
-        <LoginForm></LoginForm>
-        <ul>
-            <transition-group name="slide">
-                    <li v-for="navItem in loginNavigation" :key="navItem.id">
-                        <router-link :to="{name: navItem.name}">{{ navItem.text }}</router-link>
-                    </li>
-            </transition-group>
-        </ul>
+        <b-card class="shadow-sm login">
+            <div class="login__head-login text-center">
+                <img class="login__logo" src="../assets/images/logo-bimdata-carre.svg" width="100" height="100"/>
+                <p class="login__baseline">{{ $t("message.login_baseline") }}</p>
+            </div>
+            <LoginForm></LoginForm>
+            <ul>
+                <transition name="slide">
+                    <p>{{ $t("message.login_dont_have_account") }}<router-link :to="{name: 'signup'}">{{ $t("message.login_free_signup") }}</router-link></p>
+                </transition>
+            </ul>
+        </b-card>
     </div>
 </template>
 <script>
@@ -19,22 +20,6 @@ import { mapActions } from 'vuex'
 
 export default {
   name: 'PageLogin',
-  data () {
-    return {
-      loginNavigation: [
-        {
-          id: 1,
-          name: 'forgot-password',
-          text: 'Mot de passe oublié'
-        },
-        {
-          id: 2,
-          name: 'signup',
-          text: 'M\'inscrire'
-        }
-      ]
-    }
-  },
   methods: {
     ...mapActions([
       'setLang'

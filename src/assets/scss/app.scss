@@ -1,6 +1,8 @@
 @import "bootstrap-variable-override";
 @import "~bootstrap/scss/bootstrap.scss";
 
+@import "global/base";
+@import "form/forms";
 @import "layout/login";
 
 @import "transitions";

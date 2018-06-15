@@ -1,0 +1,22 @@
+form button {
+  width: 100%;
+  border-radius: 3px;
+}
+
+input[type=text] {
+  @include media-breakpoint-up(sm) {
+    min-width: 370px;
+  }
+}
+
+.form-control {
+  font-size: 0.8571rem;
+  border: 1px solid $border-color;
+  color: $primary;
+}
+
+.login__submit {
+  //padding-top: 0.7857rem / 1.5;
+  //padding-bottom: 0.7857rem / 1.5;
+  border-radius: 3px;
+}
