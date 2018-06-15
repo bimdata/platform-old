@@ -11,8 +11,7 @@
                               required
                               placeholder="Username"
                               type="text"
-                              v-model="username"
-                >
+                              v-model="username">
                 </b-form-input>
                 <template v-if="getUsername.errors.length > 0">
                     <li v-for="error in getUsername.errors" :key="error">{{ error }}</li>

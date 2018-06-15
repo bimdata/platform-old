@@ -12,7 +12,8 @@
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
     "build": "node build/build.js",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "mocha": "mocha --compilers js:babel-core/register test/unit/specs/**/*.js"
   },
   "dependencies": {
     "@bimdata/bimdata-api-client": "^1.0.25",
