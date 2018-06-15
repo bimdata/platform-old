@@ -1,6 +1,11 @@
 <template>
     <div>
-        <b-form @submit="handleResetPassword">
+        <b-form @submit.prevent="handleResetPassword">
+            <div id="error">
+            <template v-if="error">
+                {{ error }}
+            </template>
+            </div>
             <b-form-group id="resetpassword-group"
                           label=""
                           label-for="resetpassword-username"
@@ -12,7 +17,7 @@
                               v-model="password"
                               type="password">
                 </b-form-input>
-                <b-form-input id="resetpassword-username"
+                <b-form-input id="resetpassword-password-confirmation"
                               required
                               placeholder="confirmation password"
                               :class="{'is-invalid': hasError}"
@@ -20,9 +25,6 @@
                               type="password">
                 </b-form-input>
                 <b-button type="submit" variant="primary">Submit</b-button>
-                <template v-if="error">
-                    {{ error }}
-                </template>
             </b-form-group>
         </b-form>
     </div>
