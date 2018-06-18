@@ -1,3 +1,38 @@
 #login-layout {
-  height: 100vh;
+  min-height: 100vh;
+}
+
+.login {
+  width: 100%;
+  .card-body {
+    padding: $grid-gutter-width / 2;
+    @include media-breakpoint-up(sm) {
+      padding: $grid-gutter-width * 2;
+    }
+  }
+}
+
+.login__head {
+  margin-bottom: $grid-gutter-width * 2;
+}
+
+.login__logo {
+  margin-bottom: 1.1143rem;
+}
+
+.login__baseline {
+  font-size: 1rem;
+  color: $primary;
+}
+
+.login__forgot-password {
+  font-size: 0.8571rem;
+  display: block;
+  text-align: right;
+  color: $body-color;
+  padding-top: 0.8571rem;
+}
+
+.login__account-link {
+  margin-bottom: 0;
 }

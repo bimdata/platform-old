@@ -1,104 +1,123 @@
 <template>
     <div>
-        <b-form @submit="checkLoginForm">
-            <div v-if="getHasErrors && getGlobalErrors.length > 0">
-                <li v-for="error in getGlobalErrors" :key="error">{{ error }}</li>
-            </div>
+        <b-form @submit.prevent="checkLoginForm">
+            <b-alert variant="danger"
+                     :show="globalErrors.length > 0">
+                    {{ globalErrors }}
+            </b-alert>
             <b-form-group id="username-group"
                           label=""
                           label-for="username-login">
                 <b-form-input id="username-login"
-                              required
                               placeholder="Username"
                               type="text"
-                              v-model="username">
+                              :state="usernameState"
+                              aria-describedby="inputFeedbackUsername"
+                              v-model="username.value">
                 </b-form-input>
-                <template v-if="getUsername.errors.length > 0">
-                    <li v-for="error in getUsername.errors" :key="error">{{ error }}</li>
-                </template>
+                <b-form-invalid-feedback id="inputFeedbackUsername">
+                    {{ username.error }}
+                </b-form-invalid-feedback>
             </b-form-group>
             <b-form-group id="password-group"
                           label=""
                           label-for="password-login"
                           description="">
                 <b-form-input id="password-login"
-                              required
                               placeholder="Password"
                               type="password"
-                              v-model="password">
+                              :state="passwordState"
+                              aria-describedby="inputFeedbackPassword"
+                              v-model="password.value">
                 </b-form-input>
-                <template v-if="getPassword.errors.length > 0">
-                    <li v-for="error in getPassword.errors" :key="error">{{ error }}</li>
-                </template>
+                <b-form-invalid-feedback id="inputFeedbackPassword">
+                    {{ password.error }}
+                </b-form-invalid-feedback>
+                <transition name="slide">
+                    <router-link class="login__forgot-password" :to="{name: 'forgot-password'}">{{ $t("message.login_forgot_password") }}</router-link>
+                </transition>
             </b-form-group>
-            <b-button type="submit" variant="primary">Submit</b-button>
+            <b-button class="login__submit form__button--large" type="submit" variant="primary">Submit</b-button>
+            <b-dropdown-divider class="form__bottom-divider form__bottom-divider--spaced"></b-dropdown-divider>
         </b-form>
     </div>
 </template>
 <script>
-import {mapGetters} from 'vuex'
-
 export default {
   name: 'LoginForm',
+  data () {
+    return {
+      isSubmittedForm: false,
+      hasErrors: false,
+      globalErrors: '',
+      username: {
+        value: '',
+        error: '',
+        validity: null
+      },
+      password: {
+        value: '',
+        error: '',
+        validity: null
+      }
+    }
+  },
   methods: {
     checkLoginForm () {
-      let validity = this.isValidForm
-      if (validity) {
-        this.$store.dispatch('authentication/login').then(
-          response => {
-          },
+      this.isSubmittedForm = true
+      if (this.isValidForm) {
+        this.$store.dispatch('authentication/login', {username: this.username.value, password: this.password.value}).then(
+          response => { },
           reject => {
-            this.$store.commit('authentication/ADD_ERROR_GLOBAL', 'Bad credentials')
+            this.hasErrors = true
+            this.username.error = ''
+            this.password.error = ''
+            this.username.validty = null
+            this.password.validty = null
+            this.isSubmittedForm = false
+            this.globalErrors = 'bad credentials'
           })
       }
     },
     isValidUsername () {
-      var validity = true
-      if (this.$store.getters['authentication/getUsername'].value.length < 1) {
+      let validity = true
+      if (this.username.value.length < 1) {
         validity = false
-        this.$store.dispatch('authentication/addError', {field: 'username', message: 'Required field'})
+        this.username.error = 'required field'
       }
 
-      return validity
+      this.username.validity = validity
     },
     isValidPassword () {
-      var validity = true
-      if (this.$store.getters['authentication/getPassword'].value.length < 1) {
+      let validity = true
+      if (this.password.value.length < 1) {
         validity = false
-        this.$store.dispatch('authentication/addError', {field: 'password', message: 'Required field'})
+        this.password.error = 'required field'
       }
 
-      return validity
+      this.password.validity = validity
     }
   },
   computed: {
-    ...mapGetters('authentication', [
-      'getUsername',
-      'getPassword',
-      'getGlobalErrors',
-      'getHasErrors'
-    ]),
-    username: {
-      get () {
-        return this.getUsername.value
-      },
-      set (value) {
-        this.$store.commit('authentication/UPDATE_USERNAME', value)
-      }
-    },
-    password: {
-      get () {
-        return this.getPassword.value
-      },
-      set (value) {
-        this.$store.commit('authentication/UPDATE_PASSWORD', value)
-      }
-    },
     isValidForm () {
-      this.$store.commit('authentication/RESET_ERRORS')
       this.isValidUsername()
       this.isValidPassword()
-      return !this.getHasErrors
+
+      return this.username.validity && this.password.validity
+    },
+    usernameState () {
+      if (this.isSubmittedForm) {
+        return this.username.validity
+      }
+
+      return null
+    },
+    passwordState () {
+      if (this.isSubmittedForm) {
+        return this.password.validity
+      }
+
+      return null
     }
   }
 }

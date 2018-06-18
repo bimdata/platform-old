@@ -6,9 +6,9 @@ import axios from 'axios'
 Vue.use(VueI18n)
 
 export const i18n = new VueI18n({
-  locale: 'fr', // set locale
-  fallbackLocale: 'fr',
-  messages // set locale messages
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
 })
 
 const loadedLanguages = ['fr'] // our default language that is prelaoded

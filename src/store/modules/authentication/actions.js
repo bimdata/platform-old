@@ -1,9 +1,9 @@
 import Login from '../../../api/login'
 import App from '../../../main'
 
-export const login = ({ commit, state }) => {
+export const login = ({ commit, state }, {username, password}) => {
   return new Promise((resolve, reject) => {
-    Login.getToken({username: state.username.value, password: state.password.value}).then(
+    Login.getToken({username, password}).then(
       accessToken => {
         localStorage.setItem('token', accessToken)
         commit('LOGIN', null, {root: true})
