@@ -1,8 +1,9 @@
 <template>
     <div>
-        <b-card class="shadow-sm">
+        <b-card class="shadow-sm forgot-password">
             <div class="login__head-login text-center">
                 <img class="login__logo" src="../assets/images/logo-bimdata-carre.svg" width="100" height="100"/>
+                <p class="login__baseline">{{ $t("message.login_baseline") }}</p>
             </div>
             <b-form @submit="handleForgotPassword">
                 <b-form-group id="forgotpassword-group"
@@ -24,6 +25,10 @@
                     </template>
                 </b-form-group>
                 <b-button type="submit" class="form__button--large" variant="primary">Submit</b-button>
+                <b-dropdown-divider class="form__bottom-divider form__bottom-divider--spaced"></b-dropdown-divider>
+                <transition name="slide">
+                    <p class="login__account-link ">{{ $t("message.login_already_account") }} <router-link :to="{name: 'login'}">{{ $t("message.login_signin") }}</router-link></p>
+                </transition>
             </b-form>
         </b-card>
     </div>
