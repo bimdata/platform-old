@@ -6,6 +6,8 @@ export const en = {
     login_forgot_password: 'Forgot password ?',
     login_register: 'Register me',
     login_already_account: 'Already an account ?',
-    login_signin: 'Sign In'
+    login_signin: 'Sign In',
+    form_required_field: 'This is a required field',
+    form_same_password_needed: 'Passwords must be identical'
   }
 }
