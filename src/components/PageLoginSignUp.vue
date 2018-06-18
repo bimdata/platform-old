@@ -10,57 +10,70 @@
                               label-for="signup-username"
                               description="">
                     <b-form-input id="signup-username"
-                                  required
                                   placeholder="Email"
                                   type="email"
-                                  v-model="email.value">
+                                  :state="getState('email')"
+                                  v-model="form.email">
                     </b-form-input>
+                    <b-form-invalid-feedback id="inputUsernameLoginFeedback">
+                        {{ $t('message.form_required_field') }}
+                    </b-form-invalid-feedback>
                 </b-form-group>
                 <b-form-group id="signup-group-password"
                               label=""
                               label-for="signup-password"
                               description="">
                     <b-form-input id="signup-password"
-                                  required
                                   placeholder="Password"
                                   type="password"
-                                  v-model="password.value">
+                                  :state="getState('password')"
+                                  v-model="form.password">
                     </b-form-input>
+                    <b-form-invalid-feedback id="inputPasswordLoginFeedback">
+                        {{ $t('message.form_required_field') }}
+                    </b-form-invalid-feedback>
                 </b-form-group>
                 <b-form-group id="signup-group-password-confirmation"
                               label=""
                               label-for="signup-password-confirmation"
                               description="">
                     <b-form-input id="signup-password-confirmation"
-                                  required
                                   placeholder="Password confirmation"
                                   type="password"
-                                  :class="{'is-invalid': hasErrorField('password')}"
-                                  v-model="passwordConfirmation.value">
+                                  :state="getState('passwordConfirmation')"
+                                  v-model="form.passwordConfirmation">
                     </b-form-input>
+                    <b-form-invalid-feedback id="inputPasswordConfirmationLoginFeedback">
+                        <template v-if="!$v.form.passwordConfirmation.sameAs">{{ $t('message.form_same_password_needed') }}</template>
+                    </b-form-invalid-feedback>
                 </b-form-group>
-                <template v-if="hasErrorField('password')">{{ password.error }}</template>
                 <b-form-group id="signup-group-firstname"
                               label=""
                               label-for="signup-firstname"
                               description="">
                     <b-form-input id="signup-firstname"
-                                  required
                                   placeholder="firstname"
                                   type="text"
-                                  v-model="firstname.value">
+                                  :state="getState('firstname')"
+                                  v-model="form.firstname">
                     </b-form-input>
+                    <b-form-invalid-feedback id="inputFirstnameLoginFeedback">
+                        {{ $t('message.form_required_field') }}
+                    </b-form-invalid-feedback>
                 </b-form-group>
                 <b-form-group id="signup-group-lastname"
                               label=""
                               label-for="signup-lastname"
                               description="">
                     <b-form-input id="signup-lastname"
-                                  required
                                   placeholder="lastname"
                                   type="text"
-                                  v-model="lastname.value">
+                                  :state="getState('lastname')"
+                                  v-model="form.lastname">
                     </b-form-input>
+                    <b-form-invalid-feedback id="inputLastnameLoginFeedback">
+                        {{ $t('message.form_required_field') }}
+                    </b-form-invalid-feedback>
                 </b-form-group>
                 <b-button type="submit" class="form__button--large" variant="primary">{{ $t('message.login_register') }}</b-button>
                 <b-dropdown-divider class="form__bottom-divider form__bottom-divider--spaced"></b-dropdown-divider>
@@ -73,36 +86,42 @@
 </template>
 <script>
 import { mapActions } from 'vuex'
+import { validationMixin } from 'vuelidate'
+import { required, sameAs } from 'vuelidate/lib/validators'
 
 export default {
   name: 'PageLoginSignUp',
+  mixins: [
+    validationMixin
+  ],
   data () {
     return {
-      errors: [],
+      isSubmittedForm: false,
+      form: {
+        email: '',
+        password: '',
+        passwordConfirmation: '',
+        firstname: '',
+        lastname: ''
+      }
+    }
+  },
+  validations: {
+    form: {
       email: {
-        value: '',
-        error: '',
-        validity: null
+        required
       },
       password: {
-        value: '',
-        error: '',
-        validity: null
+        required
       },
       passwordConfirmation: {
-        value: '',
-        error: '',
-        validity: null
+        sameAsPassword: sameAs('password')
       },
       firstname: {
-        value: '',
-        error: '',
-        validity: null
+        required
       },
       lastname: {
-        value: '',
-        error: '',
-        validity: null
+        required
       }
     }
   },
@@ -111,37 +130,30 @@ export default {
       'signUp'
     ]),
     handleSignUp () {
-      if (this.isValidForm()) {
+      this.isSubmittedForm = true
+      if (!this.$v.form.$invalid) {
         this.signUp({
-          email: this.email.value,
-          firstname: this.firstname.value,
-          lastname: this.lastname.value,
-          password: this.password.value
+          email: this.form.email,
+          firstname: this.form.firstname,
+          lastname: this.form.lastname,
+          password: this.form.password
         })
       }
     },
-    isValidForm () {
-      if (this.password.value.length > 0 && this.passwordConfirmation.value.length > 0 && this.password.value !== this.passwordConfirmation.value) {
-        this.password.error = 'not the same password'
-        this.password.validity = false
+    getState (fieldName) {
+      if (this.isSubmittedForm) {
+        if (fieldName !== 'passwordConfirmation') {
+          return !this.$v.form[fieldName].$invalid
+        } else {
+          if (this.$v.form.password.$invalid && !this.$v.form.passwordConfirmation.$invalid) {
+            return null
+          } else {
+            return !this.$v.form.passwordConfirmation.$invalid
+          }
+        }
       }
 
-      return !this.hasErrorsForm
-    },
-    hasErrorField (field) {
-      return this[field].error.validity
-    }
-  },
-  computed: {
-    hasErrorsForm () {
-      const fields = ['email', 'password', 'passwordConfirmation', 'firstname', 'lastname']
-      fields.forEach((field) => {
-        if (this.hasErrorField(field)) {
-          return true
-        }
-      })
-
-      return false
+      return null
     }
   }
 }
