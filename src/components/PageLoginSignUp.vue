@@ -1,65 +1,67 @@
 <template>
     <div>
-        <b-form @submit="handleSignUp">
-            <b-form-group id="signup-group-username"
-                          label=""
-                          label-for="signup-username"
-                          description="">
-                <b-form-input id="signup-username"
-                              required
-                              placeholder="Email"
-                              type="email"
-                              v-model="email.value">
-                </b-form-input>
-            </b-form-group>
-            <b-form-group id="signup-group-password"
-                          label=""
-                          label-for="signup-password"
-                          description="">
-                <b-form-input id="signup-password"
-                              required
-                              placeholder="Password"
-                              type="password"
-                              v-model="password.value">
-                </b-form-input>
-            </b-form-group>
-            <b-form-group id="signup-group-password-confirmation"
-                          label=""
-                          label-for="signup-password-confirmation"
-                          description="">
-                <b-form-input id="signup-password-confirmation"
-                              required
-                              placeholder="Password confirmation"
-                              type="password"
-                              :class="{'is-invalid': hasErrorField('password')}"
-                              v-model="passwordConfirmation.value">
-                </b-form-input>
-            </b-form-group>
-            <template v-if="hasErrorField('password')">{{ password.error }}</template>
-            <b-form-group id="signup-group-firstname"
-                          label=""
-                          label-for="signup-firstname"
-                          description="">
-                <b-form-input id="signup-firstname"
-                              required
-                              placeholder="firstname"
-                              type="text"
-                              v-model="firstname.value">
-                </b-form-input>
-            </b-form-group>
-            <b-form-group id="signup-group-lastname"
-                          label=""
-                          label-for="signup-lastname"
-                          description="">
-                <b-form-input id="signup-lastname"
-                              required
-                              placeholder="lastname"
-                              type="text"
-                              v-model="lastname.value">
-                </b-form-input>
-            </b-form-group>
-            <b-button type="submit" variant="primary">Submit</b-button>
-        </b-form>
+        <b-card class="shadow-sm signup">
+            <b-form @submit="handleSignUp">
+                <b-form-group id="signup-group-username"
+                              label=""
+                              label-for="signup-username"
+                              description="">
+                    <b-form-input id="signup-username"
+                                  required
+                                  placeholder="Email"
+                                  type="email"
+                                  v-model="email.value">
+                    </b-form-input>
+                </b-form-group>
+                <b-form-group id="signup-group-password"
+                              label=""
+                              label-for="signup-password"
+                              description="">
+                    <b-form-input id="signup-password"
+                                  required
+                                  placeholder="Password"
+                                  type="password"
+                                  v-model="password.value">
+                    </b-form-input>
+                </b-form-group>
+                <b-form-group id="signup-group-password-confirmation"
+                              label=""
+                              label-for="signup-password-confirmation"
+                              description="">
+                    <b-form-input id="signup-password-confirmation"
+                                  required
+                                  placeholder="Password confirmation"
+                                  type="password"
+                                  :class="{'is-invalid': hasErrorField('password')}"
+                                  v-model="passwordConfirmation.value">
+                    </b-form-input>
+                </b-form-group>
+                <template v-if="hasErrorField('password')">{{ password.error }}</template>
+                <b-form-group id="signup-group-firstname"
+                              label=""
+                              label-for="signup-firstname"
+                              description="">
+                    <b-form-input id="signup-firstname"
+                                  required
+                                  placeholder="firstname"
+                                  type="text"
+                                  v-model="firstname.value">
+                    </b-form-input>
+                </b-form-group>
+                <b-form-group id="signup-group-lastname"
+                              label=""
+                              label-for="signup-lastname"
+                              description="">
+                    <b-form-input id="signup-lastname"
+                                  required
+                                  placeholder="lastname"
+                                  type="text"
+                                  v-model="lastname.value">
+                    </b-form-input>
+                </b-form-group>
+                <b-button type="submit" class="form__button--large" variant="primary">{{ $t('message.login_register') }}</b-button>
+            </b-form>
+        </b-card>
     </div>
 </template>
 <script>
@@ -72,23 +74,28 @@ export default {
       errors: [],
       email: {
         value: '',
-        error: ''
+        error: '',
+        validity: null
       },
       password: {
         value: '',
-        error: ''
+        error: '',
+        validity: null
       },
       passwordConfirmation: {
         value: '',
-        error: ''
+        error: '',
+        validity: null
       },
       firstname: {
         value: '',
-        error: ''
+        error: '',
+        validity: null
       },
       lastname: {
         value: '',
-        error: ''
+        error: '',
+        validity: null
       }
     }
   },
