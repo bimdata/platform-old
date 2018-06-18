@@ -1,6 +1,9 @@
 <template>
     <div>
         <b-card class="shadow-sm signup">
+            <div class="login__head-login text-center">
+                <img class="login__logo" src="../assets/images/logo-bimdata-carre.svg" width="100" height="100"/>
+            </div>
             <b-form @submit="handleSignUp">
                 <b-form-group id="signup-group-username"
                               label=""
@@ -60,6 +63,10 @@
                     </b-form-input>
                 </b-form-group>
                 <b-button type="submit" class="form__button--large" variant="primary">{{ $t('message.login_register') }}</b-button>
+                <b-dropdown-divider class="form__bottom-divider form__bottom-divider--spaced"></b-dropdown-divider>
+                <transition name="slide">
+                    <p class="login__account-link ">{{ $t("message.login_already_account") }} <router-link :to="{name: 'login'}">{{ $t("message.login_signin") }}</router-link></p>
+                </transition>
             </b-form>
         </b-card>
     </div>
@@ -114,14 +121,15 @@ export default {
       }
     },
     isValidForm () {
-      if (this.password.value !== this.passwordConfirmation.value) {
+      if (this.password.value.length > 0 && this.passwordConfirmation.value.length > 0 && this.password.value !== this.passwordConfirmation.value) {
         this.password.error = 'not the same password'
+        this.password.validity = false
       }
 
       return !this.hasErrorsForm
     },
     hasErrorField (field) {
-      return !!this[field].error.length
+      return this[field].error.validity
     }
   },
   computed: {
