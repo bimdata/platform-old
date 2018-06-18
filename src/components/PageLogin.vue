@@ -6,11 +6,9 @@
                 <p class="login__baseline">{{ $t("message.login_baseline") }}</p>
             </div>
             <LoginForm></LoginForm>
-            <ul>
                 <transition name="slide">
-                    <p>{{ $t("message.login_dont_have_account") }}<router-link :to="{name: 'signup'}">{{ $t("message.login_free_signup") }}</router-link></p>
+                    <p class="login__account-link ">{{ $t("message.login_dont_have_account") }} <router-link :to="{name: 'signup'}">{{ $t("message.login_free_signup") }}</router-link></p>
                 </transition>
-            </ul>
         </b-card>
     </div>
 </template>

@@ -1,5 +1,4 @@
 form button {
-  width: 100%;
   border-radius: 3px;
 }
 
@@ -16,7 +15,11 @@ input[type=text] {
 }
 
 .login__submit {
-  //padding-top: 0.7857rem / 1.5;
-  //padding-bottom: 0.7857rem / 1.5;
+  padding-top: 0.7857rem * 0.8;
+  padding-bottom: 0.7857rem * 0.7;
   border-radius: 3px;
+}
+
+.form__button--large {
+  width: 100%;
 }
