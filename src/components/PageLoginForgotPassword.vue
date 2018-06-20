@@ -53,7 +53,9 @@ export default {
   data () {
     return {
       isSubmittedForm: false,
-      form: {},
+      form: {
+        email: ''
+      },
       error: ''
     }
   },

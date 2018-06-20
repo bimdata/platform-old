@@ -2,6 +2,7 @@ $font-family-base: 'Roboto';
 $body-bg: #F7F7F8;
 $body-color: #94979A;
 $primary: #2F374A;
+$bim-cyan: #00B5A6;
 $black: #000000;
 $grid-gutter-width: 25px;
 $font-size-base: 0.875rem;
@@ -28,4 +29,17 @@ $input-btn-focus-color: $primary;
 $input-btn-focus-box-shadow: none;
 
 //divider
-$dropdown-divider-bg: $border-color
+$dropdown-divider-bg: $border-color;
+
+// breadcrumb override
+$breadcrumb-padding-y: .75rem;
+$breadcrumb-padding-x: 1rem;
+$breadcrumb-item-padding: .5rem;
+$breadcrumb-margin-bottom: 1rem;
+
+$breadcrumb-bg: white;
+$breadcrumb-divider-color: $bim-cyan;
+$breadcrumb-active-color: $bim-cyan;
+$breadcrumb-divider: quote(">");
+
+$breadcrumb-border-radius: $border-radius;
