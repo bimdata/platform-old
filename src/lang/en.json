@@ -11,6 +11,7 @@
     },
     "form": {
         "required_field": "This is a required field",
-        "same_password_needed": "Passwords must be identical"
+        "same_password_needed": "Passwords must be identical",
+        "min_length": "Too short field"
     }
 }
