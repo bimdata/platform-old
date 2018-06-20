@@ -3,7 +3,7 @@
         <b-form @submit.prevent="checkLoginForm">
             <b-alert variant="danger"
                      :show="badCredentials">
-                    {{ $t('message.login_bad_credentials') }}
+                    {{ $t('login.bad_credentials') }}
             </b-alert>
             <b-form-group id="username-group"
                           label=""
@@ -34,7 +34,7 @@
                     {{ $t('message.form_required_field') }}
                 </b-form-invalid-feedback>
                 <transition name="slide">
-                    <router-link class="login__forgot-password" :to="{name: 'forgot-password'}">{{ $t("message.login_forgot_password") }}</router-link>
+                    <router-link class="login__forgot-password" :to="{name: 'forgot-password'}">{{ $t("login.forgot_password") }}</router-link>
                 </transition>
             </b-form-group>
             <b-button class="login__submit form__button--large" type="submit" variant="primary">Submit</b-button>
