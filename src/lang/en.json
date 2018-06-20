@@ -1,0 +1,16 @@
+{
+    "login": {
+        "dont_have_account": "Don't have an account yet ? aa",
+        "free_signup": "Sign Up for free",
+        "baseline": "The Open BIM collaboration platform",
+        "forgot_password": "Forgot password ?",
+        "register": "Register me",
+        "already_account": "Already an account ?",
+        "signin": "Sign In",
+        "bad_credentials": "Bad credentials"
+    },
+    "form": {
+        "required_field": "This is a required field",
+        "same_password_needed": "Passwords must be identical"
+    }
+}
