@@ -1,5 +1,4 @@
 version: 2
-
 jobs:
   test:
     docker:
@@ -8,9 +7,7 @@ jobs:
 
     steps:
       - checkout
-
-      Download and cache dependencies
-      - restore_cache:
+      - restore_cache: #Download and cache dependencies
           keys:
             - v1-dependencies-npm-{{ checksum "package.lock" }}
             - v1-dependencies-npm
