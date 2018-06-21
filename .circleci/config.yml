@@ -1,0 +1,26 @@
+version: 2
+
+jobs:
+  test:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-npm-{{ checksum "package.lock" }}
+            - v1-dependencies-npm
+
+      - run: npm install
+
+      - save_cache:
+          key: v1-dependencies-npm-{{ checksum "package.lock" }}
+          paths:
+            - node_modules/
+
+      # run tests!
+      - run: npm run cypress:run
