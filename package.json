@@ -14,7 +14,8 @@
     "build": "node build/build.js",
     "cypress:open": "cypress open",
     "mocha": "mocha --compilers js:babel-core/register test/unit/specs/**/*.js",
-    "export-translations": "node build/sync-translations.js"
+    "export-translations": "node build/sync-translations.js",
+    "cypress:run": "cypress run"
   },
   "dependencies": {
     "@bimdata/bimdata-api-client": "^1.0.25",

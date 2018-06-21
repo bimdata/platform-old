@@ -1,7 +1,8 @@
 <template>
     <div>
         <b-form @submit.prevent="checkLoginForm">
-            <b-alert variant="danger"
+            <b-alert id="error-message-username"
+                     variant="danger"
                      :show="badCredentials">
                     {{ $t('login.bad_credentials') }}
             </b-alert>
@@ -16,7 +17,7 @@
                               v-model="form.username">
                 </b-form-input>
                 <b-form-invalid-feedback id="inputFeedbackUsername">
-                    {{ $t('message.form_required_field') }}
+                    {{ $t('form.required_field') }}
                 </b-form-invalid-feedback>
             </b-form-group>
             <b-form-group id="password-group"
@@ -31,7 +32,7 @@
                               v-model="form.password">
                 </b-form-input>
                 <b-form-invalid-feedback id="inputFeedbackPassword">
-                    {{ $t('message.form_required_field') }}
+                    {{ $t('form.required_field') }}
                 </b-form-invalid-feedback>
                 <transition name="slide">
                     <router-link class="login__forgot-password" :to="{name: 'forgot-password'}">{{ $t("login.forgot_password") }}</router-link>
