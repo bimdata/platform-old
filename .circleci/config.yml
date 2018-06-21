@@ -9,13 +9,13 @@ jobs:
       - checkout
       - restore_cache: #Download and cache dependencies
           keys:
-            - v1-dependencies-npm-{{ checksum "package.lock" }}
+            - v1-dependencies-npm-{{ checksum "package-lock.json" }}
             - v1-dependencies-npm
 
       - run: npm install
 
       - save_cache:
-          key: v1-dependencies-npm-{{ checksum "package.lock" }}
+          key: v1-dependencies-npm-{{ checksum "package-lock.json" }}
           paths:
             - node_modules/
 
