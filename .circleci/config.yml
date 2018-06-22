@@ -12,7 +12,7 @@ jobs:
             - v1-dependencies-npm-{{ checksum "package-lock.json" }}
             - v1-dependencies-npm
 
-      - run: npm install
+      - run: npm ci
 
       # run tests!
       - run: mv config/bim.env.js.test config/bim.env.js
