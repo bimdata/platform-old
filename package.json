@@ -16,6 +16,7 @@
     "mocha": "mocha --compilers js:babel-core/register test/unit/specs/**/*.js",
     "export-translations": "node build/sync-translations.js",
     "cypress:run": "cypress run",
+    "cypress:install": "cypress install",
     "cypress:test": "start-server-and-test start http-get://localhost:8080 cypress:run"
   },
   "dependencies": {

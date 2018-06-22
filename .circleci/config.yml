@@ -21,4 +21,5 @@ jobs:
 
       # run tests!
       - run: mv config/bim.env.js.test config/bim.env.js
+      - run: npm run cypress:install
       - run: npm run cypress:test
