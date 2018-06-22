@@ -5,7 +5,7 @@
                 <img class="login__logo" src="../assets/images/logo-bimdata-carre.svg" width="100" height="100"/>
                 <p class="login__baseline">{{ $t("login.baseline") }}</p>
             </div>
-            <b-form @submit="handleSignUp">
+            <b-form @submit.prevent="handleSignUp">
                 <b-form-group id="signup-group-username"
                               label=""
                               label-for="signup-username"
