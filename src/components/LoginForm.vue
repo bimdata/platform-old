@@ -10,7 +10,7 @@
                           label=""
                           label-for="username-login">
                 <b-form-input id="username-login"
-                              placeholder="Username"
+                              :placeholder="$t('login.email')"
                               type="text"
                               :state="getState('username')"
                               aria-describedby="inputFeedbackUsername"
@@ -25,7 +25,7 @@
                           label-for="password-login"
                           description="">
                 <b-form-input id="password-login"
-                              placeholder="Password"
+                              :placeholder="$t('login.password')"
                               type="password"
                               :state="getState('password')"
                               aria-describedby="inputFeedbackPassword"
@@ -38,7 +38,7 @@
                     <router-link class="login__forgot-password" :to="{name: 'forgot-password'}">{{ $t("login.forgot_password") }}</router-link>
                 </transition>
             </b-form-group>
-            <b-button class="login__submit form__button--large" type="submit" variant="primary">Submit</b-button>
+            <b-button class="login__submit form__button--large" type="submit" variant="primary">{{ $t('form.submit') }}</b-button>
             <b-dropdown-divider class="form__bottom-divider form__bottom-divider--spaced"></b-dropdown-divider>
         </b-form>
     </div>

@@ -11,7 +11,7 @@
                               label-for="signup-username"
                               description="">
                     <b-form-input id="signup-username"
-                                  placeholder="Email"
+                                  :placeholder="$t('login.email')"
                                   type="email"
                                   :state="getState('email')"
                                   v-model="form.email">
@@ -25,7 +25,7 @@
                               label-for="signup-password"
                               description="">
                     <b-form-input id="signup-password"
-                                  placeholder="Password"
+                                  :placeholder="$t('login.password')"
                                   type="password"
                                   :state="getState('password')"
                                   v-model="form.password">
@@ -39,7 +39,7 @@
                               label-for="signup-password-confirmation"
                               description="">
                     <b-form-input id="signup-password-confirmation"
-                                  placeholder="Password confirmation"
+                                  :placeholder="$t('login.password_confirmation')"
                                   type="password"
                                   :state="getState('passwordConfirmation')"
                                   v-model="form.passwordConfirmation">
@@ -53,7 +53,7 @@
                               label-for="signup-firstname"
                               description="">
                     <b-form-input id="signup-firstname"
-                                  placeholder="firstname"
+                                  :placeholder="$t('login.firstname')"
                                   type="text"
                                   :state="getState('firstname')"
                                   v-model="form.firstname">
@@ -67,7 +67,7 @@
                               label-for="signup-lastname"
                               description="">
                     <b-form-input id="signup-lastname"
-                                  placeholder="lastname"
+                                  :placeholder="$t('login.lastname')"
                                   type="text"
                                   :state="getState('lastname')"
                                   v-model="form.lastname">

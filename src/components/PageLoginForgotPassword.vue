@@ -3,7 +3,7 @@
         <b-card class="shadow-sm forgot-password">
             <div class="login__head-login text-center">
                 <img class="login__logo" src="../assets/images/logo-bimdata-carre.svg" width="100" height="100"/>
-                <p class="login__baseline">{{ $t("message.login_baseline") }}</p>
+                <p class="login__baseline">{{ $t("login.baseline") }}</p>
             </div>
             <b-form @submit="handleForgotPassword">
                 <b-form-group id="forgotpassword-group"
@@ -11,7 +11,7 @@
                               label-for="forgotpassword-username"
                               description="">
                     <b-form-input id="forgotpassword-username"
-                                  placeholder="Email"
+                                  :placeholder="$t('login.email')"
                                   :state="emailState"
                                   type="email"
                                   aria-describedby="input1LiveFeedback"
@@ -24,7 +24,7 @@
                         {{ error }}
                     </template>
                 </b-form-group>
-                <b-button type="submit" class="form__button--large" variant="primary">Submit</b-button>
+                <b-button type="submit" class="form__button--large" variant="primary">{{ $t('form.submit') }}</b-button>
                 <b-dropdown-divider class="form__bottom-divider form__bottom-divider--spaced"></b-dropdown-divider>
                 <transition name="slide">
                     <p class="login__account-link ">{{ $t("login.already_account") }} <router-link :to="{name: 'login'}">{{ $t("login.signin") }}</router-link></p>
