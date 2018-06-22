@@ -15,7 +15,8 @@
     "cypress:open": "cypress open",
     "mocha": "mocha --compilers js:babel-core/register test/unit/specs/**/*.js",
     "export-translations": "node build/sync-translations.js",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+    "cypress:test": "start-server-and-test start http-get://localhost:8080 cypress:run"
   },
   "dependencies": {
     "@bimdata/bimdata-api-client": "^1.0.25",
@@ -89,6 +90,7 @@
     "shelljs": "^0.7.6",
     "sinon": "^4.0.0",
     "sinon-chai": "^2.8.0",
+    "start-server-and-test": "^1.4.1",
     "uglifyjs-webpack-plugin": "^1.1.1",
     "url-loader": "^0.5.8",
     "vue-loader": "^13.3.0",
