@@ -30,4 +30,4 @@ jobs:
       - store_artifacts:
           path: cypress/screenshots
       - store_test_results:
-          path: results
+          path: multiple-results

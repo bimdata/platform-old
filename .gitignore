@@ -8,7 +8,7 @@ yarn-error.log*
 /test/e2e/reports/
 
 !cypress/videos/.gitkeep
-cypress/videos/*
+cypress/videos/**
 
 !cypress/screenshots/.gitkeep
 cypress/screenshots/*
