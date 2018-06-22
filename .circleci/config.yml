@@ -20,5 +20,6 @@ jobs:
             - node_modules/
 
       # run tests!
+      - run: mv config/bim.env.js.test config/bim.env.js
       - run: npm start && wait-on http://localhost:8080
       - run: npm run cypress:run
