@@ -15,7 +15,7 @@
     "cypress:open": "cypress open",
     "mocha": "mocha --compilers js:babel-core/register test/unit/specs/**/*.js",
     "export-translations": "node build/sync-translations.js",
-    "cypress:run": "cypress run --reporter mocha-multi-reporters --record --reporter-options configFile=config/test-report.json",
+    "cypress:run": "cypress run --reporter mocha-multi-reporters --reporter-options configFile=config/test-report.json",
     "cypress:install": "cypress install",
     "cypress:test": "start-server-and-test start http-get://localhost:8080 cypress:run"
   },

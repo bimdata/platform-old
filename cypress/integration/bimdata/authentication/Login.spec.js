@@ -1,4 +1,4 @@
-describe('Reset password', function() {
+describe('Login', function() {
 
   beforeEach(() => {
     cy.visit('localhost:8080/#/login')
