@@ -14,12 +14,14 @@ jobs:
 
       - run: npm install
 
-      - save_cache:
-          key: v1-dependencies-npm-{{ checksum "package-lock.json" }}
-          paths:
-            - node_modules/
-
       # run tests!
       - run: mv config/bim.env.js.test config/bim.env.js
       - run: npm run cypress:install
       - run: npm run cypress:test
+
+      - save_cache:
+          key: v1-dependencies-npm-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules/
+            - ~/.npm
+            - ~/.cache
