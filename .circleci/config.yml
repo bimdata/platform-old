@@ -20,4 +20,5 @@ jobs:
             - node_modules/
 
       # run tests!
+      - run: npm start && wait-on http://localhost:8080
       - run: npm run cypress:run
