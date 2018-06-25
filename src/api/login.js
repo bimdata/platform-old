@@ -32,13 +32,23 @@ export default {
       debugger
     })
   },
-  signUp (payload) {
-    this.defaultClient.signUp(payload).then(response => {
+  async signUp (payload) {
+    try {
       debugger
-    }, err => {
-      console.log(err)
-      debugger
-    })
+      const response = await this.defaultClient.signUp(payload)
+      return response
+    } catch (e) {
+      let text, statusCode
+      [text, statusCode] = [JSON.parse(e.response.text), e.response.statusCode]
+      if (statusCode === 400) {
+        if (text.email[0] === 'This user already exists') {
+          throw new Error('already_exist')
+        }
+        throw new Error('bad_request')
+      } else if (statusCode >= 500) {
+        throw new Error('server_error')
+      }
+    }
   },
   resetPassword (payload) {
     this.defaultClient.resetPassword(payload).then(response => {

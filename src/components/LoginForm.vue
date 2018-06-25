@@ -35,7 +35,9 @@
                     {{ $t('form.required_field') }}
                 </b-form-invalid-feedback>
                 <transition name="slide">
-                    <router-link class="login__forgot-password" :to="{name: 'forgot-password'}">{{ $t("login.forgot_password") }}</router-link>
+                    <div class="login__forgot-password">
+                        <router-link :to="{name: 'forgot-password'}">{{ $t("login.forgot_password") }}</router-link>
+                    </div>
                 </transition>
             </b-form-group>
             <b-button class="login__submit form__button--large" type="submit" variant="primary">{{ $t('form.submit') }}</b-button>

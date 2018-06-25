@@ -27,8 +27,22 @@ export const forgotPassword = ({commit}, email) => {
   Login.forgotPassword(email)
 }
 
-export const signUp = (context, payload) => {
-  Login.signUp(payload)
+export const signUp = async (context, payload) => {
+  try {
+    const response = await Login.signUp(payload)
+    return response
+  } catch (e) {
+    switch (e.message) {
+      case 'already_exist':
+        throw e
+
+      case 'bad_request':
+        throw e
+
+      case 'server_error':
+        throw e
+    }
+  }
 }
 
 export const resetPassword = ({commit}, payload) => {

@@ -12,9 +12,11 @@
         "firstname": "Firstname",
         "lastname": "Lastname",
         "password": "Password",
-        "password_confirmation": "Password confirmation"
+        "password_confirmation": "Password confirmation",
+        "already_exist_account": "An account already exist with this username"
     },
     "form": {
+        "server_error": "We've encountered some server issues, please retry later",
         "required_field": "This is a required field",
         "same_password_needed": "Passwords must be identical",
         "min_length": "Too short field",

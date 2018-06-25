@@ -130,4 +130,65 @@ describe('Sign Up', function () {
     cy.get('#inputFirstnameLoginFeedback').should('not.be.visible')
     cy.get('#inputLastnameLoginFeedback').should('not.be.visible')
   })
+
+  it('Displays an error if account already exist', function () {
+    cy.server()
+    cy.route(
+      {
+        method: 'POST',
+        url: '**/signup',
+        status: 400,
+        response: { email: ['This user already exists'] },
+        delay: 500
+      }
+    ).as('signUp')
+
+    cy.get('#signup-username')
+      .type('test@test.fr')
+    cy.get('#signup-password')
+      .type('Ujmpv1937')
+    cy.get('#signup-password-confirmation')
+      .type('Ujmpv1937')
+    cy.get('#signup-firstname')
+      .type('John')
+    cy.get('#signup-lastname')
+      .type('Doe')
+
+    cy.get('button[type="submit"]').click()
+
+    cy.wait('@signUp').then((xhr) => {
+      cy.get('#error-already-account').should('be.visible')
+    })
+  })
+
+  it('Displays an error if account already exist', function () {
+    cy.server()
+    cy.route(
+      {
+        method: 'POST',
+        url: '**/signup',
+        status: 502,
+        response: {},
+        delay: 500
+      }
+    ).as('signUp')
+
+    cy.get('#signup-username')
+      .type('test@test.fr')
+    cy.get('#signup-password')
+      .type('Ujmpv1937')
+    cy.get('#signup-password-confirmation')
+      .type('Ujmpv1937')
+    cy.get('#signup-firstname')
+      .type('John')
+    cy.get('#signup-lastname')
+      .type('Doe')
+
+    cy.get('button[type="submit"]').click()
+
+    cy.wait('@signUp').then((xhr) => {
+      cy.get('#error-already-account').should('not.be.visible')
+      cy.get('#error-server').should('be.visible')
+    })
+  })
 })

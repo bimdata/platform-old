@@ -12,7 +12,8 @@
         "firstname": "Firstname",
         "lastname": "Lastname",
         "password": "Password",
-        "password_confirmation": "Password confirmation"
+        "password_confirmation": "Password confirmation",
+        "already_exist_account": "An account already exist with this username"
     },
     "form": {
         "required_field": "This is a required field",
