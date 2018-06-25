@@ -23,8 +23,13 @@ export const logoutUser = ({commit}) => {
   App.$router.push({name: 'login'})
 }
 
-export const forgotPassword = ({commit}, email) => {
-  Login.forgotPassword(email)
+export const forgotPassword = async ({commit}, email) => {
+  try {
+    const response = await Login.forgotPassword(email)
+    return response
+  } catch (e) {
+    throw new Error('server_error')
+  }
 }
 
 export const signUp = async (context, payload) => {

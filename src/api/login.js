@@ -24,17 +24,20 @@ export default {
       })
     })
   },
-  forgotPassword (email) {
-    this.defaultClient.askResetPasswordToken({ email }).then(response => {
-      debugger
-    }, err => {
-      console.log(err)
-      debugger
-    })
+  async forgotPassword (email) {
+    try {
+      const response = await this.defaultClient.askResetPasswordToken({email})
+      return response
+    } catch (e) {
+      let statusCode
+      [statusCode] = e.response.statusCode
+      if (statusCode >= 500) {
+        throw new Error('server_error')
+      }
+    }
   },
   async signUp (payload) {
     try {
-      debugger
       const response = await this.defaultClient.signUp(payload)
       return response
     } catch (e) {

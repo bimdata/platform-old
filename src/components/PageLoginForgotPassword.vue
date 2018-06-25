@@ -5,7 +5,18 @@
                 <img class="login__logo" src="../assets/images/logo-bimdata-carre.svg" width="100" height="100"/>
                 <p class="login__baseline">{{ $t("login.baseline") }}</p>
             </div>
-            <b-form @submit="handleForgotPassword">
+            <p>{{ $t('login.forgot_password_text_info') }}</p>
+            <b-alert id="error-message-forgot-password"
+                     variant="danger"
+                     :show="hasServerError">
+                <span id="error-server" v-show="hasServerError">{{ $t('form.server_error') }}</span>
+            </b-alert>
+            <b-alert id="success-message-forgot-password"
+                     variant="success"
+                     :show="isSuccessfull">
+                {{ $t('login.ask_reset_password_success') }}
+            </b-alert>
+            <b-form @submit.prevent="handleForgotPassword">
                 <b-form-group id="forgotpassword-group"
                               label=""
                               label-for="forgotpassword-username"
@@ -17,7 +28,7 @@
                                   aria-describedby="input1LiveFeedback"
                                   v-model="form.email">
                     </b-form-input>
-                    <b-form-invalid-feedback id="input1LiveFeedback">
+                    <b-form-invalid-feedback id="inputUsernameFeedback">
                         This is a required field
                     </b-form-invalid-feedback>
                     <template v-if="error">
@@ -53,6 +64,8 @@ export default {
   data () {
     return {
       isSubmittedForm: false,
+      hasServerError: false,
+      isSuccessfull: false,
       form: {
         email: ''
       },
@@ -63,10 +76,16 @@ export default {
     ...mapActions('authentication', [
       'forgotPassword'
     ]),
-    handleForgotPassword () {
+    async handleForgotPassword () {
       this.isSubmittedForm = true
       if (!this.$v.form.$invalid) {
-        this.forgotPassword(this.form.email)
+        try {
+          await this.forgotPassword(this.form.email)
+          this.isSuccessfull = true
+        } catch (e) {
+          this.hasServerError = true
+          this.isSubmittedForm = false
+        }
       }
     }
   },

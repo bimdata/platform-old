@@ -152,7 +152,6 @@ export default {
           console.log(response)
         } catch (e) {
           this.isSubmittedForm = false
-          console.log(e)
           switch (e.message) {
             case 'already_exist':
               this.hasAlreadyAnAccount = true
