@@ -53,12 +53,20 @@ export default {
       }
     }
   },
-  resetPassword (payload) {
-    this.defaultClient.resetPassword(payload).then(response => {
-      debugger
-    }, err => {
-      console.log(err)
-      debugger
-    })
+  async resetPassword (payload) {
+    try {
+      const response = await this.defaultClient.resetPassword(payload)
+      return response
+    } catch (e) {
+      let statusCode, text
+      [statusCode, text] = [e.response.statusCode, JSON.parse(e.response.text)]
+      if (statusCode === 400) {
+        if (text.reset_token !== 'undefined') {
+          throw new Error('invalid_reset_token')
+        }
+      } else if (statusCode >= 500) {
+        throw new Error('server_error')
+      }
+    }
   }
 }

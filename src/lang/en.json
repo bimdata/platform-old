@@ -15,7 +15,8 @@
         "password_confirmation": "Password confirmation",
         "already_exist_account": "An account already exist with this username",
         "forgot_password_text_info": "Mot de passe perdu ? Entrez votre email",
-        "ask_reset_password_success": "Un email vous a été envoyé"
+        "ask_reset_password_success": "Un email vous a été envoyé",
+        "invalid_reset_token": "Your token has expired"
     },
     "form": {
         "server_error": "We've encountered some server issues, please retry later",

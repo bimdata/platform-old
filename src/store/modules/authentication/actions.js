@@ -50,8 +50,19 @@ export const signUp = async (context, payload) => {
   }
 }
 
-export const resetPassword = ({commit}, payload) => {
-  Login.resetPassword(payload)
+export const resetPassword = async ({commit}, payload) => {
+  try {
+    const response = await Login.resetPassword(payload)
+    return response
+  } catch (e) {
+    switch (e.message) {
+      case 'invalid_reset_token':
+        throw e
+
+      case 'server_error':
+        throw e
+    }
+  }
 }
 
 export const setAuthenticated = ({commit}) => {
