@@ -17,7 +17,10 @@
     "export-translations": "node build/sync-translations.js",
     "cypress:run": "cypress run --reporter mocha-multi-reporters --reporter-options configFile=config/test-report.json",
     "cypress:install": "cypress install",
-    "cypress:test": "start-server-and-test start http-get://localhost:8080 cypress:run"
+    "cypress:test": "start-server-and-test start http-get://localhost:8080 cypress:run",
+    "generate-icons": "vsvg -s ./src/assets/images/icons/compiled -t ./src/icons --es6",
+    "optimize-svg": "svgo -f ./src/assets/images/icons -o ./src/assets/images/icons/compiled",
+    "svg-process": "npm run optimize-svg && npm run generate-icons"
   },
   "dependencies": {
     "@bimdata/bimdata-api-client": "^1.0.25",
@@ -94,10 +97,12 @@
     "sinon": "^4.0.0",
     "sinon-chai": "^2.8.0",
     "start-server-and-test": "^1.4.1",
+    "svgo": "^1.0.5",
     "uglifyjs-webpack-plugin": "^1.1.1",
     "url-loader": "^0.5.8",
     "vue-loader": "^13.3.0",
     "vue-style-loader": "^3.0.1",
+    "vue-svgicon": "^2.1.4",
     "vue-template-compiler": "^2.5.2",
     "wait-on": "^2.1.0",
     "webpack": "^3.6.0",

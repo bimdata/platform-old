@@ -12,7 +12,8 @@ cypress/videos/**
 
 !cypress/screenshots/.gitkeep
 cypress/screenshots/*
-
+!/src/assets/images/icons/compiled/.gitkeep
+/src/assets/images/icons/compiled
 selenium-debug.log
 config/bim.env.js
 # Editor directories and files
