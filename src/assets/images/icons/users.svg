@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 20 20" style="enable-background:new 0 0 20 20;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#95989A;}
+</style>
+<title>users</title>
+<desc>Created with Sketch.</desc>
+<g id="Client-vueJS">
+	<g id="Home" transform="translate(-15.000000, -165.000000)">
+		<g id="users" transform="translate(15.000000, 165.000000)">
+			<g id="Page-1">
+				<path id="Fill-1" class="st0" d="M10,1.1C7.8,1.1,6.1,2.8,6.1,5S7.8,8.9,10,8.9s3.9-1.8,3.9-3.9S12.2,1.1,10,1.1 M10,10
+					c-2.8,0-5-2.2-5-5s2.2-5,5-5s5,2.2,5,5S12.8,10,10,10"/>
+				<path id="Fill-3" class="st0" d="M1.1,18.9h17.9v-1c-2.3-1.9-4.6-3.2-6.9-3.6c-1.9-0.4-3.8-0.2-5.7,0.4
+					c-2.8,0.9-4.7,2.7-5.2,3.2V18.9z M20,20H0v-2.6l0.1-0.2c0.1-0.1,2.2-2.4,5.8-3.6c2.1-0.7,4.2-0.9,6.3-0.5c2.6,0.5,5.2,1.8,7.6,4
+					l0.2,0.2V20z"/>
+			</g>
+		</g>
+	</g>
+</g>
+</svg>
