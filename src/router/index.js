@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import PageHome from '@/components/PageHome'
-import PageLogin from '@/components/PageLogin'
-import PageLoginForgotPassword from '@/components/PageLoginForgotPassword'
-import PageLoginResetPassword from '@/components/PageLoginResetPassword'
-import PageLoginSignUp from '@/components/PageLoginSignUp'
-import LayoutPageLogin from '@/components/LayoutPageLogin'
-import LayoutPageDashboard from '@/components/LayoutPageDashboard'
+import PageHome from '@/components/pages/PageHome'
+import PageLogin from '@/components/pages/PageLogin'
+import PageLoginForgotPassword from '@/components/pages/PageLoginForgotPassword'
+import PageLoginResetPassword from '@/components/pages/PageLoginResetPassword'
+import PageLoginSignUp from '@/components/pages/PageLoginSignUp'
+import LayoutPageLogin from '@/components/layouts/LayoutPageLogin'
+import LayoutPageDashboard from '@/components/layouts/LayoutPageDashboard'
 
 Vue.use(Router)
 

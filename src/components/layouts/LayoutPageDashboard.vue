@@ -3,16 +3,16 @@
         <div class="wrapper">
             <header class="header">
                 <div class="logo-container">
-                    <img class="logo-container__logo" src="../assets/images/logo-bimdata-carre.svg" width="40" height="30"/>
+                    <img class="logo-container__logo" src="../../assets/images/logo-bimdata-carre.svg" width="40" height="30"/>
                 </div>
                 <div class="breadcrumb-container">
-                    <b-breadcrumb :items="items"/>
+                    <b-breadcrumb items=""/>
                 </div>
                 <div class="user-menu">
                     notf
                 </div>
             </header>
-            <aside class="aside nav-menu">Aside 1</aside>
+            <navigation-main></navigation-main>
             <article class="main">
                 <transition name="slide-fade" mode="out-in">
                     <router-view></router-view>
@@ -22,18 +22,17 @@
     </div>
 </template>
 <script>
+import NavigationMain from '@/components/navigation/NavigationMain'
+
 export default {
+  components: {
+    'navigation-main': NavigationMain
+  },
   data () {
     return {
       items: [{
-        text: 'Admin',
+        text: 'Accueil',
         href: '#'
-      }, {
-        text: 'Manage',
-        href: '#'
-      }, {
-        text: 'Library',
-        active: true
       }]
     }
   }

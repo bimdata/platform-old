@@ -1,10 +1,7 @@
 <template>
     <div>
         <b-card class="shadow-sm signup">
-            <div class="login__head-login text-center">
-                <img class="login__logo" src="../assets/images/logo-bimdata-carre.svg" width="100" height="100"/>
-                <p class="login__baseline">{{ $t("login.baseline") }}</p>
-            </div>
+            <login-pages-logo></login-pages-logo>
             <b-alert id="error-message-signup"
                      variant="danger"
                      :show="hasGlobalError">
@@ -96,12 +93,16 @@
 import { mapActions } from 'vuex'
 import { validationMixin } from 'vuelidate'
 import { required, sameAs } from 'vuelidate/lib/validators'
+import LoginPagesLogo from '@/components/authentication/LoginPagesLogo'
 
 export default {
   name: 'PageLoginSignUp',
   mixins: [
     validationMixin
   ],
+  components: {
+    'login-pages-logo': LoginPagesLogo
+  },
   data () {
     return {
       isSubmittedForm: false,

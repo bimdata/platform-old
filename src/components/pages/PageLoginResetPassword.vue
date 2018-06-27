@@ -1,10 +1,7 @@
 <template>
     <div>
         <b-card class="shadow-sm forgot-password">
-            <div class="login__head-login text-center">
-                <img class="login__logo" src="../assets/images/logo-bimdata-carre.svg" width="100" height="100"/>
-                <p class="login__baseline">{{ $t("login.baseline") }}</p>
-            </div>
+            <login-pages-logo></login-pages-logo>
             <p>{{ $t('login.reset_password_text_info') }}</p>
             <b-alert id="error-message-reset-password"
                      variant="danger"
@@ -60,12 +57,16 @@
 import { validationMixin } from 'vuelidate'
 import { required, sameAs } from 'vuelidate/lib/validators'
 import { mapActions } from 'vuex'
+import LoginPagesLogo from '@/components/authentication/LoginPagesLogo'
 
 export default {
   name: 'PageLoginResetPassword',
   mixins: [
     validationMixin
   ],
+  components: {
+    'login-pages-logo': LoginPagesLogo
+  },
   validations: {
     form: {
       password: {

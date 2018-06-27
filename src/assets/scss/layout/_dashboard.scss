@@ -38,13 +38,6 @@
   }
 }
 
-.nav-menu {
-  height: 100vh;
-  flex-basis: 80px;
-  box-shadow: 0 2px 10px 0 rgba(0,0,0,0.07);
-  background-color: white;
-}
-
 @media all and (min-width: 600px) {
   .aside { flex: 0 80px; }
 }
