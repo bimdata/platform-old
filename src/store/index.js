@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import AuthenticationModule from './modules/authentication'
+import UserModule from './modules/user'
 import app from '../main'
 
 Vue.use(Vuex)
@@ -11,7 +12,8 @@ export default new Vuex.Store({
     lang: 'fr'
   },
   modules: {
-    authentication: AuthenticationModule
+    authentication: AuthenticationModule,
+    user: UserModule
   },
   mutations: {
     LOGIN: (state) => {

@@ -24,5 +24,8 @@
         "same_password_needed": "Passwords must be identical",
         "min_length": "Too short field",
         "submit": "Submit"
+    },
+    "dashboard": {
+        "logout": "Logout"
     }
 }
