@@ -9,35 +9,6 @@
   flex: 1 100%;
 }
 
-.header {
-  display: flex;
-  height: 60px;
-  background-color: white;
-  box-shadow: 0 2px 10px 0 rgba(0,0,0,0.07);
-
-  .logo-container {
-    flex-basis: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: $primary;
-  }
-
-  .breadcrumb-container {
-    display: flex;
-    flex: 10 0 auto;
-    align-items: center;
-    justify-content: flex-start;
-    ol {
-      margin: 0;
-    }
-  }
-
-  .user-menu {
-    flex: 2 0 auto;
-  }
-}
-
 @media all and (min-width: 600px) {
   .aside { flex: 0 80px; }
 }

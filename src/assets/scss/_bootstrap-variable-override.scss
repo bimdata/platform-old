@@ -14,7 +14,8 @@ $border-radius-lg: 0;
 $border-radius-sm: 0;
 
 // shadow
-$box-shadow-sm: 0 2px 8px 0 rgba($black, .08);
+$bd-box-shadow: 0 2px 10px 0 rgba(0,0,0,0.07);
+$box-shadow-sm: $bd-box-shadow;
 
 //card
 $card-border-width: 0;

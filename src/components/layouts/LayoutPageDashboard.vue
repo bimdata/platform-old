@@ -1,18 +1,8 @@
 <template>
     <div>
         <div class="wrapper">
-            <header class="header">
-                <div class="logo-container">
-                    <img class="logo-container__logo" src="../../assets/images/logo-bimdata-carre.svg" width="40" height="30"/>
-                </div>
-                <div class="breadcrumb-container">
-                    <b-breadcrumb items=""/>
-                </div>
-                <div class="user-menu">
-                    notf
-                </div>
-            </header>
-            <navigation-main></navigation-main>
+            <main-header></main-header>
+            <main-navigation></main-navigation>
             <article class="main">
                 <transition name="slide-fade" mode="out-in">
                     <router-view></router-view>
@@ -22,11 +12,13 @@
     </div>
 </template>
 <script>
-import NavigationMain from '@/components/navigation/NavigationMain'
+import MainNavigation from '@/components/navigation/MainNavigation'
+import MainHeader from '@/components/navigation/MainHeader'
 
 export default {
   components: {
-    'navigation-main': NavigationMain
+    'main-navigation': MainNavigation,
+    'main-header': MainHeader
   },
   data () {
     return {
