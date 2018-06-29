@@ -11,7 +11,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
-const env = require(`../config/${process.env.APP_ENV || 'test'}.env`)
+const env = require('../config/bim.env')
 
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
