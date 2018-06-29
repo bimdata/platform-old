@@ -1,0 +1,14 @@
+FROM node:10 as builder
+WORKDIR /opt
+ENV NODE_ENV=production
+ADD package.json /opt
+ADD package-lock.json /opt
+RUN npm install
+
+COPY ./ /opt
+ENV APP_ENV=staging
+RUN npm run build
+
+
+FROM nginx:stable
+COPY --from=builder /opt/dist /usr/share/nginx/html
