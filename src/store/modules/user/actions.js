@@ -1,8 +1,9 @@
-import UserRepository from '@/api/UserRepository'
+import { UserRepository } from '@/api/UserRepository'
 
 export const fetchUserData = async ({commit}) => {
   try {
-    const response = await UserRepository.getMyUserData()
+    const UserRepositoryRequest = new UserRepository()
+    const response = await UserRepositoryRequest.getMyUserData()
     commit('SET_USER_DATA', response)
     return response
   } catch (e) {

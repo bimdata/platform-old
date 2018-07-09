@@ -4,10 +4,15 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import Interceptor from './api/interceptor'
-import store from './store'
 import BootstrapVue from 'bootstrap-vue'
 import { i18n } from './setup/i18n-setup'
 import * as svgicon from 'vue-svgicon'
+import store from './store'
+import VueBimViewer from 'vue-bim-viewer'
+
+Vue.use(VueBimViewer, {
+  material: true
+})
 
 Vue.use(svgicon, {
   tagName: 'svgicon'

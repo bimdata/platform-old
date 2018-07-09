@@ -1,8 +1,12 @@
-import bimdata from '@/api/BimDataClient'
+import bimdata from '@bimdata/bimdata-api-client'
 
-class UserRepository {
-  constructor ({defaultClient}) {
-    this.defaultClient = defaultClient
+export class UserRepository {
+  constructor () {
+    const defaultClientInstance = bimdata.ApiClient.instance
+    let Bearer
+    Bearer = defaultClientInstance.authentications['Bearer']
+    Bearer.apiKey = localStorage.getItem('token')
+    this.defaultClient = new bimdata.UserApi()
   }
 
   async getMyUserData () {
@@ -14,7 +18,3 @@ class UserRepository {
     }
   }
 }
-
-export default new UserRepository({
-  defaultClient: new bimdata.UserApi()
-})

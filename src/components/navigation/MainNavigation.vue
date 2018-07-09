@@ -1,7 +1,7 @@
 <template>
     <aside class="aside nav-menu">
         <main-navigation-item name="home"></main-navigation-item>
-        <main-navigation-item name="model"></main-navigation-item>
+        <main-navigation-item name="model" to="embedded"></main-navigation-item>
         <main-navigation-item name="users"></main-navigation-item>
         <main-navigation-item name="cloud"></main-navigation-item>
     </aside>

@@ -6,7 +6,7 @@ export const login = ({ commit, state }, {username, password}) => {
     Login.getToken({username, password}).then(
       accessToken => {
         localStorage.setItem('token', accessToken)
-        commit('LOGIN', null, {root: true})
+        commit('LOGIN', accessToken, {root: true})
         App.$router.push({name: 'home'})
         resolve()
       },
@@ -20,7 +20,6 @@ export const login = ({ commit, state }, {username, password}) => {
 export const logoutUser = ({commit}) => {
   localStorage.removeItem('token')
   commit('LOGOUT', null, {root: true})
-  App.$router.push({name: 'login'})
 }
 
 export const forgotPassword = async ({commit}, email) => {
