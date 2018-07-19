@@ -8,11 +8,6 @@ import BootstrapVue from 'bootstrap-vue'
 import { i18n } from './setup/i18n-setup'
 import * as svgicon from 'vue-svgicon'
 import store from './store'
-import VueBimViewer from 'vue-bim-viewer'
-
-Vue.use(VueBimViewer, {
-  material: true
-})
 
 Vue.use(svgicon, {
   tagName: 'svgicon'
@@ -35,11 +30,12 @@ router.beforeEach((to, from, next) => {
 })
 
 /* eslint-disable no-new */
-export default new Vue({
+const AppRoot = new Vue({
   el: '#app',
   i18n,
   router,
   store,
+  strict: true,
   components: { App },
   template: '<App/>',
   created () {
@@ -52,3 +48,7 @@ export default new Vue({
     interceptor.enableInterceptor()
   }
 })
+
+window.appRoot = App
+
+export default AppRoot

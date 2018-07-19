@@ -7,9 +7,6 @@ import PageLoginResetPassword from '@/components/pages/PageLoginResetPassword'
 import PageLoginSignUp from '@/components/pages/PageLoginSignUp'
 import LayoutPageLogin from '@/components/layouts/LayoutPageLogin'
 import LayoutPageDashboard from '@/components/layouts/LayoutPageDashboard'
-import PageViewer from '@/components/pages/PageViewer'
-
-// import { views } from 'vue-bim-viewer'
 
 Vue.use(Router)
 
@@ -33,15 +30,6 @@ export default new Router({
           }
         }
       ]
-    },
-    {
-      path: '/embedded',
-      name: 'embedded',
-      component: PageViewer, // views.ComponentAllComponents,
-      meta: {
-        requiresAuth: false,
-        requiresLogout: false
-      }
     },
     {
       path: '/login',
