@@ -9,6 +9,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isAuthenticated: false,
+    token: null,
     lang: 'fr'
   },
   modules: {
@@ -16,10 +17,12 @@ export default new Vuex.Store({
     user: UserModule
   },
   mutations: {
-    LOGIN: (state) => {
+    LOGIN: (state, token) => {
+      state.token = token
       state.isAuthenticated = true
     },
     LOGOUT: (state) => {
+      state.token = null
       state.isAuthenticated = false
     },
     SET_LANG: (state, payload) => {
@@ -30,6 +33,11 @@ export default new Vuex.Store({
   actions: {
     setLang ({commit}, payload) {
       commit('SET_LANG', payload)
+    }
+  },
+  getters: {
+    getToken: function (state) {
+      return state.token
     }
   }
 })

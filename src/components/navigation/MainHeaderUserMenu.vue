@@ -18,7 +18,9 @@ export default {
       'logoutUser'
     ]),
     logout () {
-      this.logoutUser()
+      this.logoutUser().then(resolve => {
+        this.$router.push({name: 'login'})
+      })
     }
   },
   computed: {

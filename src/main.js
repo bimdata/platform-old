@@ -4,10 +4,10 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import Interceptor from './api/interceptor'
-import store from './store'
 import BootstrapVue from 'bootstrap-vue'
 import { i18n } from './setup/i18n-setup'
 import * as svgicon from 'vue-svgicon'
+import store from './store'
 
 Vue.use(svgicon, {
   tagName: 'svgicon'
@@ -30,11 +30,12 @@ router.beforeEach((to, from, next) => {
 })
 
 /* eslint-disable no-new */
-export default new Vue({
+const AppRoot = new Vue({
   el: '#app',
   i18n,
   router,
   store,
+  strict: true,
   components: { App },
   template: '<App/>',
   created () {
@@ -47,3 +48,7 @@ export default new Vue({
     interceptor.enableInterceptor()
   }
 })
+
+window.appRoot = App
+
+export default AppRoot

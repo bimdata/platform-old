@@ -1,7 +1,9 @@
 <template>
     <div class="menu-navigation__item" @mouseover="hovered = true" @mouseleave="hovered = false">
         <div class="item__icon-container" :class="{'hovered': hovered}">
-            <svgicon :name="name" width="20" height="20"></svgicon>
+            <router-link :to="{name: to}">
+                <svgicon :name="name" width="20" height="20"></svgicon>
+            </router-link>
         </div>
     </div>
 </template>
@@ -13,7 +15,8 @@ export default {
     }
   },
   props: {
-    name: String
+    name: String,
+    to: String
   }
 }
 </script>

@@ -23,7 +23,7 @@
     "svg-process": "npm run optimize-svg && npm run generate-icons"
   },
   "dependencies": {
-    "@bimdata/bimdata-api-client": "^1.0.25",
+    "@bimdata/bimdata-api-client": "^1.5.1",
     "autoprefixer": "^7.1.2",
     "axios": "^0.18.0",
     "babel-core": "^6.22.1",
