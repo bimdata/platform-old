@@ -7,6 +7,7 @@ import PageLoginResetPassword from '@/components/pages/PageLoginResetPassword'
 import PageLoginSignUp from '@/components/pages/PageLoginSignUp'
 import LayoutPageLogin from '@/components/layouts/LayoutPageLogin'
 import LayoutPageDashboard from '@/components/layouts/LayoutPageDashboard'
+import PageProject from '@/components/pages/PageProject'
 
 Vue.use(Router)
 
@@ -24,6 +25,15 @@ export default new Router({
           path: '/',
           name: 'home',
           component: PageHome,
+          meta: {
+            requiresAuth: true,
+            requiresLogout: false
+          }
+        },
+        {
+          path: 'project',
+          name: 'project',
+          component: PageProject,
           meta: {
             requiresAuth: true,
             requiresLogout: false
