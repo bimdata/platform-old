@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@bimdata/bimdata-api-client": "^1.5.1",
+    "@mdi/svg": "^2.5.94",
     "autoprefixer": "^7.1.2",
     "axios": "^0.18.0",
     "babel-core": "^6.22.1",
@@ -55,6 +56,7 @@
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^1.1.4",
     "friendly-errors-webpack-plugin": "^1.6.1",
+    "fs": "0.0.1-security",
     "html-webpack-plugin": "^2.30.1",
     "inject-loader": "^3.0.0",
     "node-sass": "^4.9.0",
