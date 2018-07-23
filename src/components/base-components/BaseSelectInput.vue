@@ -1,30 +1,45 @@
 <template>
     <div>
-        <b-form-group id="exampleInputGroup3"
-                      label="Food:"
-                      label-for="exampleInput3">
         <slot>
             <svgicon name="cloud" width="15" height="15"></svgicon>
         </slot>
         <b-form-select class="base-select"
             v-bind="$attrs"
             :options="options"
+            v-model="selected"
             v-on="listeners">
         </b-form-select>
-        </b-form-group>
     </div>
 </template>
 <script>
 export default {
   inheritAttrs: false,
+  data () {
+    return {
+      selected: null
+    }
+  },
   props: {
-    options: Array
+    value: null,
+    options: {
+      type: Array,
+      required: true
+    }
+  },
+  watch: {
+    value: {
+      immediate: true,
+      handler: function (newValue) {
+        this.selected = newValue
+      }
+    }
   },
   computed: {
     listeners () {
       console.log(this.$listeners)
       return {
-        ...this.$listeners
+        ...this.$listeners,
+        input: event => this.$emit('input', this.selected)
       }
     }
   }
