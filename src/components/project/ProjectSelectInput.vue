@@ -18,11 +18,6 @@ export default {
   },
   components: {
     BaseSelectInput
-  },
-  methods: {
-    test (event) {
-      console.log('teeest' + event)
-    }
   }
 }
 </script>
