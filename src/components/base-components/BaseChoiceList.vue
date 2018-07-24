@@ -17,7 +17,9 @@
             </span>
         </div>
         <ul class="choice-list__list-options" v-show="displayListOptions">
-            <li v-for="(option, index) in options" :key="index" @click="choice(option)">{{ option.text }}</li>
+            <li v-for="(option, index) in options"
+                :key="index" @click="choice(option)"
+                :class="{active: option.value === selected.value}">{{ option.text }}</li>
         </ul>
     </div>
 </template>

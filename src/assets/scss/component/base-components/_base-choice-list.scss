@@ -37,10 +37,9 @@
     background-color: $white;
     li {
       padding: 1rem;
-
-      &:hover {
+      cursor: pointer;
+      &:hover, &.active {
         background-color: #eeeeee;
-        cursor: pointer;
       }
     }
   }
