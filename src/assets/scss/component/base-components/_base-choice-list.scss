@@ -1,0 +1,47 @@
+.choice-list {
+  color: $primary;
+  width: 211px;
+  font-weight: normal;
+  text-align: left;
+  &__field-selected {
+    background-color: $white;
+    box-shadow: 0 2px 10px 0 rgba(0,0,0,0.07);
+    font-size: $font-size-base;
+    line-height: 1rem;
+    padding: 1rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    &__text-selected {
+      flex: 1 auto;
+      padding-left: 1rem;
+    }
+
+    &__display-icon {
+      svg {
+        color: $primary;
+        transition: .1s linear all;
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__list-options {
+    list-style-type: none;
+    margin: $grid-gutter-width/3 0 0 0;
+    padding: 0;
+    background-color: $white;
+    li {
+      padding: 1rem;
+
+      &:hover {
+        background-color: #eeeeee;
+        cursor: pointer;
+      }
+    }
+  }
+}

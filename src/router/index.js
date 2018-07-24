@@ -8,6 +8,7 @@ import PageLoginSignUp from '@/components/pages/PageLoginSignUp'
 import LayoutPageLogin from '@/components/layouts/LayoutPageLogin'
 import LayoutPageDashboard from '@/components/layouts/LayoutPageDashboard'
 import PageProject from '@/components/pages/PageProject'
+import PageComponents from '@/components/pages/PageComponents'
 
 Vue.use(Router)
 
@@ -87,6 +88,15 @@ export default new Router({
           }
         }
       ]
+    },
+    {
+      path: '/components',
+      name: 'components',
+      component: PageComponents,
+      meta: {
+        requiresAuth: false,
+        requiresLogout: false
+      }
     }
   ]
 })

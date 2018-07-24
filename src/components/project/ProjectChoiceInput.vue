@@ -1,23 +1,32 @@
 <template>
-    <base-select-input class="project-select" :options="options" :value="selected" v-model="selected">
-        <svgicon name="cloud"></svgicon>
-    </base-select-input>
+    <div>
+        <base-choice-list :options="options"
+                          :value="selected"
+                          v-model="selected">
+        </base-choice-list>
+    </div>
 </template>
 <script>
-import BaseSelectInput from '@/components/base-components/BaseSelectInput'
+import BaseChoiceList from '@/components/base-components/BaseChoiceList'
 
 export default {
   data () {
     return {
-      selected: null,
+      selected: { value: 'CN', text: 'CHINA' },
       options: [
-        { value: null, text: 'Please select a project' },
-        { value: 'a', text: 'This is First option' }
+        { value: 'AU', text: 'Australia' },
+        { value: 'CA', text: 'Canada' },
+        { value: 'CN', text: 'China' },
+        { value: 'DE', text: 'Germany' },
+        { value: 'JP', text: 'Japan' },
+        { value: 'MX', text: 'Mexico' },
+        { value: 'CH', text: 'Switzerland' },
+        { value: 'US', text: 'United States' }
       ]
     }
   },
   components: {
-    BaseSelectInput
+    BaseChoiceList
   }
 }
 </script>

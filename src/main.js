@@ -2,12 +2,15 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+import * as svgicon from 'vue-svgicon'
 import router from './router'
 import Interceptor from './api/interceptor'
 import BootstrapVue from 'bootstrap-vue'
 import { i18n } from './setup/i18n-setup'
-import * as svgicon from 'vue-svgicon'
 import store from './store'
+import { VueSelect } from 'vue-select'
+
+Vue.component('v-select', VueSelect)
 
 Vue.use(svgicon, {
   tagName: 'svgicon'

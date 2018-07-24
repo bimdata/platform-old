@@ -1,14 +1,15 @@
 <template>
     <div>
         page project
-        <project-select-input></project-select-input>
+        <project-choice-input></project-choice-input>
     </div>
 </template>
 <script>
-import ProjectSelectInput from '@/components/project/ProjectSelectInput'
+import ProjectChoiceInput from '@/components/project/ProjectChoiceInput'
+
 export default {
   components: {
-    ProjectSelectInput
+    ProjectChoiceInput
   }
 }
 </script>
