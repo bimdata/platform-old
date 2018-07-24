@@ -1,6 +1,5 @@
 /* eslint-disable */
 import * as icon from 'vue-svgicon'
-
 icon.register({
   'cloud': {
     width: 16,

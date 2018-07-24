@@ -1,6 +1,6 @@
 <template>
     <base-select-input class="project-select" :options="options" :value="selected" v-model="selected">
-        <svgicon name="home"></svgicon>
+        <svgicon name="cloud"></svgicon>
     </base-select-input>
 </template>
 <script>
