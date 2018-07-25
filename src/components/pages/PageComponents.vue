@@ -8,12 +8,22 @@
             <div class="col-12">
                 <div class="components__divider"></div>
                 <h3>Base Choices list</h3>
-                <base-choice-list :options="baseChoiceList.options" @selected-option="test" :value="baseChoiceList.selected" v-model="baseChoiceList.selected"></base-choice-list>
+                <base-choice-list :options="baseChoiceList.options" @selected-option="baseChoiceList" :value="baseChoiceList.selected" v-model="baseChoiceList.selected"></base-choice-list>
             </div>
             <div class="col-12">
                 <div class="components__divider"></div>
                 <h3>Cards components</h3>
                 <base-card></base-card>
+            </div>
+            <div class="col-12">
+                <div class="components__divider"></div>
+                <h3>Table Spaced</h3>
+                <base-table-spaced :values="baseTableSpaced.values"
+                                   :fields="baseTableSpaced.fields">
+                    <template slot="author" slot-scope="data">
+                        {{ data.item.author.firstname + ' ' + data.item.author.lastname }}
+                    </template>
+                </base-table-spaced>
             </div>
             <div class="col-12">
                 <div class="components__divider"></div>
@@ -43,6 +53,7 @@
 import BaseChoiceList from '@/components/base-components/BaseChoiceList'
 import BaseButtonAction from '@/components/base-components/BaseButtonAction'
 import BaseCard from '@/components/base-components/BaseCard'
+import BaseTableSpaced from '@/components/base-components/BaseTableSpaced'
 
 export default {
   data () {
@@ -60,16 +71,41 @@ export default {
           { value: 'US', text: 'United States' }
         ]
       },
-      baseTableSpaced: {}
+      baseTableSpaced: {
+        fields: [
+          {key: 'name', label: 'Nom'},
+          {key: 'type', label: 'Type'},
+          {key: 'author', label: 'Créateur'},
+          {key: 'last_modify', label: 'Modifié le'},
+          {key: 'state', label: 'Etat'}
+        ],
+        values: [
+          [
+            { name: 'simple wall' },
+            'IFC',
+            { author: { id: 1, firstname: 'Samy', lastname: 'Bounouar' } },
+            'Hier',
+            'OK'
+          ],
+          [
+            'simple wall',
+            'IFC',
+            'Samy Bounouar',
+            'Hier',
+            'OK'
+          ]
+        ]
+      }
     }
   },
   components: {
     BaseChoiceList,
     BaseButtonAction,
-    BaseCard
+    BaseCard,
+    BaseTableSpaced
   },
   methods: {
-    test () {
+    BaseChoiceListSelected () {
       console.log(this.baseChoiceList.selected)
     }
   }
