@@ -6,7 +6,7 @@
   text-align: left;
   &__field-selected {
     background-color: $white;
-    box-shadow: 0 2px 10px 0 rgba(0,0,0,0.07);
+    box-shadow: $bd-box-shadow;
     font-size: $font-size-base;
     line-height: 1rem;
     padding: 1rem;
@@ -32,7 +32,7 @@
   }
 
   &__list-options {
-    box-shadow: 0 2px 10px 0 rgba(0,0,0,0.07);
+    box-shadow: $bd-box-shadow;
     position: absolute;
     top: 48px;
     left: 0;
