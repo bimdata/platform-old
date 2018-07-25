@@ -1,0 +1,32 @@
+.base-button-action {
+  border-radius: 3px;
+  height: 32px;
+  background-color: $primary;
+  font-weight: normal;
+  font-size: $font-size-base;
+  line-height: 1rem;
+  min-width: 148px;
+  padding: $grid-gutter-width/3 $grid-gutter-width/2;
+  letter-spacing: 0.3px;
+  background-position: center;
+  transition: background 0.8s;
+  outline: none;
+  cursor: pointer;
+  color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  svg {
+    margin-right: $grid-gutter-width/3;
+  }
+  &:hover {
+    background: lighten($primary, 7%) radial-gradient(circle, transparent 1%, lighten($primary, 7%) 1%) center/15000%;
+  }
+
+  &:active {
+    background-color: $primary !important;
+    background-size: 100%;
+    transition: background 0s;
+  }
+}
