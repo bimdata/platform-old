@@ -1,4 +1,6 @@
-.base-button-action {
+$button-name: 'base-button-action';
+
+.#{$button-name} {
   border-radius: 3px;
   height: 32px;
   background-color: $primary;
@@ -6,7 +8,6 @@
   font-size: $font-size-base;
   line-height: 1rem;
   min-width: 148px;
-  padding: $grid-gutter-width/3 $grid-gutter-width/2;
   letter-spacing: 0.3px;
   background-position: center;
   transition: background 0.8s;
@@ -17,7 +18,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  svg {
+  .base-button-action__icon {
     margin-right: $grid-gutter-width/3;
   }
   &:hover {
@@ -28,5 +29,28 @@
     background-color: $primary !important;
     background-size: 100%;
     transition: background 0s;
+  }
+}
+
+.#{$button-name}--small {
+  height: 27px;
+}
+
+.#{$button-name}--icon-right {
+  flex-direction: row-reverse;
+  .base-button-action__icon {
+    margin-left: $grid-gutter-width / 3;
+    margin-right: 0;
+  }
+  span {
+    flex: 1;
+  }
+}
+
+.#{$button-name}--fullwidth {
+  width: 100%;
+  .base-button-action__icon {
+    width: 18px;
+    height: 18px;
   }
 }
