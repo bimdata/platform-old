@@ -1,5 +1,35 @@
 $base-card-name: 'base-card';
+$card-header-color: #F8F8F9;
+$toolbox-background: #E6E6E6;
 
 .#{$base-card-name} {
+  background-color: $white;
+  max-width: 100%;
   box-shadow: $bd-box-shadow;
+  padding: 0;
 }
+
+.#{$base-card-name}__header {
+  background-color: $card-header-color;
+  height: 40px;
+  display: flex;
+}
+
+.#{$base-card-name}__title-container {
+  padding: 15px;
+  font-size: 0.9286rem;
+  color: $primary;
+  flex: 1 auto;
+}
+
+.#{$base-card-name}__expand {
+  padding: 10px;
+  cursor: pointer;
+  background-color: $toolbox-background;
+}
+
+.#{$base-card-name}__content {
+  padding: 15px;
+}
+
+
