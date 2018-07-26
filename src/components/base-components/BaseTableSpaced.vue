@@ -13,7 +13,7 @@
                  class="table-spaced__body-row">
                 <div v-for="(item, indexItem) in row"
                      :key="indexItem"
-                     class="table-spaced__body-item">
+                     class="table-spaced__body-items">
                     <template v-if="typeof item === 'object'">
                     <slot :name="fields[indexItem].key"
                           :item="item">
