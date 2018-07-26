@@ -3,7 +3,7 @@
         <div class="table-spaced__head">
             <div v-for="(field, index) in fields"
                  :key="index"
-                 class="table-spaced__header-items">
+                 class="table-spaced__items table-spaced__items--header">
                 {{ field.label }}
             </div>
         </div>
@@ -13,7 +13,7 @@
                  class="table-spaced__body-row">
                 <div v-for="(item, indexItem) in row"
                      :key="indexItem"
-                     class="table-spaced__body-items">
+                     class="table-spaced__items table-spaced__items--body">
                     <template v-if="typeof item === 'object'">
                     <slot :name="fields[indexItem].key"
                           :item="item">
