@@ -1,17 +1,20 @@
-import bimdata from '@bimdata/bimdata-api-client'
-
 export class UserRepository {
-  constructor () {
-    const defaultClientInstance = bimdata.ApiClient.instance
-    let Bearer
-    Bearer = defaultClientInstance.authentications['Bearer']
-    Bearer.apiKey = localStorage.getItem('token')
-    this.defaultClient = new bimdata.UserApi()
+  constructor (defaultClient) {
+    this.defaultClient = new defaultClient.UserApi()
   }
 
-  async getMyUserData () {
+  async getSelfUserData () {
     try {
       const response = await this.defaultClient.getSelfUser()
+      return response
+    } catch (e) {
+      console.log(e.statusCode)
+    }
+  }
+
+  async getSelfProjects () {
+    try {
+      const response = await this.defaultClient.getSelfProjects()
       return response
     } catch (e) {
       console.log(e.statusCode)

@@ -20,10 +20,11 @@
     "cypress:test": "start-server-and-test start http-get://localhost:8080 cypress:run",
     "generate-icons": "vsvg -s ./src/assets/images/icons/compiled -t ./src/icons --es6",
     "optimize-svg": "svgo -f ./src/assets/images/icons -o ./src/assets/images/icons/compiled",
-    "svg-process": "npm run optimize-svg && npm run generate-icons"
+    "import-material-icon": "node build/get-material-icons.js",
+    "svg-process": "npm run import-material-icon && npm run optimize-svg && npm run generate-icons"
   },
   "dependencies": {
-    "@bimdata/bimdata-api-client": "^1.5.1",
+    "@bimdata/bimdata-api-client": "^2.0.1",
     "@mdi/svg": "^2.5.94",
     "autoprefixer": "^7.1.2",
     "axios": "^0.18.0",

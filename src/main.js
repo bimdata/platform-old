@@ -32,6 +32,10 @@ router.beforeEach((to, from, next) => {
   }
 })
 
+Vue.filter('truncate', function (text, stop, clamp) {
+  return text.slice(0, stop) + (stop < text.length ? clamp || '...' : '')
+})
+
 /* eslint-disable no-new */
 const AppRoot = new Vue({
   el: '#app',
@@ -42,6 +46,9 @@ const AppRoot = new Vue({
   components: { App },
   template: '<App/>',
   created () {
+    // Init config
+    this.$store.dispatch('init')
+
     const token = localStorage.getItem('token')
     if (token != null) {
       this.$store.dispatch('authentication/setAuthenticated')

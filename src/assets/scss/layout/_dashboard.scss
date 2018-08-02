@@ -18,3 +18,7 @@
   .nav-menu { order: 1; }
   .main    { order: 2; }
 }
+
+.main {
+  padding: $grid-gutter-width;
+}

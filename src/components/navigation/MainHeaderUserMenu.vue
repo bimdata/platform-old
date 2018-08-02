@@ -10,7 +10,7 @@ import { mapActions, mapGetters } from 'vuex'
 
 export default {
   methods: {
-    ...mapActions('user', [
+    ...mapActions([
       'fetchUserData'
     ]
     ),
@@ -24,7 +24,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('user', [
+    ...mapGetters([
       'getCurrentUserFirstname',
       'getCurrentUserLastname',
       'getCurrentUserId'

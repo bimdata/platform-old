@@ -10,7 +10,7 @@
                 </slot>
             </span>
             <span class="choice-list__field-selected__text-selected">
-                {{ selected.text }}
+                {{ selected.text|truncate(22) }}
             </span>
             <span class="choice-list__field-selected__display-icon">
                 <svgicon class="icon" name="chevron-right" width="20" :class="{'svg-right': displayListOptions}"></svgicon>
@@ -19,7 +19,7 @@
         <ul class="choice-list__list-options" v-show="displayListOptions">
             <li v-for="(option, index) in options"
                 :key="index" @click="choice(option)"
-                :class="{active: option.value === selected.value}">{{ option.text }}</li>
+                :class="{active: option.value === selected.value}">{{ option.text|truncate(32) }}</li>
         </ul>
     </div>
 </template>
@@ -65,7 +65,6 @@ export default {
     choice (option) {
       this.selected = option
       this.$emit('input', option)
-      this.$emit('selected-option', option)
       this.displayListOptions = false
     }
   }

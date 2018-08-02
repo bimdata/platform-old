@@ -32,7 +32,7 @@ export default new Router({
           }
         },
         {
-          path: 'project',
+          path: 'project/:id(\\d+)',
           name: 'project',
           component: PageProject,
           meta: {

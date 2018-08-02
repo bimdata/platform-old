@@ -6,7 +6,8 @@ const svgIcons = [
   'chevron-down.svg',
   'chevron-left.svg',
   'chevron-right.svg',
-  'chevron-up.svg'
+  'chevron-up.svg',
+  'plus.svg'
 ];
 
 fs.readdir(sourcePath, function(err, items) {
