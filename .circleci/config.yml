@@ -1,12 +1,33 @@
 version: 2
-jobs:
-  build:
+
+references:
+  container_config: &container_config
     docker:
       - image: cypress/base:8
     working_directory: ~/repo
 
+  restore_repo: &restore_repo
+    restore_cache:
+      keys:
+        - repo-{{ .Branch }}-{{ .Revision }}
+
+
+jobs:
+  checkout_code:
+    <<: *container_config
     steps:
+      - *restore_repo
       - checkout
+      - save_cache:
+          key: repo-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - .
+
+  test:
+    <<: *container_config
+
+    steps:
+      - *restore_repo
       - restore_cache: #Download and cache dependencies
           keys:
             - v1-dependencies-npm-{{ checksum "package-lock.json" }}
@@ -31,3 +52,37 @@ jobs:
           path: cypress/screenshots
       - store_test_results:
           path: multiple-results
+
+  deploy:
+    <<: *container_config
+    steps:
+      - *restore_repo
+      - setup_remote_docker
+      - run:
+          name: push to docker hub
+          command: |
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker build -t bimdata/platform:latest .
+            docker push bimdata/platform:latest
+
+            # deploy master branch
+            docker pull bimdata/deployment:latest
+            docker run -it bimdata/deployment:latest ansible-playbook -i inventories/staging deploy.yml --tags=platform --extra-vars "ansible_ssh_private_key_file=./files/deploy_rsa" --user=deploy
+
+
+workflows:
+  version: 2
+  test_and_deploy:
+    jobs:
+      - checkout_code
+      - test:
+          requires:
+            - checkout_code
+      - deploy:
+          requires:
+            - checkout_code
+            - test
+          filters:
+            branches:
+              only:
+                - master
