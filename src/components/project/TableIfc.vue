@@ -20,7 +20,7 @@
             </template>
         </template>
         <template slot="actions" slot-scope="data">
-            <base-button-action size="small" icon-position="right" icon-name="play">Visionner</base-button-action>
+            <base-button-action size="small" @click="viewIfc(data.item.actions)" icon-position="right" icon-name="play">Visionner</base-button-action>
         </template>
     </base-table-spaced>
 </template>
@@ -50,12 +50,17 @@ export default {
       for (let ifc of this.$store.getters['project/getSortedIfc']) {
         ifcs.push(
           [
-            {name: ifc.name},
-            {type: 'IFC'},
-            {author: ifc.creator},
-            {last_modify: ifc.updated_at},
-            {state: ifc.status},
-            {actions: ''}
+            { name: ifc.name },
+            { type: 'IFC' },
+            { author: ifc.creator },
+            { last_modify: ifc.updated_at },
+            { state: ifc.status },
+            { actions: {
+              cloudId: this.$store.state.project.selectedCloud.id,
+              projectId: this.$store.state.project.selectedProject.id,
+              ifcId: ifc.id
+            }
+            }
           ]
         )
       }
@@ -64,6 +69,9 @@ export default {
     }
   },
   methods: {
+    viewIfc (ifcData) {
+      this.$router.push({name: 'viewer', params: ifcData})
+    },
     getState (state) {
       switch (state) {
         case 'C':

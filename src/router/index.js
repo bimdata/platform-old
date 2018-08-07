@@ -9,6 +9,7 @@ import LayoutPageLogin from '@/components/layouts/LayoutPageLogin'
 import LayoutPageDashboard from '@/components/layouts/LayoutPageDashboard'
 import PageProject from '@/components/pages/PageProject'
 import PageComponents from '@/components/pages/PageComponents'
+import PageViewer from '@/components/pages/PageViewer'
 
 Vue.use(Router)
 
@@ -35,6 +36,15 @@ export default new Router({
           path: 'project/:id(\\d+)',
           name: 'project',
           component: PageProject,
+          meta: {
+            requiresAuth: true,
+            requiresLogout: false
+          }
+        },
+        {
+          path: 'viewer/cloud/:cloudId(\\d+)/project/:projectId(\\d+)/ifc/:ifcId(\\d+)',
+          name: 'viewer',
+          component: PageViewer,
           meta: {
             requiresAuth: true,
             requiresLogout: false
