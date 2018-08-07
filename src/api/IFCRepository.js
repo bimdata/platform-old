@@ -11,4 +11,19 @@ export class IFCRepository {
       console.log(e.statusCode)
     }
   }
+
+  async getIFCElements ({cloudPk, projectPk, ifcPk}) {
+    try {
+      const response = await this.defaultClient.getElements(
+        cloudPk,
+        ifcPk,
+        projectPk,
+        {type: 'IfcSite'}
+      )
+
+      return response
+    } catch (e) {
+      console.log(e.statusCode)
+    }
+  }
 }

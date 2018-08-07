@@ -3,6 +3,7 @@
         <div class="table-spaced__head">
             <div v-for="(field, index) in fields"
                  :key="index"
+                 :class="'table-spaced__items--header--' + fields[index].key"
                  class="table-spaced__items table-spaced__items--header">
                 {{ field.label }}
             </div>
@@ -13,11 +14,14 @@
                  class="table-spaced__body-row">
                 <div v-for="(item, indexItem) in row"
                      :key="indexItem"
+                     :class="'table-spaced__items--body--' + fields[indexItem].key"
                      class="table-spaced__items table-spaced__items--body">
                     <template v-if="typeof item === 'object'">
                     <slot :name="fields[indexItem].key"
                           :item="item">
-                        default object slot
+                        <template v-if="typeof item[fields[indexItem].key] === 'string' || typeof item[fields[indexItem].key] === 'integer'">
+                            {{ item[fields[indexItem].key] }}
+                        </template>
                     </slot>
                     </template>
                     <template v-else>

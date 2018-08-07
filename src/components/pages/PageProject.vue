@@ -10,14 +10,26 @@
                 <button-upload-new-file class="top-toolbar__button-new-file ml-auto"></button-upload-new-file>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12 content-project" v-if="loadedProject">
-                <card-project-content></card-project-content>
-            </div>
-            <div class="col-12 content-project" v-else>
-                Loading ...
-            </div>
-        </div>
+
+            <template v-if="loadedProject">
+                <div class="row">
+                    <div class="col-12 content-project">
+                        <card-project-content></card-project-content>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <table-ifc></table-ifc>
+                    </div>
+                </div>
+            </template>
+            <template v-else>
+                <div class="row">
+                    <div class="col-12 content-project">
+                        Loading ...
+                    </div>
+                </div>
+            </template>
     </div>
 </template>
 <script>
@@ -25,6 +37,7 @@ import ChoiceListProject from '@/components/project/ChoiceListProject'
 import ChoiceListCloud from '@/components/project/ChoiceListCloud'
 import ButtonUploadNewFile from '@/components/project/ButtonUploadNewFile'
 import CardProjectContent from '@/components/project/CardProjectContent'
+import TableIfc from '@/components/project/TableIfc'
 
 import store from '@/store'
 
@@ -33,7 +46,8 @@ export default {
     ChoiceListCloud,
     ChoiceListProject,
     ButtonUploadNewFile,
-    CardProjectContent
+    CardProjectContent,
+    TableIfc
   },
   data () {
     return {
@@ -53,7 +67,11 @@ export default {
   created () {
     let project = this.$store.getters.getProjectById(this.$route.params.id)
     this.$store.dispatch('project/init')
+    this.loadedProject = false
     this.$store.commit('project/SET_PROJECT', project)
+    this.$store.dispatch('project/selectProject', project).then(() => {
+      this.loadedProject = true
+    })
     this.$store.commit('project/SET_CLOUD', {id: 3, name: '__test__'})
   }
 }

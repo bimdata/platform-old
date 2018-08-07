@@ -7,7 +7,11 @@ const svgIcons = [
   'chevron-left.svg',
   'chevron-right.svg',
   'chevron-up.svg',
-  'plus.svg'
+  'plus.svg',
+  'alert-circle.svg',
+  'close-circle.svg',
+  'check-circle.svg',
+  'play.svg'
 ];
 
 fs.readdir(sourcePath, function(err, items) {

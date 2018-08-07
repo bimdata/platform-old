@@ -1,6 +1,47 @@
+.page-project {
+  .top-toolbar {
+    &__choice-list-items {
+      padding-right: $grid-gutter-width;
+    }
+  }
+  .table-spaced {
+    &__items--body--state, &__items--header--state {
+      text-align: center;
+    }
+    &__items--header--actions {
+      min-width: 209px;
+    }
 
-.top-toolbar {
-  &__choice-list-items {
-    padding-right: $grid-gutter-width;
+    &__items--body--name, &__items--header--name {
+      padding-right: $grid-gutter-width;
+    }
+  }
+
+  .main-ifc {
+    display: flex;
+
+    &__map-info-content {
+      padding: $grid-gutter-width;
+      flex: 1.1 auto;
+      display: flex;
+      justify-content: stretch;
+      align-items: stretch;
+    }
+
+    &__info-project {
+      flex: 0.8 auto;
+    }
+
+    &__map {
+      flex: 1.2 auto;
+
+      #base-map {
+        height: 277px !important;
+      }
+    }
+
+    &__detail-content {
+      flex: 0.9 auto;
+    }
   }
 }

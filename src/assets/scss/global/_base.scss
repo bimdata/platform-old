@@ -5,3 +5,7 @@ html {
 .row + .row {
   margin-top: $grid-gutter-width;
 }
+
+.shadowed-content {
+  box-shadow: $bd-box-shadow;
+}

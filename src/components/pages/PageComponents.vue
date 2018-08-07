@@ -18,8 +18,8 @@
             <div class="col-12">
                 <div class="components__divider"></div>
                 <h3>Map component</h3>
-                <base-map lat="45.7709096"
-                          lng="4.8626887"
+                <base-map :lat="45.7709096"
+                          :lng="4.8626887"
                           text="BimData's office">
                 </base-map>
             </div>

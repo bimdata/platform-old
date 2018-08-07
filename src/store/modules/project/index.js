@@ -5,7 +5,9 @@ export default {
   namespaced: true,
   state: {
     selectedCloud: null,
-    selectedProject: null
+    selectedProject: null,
+    ifcs: null,
+    elements: null
   },
   actions,
   mutations,

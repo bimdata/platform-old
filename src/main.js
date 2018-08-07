@@ -9,6 +9,7 @@ import BootstrapVue from 'bootstrap-vue'
 import { i18n } from './setup/i18n-setup'
 import store from './store'
 import { VueSelect } from 'vue-select'
+import moment from 'moment'
 
 Vue.component('v-select', VueSelect)
 
@@ -34,6 +35,12 @@ router.beforeEach((to, from, next) => {
 
 Vue.filter('truncate', function (text, stop, clamp) {
   return text.slice(0, stop) + (stop < text.length ? clamp || '...' : '')
+})
+
+Vue.filter('formatDate', function (value) {
+  if (value) {
+    return moment(String(value)).format('DD/MM/YYYY hh:mm')
+  }
 })
 
 /* eslint-disable no-new */

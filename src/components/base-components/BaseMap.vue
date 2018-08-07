@@ -8,11 +8,11 @@ import { LeafletMap } from '@/utils/LeafletMap'
 export default {
   props: {
     lat: {
-      type: String,
+      type: Number,
       required: true
     },
     lng: {
-      type: String,
+      type: Number,
       required: true
     },
     text: {
