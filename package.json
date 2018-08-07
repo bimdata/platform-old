@@ -71,6 +71,7 @@
     "postcss-url": "^7.2.1",
     "rimraf": "^2.6.0",
     "sass-loader": "^7.0.3",
+    "scriptjs": "^2.5.8",
     "shelljs": "^0.7.6",
     "svgo": "^1.0.5",
     "uglifyjs-webpack-plugin": "^1.1.1",
