@@ -42,7 +42,6 @@ export default {
           p => p.definition.name === 'RefLongitude'
         )
         .value
-      console.log(latitude, longitude)
       // GPS coordinates converted to the decimal system used by OpenStreetMap
       this.lat = this.coordToDD(latitude)
       this.long = this.coordToDD(longitude)

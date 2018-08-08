@@ -75,6 +75,7 @@
     "shelljs": "^0.7.6",
     "svgo": "^1.0.5",
     "uglifyjs-webpack-plugin": "^1.1.1",
+    "uppy": "^0.26.0",
     "url-loader": "^0.5.8",
     "vue": "^2.5.2",
     "vue-clickaway": "^2.2.2",

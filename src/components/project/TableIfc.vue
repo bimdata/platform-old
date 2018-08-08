@@ -20,7 +20,7 @@
             </template>
         </template>
         <template slot="actions" slot-scope="data">
-            <base-button-action size="small" @click="viewIfc(data.item.actions)" icon-position="right" icon-name="play">Visionner</base-button-action>
+            <base-button-action v-if="data.item.actions.status === 'C'" size="small" @click="viewIfc(data.item.actions)" icon-position="right" icon-name="play">Visionner</base-button-action>
         </template>
     </base-table-spaced>
 </template>
@@ -58,7 +58,8 @@ export default {
             { actions: {
               cloudId: this.$store.state.project.selectedCloud.id,
               projectId: this.$store.state.project.selectedProject.id,
-              ifcId: ifc.id
+              ifcId: ifc.id,
+              status: ifc.status
             }
             }
           ]

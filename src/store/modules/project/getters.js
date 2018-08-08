@@ -11,6 +11,10 @@ export const getSortedIfc = (state) => {
 }
 
 export const getMainIfc = (state) => {
+  if (state.ifcs === null) {
+    return null
+  }
+
   let completedIfc = state.ifcs.filter(ifc => ifc.status === 'C')
   return _.sortBy(completedIfc, ['created_at'])[0]
 }

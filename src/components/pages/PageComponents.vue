@@ -17,6 +17,11 @@
             </div>
             <div class="col-12">
                 <div class="components__divider"></div>
+                <h3>Upload component</h3>
+                <base-upload-area></base-upload-area>
+            </div>
+            <div class="col-12">
+                <div class="components__divider"></div>
                 <h3>Map component</h3>
                 <base-map :lat="45.7709096"
                           :lng="4.8626887"
@@ -63,6 +68,7 @@ import BaseButtonAction from '@/components/base-components/BaseButtonAction'
 import BaseCard from '@/components/base-components/BaseCard'
 import BaseTableSpaced from '@/components/base-components/BaseTableSpaced'
 import BaseMap from '@/components/base-components/BaseMap'
+import BaseUploadArea from '@/components/base-components/BaseUploadArea'
 
 export default {
   data () {
@@ -112,7 +118,8 @@ export default {
     BaseButtonAction,
     BaseCard,
     BaseTableSpaced,
-    BaseMap
+    BaseMap,
+    BaseUploadArea
   },
   methods: {
     BaseChoiceListSelected () {

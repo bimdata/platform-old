@@ -7,7 +7,12 @@
                                      @selected-project-loading="loadedProject = false"
                                      @selected-project-loaded="loadedProject = true">
                 </choice-list-project>
-                <button-upload-new-file class="top-toolbar__button-new-file ml-auto"></button-upload-new-file>
+                <button-upload-new-file class="top-toolbar__button-new-file ml-auto"
+                                        @click="displayUpload = !displayUpload">
+                </button-upload-new-file>
+            </div>
+            <div class="col-12 d-flex align-items-center justify-content-center">
+                <upload-ifc v-show="displayUpload"></upload-ifc>
             </div>
         </div>
 
@@ -38,11 +43,12 @@ import ChoiceListCloud from '@/components/project/ChoiceListCloud'
 import ButtonUploadNewFile from '@/components/project/ButtonUploadNewFile'
 import CardProjectContent from '@/components/project/CardProjectContent'
 import TableIfc from '@/components/project/TableIfc'
-
+import UploadIfc from '@/components/project/UploadIfc'
 import store from '@/store'
 
 export default {
   components: {
+    UploadIfc,
     ChoiceListCloud,
     ChoiceListProject,
     ButtonUploadNewFile,
@@ -51,10 +57,9 @@ export default {
   },
   data () {
     return {
-      loadedProject: true
+      loadedProject: true,
+      displayUpload: false
     }
-  },
-  methods: {
   },
   beforeRouteEnter (to, from, next) {
     store.dispatch('init')
