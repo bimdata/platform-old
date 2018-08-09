@@ -1,7 +1,8 @@
 <template>
     <div>
         <base-upload-area :project-id="project.id"
-                          :cloud-id="cloud.id">
+                          :cloud-id="project.cloud.id"
+                          @upload-complete="onUploadComplete">
         </base-upload-area>
     </div>
 </template>
@@ -15,9 +16,13 @@ export default {
   },
   computed: {
     ...mapState('project', {
-      project: 'selectedProject',
-      cloud: 'selectedCloud'
+      project: 'selectedProject'
     })
+  },
+  methods: {
+    onUploadComplete (result) {
+      this.$store.dispatch('project/fetchProjectIfc', this.project)
+    }
   }
 }
 </script>

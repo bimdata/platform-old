@@ -54,7 +54,7 @@ export default {
     choseProject ({value}) {
       let project = this.$store.getters.getProjectById(value)
       this.$emit('selected-project-loading')
-      this.$store.dispatch('project/selectProject', project).then(() => {
+      this.$store.dispatch('project/fetchProjectIfc', project).then(() => {
         this.$emit('selected-project-loaded')
       })
     }

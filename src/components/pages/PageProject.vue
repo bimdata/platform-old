@@ -74,7 +74,7 @@ export default {
     this.$store.dispatch('project/init')
     this.loadedProject = false
     this.$store.commit('project/SET_PROJECT', project)
-    this.$store.dispatch('project/selectProject', project).then(() => {
+    this.$store.dispatch('project/fetchProjectIfc', project).then(() => {
       this.loadedProject = true
     })
     this.$store.commit('project/SET_CLOUD', {id: 3, name: '__test__'})

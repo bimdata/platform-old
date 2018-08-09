@@ -5,7 +5,7 @@ export default {
   init () {
     this.IFCRepositoryRequest = new IFCRepository(defaultClient)
   },
-  async selectProject ({ commit }, project) {
+  async fetchProjectIfc ({ commit }, project) {
     try {
       let params = {
         cloudPk: project.cloud.id,
@@ -13,6 +13,28 @@ export default {
       }
       const ifcs = await this.IFCRepositoryRequest.getProjectIfcs(params)
       commit('SET_IFCS', ifcs)
+
+      let hasPendingIfc = false
+      let pendingStatus = ['P', 'I']
+      for (let ifc of ifcs) {
+        if (pendingStatus.includes(ifc.status)) {
+          hasPendingIfc = true
+        }
+      }
+
+      if (hasPendingIfc) {
+        const idInterval = setInterval(async () => {
+          const ifcsPending = this.IFCRepositoryRequest.getProjectIfcs(params, 'P')
+          const ifcsInProcessing = this.IFCRepositoryRequest.getProjectIfcs(params, 'I')
+          Promise.all([ ifcsPending, ifcsInProcessing ]).then(async ([resultPending, resultProcessing]) => {
+            if (resultPending.length === 0 && resultProcessing.length === 0) {
+              const ifcs = await this.IFCRepositoryRequest.getProjectIfcs(params)
+              commit('SET_IFCS', ifcs)
+              window.clearInterval(idInterval)
+            }
+          })
+        }, 5000)
+      }
       return ifcs
     } catch (e) {
       console.log(e)
