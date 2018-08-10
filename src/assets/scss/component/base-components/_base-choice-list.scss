@@ -37,11 +37,25 @@
     position: absolute;
     top: 48px;
     left: 0;
-    z-index: 500;
+    z-index: 5000;
     width: 100%;
     list-style-type: none;
     padding: 0;
     background-color: $white;
+    .items-container {
+      max-height: 322px;
+      overflow-y: auto;
+
+      &::-webkit-scrollbar
+      {
+        width: 8px;
+      }
+
+      &::-webkit-scrollbar-thumb
+      {
+        background-color: $primary;
+      }
+    }
     .items-container li {
       padding: 1rem 4px 1rem 1rem;
       cursor: pointer;
