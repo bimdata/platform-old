@@ -1,3 +1,4 @@
+
 .choice-list {
   position: relative;
   color: $primary;
@@ -41,12 +42,30 @@
     list-style-type: none;
     padding: 0;
     background-color: $white;
-    li {
-      padding: 1rem;
+    .items-container li {
+      padding: 1rem 4px 1rem 1rem;
       cursor: pointer;
+      transition: .16s linear all;
       &:hover, &.active {
         background-color: #eeeeee;
       }
     }
+  }
+
+  &__search-item {
+    padding: 4px;
+    &:hover, &.active {
+      background-color: inherit;
+    }
+  }
+
+  .highlight-option {
+    background-color: #E0E6FF;
+  }
+
+  &__search-input {
+    min-width: 0 !important;
+    padding: 5px;
+    font-size: .8571rem;
   }
 }

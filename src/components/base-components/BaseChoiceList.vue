@@ -1,8 +1,8 @@
 <template>
-    <div v-on-clickaway="away" class="choice-list">
+    <div v-on-clickaway="away" class="choice-list" @keyup="onKeyUp">
         <div class="choice-list__field-selected"
              v-bind="$attrs"
-             @click="displayListOptions = !displayListOptions"
+             @click="toggleListOptions"
              v-on="listeners">
             <span class="choice-list__field-selected__icon">
                 <slot>
@@ -17,23 +17,47 @@
             </span>
         </div>
         <ul class="choice-list__list-options" v-show="displayListOptions">
-            <li v-for="(option, index) in options"
-                :key="index" @click="choice(option)"
-                :class="{active: option.value === selected.value}">{{ option.text|truncate(32) }}</li>
+            <li class="choice-list__search-item">
+                <b-form-input ref="searchInput"
+                              class="choice-list__search-input"
+                              type="text"
+                              v-model="searchRequest">
+                </b-form-input>
+            </li>
+            <transition-group name="list-complete"
+                              class="items-container"
+                              v-on:before-enter="beforeEnter"
+                              v-on:enter="enter"
+                              v-on:leave="leave"
+                              tag="div"
+            >
+                <li
+                        v-for="(option, index) in optionsFiltered"
+                        :key="option.value"
+                        :data-index="index"
+                        @click="choice(option)"
+                        v-html="option.text"
+                        :class="{active: option.value === selected.value}"></li>
+            </transition-group>
         </ul>
     </div>
 </template>
 <script>
 import { mixin as clickaway } from 'vue-clickaway'
+import _ from 'lodash'
+import Velocity from 'velocity-animate'
 
 export default {
   inheritAttrs: false,
   mixins: [ clickaway ],
   data () {
     return {
+      searchRequest: '',
       displayListOptions: false,
       selected: null,
-      hasClickedForSearch: false
+      filteredList: [],
+      hasClickedForSearch: false,
+      selectedIndex: 0
     }
   },
   props: {
@@ -56,6 +80,36 @@ export default {
       return {
         ...this.$listeners
       }
+    },
+    optionsFiltered () {
+      let items = []
+      this.options.forEach((option) => {
+        let item = {value: option.value, text: option.text}
+        let wordsSearch = _.words(this.searchRequest)
+        let search = new RegExp(wordsSearch.join('|'), 'gmi')
+
+        if (item.text.match(search)) {
+          item.text = item.text.replace(
+            search,
+            match => '<span class="highlight-option">' + match + '</span>'
+          )
+          items.push(item)
+        }
+      })
+      return items
+    },
+    optionsFiteredRaw () {
+      let items = []
+      this.options.forEach((option) => {
+        let item = {value: option.value, text: option.text}
+        let wordsSearch = _.words(this.searchRequest)
+        let search = new RegExp(wordsSearch.join('|'), 'gmi')
+
+        if (item.text.match(search)) {
+          items.push(item)
+        }
+      })
+      return items
     }
   },
   methods: {
@@ -63,9 +117,62 @@ export default {
       this.displayListOptions = false
     },
     choice (option) {
-      this.selected = option
-      this.$emit('input', option)
+      this.selected = this.options.find(originalOptions => originalOptions.value === option.value)
+      this.$emit('input', this.selected)
       this.displayListOptions = false
+    },
+    toggleListOptions () {
+      this.displayListOptions = !this.displayListOptions
+      if (this.displayListOptions) {
+        this.$nextTick(() => this.$refs.searchInput.focus())
+      }
+    },
+    beforeEnter: function (el) {
+      el.style.opacity = 0
+    },
+    enter: function (el, done) {
+      let delay = 3
+      setTimeout(function () {
+        Velocity(
+          el,
+          { opacity: 1 },
+          { complete: done }
+        )
+      }, delay)
+    },
+    leave: function (el, done) {
+      let delay = 3
+      setTimeout(function () {
+        Velocity(
+          el,
+          { opacity: 0 },
+          { complete: done }
+        )
+      }, delay)
+    },
+    onKeyUp (event) {
+      if (event.code === 'ArrowUp' || event.code === 'ArrowDown') {
+        if (event.code === 'ArrowUp') {
+          this.selectedIndex = (this.selectedIndex > 0) ? this.selectedIndex - 1 : 0
+        }
+
+        if (event.code === 'ArrowDown') {
+          this.selectedIndex = (this.selectedIndex < this.optionsFiteredRaw.length) ? this.selectedIndex + 1 : this.optionsFiteredRaw.length - 1
+        }
+
+        for (const [index, item] of this.optionsFiteredRaw.entries()) {
+          if (index === this.selectedIndex) {
+            this.selected = {
+              value: item.value,
+              text: item.text
+            }
+          }
+        }
+      }
+
+      if (event.code === 'Enter') {
+        this.choice(this.selected)
+      }
     }
   }
 }
