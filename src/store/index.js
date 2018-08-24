@@ -5,8 +5,11 @@ import ProjectModule from './modules/project'
 import mutations from './mutations'
 import actions from './actions'
 import * as getters from './getters'
+import { vuexOidcCreateStoreModule } from 'vuex-oidc'
+import { oidcSettings } from '@/config/OIDCSettings'
 
 Vue.use(Vuex)
+let oidc = vuexOidcCreateStoreModule(oidcSettings)
 
 export default new Vuex.Store({
   state: {
@@ -20,6 +23,7 @@ export default new Vuex.Store({
     projects: []
   },
   modules: {
+    oidc,
     authentication: AuthenticationModule,
     project: ProjectModule
   },

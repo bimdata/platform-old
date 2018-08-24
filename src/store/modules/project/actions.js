@@ -1,8 +1,8 @@
 import { IFCRepository } from '@/api/IFCRepository'
-import defaultClient from '@/api/initClient'
-
+import { generateClient } from '@/api/initClient'
 export default {
-  init () {
+  init ({getters}) {
+    let defaultClient = generateClient(getters.oidcAccessToken)
     this.IFCRepositoryRequest = new IFCRepository(defaultClient)
   },
   async fetchProjectIfc ({ commit }, project) {

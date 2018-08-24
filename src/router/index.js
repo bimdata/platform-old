@@ -10,17 +10,21 @@ import LayoutPageDashboard from '@/components/layouts/LayoutPageDashboard'
 import PageProject from '@/components/pages/PageProject'
 import PageComponents from '@/components/pages/PageComponents'
 import PageViewer from '@/components/pages/PageViewer'
+import OidcCallback from '@/components/pages/PageOIDCCallback'
+import PageSignInRequired from '@/components/pages/PageSignInRequired'
+import oidcRouterMiddleware from './oidcRouterMiddleware'
+import store from '@/store'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
       component: LayoutPageDashboard,
       meta: {
-        requiresAuth: true,
-        requiresLogout: false
+        isPublic: false
       },
       children: [
         {
@@ -28,8 +32,7 @@ export default new Router({
           name: 'home',
           component: PageHome,
           meta: {
-            requiresAuth: true,
-            requiresLogout: false
+            isPublic: false
           }
         },
         {
@@ -37,8 +40,7 @@ export default new Router({
           name: 'project',
           component: PageProject,
           meta: {
-            requiresAuth: true,
-            requiresLogout: false
+            isPublic: false
           }
         },
         {
@@ -46,8 +48,7 @@ export default new Router({
           name: 'viewer',
           component: PageViewer,
           meta: {
-            requiresAuth: true,
-            requiresLogout: false
+            isPublic: false
           }
         }
       ]
@@ -56,8 +57,7 @@ export default new Router({
       path: '/login',
       component: LayoutPageLogin,
       meta: {
-        requiresAuth: false,
-        requiresLogout: true
+        isPublic: true
       },
       children: [
         {
@@ -65,8 +65,7 @@ export default new Router({
           name: 'login',
           component: PageLogin,
           meta: {
-            requiresAuth: false,
-            requiresLogout: true
+            isPublic: true
           }
         },
         {
@@ -74,8 +73,7 @@ export default new Router({
           name: 'forgot-password',
           component: PageLoginForgotPassword,
           meta: {
-            requiresAuth: false,
-            requiresLogout: true
+            isPublic: true
           }
         },
         {
@@ -83,8 +81,7 @@ export default new Router({
           name: 'signup',
           component: PageLoginSignUp,
           meta: {
-            requiresAuth: false,
-            requiresLogout: true
+            isPublic: true
           }
         },
         {
@@ -93,8 +90,7 @@ export default new Router({
           name: 'reset-password',
           component: PageLoginResetPassword,
           meta: {
-            requiresAuth: false,
-            requiresLogout: true
+            isPublic: true
           }
         }
       ]
@@ -104,9 +100,31 @@ export default new Router({
       name: 'components',
       component: PageComponents,
       meta: {
-        requiresAuth: false,
-        requiresLogout: false
+        isPublic: false
+      }
+    },
+    {
+      path: '/oidc-callback', // Needs to match redirect_uri in you oidcSettings
+      name: 'oidcCallback',
+      component: OidcCallback,
+      meta: {
+        isVuexOidcCallback: true,
+        isPublic: true
+      }
+    },
+    {
+      path: '/signin-required', // Needs to match redirect_uri in you oidcSettings
+      name: 'signin-required',
+      component: PageSignInRequired,
+      meta: {
+        isVuexOidcCallback: false,
+        isPublic: true
       }
     }
   ]
 })
+
+// router.beforeEach(vuexOidcCreateRouterMiddleware(store))
+router.beforeEach(oidcRouterMiddleware(store))
+
+export default router
