@@ -4,7 +4,6 @@ import Vue from 'vue'
 import App from './App'
 import * as svgicon from 'vue-svgicon'
 import router from './router'
-import Interceptor from './api/interceptor'
 import BootstrapVue from 'bootstrap-vue'
 import { i18n } from './setup/i18n-setup'
 import store from './store'
@@ -19,19 +18,6 @@ Vue.use(svgicon, {
 
 Vue.use(BootstrapVue)
 Vue.config.productionTip = false
-
-router.beforeEach((to, from, next) => {
-  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
-  const requiresLogout = to.matched.some(record => record.meta.requiresLogout)
-  let isAuthenticated = (store.state.isAuthenticated || localStorage.getItem('token') !== null)
-  if (requiresAuth && !isAuthenticated) {
-    next({name: 'login'})
-  } else if (requiresLogout && isAuthenticated) {
-    next({name: 'home'})
-  } else {
-    next()
-  }
-})
 
 Vue.filter('truncate', function (text, stop, clamp) {
   return text.slice(0, stop) + (stop < text.length ? clamp || '...' : '')
@@ -55,14 +41,6 @@ const AppRoot = new Vue({
   created () {
     // Init config
     this.$store.dispatch('init')
-
-    const token = localStorage.getItem('token')
-    if (token != null) {
-      this.$store.dispatch('authentication/setAuthenticated')
-    }
-
-    const interceptor = new Interceptor()
-    interceptor.enableInterceptor()
   }
 })
 

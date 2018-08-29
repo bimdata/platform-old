@@ -4,7 +4,7 @@
         <template slot="name" slot-scope="data">
             {{ data.item.name| truncate(18) }}
         </template>
-        <template slot="author" slot-scope="data">
+        <template slot="author" slot-scope="data" v-if="data.item.author !== undefined">
             {{ data.item.author.firstname + ' ' + data.item.author.lastname }}
         </template>
         <template slot="last_modify" slot-scope="data">

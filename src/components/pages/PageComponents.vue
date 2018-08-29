@@ -125,6 +125,20 @@ export default {
     BaseChoiceListSelected () {
       console.log(this.baseChoiceList.selected)
     }
+  },
+  created () {
+    let listOfStates = []
+    for (var i = 0, len = localStorage.length; i < len; ++i) {
+      if (/^oidc\.[a-f0-9]{32}$/.test(localStorage.key(i))) {
+        listOfStates.push(JSON.parse(localStorage.getItem(localStorage.key(i))))
+      }
+    }
+
+    const currentState = listOfStates.reduce(function (oldValue, newValue) {
+      let greaterValue = (oldValue.created > newValue.created) ? oldValue : newValue
+      return greaterValue
+    })
+    console.log(currentState)
   }
 }
 </script>

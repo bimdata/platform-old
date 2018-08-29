@@ -77,7 +77,7 @@ export default {
     this.$store.dispatch('project/fetchProjectIfc', project).then(() => {
       this.loadedProject = true
     })
-    this.$store.commit('project/SET_CLOUD', {id: 3, name: '__test__'})
+    this.$store.commit('project/SET_CLOUD', {id: 2, name: 'GABZZZ'})
   }
 }
 </script>
