@@ -10,13 +10,13 @@ import { oidcSettings } from '@/config/OIDCSettings'
 Vue.use(Vuex)
 let oidc = vuexOidcCreateStoreModule(oidcSettings)
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   state: {
     isAuthenticated: false,
     token: null,
     lang: 'fr',
     currentUser: {},
-    currentCloud: {id: 3, name: '__test__'},
+    currentCloud: {id: 2, name: 'GABZZ'},
     currentProject: {},
     clouds: [],
     projects: []
@@ -29,3 +29,5 @@ export default new Vuex.Store({
   actions,
   getters
 })
+
+export default store

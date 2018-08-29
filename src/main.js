@@ -41,11 +41,6 @@ const AppRoot = new Vue({
   created () {
     // Init config
     this.$store.dispatch('init')
-
-    const token = localStorage.getItem('token')
-    if (token != null) {
-      this.$store.dispatch('authentication/setAuthenticated')
-    }
   }
 })
 

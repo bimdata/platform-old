@@ -5,12 +5,16 @@
 </template>
 <script>
 import scriptjs from 'scriptjs'
+import { mapGetters } from 'vuex'
 
 export default {
+  computed: {
+    ...mapGetters(['oidcAccessToken'])
+  },
   created () {
-    scriptjs('https://cdn-beta.bimdata.io/js/bimdata-viewer-embed.js', () => {
+    scriptjs('https://cdn-staging.bimdata.io/js/bimdata-viewer-embed.js', () => {
       window.BIMDataViewer('embed', {
-        accessToken: localStorage.getItem('token'),
+        accessToken: this.oidcAccessToken,
         cloudId: parseInt(this.$route.params.cloudId),
         projectId: parseInt(this.$route.params.projectId),
         ifcId: parseInt(this.$route.params.ifcId)
