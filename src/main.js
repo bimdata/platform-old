@@ -4,7 +4,6 @@ import Vue from 'vue'
 import App from './App'
 import * as svgicon from 'vue-svgicon'
 import router from './router'
-import Interceptor from './api/interceptor'
 import BootstrapVue from 'bootstrap-vue'
 import { i18n } from './setup/i18n-setup'
 import store from './store'
@@ -47,9 +46,6 @@ const AppRoot = new Vue({
     if (token != null) {
       this.$store.dispatch('authentication/setAuthenticated')
     }
-
-    const interceptor = new Interceptor()
-    interceptor.enableInterceptor()
   }
 })
 

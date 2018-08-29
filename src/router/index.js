@@ -1,11 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import PageHome from '@/components/pages/PageHome'
-import PageLogin from '@/components/pages/PageLogin'
-import PageLoginForgotPassword from '@/components/pages/PageLoginForgotPassword'
-import PageLoginResetPassword from '@/components/pages/PageLoginResetPassword'
-import PageLoginSignUp from '@/components/pages/PageLoginSignUp'
-import LayoutPageLogin from '@/components/layouts/LayoutPageLogin'
 import LayoutPageDashboard from '@/components/layouts/LayoutPageDashboard'
 import PageProject from '@/components/pages/PageProject'
 import PageComponents from '@/components/pages/PageComponents'
@@ -54,48 +49,6 @@ const router = new Router({
       ]
     },
     {
-      path: '/login',
-      component: LayoutPageLogin,
-      meta: {
-        isPublic: true
-      },
-      children: [
-        {
-          path: '/',
-          name: 'login',
-          component: PageLogin,
-          meta: {
-            isPublic: true
-          }
-        },
-        {
-          path: '/forgot-password',
-          name: 'forgot-password',
-          component: PageLoginForgotPassword,
-          meta: {
-            isPublic: true
-          }
-        },
-        {
-          path: '/signup',
-          name: 'signup',
-          component: PageLoginSignUp,
-          meta: {
-            isPublic: true
-          }
-        },
-        {
-          path: '/reset-password',
-          query: {reset_token: ''},
-          name: 'reset-password',
-          component: PageLoginResetPassword,
-          meta: {
-            isPublic: true
-          }
-        }
-      ]
-    },
-    {
       path: '/components',
       name: 'components',
       component: PageComponents,
@@ -124,7 +77,6 @@ const router = new Router({
   ]
 })
 
-// router.beforeEach(vuexOidcCreateRouterMiddleware(store))
 router.beforeEach(oidcRouterMiddleware(store))
 
 export default router

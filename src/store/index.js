@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import AuthenticationModule from './modules/authentication'
 import ProjectModule from './modules/project'
 import mutations from './mutations'
 import actions from './actions'
@@ -24,7 +23,6 @@ export default new Vuex.Store({
   },
   modules: {
     oidc,
-    authentication: AuthenticationModule,
     project: ProjectModule
   },
   mutations,
