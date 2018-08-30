@@ -1,6 +1,7 @@
 <template>
     <div class="user-menu">
-        <b-dropdown id="user-menu__ddown" size="lg" :text="getCurrentUserFirstname + ' ' + getCurrentUserLastname" class="m-2">
+        <span class="user-menu__pic">{{ picName }}</span>
+        <b-dropdown id="user-menu__ddown" size="lg" :text="userMenuName" class="user-menu__ddown m-2">
             <b-dropdown-item-button @click="logout">{{ $t('dashboard.logout') }}</b-dropdown-item-button>
         </b-dropdown>
     </div>
@@ -28,50 +29,20 @@ export default {
       'getCurrentUserFirstname',
       'getCurrentUserLastname',
       'getCurrentUserId'
-    ])
+    ]),
+    userMenuName () {
+      return this.getCurrentUserFirstname
+    },
+    picName () {
+      if (this.getCurrentUserFirstname !== undefined) {
+        return this.getCurrentUserFirstname[0] + this.getCurrentUserLastname[0]
+      } else {
+        return ''
+      }
+    }
   },
   created () {
     this.fetchUserData()
   }
 }
 </script>
-<style lang="scss">
-    @import '@styles/_bootstrap-variable-override.scss';
-    @import '@styles/_mixins.scss';
-
-    .user-menu {
-        flex: 2 0 auto;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        .dropdown-menu {
-            width: 200px;
-            border: none;
-            background-color: white;
-            @include bm-box-shadow;
-        }
-
-        button {
-            outline: none;
-            box-shadow: none;
-            &:hover {
-                cursor: pointer
-            }
-        }
-    }
-
-    #user-menu__ddown__BV_toggle_ {
-        background-color: white;
-        color: $primary;
-        border: none;
-        width: 200px;
-        &:after {
-            margin-left: 1.1em;
-        }
-
-        .dropdown-item {
-            background-color: white;
-            outline: none;
-        }
-    }
-</style>
