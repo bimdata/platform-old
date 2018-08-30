@@ -1,0 +1,55 @@
+
+.user-menu {
+  &__pic {
+    $pic-size: 37px;
+    display: inline-block;
+    width: $pic-size;
+    height: $pic-size;
+    line-height: $pic-size;
+    border-radius: 50%;
+    background-color: #30374B;
+    color: $white;
+    text-align: center;
+    font-weight: normal;
+    font-size: 1rem;
+    letter-spacing: 1px;
+  }
+  flex: 2 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  .dropdown-menu {
+    width: 200px;
+    border: none;
+    background-color: white;
+    @include bm-box-shadow;
+  }
+
+  button {
+    padding: 0 0 0 $grid-gutter-width;
+    outline: none;
+    box-shadow: none;
+    &:hover {
+      cursor: pointer
+    }
+  }
+
+  &__ddown {
+    margin: 0 !important;
+  }
+}
+
+#user-menu__ddown__BV_toggle_ {
+  background-color: white;
+  color: $primary;
+  border: none;
+  &:after {
+    margin-left: 1.1em;
+  }
+
+  .dropdown-item {
+    background-color: white;
+    outline: none;
+  }
+}
