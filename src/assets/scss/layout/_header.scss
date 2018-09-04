@@ -37,7 +37,7 @@
 
     &:after {
       display: inline-block;
-      content: ' ';
+      content: '';
       opacity: 0;
       width: 100%;
       height: 3px;
@@ -54,4 +54,8 @@
       }
     }
   }
+}
+
+.upload-area-container {
+  margin-top: $grid-gutter-width
 }

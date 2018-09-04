@@ -17,6 +17,7 @@ export default {
   mounted () {
     let baseApiUrl = process.env.BD_API_BASE_URL
     let endpointUpload = baseApiUrl + '/cloud/' + this.cloudId + '/project/' + this.projectId + '/document'
+    let token = this.$store.state.oidc.access_token
 
     const uppy = Uppy({
       debug: true,
@@ -36,14 +37,14 @@ export default {
         showProgressDetails: true,
         note: '',
         proudlyDisplayPoweredByUppy: false,
-        height: 470,
+        height: 163,
         browserBackButtonClose: true
       })
       .use(XHRUpload, {
         endpoint: endpointUpload,
         fieldName: 'file',
         headers: {
-          'authorization': `Bearer ${localStorage.getItem('token')}`
+          'authorization': `Bearer ${token}`
         }
       })
 

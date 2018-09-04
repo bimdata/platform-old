@@ -8,10 +8,11 @@
                                      @selected-project-loaded="loadedProject = true">
                 </choice-list-project>
                 <button-upload-new-file class="top-toolbar__button-new-file ml-auto"
+                                        :class="{'active': displayUpload}"
                                         @click="displayUpload = !displayUpload">
                 </button-upload-new-file>
             </div>
-            <div class="col-12 d-flex align-items-center justify-content-center">
+            <div class="col-12 upload-area-container">
                 <upload-ifc v-show="displayUpload"></upload-ifc>
             </div>
         </div>
