@@ -1,15 +1,15 @@
 export class IFCRepository {
   constructor (defaultClient) {
-    this.defaultClient = new defaultClient.IfcApi()
+    this.ifcApiClient = new defaultClient.IfcApi()
   }
 
   async getProjectIfcs ({ cloudPk, projectPk }, status) {
     try {
       let response
       if (status !== undefined && typeof status === 'string') {
-        response = await this.defaultClient.getIfcs(cloudPk, projectPk, { status })
+        response = await this.ifcApiClient.getIfcs(cloudPk, projectPk, { status })
       } else {
-        response = await this.defaultClient.getIfcs(cloudPk, projectPk)
+        response = await this.ifcApiClient.getIfcs(cloudPk, projectPk)
       }
 
       return response
@@ -20,7 +20,7 @@ export class IFCRepository {
 
   async getIFCElements ({cloudPk, projectPk, ifcPk}) {
     try {
-      const response = await this.defaultClient.getElements(
+      const response = await this.ifcApiClient.getElements(
         cloudPk,
         ifcPk,
         projectPk,

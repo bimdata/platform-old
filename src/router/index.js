@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import PageHome from '@/components/pages/PageHome'
 import LayoutPageDashboard from '@/components/layouts/LayoutPageDashboard'
 import PageProject from '@/components/pages/PageProject'
+import PageProjectList from '@/components/pages/PageProjectList'
 import PageComponents from '@/components/pages/PageComponents'
 import PageViewer from '@/components/pages/PageViewer'
 import OidcCallback from '@/components/pages/PageOIDCCallback'
@@ -34,6 +35,14 @@ const router = new Router({
           path: 'project/:id(\\d+)',
           name: 'project',
           component: PageProject,
+          meta: {
+            isPublic: false
+          }
+        },
+        {
+          path: 'projects/',
+          name: 'project-list',
+          component: PageProjectList,
           meta: {
             isPublic: false
           }
