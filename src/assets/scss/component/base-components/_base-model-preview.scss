@@ -1,0 +1,12 @@
+$base-model-preview: 'model-preview';
+
+.#{$base-model-preview} {
+  border: solid 1px red;
+  overflow: hidden;
+
+  img {
+    width: 9600px;
+    height: 360px;
+    position: relative;
+  }
+}

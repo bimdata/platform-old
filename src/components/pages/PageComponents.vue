@@ -30,6 +30,11 @@
             </div>
             <div class="col-12">
                 <div class="components__divider"></div>
+                <h3>Model Preview</h3>
+                <model-preview></model-preview>
+            </div>
+            <div class="col-12">
+                <div class="components__divider"></div>
                 <h3>Table Spaced</h3>
                 <base-table-spaced :values="baseTableSpaced.values"
                                    :fields="baseTableSpaced.fields">
@@ -69,6 +74,7 @@ import BaseCard from '@/components/base-components/BaseCard'
 import BaseTableSpaced from '@/components/base-components/BaseTableSpaced'
 import BaseMap from '@/components/base-components/BaseMap'
 import BaseUploadArea from '@/components/base-components/BaseUploadArea'
+import ModelPreview from '@/components/project/ModelPreview'
 
 export default {
   data () {
@@ -119,7 +125,8 @@ export default {
     BaseCard,
     BaseTableSpaced,
     BaseMap,
-    BaseUploadArea
+    BaseUploadArea,
+    ModelPreview
   },
   methods: {
     BaseChoiceListSelected () {
