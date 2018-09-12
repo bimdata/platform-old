@@ -4,7 +4,7 @@
          :key="value"
          @mousemove="rotate(index)"
          class="slice">{{ index }}</div>
-    <img :style="{left: -(imagePositionState * 640) + 'px'}" ref="image" src="../../assets/images/model-preview.png"/>
+    <img :style="{left: -((14 - imagePositionState) * 640) + 'px'}" ref="image" src="../../assets/images/model-preview.png"/>
       {{ sliceCurrentIndex }}
   </div>
 </template>
