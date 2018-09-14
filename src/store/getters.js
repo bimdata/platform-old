@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 export const getToken = (state) => {
   return state.token
 }
@@ -30,6 +32,10 @@ export const getCloudProjects = (state, idCloud) => {
   return state.projects.filter(elt => {
     return idCloud === elt.cloud.id
   })
+}
+
+export const getProjectsByCreatedDate = (state) => {
+  return _.orderBy(state.projects, p => p.created_at, 'desc')
 }
 
 export const getCurrentCloudProjects = (state) => {

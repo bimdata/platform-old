@@ -1,11 +1,11 @@
 export class CloudRepository {
   constructor (defaultClient) {
-    this.defaultClient = new defaultClient.CloudApi()
+    this.cloudApiClient = new defaultClient.CloudApi()
   }
 
   async getSelfUserClouds () {
     try {
-      const response = await this.defaultClient.getClouds()
+      const response = await this.cloudApiClient.getClouds()
       return response
     } catch (e) {
       console.log(e.statusCode)
