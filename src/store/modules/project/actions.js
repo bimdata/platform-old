@@ -58,5 +58,14 @@ export default {
     } catch (e) {
       console.log(e)
     }
+  },
+  async getTree ({commit}, project) {
+    try {
+      const tree = await this.ProjectRepositoryRequest.getTree(project.cloud.id, project.id)
+      commit('SET_TREE', tree)
+      return tree
+    } catch (e) {
+      console.log(e)
+    }
   }
 }

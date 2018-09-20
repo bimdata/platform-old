@@ -1,0 +1,27 @@
+$base-cd-table: 'bd-table';
+
+.#{$base-cd-table} {
+  text-align: left;
+  border-collapse: separate;
+  border-spacing: 0 $grid-gutter-width / 2;
+  border: none;
+  font-size: 0.9285rem;
+
+  th, td {
+    border: none;
+  }
+
+  thead {
+    color: $primary;
+    th {
+      font-weight: normal;
+      border: none;
+    }
+  }
+
+  tbody {
+    tr {
+      background-color: white;
+    }
+  }
+}

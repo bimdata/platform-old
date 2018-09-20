@@ -33,4 +33,13 @@ export class ProjectRepository {
       console.log(e.statusCode)
     }
   }
+
+  async getTree (idCloud, idProject) {
+    try {
+      const response = this.projectApiClient.getProjectTree(idCloud, idProject)
+      return response
+    } catch (e) {
+      console.log(e.statusCode)
+    }
+  }
 }

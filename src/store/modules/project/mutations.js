@@ -5,6 +5,9 @@ export default {
   SET_PROJECT: (state, selectedProject) => {
     state.selectedProject = selectedProject
   },
+  SET_TREE: (state, tree) => {
+    state.tree = tree
+  },
   SET_IFCS: (state, ifcs) => {
     state.ifcs = ifcs
   },

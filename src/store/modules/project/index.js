@@ -7,6 +7,7 @@ export default {
     selectedCloud: null,
     selectedProject: null,
     ifcs: null,
+    tree: null,
     elements: null
   },
   actions,
