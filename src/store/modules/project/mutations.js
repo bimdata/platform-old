@@ -13,5 +13,14 @@ export default {
   },
   SET_ELEMENTS: (state, elements) => {
     state.elements = elements
+  },
+  SET_CURRENT_FOLDER_ID: (state, currentFolderId) => {
+    state.currentFolderId = currentFolderId
+  },
+  SET_CURRENT_ELEMENT: (state, currentElement) => {
+    state.currentElement = currentElement
+  },
+  SET_CURRENT_PATH: (state, currentPath) => {
+    state.currentPath = currentPath
   }
 }

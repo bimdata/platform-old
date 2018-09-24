@@ -1,7 +1,6 @@
 <template>
     <div>
-        <dms-breadcrumb :currentFolderId="currentFolderId"
-                        @change-folder="changeFolder">
+        <dms-breadcrumb @change-folder="changeFolder">
         </dms-breadcrumb>
         <b-table :items="currentItems"
                  class="bd-table"
@@ -61,8 +60,7 @@ export default {
         }
       ],
       currentFolderItems: [],
-      filesTree: [],
-      currentFolderId: null
+      filesTree: []
     }
   },
   methods: {
@@ -80,13 +78,16 @@ export default {
         this.changeFolder(id)
       }
     },
-    changeFolder (id) {
-      console.log(id)
-      this.currentFolderId = id
+    async changeFolder (id) {
+      this.$store.dispatch('project/changeFolder', id).then(() => {
+        this.$store.dispatch('project/getPath').then((result) => {
+          console.log(result)
+        })
+      })
     },
     getCurrentChildren (tree) {
       for (let file of tree) {
-        if (file.id === this.currentFolderId) {
+        if (file.id === this.$store.state.project.currentFolderId) {
           return file.children
         } else {
           if (file.children !== undefined && file.children.length > 0) {
@@ -99,9 +100,7 @@ export default {
   computed: {
     currentItems () {
       let currentItems = []
-      let tree = []
-      tree.push(this.$store.state.project.tree)
-      let currentChildren = this.getCurrentChildren(tree)
+      let currentChildren = this.$store.getters['project/getCurrentChildren']
       for (let item of currentChildren) {
         currentItems.push({
           id: item.id,
@@ -118,7 +117,9 @@ export default {
     }
   },
   created () {
-    this.currentFolderId = this.$store.state.project.tree.id
+    this.$store.dispatch('project/getPath').then((result) => {
+      console.log(result)
+    })
   }
 }
 </script>

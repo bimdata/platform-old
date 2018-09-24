@@ -1,6 +1,6 @@
 import actions from './actions'
 import mutations from './mutations'
-import * as getters from './getters'
+import getters from './getters'
 export default {
   namespaced: true,
   state: {
@@ -8,7 +8,10 @@ export default {
     selectedProject: null,
     ifcs: null,
     tree: null,
-    elements: null
+    currentFolderId: null,
+    currentElement: null,
+    elements: null,
+    currentPath: []
   },
   actions,
   mutations,
