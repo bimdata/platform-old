@@ -1,0 +1,119 @@
+.dms {
+  font-size: 0.92857143rem;
+  overflow: hidden;
+  position: relative;
+  .dms_title {
+    color: $primary;
+    text-align: left;
+    padding: $grid-gutter-width;
+  }
+}
+
+.dms__toolbox {
+  display: flex;
+
+  .base-button-tool ~ .base-button-tool {
+    margin-left: $grid-gutter-width / 2;
+  }
+
+  .dms__search {
+    position: relative;
+    margin-left: $grid-gutter-width / 2;
+    box-shadow: $bd-box-shadow;
+    display: flex;
+    background-color: white;
+    padding-left: $grid-gutter-width;
+  }
+  input {
+    height: 32px;
+    min-width: 0;
+    width: 324px;
+    border: none;
+    box-sizing: border-box;
+    box-shadow: none;
+  }
+}
+
+.dms__content {
+  padding-top: $grid-gutter-width;
+  transform: translateX(-19%);
+  display: flex;
+  max-width: 120%;
+  width: 120%;
+  transition: .2s ease all;
+
+  &.shrinked {
+    transform: translateX(0%);
+    width: 100%;
+  }
+
+  .dms__tree-view {
+    width: 20%;
+    min-width: 272px;
+  }
+
+  .bd-table {
+    width: 100%;
+    max-width: 200%;
+    min-width: 0;
+    transition: .2s ease all;
+  }
+
+  .bd-table.test {
+    width: 80%;
+  }
+}
+
+.dms__tree-view {
+  padding-right: $grid-gutter-width;
+
+  .dms__tree-view-content {
+    background-color: white;
+    box-shadow: $bd-box-shadow;
+    font-size: 0.7143rem;
+  }
+
+  .dms__tree-view-header {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+  .dms__tree-folder-list {
+    list-style-type: none;
+    text-align: left;
+    li {
+      transition: .3s ease all;
+      position: relative;
+      &:before {
+        position: absolute;
+        display: inline-block;
+        content: '';
+        border-top: 4px solid transparent;
+        border-bottom: 4px solid transparent;
+        border-left: 4px solid grey;
+        width: 0px;
+        height: 0px;
+        top: 7px;
+        left: 4px;
+      }
+      list-style-type: none;
+      padding-left: $grid-gutter-width;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    li.is-current-path {
+      transition: .3s ease all;
+      &:before {
+        transform: rotate(90deg);
+      }
+    }
+  }
+}
+

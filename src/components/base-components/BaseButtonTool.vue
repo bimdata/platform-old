@@ -1,0 +1,27 @@
+<template>
+    <div class="base-button-tool" v-on="listeners">
+        <svgicon class="base-button-tool__icon" v-show="iconName !== undefined" :name="iconName" :width="iconWidth" :height="iconHeight"></svgicon>
+    </div>
+</template>
+<script>
+export default {
+  props: {
+    iconWidth: {
+      type: String,
+      default: '18'
+    },
+    iconHeight: {
+      type: String,
+      default: '15'
+    },
+    iconName: String
+  },
+  computed: {
+    listeners () {
+      return {
+        ...this.$listeners
+      }
+    }
+  }
+}
+</script>

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="breadcrumb">
         <ul>
             <li v-for="(item, index) in currentPath"
                 :key="index">
