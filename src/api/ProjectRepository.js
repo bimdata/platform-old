@@ -42,4 +42,22 @@ export class ProjectRepository {
       console.log(e.statusCode)
     }
   }
+
+  async deleteDocument (idCloud, idProject, idDocument) {
+    try {
+      const response = this.projectApiClient.deleteDocument(idCloud, idDocument, idProject)
+      return response
+    } catch (e) {
+      console.log(e.statusCode)
+    }
+  }
+
+  async deleteFolder (idCloud, idProject, idFolder) {
+    try {
+      const response = this.projectApiClient.deleteFolder(idCloud, idFolder, idProject)
+      return response
+    } catch (e) {
+      console.log(e.statusCode)
+    }
+  }
 }

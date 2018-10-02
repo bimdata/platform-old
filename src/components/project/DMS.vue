@@ -3,7 +3,26 @@
         <div class="dms_title">Project's documents</div>
         <dms-breadcrumb @change-folder="changeFolder">
         </dms-breadcrumb>
-        <div class="dms__toolbox">
+        <div class="dms__toolbox-selected" v-show="displaySelectedToolbox">
+            <div class="toolbox-selected__content">
+                <div class="dms__delete-button" @click="deleteElements">
+                    <svgicon name="delete" width="22" height="22"></svgicon>
+                    Supprimer
+                </div>
+                <div class="dms__move-button">
+                    <svgicon name="move" width="22" height="22"></svgicon>
+                    Déplacer vers
+                </div>
+                <!--<div class="dms__download-button">-->
+                    <!--<svgicon name="download" width="22" height="22"></svgicon>-->
+                    <!--Télécharger-->
+                <!--</div>-->
+                <div class="dms__selected-display" @click="deselectAll">
+                    Tout déselectionner <span class="item-counter">{{ nbSelectedItems }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="dms__toolbox" v-show="!displaySelectedToolbox">
             <base-button-tool iconName="tree"
                               :class="{'is-active': isVisibleTreeView}"
                               @click="displayTreeView">
@@ -14,9 +33,12 @@
                 <b-form-input v-model="filter" placeholder="Type to Search" />
             </span>
         </div>
-        <div class="dms__content" :class="{'shrinked': isVisibleTreeView}">
-            <dms-tree-view @close="isVisibleTreeView = false"></dms-tree-view>
-            <b-table :items="currentItems"
+        <div class="dms__content" ref="filesContent" :class="{'shrinked': isVisibleTreeView}">
+            <div ref="treeView" class="dms__tree-view">
+                <dms-tree-view @close="closeTreeView"></dms-tree-view>
+            </div>
+            <div ref="listFiles" class="dms__list-files">
+                <b-table :items="currentItems"
                      :filter="filter"
                      class="bd-table"
                      :fields="fields">
@@ -47,6 +69,7 @@
                     </template>
                 </template>
             </b-table>
+            </div>
         </div>
     </div>
 </template>
@@ -94,12 +117,29 @@ export default {
         }
       ],
       currentFolderItems: [],
-      filesTree: []
+      filesTree: [],
+      listViewOriginalWidth: null
     }
   },
   methods: {
+    async deleteElements () {
+      await this.$store.dispatch('project/deleteDMSElements', this.selected)
+      this.deselectAll()
+    },
+    deselectAll () {
+      this.selectAll = false
+      this.selected = []
+    },
+    closeTreeView () {
+      this.isVisibleTreeView = false
+      this.$refs.listFiles.style.width = '100%'
+    },
     displayTreeView () {
-      this.isVisibleTreeView = true
+      if (!this.isVisibleTreeView) {
+        this.isVisibleTreeView = true
+        this.listViewOriginalWidth = this.$refs.listFiles.clientWidth
+        this.$refs.listFiles.style.width = this.listViewOriginalWidth - 272 + 'px'
+      }
     },
     selectAllItems () {
       this.selectAll = !this.selectAll
@@ -143,6 +183,12 @@ export default {
     }
   },
   computed: {
+    displaySelectedToolbox () {
+      return this.selected.length > 0
+    },
+    nbSelectedItems () {
+      return this.selected.length
+    },
     currentItems () {
       let currentItems = []
       let currentChildren = this.$store.getters['project/getCurrentChildren']

@@ -108,5 +108,21 @@ export default {
     let result = await dispatch('getElement', {tree: treeArray, searchedId: state.currentFolderId})
     commit('SET_CURRENT_ELEMENT', result)
     await dispatch('getPath')
+  },
+  async deleteDMSElements ({commit, state, dispatch}, DMSElements) {
+    let deletedCalls = []
+    let idCloud = state.selectedProject.cloud.id
+    let idProject = state.selectedProject.id
+    for (let DMSElement of DMSElements) {
+      let {id, type} = DMSElement
+      if (type === 'file') {
+        deletedCalls.push(this.ProjectRepositoryRequest.deleteDocument(idCloud, idProject, id))
+      } else if (type === 'folder') {
+        deletedCalls.push(this.ProjectRepositoryRequest.deleteFolder(idCloud, idProject, id))
+      }
+    }
+    Promise.all(deletedCalls).then(() => {
+      dispatch('getTree', state.selectedProject)
+    })
   }
 }
