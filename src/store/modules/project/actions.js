@@ -124,5 +124,11 @@ export default {
     Promise.all(deletedCalls).then(() => {
       dispatch('getTree', state.selectedProject)
     })
+  },
+  async createFolder ({commit, state, dispatch}, name) {
+    let idCloud = state.selectedProject.cloud.id
+    let idProject = state.selectedProject.id
+    await this.ProjectRepositoryRequest.createFolder(idCloud, idProject, name, state.currentFolderId)
+    await dispatch('getTree', state.selectedProject)
   }
 }

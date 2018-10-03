@@ -27,7 +27,22 @@
                               :class="{'is-active': isVisibleTreeView}"
                               @click="displayTreeView">
             </base-button-tool>
-            <base-button-tool iconName="add-folder"></base-button-tool>
+            <base-button-tool iconName="add-folder" @click="displayAddFolder">
+                <div class="new_folder_box" :class="{'show': addFolder}">
+                    <div class="new_folder_box__title">
+                        Create a folder
+                    </div>
+                    <div class="base-input-text-material">
+                        <input type="text" placeholder="Folder's name" required v-model="newFolderName">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                    </div>
+                    <div class="new_folder_box__button-validation">
+                        <span @click="closeAddFolder">Cancel</span>
+                        <span @click="saveFolder">Validate</span>
+                    </div>
+                </div>
+            </base-button-tool>
             <span class="dms__search">
                 <img src="../../assets/images/icons/search.svg" />
                 <b-form-input v-model="filter" placeholder="Type to Search" />
@@ -118,10 +133,25 @@ export default {
       ],
       currentFolderItems: [],
       filesTree: [],
-      listViewOriginalWidth: null
+      listViewOriginalWidth: null,
+      addFolder: false,
+      newFolderName: ''
     }
   },
   methods: {
+    closeAddFolder () {
+      this.addFolder = false
+      this.newFolderName = ''
+    },
+    async saveFolder () {
+      if (this.newFolderName !== '') {
+        await this.$store.dispatch('project/createFolder', this.newFolderName)
+        this.closeAddFolder()
+      }
+    },
+    displayAddFolder () {
+      this.addFolder = true
+    },
     async deleteElements () {
       await this.$store.dispatch('project/deleteDMSElements', this.selected)
       this.deselectAll()

@@ -1,6 +1,9 @@
 <template>
-    <div class="base-button-tool" v-on="listeners">
-        <svgicon class="base-button-tool__icon" v-show="iconName !== undefined" :name="iconName" :width="iconWidth" :height="iconHeight"></svgicon>
+    <div class="base-button-tool__container">
+        <div class="base-button-tool" v-on="listeners">
+            <svgicon class="base-button-tool__icon" v-show="iconName !== undefined" :name="iconName" :width="iconWidth" :height="iconHeight"></svgicon>
+        </div>
+        <slot></slot>
     </div>
 </template>
 <script>

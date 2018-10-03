@@ -60,4 +60,16 @@ export class ProjectRepository {
       console.log(e.statusCode)
     }
   }
+
+  async createFolder (idCloud, idProject, name, idParent) {
+    try {
+      let folder = new this.defaultClient.Folder()
+      folder.name = name
+      folder.parent_id = idParent
+      const response = await this.projectApiClient.createFolder(idCloud, idProject, folder)
+      return response
+    } catch (e) {
+      console.log(e.statusCode)
+    }
+  }
 }
