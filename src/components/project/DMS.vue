@@ -9,14 +9,10 @@
                     <svgicon name="delete" width="22" height="22"></svgicon>
                     Supprimer
                 </div>
-                <div class="dms__move-button">
+                <div class="dms__move-button" @click="displayMoveTo">
                     <svgicon name="move" width="22" height="22"></svgicon>
                     Déplacer vers
                 </div>
-                <!--<div class="dms__download-button">-->
-                    <!--<svgicon name="download" width="22" height="22"></svgicon>-->
-                    <!--Télécharger-->
-                <!--</div>-->
                 <div class="dms__selected-display" @click="deselectAll">
                     Tout déselectionner <span class="item-counter">{{ nbSelectedItems }}</span>
                 </div>
@@ -28,7 +24,7 @@
                               @click="displayTreeView">
             </base-button-tool>
             <base-button-tool iconName="add-folder" @click="displayAddFolder">
-                <div class="new_folder_box" :class="{'show': addFolder}">
+                <div class="new_folder_box" v-show="addFolder">
                     <div class="new_folder_box__title">
                         Create a folder
                     </div>
@@ -139,6 +135,8 @@ export default {
     }
   },
   methods: {
+    displayMoveTo () {
+    },
     closeAddFolder () {
       this.addFolder = false
       this.newFolderName = ''

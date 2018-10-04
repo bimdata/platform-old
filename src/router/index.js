@@ -62,7 +62,7 @@ const router = new Router({
       name: 'components',
       component: PageComponents,
       meta: {
-        isPublic: false
+        isPublic: true
       }
     },
     {
