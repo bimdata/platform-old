@@ -9,9 +9,12 @@
                     <svgicon name="delete" width="22" height="22"></svgicon>
                     Supprimer
                 </div>
-                <div class="dms__move-button" @click="displayMoveTo">
-                    <svgicon name="move" width="22" height="22"></svgicon>
-                    Déplacer vers
+                <div class="dms__move-button">
+                    <span class="container-button-move-top" @click="displayMoveTo">
+                        <svgicon name="move" width="22" height="22"></svgicon>
+                        Déplacer vers
+                    </span>
+                    <base-tree-select v-if="displayTreeSelect" @close="closeMoveTo" :tree="folderTree" :initial-parent-node="getCurrentFolderId"></base-tree-select>
                 </div>
                 <div class="dms__selected-display" @click="deselectAll">
                     Tout déselectionner <span class="item-counter">{{ nbSelectedItems }}</span>
@@ -88,15 +91,18 @@
 import DMSBreadcrumb from '@/components/project/DMSBreadcrumb'
 import DMSTreeView from '@/components/project/DMSTreeView'
 import BaseButtonTool from '@/components/base-components/BaseButtonTool'
+import BaseTreeSelect from '@/components/base-components/BaseTreeSelect'
 
 export default {
   components: {
     'dms-breadcrumb': DMSBreadcrumb,
     'dms-tree-view': DMSTreeView,
-    BaseButtonTool
+    BaseButtonTool,
+    BaseTreeSelect
   },
   data () {
     return {
+      displayTreeSelect: false,
       isVisibleTreeView: false,
       selectAll: false,
       filter: null,
@@ -136,6 +142,10 @@ export default {
   },
   methods: {
     displayMoveTo () {
+      this.displayTreeSelect = true
+    },
+    closeMoveTo () {
+      this.displayTreeSelect = false
     },
     closeAddFolder () {
       this.addFolder = false
@@ -211,6 +221,14 @@ export default {
     }
   },
   computed: {
+    getCurrentFolderId () {
+      return this.$store.state.project.currentFolderId
+    },
+    folderTree () {
+      let resultTree = []
+      resultTree.push(this.$store.state.project.tree)
+      return resultTree
+    },
     displaySelectedToolbox () {
       return this.selected.length > 0
     },

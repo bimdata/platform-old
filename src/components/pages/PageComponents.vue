@@ -8,7 +8,7 @@
             <div class="col-12">
                 <div class="components__divider"></div>
                 <h3>Base Treeselect</h3>
-                <base-tree-select :tree="folderTree" :initial-parent-node="5"></base-tree-select>
+                <base-tree-select :initial-parent-node="5" :tree="folderTree"></base-tree-select>
             </div>
             <div class="col-12">
                 <div class="components__divider"></div>

@@ -27,7 +27,7 @@
         <div class="base-tree-select__footer">
             <base-button-action v-show="displayMoveHere" @click="chooseItem(currentParentNode)">DEPLACER ICI</base-button-action>
             <base-button-action v-show="displayMoveToward" @click="chooseItem(selectedNode)">DEPLACER VERS</base-button-action>
-            <span v-show="displayTextMove">text move</span>
+            <span v-show="displayTextMove" class="text-destination">Choisir une destination</span>
         </div>
     </div>
 </template>

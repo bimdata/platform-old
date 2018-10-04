@@ -1,6 +1,8 @@
 $base-tree-select: 'base-tree-select';
 
 .#{$base-tree-select} {
+  color: $body-color;
+  z-index: 500;
   width: 168px;
   background: white;
   box-shadow: $bd-box-shadow;
@@ -69,6 +71,10 @@ $base-tree-select: 'base-tree-select';
 
     .base-button-action {
       min-width: 90px;
+    }
+
+    .text-destination {
+      padding: 0.375rem 0;
     }
   }
 }

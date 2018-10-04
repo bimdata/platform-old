@@ -35,6 +35,12 @@
 
     .dms__move-button {
       color: #FF8B03;
+
+      .container-button-move-top {
+        height: 32px;
+        display: inline-block;
+        line-height: 32px;
+      }
     }
 
     .dms__download-button {
@@ -232,3 +238,10 @@
   }
 }
 
+.dms__move-button {
+  position: relative;
+  .base-tree-select {
+    position: absolute;
+    top: 27px;
+  }
+}
