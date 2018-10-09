@@ -14,7 +14,12 @@
                         <svgicon name="move" width="22" height="22"></svgicon>
                         Déplacer vers
                     </span>
-                    <base-tree-select v-if="displayTreeSelect" @close="closeMoveTo" :tree="folderTree" :initial-parent-node="getCurrentFolderId"></base-tree-select>
+                    <base-tree-select v-if="displayTreeSelect"
+                                      @close="closeMoveTo"
+                                      @chooseItem="moveItems"
+                                      :tree="folderTree"
+                                      :initial-parent-node="getCurrentFolderId">
+                    </base-tree-select>
                 </div>
                 <div class="dms__selected-display" @click="deselectAll">
                     Tout déselectionner <span class="item-counter">{{ nbSelectedItems }}</span>
@@ -141,6 +146,13 @@ export default {
     }
   },
   methods: {
+    moveItems (idNewParentFolder) {
+      this.$store.dispatch('project/moveItemsDMS', {idNewParentFolder, items: this.selected}).then(() => {
+        this.closeMoveTo()
+        this.selectAll = false
+        this.selected = []
+      })
+    },
     displayMoveTo () {
       this.displayTreeSelect = true
     },

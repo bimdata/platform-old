@@ -12,6 +12,21 @@
             </div>
             <div class="col-12">
                 <div class="components__divider"></div>
+                <h3>Base table</h3>
+                <div ref="listFiles" class="dms__list-files">
+                    <b-table class="bd-table"
+                             :fields="BaseTable.fields">
+                        <template slot="HEAD_selected" slot-scope="data">
+                            <input type="checkbox">
+                        </template>
+                        <template slot="selected" slot-scope="data">
+                            <input type="checkbox">
+                        </template>
+                    </b-table>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="components__divider"></div>
                 <h3>Base Choices list</h3>
                 <base-choice-list :options="baseChoiceList.options" @selected-option="baseChoiceList" :value="baseChoiceList.selected" v-model="baseChoiceList.selected"></base-choice-list>
             </div>
@@ -89,6 +104,34 @@ export default {
           { value: 'MX', text: 'Mexico' },
           { value: 'CH', text: 'Switzerland' },
           { value: 'US', text: 'United States' }
+        ]
+      },
+      BaseTable: {
+        fields: [
+          {
+            key: 'selected',
+            label: ''
+          },
+          {
+            key: 'name',
+            label: 'Name'
+          },
+          {
+            key: 'type',
+            label: 'Type'
+          },
+          {
+            key: 'creator',
+            label: 'Creator'
+          },
+          {
+            key: 'date',
+            label: 'Date'
+          },
+          {
+            key: 'size',
+            label: 'Size'
+          }
         ]
       },
       baseTableSpaced: {

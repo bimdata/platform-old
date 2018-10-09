@@ -72,4 +72,26 @@ export class ProjectRepository {
       console.log(e.statusCode)
     }
   }
+
+  async updateFolder (idCloud, idProject, idFolder, idParent) {
+    try {
+      let folder = new this.defaultClient.Folder()
+      folder.parent_id = idParent
+      const response = await this.projectApiClient.updateFolder(idCloud, idFolder, idProject, folder)
+      return response
+    } catch (e) {
+      console.log(e.statusCode)
+    }
+  }
+
+  async updateDocument (idCloud, idProject, idFolder, idParent) {
+    try {
+      let folder = new this.defaultClient.Folder()
+      folder.parent_id = idParent
+      const response = await this.projectApiClient.updateDocument(idCloud, idFolder, idProject, folder)
+      return response
+    } catch (e) {
+      console.log(e.statusCode)
+    }
+  }
 }

@@ -42,6 +42,14 @@ $base-tree-select: 'base-tree-select';
           color: white;
         }
       }
+
+      &.selected {
+        background: $primary;
+        color: white;
+        svg {
+          color: white;
+        }
+      }
     }
   }
 

@@ -130,5 +130,21 @@ export default {
     let idProject = state.selectedProject.id
     await this.ProjectRepositoryRequest.createFolder(idCloud, idProject, name, state.currentFolderId)
     await dispatch('getTree', state.selectedProject)
+  },
+  async moveItemsDMS ({commit, state, dispatch}, {idNewParentFolder, items}) {
+    let idCloud = state.selectedProject.cloud.id
+    let idProject = state.selectedProject.id
+
+    for (let item of items) {
+      if (item.type === 'folder') {
+        if (idNewParentFolder !== item.id) {
+          await this.ProjectRepositoryRequest.updateFolder(idCloud, idProject, item.id, idNewParentFolder)
+        }
+      } else if (item.type === 'file') {
+        await this.ProjectRepositoryRequest.updateDocument(idCloud, idProject, item.id, idNewParentFolder)
+      }
+    }
+
+    await dispatch('getTree', state.selectedProject)
   }
 }
