@@ -1,7 +1,7 @@
 .dms {
   font-size: 0.92857143rem;
-  overflow: hidden;
   position: relative;
+  min-height: 750px;
   .dms_title {
     color: $primary;
     text-align: left;
@@ -95,19 +95,20 @@
 }
 
 .dms__content {
-  //padding-top: $grid-gutter-width;
   //transform: translateX(-19%);
   //display: flex;
   //max-width: 120%;
   //width: 120%;
+  padding-top: $grid-gutter-width;
   transition: .2s ease all;
 
   position: relative;
 
   .dms__tree-view {
+    padding-top: $grid-gutter-width;
     transition: .2s ease all;
     position: absolute;
-    left: -272px;
+    left: -500px;
     width: 272px;
   }
 
@@ -120,12 +121,12 @@
     transform: translateX(272px);
 
     .dms__tree-view {
-      left: -136px;
+      left: -276px;
     }
   }
 
   .dms__tree-view {
-    width: 20%;
+    width: 272px;
     min-width: 272px;
   }
 
@@ -153,6 +154,8 @@
   .dms__tree-view-header {
     display: flex;
     justify-content: flex-end;
+
+    padding: $grid-gutter-width / 2;
   }
 
   ul {
@@ -163,29 +166,54 @@
     list-style-type: none;
     text-align: left;
     li {
-      transition: .3s ease all;
       position: relative;
-      &:before {
-        position: absolute;
-        display: inline-block;
-        content: '';
-        border-top: 4px solid transparent;
-        border-bottom: 4px solid transparent;
-        border-left: 4px solid grey;
-        width: 0px;
-        height: 0px;
-        top: 7px;
-        left: 4px;
-      }
       list-style-type: none;
-      padding-left: $grid-gutter-width;
+      svg {
+        color: $primary;
+        transition: .15s linear all;
+      }
+      .dms__line-tree-view {
+        transition: .15s linear all;
+        padding-left: $grid-gutter-width * 1.5;
+        padding-top: 5px;
+        padding-bottom: 5px;
+
+        &:hover {
+          background-color: #F2F2F2;
+        }
+      }
+
+      .dms__line-tree-view-content {
+        position: relative;
+        &:before {
+          position: absolute;
+          display: inline-block;
+          content: '';
+          border-top: 4px solid transparent;
+          border-bottom: 4px solid transparent;
+          border-left: 4px solid grey;
+          width: 0px;
+          height: 0px;
+          top: 4px;
+          left: -11px;
+        }
+      }
 
       &:hover {
         cursor: pointer;
       }
     }
 
-    li.is-current-path {
+    li.is-current-folder > .dms__line-tree-view {
+      background-color: $primary;
+      color: white;
+
+      svg {
+        color: white;
+      }
+    }
+
+    li.is-current-path > .dms__line-tree-view > .dms__line-tree-view-content {
       transition: .3s ease all;
       &:before {
         transform: rotate(90deg);

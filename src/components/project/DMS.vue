@@ -1,6 +1,7 @@
 <template>
     <div class="dms">
         <div class="dms_title">Project's documents</div>
+        <dms-upload-document></dms-upload-document>
         <dms-breadcrumb @change-folder="changeFolder">
         </dms-breadcrumb>
         <div class="dms__toolbox-selected" v-show="displaySelectedToolbox">
@@ -65,12 +66,24 @@
                     <input type="checkbox" v-model="selectAll" @click="selectAllItems">
                 </template>
                 <template slot="selected" slot-scope="data">
-                    <input type="checkbox" :value="{type: data.item.idPrefix, id: data.item.id}" v-model="selected">
+                        <label :for="'checkbox-'+ data.item.id"
+                               class="base-checkbox">
+                            <input type="checkbox"
+                                   :id="'checkbox-'+ data.item.id"
+                                   :value="{type: data.item.idPrefix, id: data.item.id}"
+                                   v-model="selected">
+                            <span></span>
+                        </label>
                 </template>
                 <template slot="name" slot-scope="data">
                     <span @click="clickedFile({type: data.item.type, id: data.item.id})">
+                        <template v-if="data.item.icon !== 'folder2.svg'">
                         <img width="20"
                              :src="'/static/img/files-icons/' + data.item.icon" />
+                        </template>
+                        <template v-else>
+                            <svgicon name="folder2" width="20" height="26"></svgicon>
+                        </template>
                         {{ data.item.name }}
                      </span>
                 </template>
@@ -97,13 +110,16 @@ import DMSBreadcrumb from '@/components/project/DMSBreadcrumb'
 import DMSTreeView from '@/components/project/DMSTreeView'
 import BaseButtonTool from '@/components/base-components/BaseButtonTool'
 import BaseTreeSelect from '@/components/base-components/BaseTreeSelect'
-
+import BaseInputCheckbox from '@/components/base-components/BaseInputCheckbox'
+import DMSUploadDocument from '@/components/project/DMSUploadDocument'
 export default {
   components: {
     'dms-breadcrumb': DMSBreadcrumb,
     'dms-tree-view': DMSTreeView,
     BaseButtonTool,
-    BaseTreeSelect
+    BaseTreeSelect,
+    BaseInputCheckbox,
+    'dms-upload-document': DMSUploadDocument
   },
   data () {
     return {
@@ -251,6 +267,11 @@ export default {
       let currentItems = []
       let currentChildren = this.$store.getters['project/getCurrentChildren']
       for (let item of currentChildren) {
+        let result = this.selected.some((element) => {
+          let type = (this.type(item.file_name) === 'Folder') ? 'folder' : 'file'
+          return element.id === item.id && element.type === type
+        })
+
         currentItems.push({
           id: item.id,
           name: item.name,
@@ -259,7 +280,8 @@ export default {
           idPrefix: (this.type(item.file_name) === 'Folder') ? 'folder' : 'file',
           icon: (item.file_name !== undefined) ? this.type(item.file_name).toLowerCase() + '.svg' : 'folder2.svg',
           creator: item.created_by,
-          size: item.size
+          size: item.size,
+          _rowVariant: result ? 'selected-row' : ''
         })
       }
 

@@ -25,12 +25,12 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <dms></dms>
+                    <table-ifc></table-ifc>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
-                    <table-ifc></table-ifc>
+                    <dms></dms>
                 </div>
             </div>
         </template>

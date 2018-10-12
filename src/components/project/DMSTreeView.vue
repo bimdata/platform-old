@@ -1,5 +1,4 @@
 <template>
-    <div class="dms__tree-view">
         <div class="dms__tree-view-content">
             <div class="dms__tree-view-header">
                 <div @click="close">
@@ -16,7 +15,6 @@
                 </dms-tree-view-folder>
             </ul>
         </div>
-    </div>
 </template>
 <script>
 import {mapState} from 'vuex'

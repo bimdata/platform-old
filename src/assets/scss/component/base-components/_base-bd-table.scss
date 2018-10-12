@@ -9,6 +9,7 @@ $base-cd-table: 'bd-table';
 
   th, td {
     border: none;
+    line-height: 1.8rem;
   }
 
   thead {
@@ -21,7 +22,28 @@ $base-cd-table: 'bd-table';
 
   tbody {
     tr {
+      img, svg {
+        margin-right: $grid-gutter-width / 2;
+      }
+
+      svg {
+        color: $primary;
+        transition: .15s linear all;
+      }
       background-color: white;
+      transition: .15s linear all;
+      &:hover {
+        background-color: #F2F2F2;
+      }
+
+      &.table-selected-row {
+        background-color: $primary;
+        color: white;
+
+        svg {
+          color: white;
+        }
+      }
     }
   }
 }
