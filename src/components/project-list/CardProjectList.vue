@@ -5,7 +5,7 @@
                 <span class="card-project-list__date">{{ project.created_at|formatDate }}</span>
                 <base-button-option>
                     <ul>
-                        <li @click="remove">remove</li>
+                        <li @click="remove">{{ $t('project_list.remove') }}</li>
                     </ul>
                 </base-button-option>
             </div>

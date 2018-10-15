@@ -1,31 +1,31 @@
 {
-    "login": {
-        "dont_have_account": "Don't have an account yet ?",
-        "free_signup": "Sign Up for free",
-        "baseline": "The Open BIM collaboration platform",
-        "forgot_password": "Forgot password ?",
-        "register": "Register me",
-        "already_account": "Already an account ?",
-        "signin": "Sign In",
-        "bad_credentials": "Bad credentials",
-        "email": "Email",
-        "firstname": "Firstname",
-        "lastname": "Lastname",
-        "password": "Password",
-        "password_confirmation": "Password confirmation",
-        "already_exist_account": "An account already exist with this username",
-        "forgot_password_text_info": "Mot de passe perdu ? Entrez votre email",
-        "ask_reset_password_success": "Un email vous a été envoyé",
-        "invalid_reset_token": "Your token has expired"
-    },
-    "form": {
-        "server_error": "We've encountered some server issues, please retry later",
-        "required_field": "This is a required field",
-        "same_password_needed": "Passwords must be identical",
-        "min_length": "Too short field",
-        "submit": "Submit"
-    },
     "dashboard": {
         "logout": "Logout"
+    },
+    "project": {
+        "download": "Download",
+        "name": "Name",
+        "type": "Type",
+        "creator": "Creator",
+        "updated_at": "Updated at",
+        "state": "State",
+        "view": "View",
+        "size": "Size",
+        "file": "File",
+        "type_to_search": "Type to search",
+        "move_to": "Move to",
+        "unselect_all": "Unselect all",
+        "create_folder": "Create a folder",
+        "delete": "Delete",
+        "cancel": "Cancel",
+        "validate": "Validate",
+        "folder_name": "Folder's name",
+        "project_document": "Project's documents"
+    },
+    "project_list": {
+        "new_project": "New Project",
+        "submit": "Submit",
+        "project_name": "Project's name",
+        "remove": "Remove"
     }
 }

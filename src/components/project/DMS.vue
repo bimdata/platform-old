@@ -1,6 +1,6 @@
 <template>
     <div class="dms">
-        <div class="dms_title">Project's documents</div>
+        <div class="dms_title">{{ $t('project.project_document') }}</div>
         <dms-upload-document></dms-upload-document>
         <dms-breadcrumb @change-folder="changeFolder">
         </dms-breadcrumb>
@@ -8,12 +8,12 @@
             <div class="toolbox-selected__content">
                 <div class="dms__delete-button" @click="deleteElements">
                     <svgicon name="delete" width="22" height="22"></svgicon>
-                    Supprimer
+                    {{ $t('project.delete') }}
                 </div>
                 <div class="dms__move-button">
                     <span class="container-button-move-top" @click="displayMoveTo">
                         <svgicon name="move" width="22" height="22"></svgicon>
-                        Déplacer vers
+                        {{ $t('project.move_to') }}
                     </span>
                     <base-tree-select v-if="displayTreeSelect"
                                       @close="closeMoveTo"
@@ -23,7 +23,7 @@
                     </base-tree-select>
                 </div>
                 <div class="dms__selected-display" @click="deselectAll">
-                    Tout déselectionner <span class="item-counter">{{ nbSelectedItems }}</span>
+                    {{ $t('project.unselect_all') }} <span class="item-counter">{{ nbSelectedItems }}</span>
                 </div>
             </div>
         </div>
@@ -35,22 +35,22 @@
             <base-button-tool iconName="add-folder" @click="displayAddFolder">
                 <div class="new_folder_box" v-show="addFolder">
                     <div class="new_folder_box__title">
-                        Create a folder
+                        {{ $t('project.create_folder') }}
                     </div>
                     <div class="base-input-text-material">
-                        <input type="text" placeholder="Folder's name" required v-model="newFolderName">
+                        <input type="text" :placeholder="$t('project.folder_name')" required v-model="newFolderName">
                         <span class="highlight"></span>
                         <span class="bar"></span>
                     </div>
                     <div class="new_folder_box__button-validation">
-                        <span @click="closeAddFolder">Cancel</span>
-                        <span @click="saveFolder">Validate</span>
+                        <span @click="closeAddFolder">{{ $t('project.cancel') }}</span>
+                        <span @click="saveFolder">{{ $t('project.validate') }}</span>
                     </div>
                 </div>
             </base-button-tool>
             <span class="dms__search">
                 <img src="../../assets/images/icons/search.svg" />
-                <b-form-input v-model="filter" placeholder="Type to Search" />
+                <b-form-input v-model="filter" :placeholder="$t(project.type_to_search)" />
             </span>
         </div>
         <div class="dms__content" ref="filesContent" :class="{'shrinked': isVisibleTreeView}">
@@ -70,6 +70,21 @@
                                type="checkbox" v-model="selectAll">
                         <span></span>
                     </label>
+                </template>
+                <template slot="HEAD_name" slot-scope="data">
+                    {{ $t('project.name') }}
+                </template>
+                <template slot="HEAD_type" slot-scope="data">
+                    {{ $t('project.type') }}
+                </template>
+                <template slot="HEAD_creator" slot-scope="data">
+                    {{ $t('project.creator') }}
+                </template>
+                <template slot="HEAD_date" slot-scope="data">
+                    {{ $t('project.updated_at') }}
+                </template>
+                <template slot="HEAD_size" slot-scope="data">
+                    {{ $t('project.size') }}
                 </template>
                 <template slot="selected" slot-scope="data">
                         <label :for="'checkbox-'+ data.item.id"
@@ -106,6 +121,13 @@
                         {{ data.item.size|getFormattedSize }}
                     </template>
                 </template>
+                <template slot="action" slot-scope="action">
+                    <base-button-option>
+                        <ul>
+                            <li>{{ $t('project.download') }}</li>
+                        </ul>
+                    </base-button-option>
+                </template>
             </b-table>
             </div>
         </div>
@@ -118,6 +140,8 @@ import BaseButtonTool from '@/components/base-components/BaseButtonTool'
 import BaseTreeSelect from '@/components/base-components/BaseTreeSelect'
 import BaseInputCheckbox from '@/components/base-components/BaseInputCheckbox'
 import DMSUploadDocument from '@/components/project/DMSUploadDocument'
+import BaseButtonOption from '@/components/base-components/BaseButtonOption'
+
 export default {
   components: {
     'dms-breadcrumb': DMSBreadcrumb,
@@ -125,6 +149,7 @@ export default {
     BaseButtonTool,
     BaseTreeSelect,
     BaseInputCheckbox,
+    BaseButtonOption,
     'dms-upload-document': DMSUploadDocument
   },
   data () {
@@ -158,6 +183,10 @@ export default {
         {
           key: 'size',
           label: 'Size'
+        },
+        {
+          key: 'action',
+          label: ''
         }
       ],
       currentFolderItems: [],

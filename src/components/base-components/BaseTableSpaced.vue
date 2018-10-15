@@ -5,7 +5,9 @@
                  :key="index"
                  :class="'table-spaced__items--header--' + fields[index].key"
                  class="table-spaced__items table-spaced__items--header">
-                {{ field.label }}
+                <slot :name="'HEAD_' + field.key">
+                    {{ field.label }}
+                </slot>
             </div>
         </div>
         <div class="table-spaced__body">

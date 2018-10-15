@@ -27,15 +27,14 @@ $base-button-option: 'base-button-option';
       border-radius: 50%;
       background-color: $primary;
       position: absolute;
-      left: 50%;
-      top: 50%;
-      margin-left: -12.5px;
-      margin-top: -12.5px;
+      left: 2px;
+      top: 0;
       transform: scale(0);
     }
   }
 
   &__menu {
+    color: $body-color;
     position: absolute;
     top: 35px;
     left: -120px;
@@ -44,10 +43,12 @@ $base-button-option: 'base-button-option';
     box-shadow: $bd-box-shadow;
     border: 1px solid $border-color;
     text-align: left;
+    z-index: 250;
     ul {
       list-style-type: none;
       margin: 0;
       padding: 0;
+      z-index: 1500;
       li {
         padding: $grid-gutter-width;
         width: 150px;
