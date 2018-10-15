@@ -19,11 +19,11 @@
         "invalid_reset_token": "Your token has expired"
     },
     "form": {
-        "server_error": "We've encountered some server issues, please retry later",
         "required_field": "This is a required field",
         "same_password_needed": "Passwords must be identical",
         "min_length": "Too short field",
-        "submit": "Submit"
+        "submit": "Submit",
+        "server_error": "We've encountered some server issues, please retry later"
     },
     "dashboard": {
         "logout": "Logout"
