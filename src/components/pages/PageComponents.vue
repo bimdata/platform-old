@@ -8,7 +8,14 @@
             <div class="col-12">
                 <div class="components__divider"></div>
                 <h3>Base Treeselect</h3>
+                <div style="text-align:left;">
                 <base-tree-select :initial-parent-node="5" :tree="folderTree"></base-tree-select>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="components__divider"></div>
+                <h3>Base button option</h3>
+                <base-button-option></base-button-option>
             </div>
             <div class="col-12">
                 <div class="components__divider"></div>
@@ -90,6 +97,8 @@ import BaseTableSpaced from '@/components/base-components/BaseTableSpaced'
 import BaseMap from '@/components/base-components/BaseMap'
 import BaseUploadArea from '@/components/base-components/BaseUploadArea'
 import BaseTreeSelect from '@/components/base-components/BaseTreeSelect'
+import BaseButtonOption from '@/components/base-components/BaseButtonOption'
+
 export default {
   data () {
     return {
@@ -169,7 +178,8 @@ export default {
     BaseTableSpaced,
     BaseMap,
     BaseUploadArea,
-    BaseTreeSelect
+    BaseTreeSelect,
+    BaseButtonOption
   },
   methods: {
     BaseChoiceListSelected () {

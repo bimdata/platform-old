@@ -63,7 +63,13 @@
                      class="bd-table"
                      :fields="fields">
                 <template slot="HEAD_selected" slot-scope="data">
-                    <input type="checkbox" v-model="selectAll" @click="selectAllItems">
+                    <label for="select-all"
+                           @click="selectAllItems"
+                           class="base-checkbox">
+                        <input id="select-all"
+                               type="checkbox" v-model="selectAll">
+                        <span></span>
+                    </label>
                 </template>
                 <template slot="selected" slot-scope="data">
                         <label :for="'checkbox-'+ data.item.id"

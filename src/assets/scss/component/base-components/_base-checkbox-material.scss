@@ -20,16 +20,17 @@
   margin: 0;
   width: 48px;
   height: 48px;
-  background-color: rgba(0, 0, 0, 0.42);
+  background-color: white;
   outline: none;
   opacity: 0;
   transform: scale(1);
+  border-radius: 100%;
   -ms-transform: scale(0); /* Graceful degradation for IE */
   transition: opacity 0.5s, transform 0.5s;
 }
 
 .base-checkbox > input:checked {
-  background-color: #2196f3;
+  background-color: white;
 }
 
 .base-checkbox:active > input {

@@ -10,8 +10,8 @@
                         test
                     </div>
                     <div class="main-ifc__map">
-                        <!--<map-project>-->
-                        <!--</map-project>-->
+                        <map-project>
+                        </map-project>
                     </div>
                 </div>
                 <div class="main-ifc__detail-content">

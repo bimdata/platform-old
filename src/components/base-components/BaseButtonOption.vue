@@ -1,0 +1,52 @@
+<template>
+    <span class="base-button-option__tool"
+          @click="clickedTool"
+          v-on-clickaway="closeTool"
+          :class="{clicked: clicked}">
+        <svgicon name="more-vert"
+                 height="25"
+                 width="25"
+                 color="transparent #95989A">
+        </svgicon>
+        <div class="base-button-option__menu" v-show="displayMenu">
+            <slot>
+                <ul>
+                    <li>default</li>
+                </ul>
+            </slot>
+        </div>
+    </span>
+</template>
+<script>
+import { mixin as clickaway } from 'vue-clickaway'
+
+export default {
+  mixins: [ clickaway ],
+  computed: {
+    listeners () {
+      return {
+        ...this.$listeners
+      }
+    }
+  },
+  data () {
+    return {
+      clicked: false,
+      displayMenu: false
+    }
+  },
+  methods: {
+    closeTool () {
+      this.displayMenu = false
+    },
+    clickedTool () {
+      this.displayMenu = !this.displayMenu
+      this.clicked = false
+      this.clicked = true
+      setTimeout(() => {
+        this.clicked = false
+      }, 500)
+    }
+  }
+}
+</script>
