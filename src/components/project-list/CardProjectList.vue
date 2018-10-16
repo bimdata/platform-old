@@ -12,7 +12,9 @@
             <div class="card-project-list__body">
                 <div class="card-project-list__body-container">
                     <div class="card-project-list__image">
-                        <svgicon name="img-placeholder" height="30" width="30"></svgicon>
+                        <router-link :to="{name: 'project', params: {id: project.id}}">
+                            <svgicon name="img-placeholder" height="30" width="30"></svgicon>
+                        </router-link>
                     </div>
                     <div v-on-clickaway="closeUpdate"
                          class="card-project-list__title"
