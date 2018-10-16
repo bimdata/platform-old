@@ -12,12 +12,16 @@ import XHRUpload from '@uppy/xhr-upload'
 export default {
   props: {
     projectId: Number,
-    cloudId: Number
+    cloudId: Number,
+    target: {
+      default: '.DashboardContainer'
+    }
   },
   mounted () {
     let baseApiUrl = process.env.BD_API_BASE_URL
     let endpointUpload = baseApiUrl + '/cloud/' + this.cloudId + '/project/' + this.projectId + '/document'
     let token = this.$store.state.oidc.access_token
+    let target = this.target
 
     const uppy = Uppy({
       debug: true,
@@ -32,7 +36,7 @@ export default {
       .use(Dashboard, {
         trigger: '.UppyModalOpenerBtn',
         inline: true,
-        target: '.DashboardContainer',
+        target: target,
         replaceTargetContent: true,
         showProgressDetails: true,
         note: '',

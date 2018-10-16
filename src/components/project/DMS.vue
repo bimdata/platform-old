@@ -1,7 +1,6 @@
 <template>
     <div class="dms">
         <div class="dms_title">{{ $t('project.project_document') }}</div>
-        <dms-upload-document></dms-upload-document>
         <dms-breadcrumb @change-folder="changeFolder">
         </dms-breadcrumb>
         <div class="dms__toolbox-selected" v-show="displaySelectedToolbox">
@@ -32,6 +31,7 @@
                               :class="{'is-active': isVisibleTreeView}"
                               @click="displayTreeView">
             </base-button-tool>
+            <dms-upload-document class="base-button-tool__container"></dms-upload-document>
             <base-button-tool iconName="add-folder" @click="displayAddFolder">
                 <div class="new_folder_box" v-show="addFolder">
                     <div class="new_folder_box__title">
@@ -50,7 +50,7 @@
             </base-button-tool>
             <span class="dms__search">
                 <img src="../../assets/images/icons/search.svg" />
-                <b-form-input v-model="filter" :placeholder="$t(project.type_to_search)" />
+                <b-form-input v-model="filter" placeholder="Type to search" />
             </span>
         </div>
         <div class="dms__content" ref="filesContent" :class="{'shrinked': isVisibleTreeView}">

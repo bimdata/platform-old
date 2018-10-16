@@ -1,6 +1,7 @@
 <template>
     <div>
         <base-upload-area :project-id="project.id"
+                          class="upload-area-ifc"
                           :cloud-id="project.cloud.id"
                           @upload-complete="onUploadComplete">
         </base-upload-area>
