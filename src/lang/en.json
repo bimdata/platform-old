@@ -13,19 +13,6 @@
         "size": "Size",
         "file": "File",
         "type_to_search": "Type to search",
-        "move_to": "Move to",
-        "unselect_all": "Unselect all",
-        "create_folder": "Create a folder",
-        "delete": "Delete",
-        "cancel": "Cancel",
-        "validate": "Validate",
-        "folder_name": "Folder's name",
-        "project_document": "Project's documents"
-    },
-    "project_list": {
-        "new_project": "New Project",
-        "submit": "Submit",
-        "project_name": "Project's name",
-        "remove": "Remove"
+        "move_to": "Move to"
     }
 }
