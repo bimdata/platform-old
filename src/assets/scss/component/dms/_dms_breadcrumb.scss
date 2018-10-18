@@ -1,0 +1,35 @@
+.dms {
+
+  .breadcrumb {
+    font-size: 0.92857143rem;
+    color: $primary;
+    font-weight: 500;
+    box-shadow: $bd-box-shadow;
+    ul {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      li {
+        padding: 0 $grid-gutter-width * 2 0 0;
+        list-style-type: none;
+        position: relative;
+
+        a {
+          cursor: pointer;
+
+          &:hover {
+            text-decoration: underline;
+          }
+
+          &:after {
+            position: absolute;
+            right: 9px;
+            content: '>';
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
+}
+

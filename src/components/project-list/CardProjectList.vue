@@ -3,26 +3,18 @@
         <div class="base-card project-item card-project-list">
             <div class="card-project-list__header">
                 <span class="card-project-list__date">{{ project.created_at|formatDate }}</span>
-                <span class="card-project-list__tool"
-                      @click="clickedTool"
-                      v-on-clickaway="closeTool"
-                      :class="{clicked: clicked}">
-                    <svgicon name="more-vert"
-                             height="25"
-                             width="25"
-                             color="#FFFFFF #95989A">
-                    </svgicon>
-                    <div class="card-project-list__menu" v-show="displayMenu">
-                        <ul>
-                            <li @click="remove">remove</li>
-                        </ul>
-                    </div>
-                </span>
+                <base-button-option>
+                    <ul>
+                        <li @click="remove">{{ $t('project_list.remove') }}</li>
+                    </ul>
+                </base-button-option>
             </div>
             <div class="card-project-list__body">
                 <div class="card-project-list__body-container">
                     <div class="card-project-list__image">
-                        <svgicon name="img-placeholder" height="30" width="30"></svgicon>
+                        <router-link :to="{name: 'project', params: {id: project.id}}">
+                            <svgicon name="img-placeholder" height="30" width="30"></svgicon>
+                        </router-link>
                     </div>
                     <div v-on-clickaway="closeUpdate"
                          class="card-project-list__title"
@@ -47,6 +39,7 @@
 <script>
 import _ from 'lodash'
 import { mixin as clickaway } from 'vue-clickaway'
+import BaseButtonOption from '@/components/base-components/BaseButtonOption'
 
 export default {
   data () {
@@ -56,6 +49,9 @@ export default {
       editMode: false,
       newName: ''
     }
+  },
+  components: {
+    BaseButtonOption
   },
   mixins: [ clickaway ],
   props: {

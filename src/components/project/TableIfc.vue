@@ -1,6 +1,21 @@
 <template>
     <base-table-spaced :values="ifcs"
                        :fields="fields">
+        <template slot="HEAD_name" slot-scope="data">
+            {{ $t('project.name') }}
+        </template>
+        <template slot="HEAD_type" slot-scope="data">
+            {{ $t('project.type') }}
+        </template>
+        <template slot="HEAD_author" slot-scope="data">
+            {{ $t('project.creator') }}
+        </template>
+        <template slot="HEAD_last_modify" slot-scope="data">
+            {{ $t('project.updated_at') }}
+        </template>
+        <template slot="HEAD_state" slot-scope="data">
+            {{ $t('project.state') }}
+        </template>
         <template slot="name" slot-scope="data">
             {{ data.item.name| truncate(18) }}
         </template>
@@ -20,7 +35,7 @@
             </template>
         </template>
         <template slot="actions" slot-scope="data">
-            <base-button-action v-if="data.item.actions.status === 'C'" size="small" @click="viewIfc(data.item.actions)" icon-position="right" icon-name="play">Visionner</base-button-action>
+            <base-button-action v-if="data.item.actions.status === 'C'" size="small" @click="viewIfc(data.item.actions)" icon-position="right" icon-name="play">{{ $t('project.view') }}</base-button-action>
         </template>
     </base-table-spaced>
 </template>

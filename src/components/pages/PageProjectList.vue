@@ -19,11 +19,11 @@
                                 <div class="new-project-item__button-new" @click="displayNewForm = true">
                                     <svgicon name="plus" height="45" width="45" color="#FFF"></svgicon>
                                 </div>
-                                <p>New project</p>
+                                <p>{{ $t('project_list.new_project') }}</p>
                             </div>
                             <div class="new-project-item__edit-container new-project-item__container">
                                 <div class="new-project-item__edit-container__header">
-                                    <span>New Project</span>
+                                    <span>{{ $t('project_list.new_project') }}</span>
                                     <div @click="displayNewForm = false">
                                     <svgicon name="close"
                                              height="20"
@@ -36,10 +36,10 @@
                                         <input type="text" required v-model="newProjectName">
                                         <span class="highlight"></span>
                                         <span class="bar"></span>
-                                        <label>Project's name</label>
+                                        <label>{{ $t('project_list.project_name') }}</label>
                                     </div>                                </div>
                                 <div class="new-project-item__edit-container__edit-container__footer">
-                                    <base-button-action @click="createProject">Submit</base-button-action>
+                                    <base-button-action @click="createProject">{{ $t('project_list.submit') }}</base-button-action>
                                 </div>
                             </div>
                         </div>

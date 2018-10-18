@@ -1,0 +1,58 @@
+$base-button-option: 'base-button-option';
+
+.#{base-button-option} {
+  &__tool {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 38px;
+    &:hover {
+      cursor: pointer;
+    }
+
+    &.clicked {
+      &:after {
+        animation-name: circle;
+        animation-duration: .5s;
+      }
+    }
+
+    &:after {
+      transition: .15s linear all;
+      display: inline-block;
+      content: '';
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background-color: $primary;
+      position: absolute;
+      left: 2px;
+      top: 0;
+      transform: scale(0);
+    }
+  }
+
+  &__menu {
+    color: $body-color;
+    position: absolute;
+    top: 35px;
+    left: -120px;
+    background: white;
+    border-radius: 3px;
+    box-shadow: $bd-box-shadow;
+    border: 1px solid $border-color;
+    text-align: left;
+    z-index: 250;
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      z-index: 1500;
+      li {
+        padding: $grid-gutter-width;
+        width: 150px;
+      }
+    }
+  }
+}

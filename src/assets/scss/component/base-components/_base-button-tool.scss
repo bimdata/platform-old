@@ -1,0 +1,29 @@
+$base-button-tool: 'base-button-tool';
+
+.#{$base-button-tool} {
+  width: 32px;
+  height: 32px;
+  background-color: white;
+  box-shadow: $bd-box-shadow;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    transition: color .15s linear;
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    svg {
+      color: $primary;
+    }
+  }
+
+  &.is-active {
+    svg {
+      color: $primary;
+    }
+  }
+}

@@ -19,15 +19,15 @@ export default {
       items: [
         {
           routeName: 'home',
-          textLabel: 'Accueil'
+          textLabel: 'Home'
         },
         {
           routeName: 'clouds',
-          textLabel: 'Espaces'
+          textLabel: 'Cloud'
         },
         {
           routeName: 'viewer',
-          textLabel: 'Visionneuse'
+          textLabel: 'View'
         }
       ]
     }

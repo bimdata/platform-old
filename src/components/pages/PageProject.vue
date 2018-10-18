@@ -17,25 +17,30 @@
             </div>
         </div>
 
-            <template v-if="loadedProject">
-                <div class="row">
-                    <div class="col-12 content-project">
-                        <card-project-content></card-project-content>
-                    </div>
+        <template v-if="loadedProject && loadedDMS">
+            <div class="row">
+                <div class="col-12 content-project">
+                    <card-project-content></card-project-content>
                 </div>
-                <div class="row">
-                    <div class="col-12">
-                        <table-ifc></table-ifc>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <table-ifc></table-ifc>
                 </div>
-            </template>
-            <template v-else>
-                <div class="row">
-                    <div class="col-12 content-project">
-                        Loading ...
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <dms></dms>
                 </div>
-            </template>
+            </div>
+        </template>
+        <template v-else>
+            <div class="row">
+                <div class="col-12 content-project">
+                    Loading ...
+                </div>
+            </div>
+        </template>
     </div>
 </template>
 <script>
@@ -46,6 +51,7 @@ import CardProjectContent from '@/components/project/CardProjectContent'
 import TableIfc from '@/components/project/TableIfc'
 import UploadIfc from '@/components/project/UploadIfc'
 import store from '@/store'
+import DMS from '@/components/project/DMS'
 
 export default {
   components: {
@@ -54,11 +60,13 @@ export default {
     ChoiceListProject,
     ButtonUploadNewFile,
     CardProjectContent,
-    TableIfc
+    TableIfc,
+    'dms': DMS
   },
   data () {
     return {
-      loadedProject: true,
+      loadedProject: false,
+      loadedDMS: false,
       displayUpload: false
     }
   },
@@ -75,6 +83,9 @@ export default {
     this.$store.dispatch('project/init')
     this.loadedProject = false
     this.$store.commit('project/SET_PROJECT', project)
+    this.$store.dispatch('project/getTree', project).then(tree => {
+      this.loadedDMS = true
+    })
     this.$store.dispatch('project/fetchProjectIfc', project).then(() => {
       this.loadedProject = true
     })
