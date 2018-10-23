@@ -4,6 +4,7 @@ import PageHome from '@/components/pages/PageHome'
 import LayoutPageDashboard from '@/components/layouts/LayoutPageDashboard'
 import PageProject from '@/components/pages/PageProject'
 import PageProjectList from '@/components/pages/PageProjectList'
+import PageCloudList from '@/components/pages/PageCloudList'
 import PageComponents from '@/components/pages/PageComponents'
 import PageViewer from '@/components/pages/PageViewer'
 import OidcCallback from '@/components/pages/PageOIDCCallback'
@@ -43,6 +44,14 @@ const router = new Router({
           path: 'projects/',
           name: 'project-list',
           component: PageProjectList,
+          meta: {
+            isPublic: false
+          }
+        },
+        {
+          path: 'clouds/',
+          name: 'cloud-list',
+          component: PageCloudList,
           meta: {
             isPublic: false
           }

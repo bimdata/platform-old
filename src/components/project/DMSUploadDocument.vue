@@ -68,8 +68,7 @@ export default {
       parentId: this.currentFolderId
     })
     uppy.on('complete', result => {
-      // console.log('successful files:', result.successful)
-      // console.log('failed files:', result.failed)
+      this.$store.dispatch('project/getTree', this.$store.state.project.selectedProject)
       this.$emit('upload-complete', result)
     })
   }
