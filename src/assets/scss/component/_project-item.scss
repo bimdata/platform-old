@@ -2,7 +2,7 @@
   position: relative;
 }
 
-.project-item {
+.card-item {
   padding: $grid-gutter-width;
   width: 216px;
   height: 275px;
@@ -99,7 +99,7 @@
     margin: $grid-gutter-width 0 0 0;
   }
 }
-.card-project-list {
+.card-bd {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

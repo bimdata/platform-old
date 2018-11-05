@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import PageHome from '@/components/pages/PageHome'
 import LayoutPageDashboard from '@/components/layouts/LayoutPageDashboard'
 import PageProject from '@/components/pages/PageProject'
 import PageProjectList from '@/components/pages/PageProjectList'
@@ -26,8 +25,8 @@ const router = new Router({
       children: [
         {
           path: '/',
-          name: 'home',
-          component: PageHome,
+          name: 'cloud-list',
+          component: PageCloudList,
           meta: {
             isPublic: false
           }
@@ -44,14 +43,6 @@ const router = new Router({
           path: 'projects/',
           name: 'project-list',
           component: PageProjectList,
-          meta: {
-            isPublic: false
-          }
-        },
-        {
-          path: 'clouds/',
-          name: 'cloud-list',
-          component: PageCloudList,
           meta: {
             isPublic: false
           }
