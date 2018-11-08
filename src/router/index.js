@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import PageHome from '@/components/pages/PageHome'
 import LayoutPageDashboard from '@/components/layouts/LayoutPageDashboard'
 import PageProject from '@/components/pages/PageProject'
 import PageProjectList from '@/components/pages/PageProjectList'
+import PageCloudList from '@/components/pages/PageCloudList'
 import PageComponents from '@/components/pages/PageComponents'
 import PageViewer from '@/components/pages/PageViewer'
 import OidcCallback from '@/components/pages/PageOIDCCallback'
@@ -25,8 +25,8 @@ const router = new Router({
       children: [
         {
           path: '/',
-          name: 'home',
-          component: PageHome,
+          name: 'cloud-list',
+          component: PageCloudList,
           meta: {
             isPublic: false
           }

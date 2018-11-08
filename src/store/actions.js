@@ -86,6 +86,33 @@ export default {
       console.log(e)
     }
   },
+  async removeCloud (context, cloud) {
+    try {
+      await this.CloudRepositoryRequest.deleteCloud(context.state.currentCloud.id, cloud)
+      context.commit('DELETE_USER_CLOUD', cloud)
+      return true
+    } catch (e) {
+      console.log(e)
+    }
+  },
+  async addCloud (context, projectName) {
+    try {
+      const newProject = await this.CloudRepositoryRequest.createNewCloud(context.state.currentCloud.id, projectName)
+      context.commit('ADD_USER_CLOUD', newProject)
+      return newProject
+    } catch (e) {
+      console.log(e)
+    }
+  },
+  async updateCloud (context, cloud) {
+    try {
+      await this.CloudRepositoryRequest.updateCloud(cloud)
+      context.commit('UPDATE_USER_CLOUD', cloud)
+      return cloud
+    } catch (e) {
+      console.log(e)
+    }
+  },
   setLang ({commit}, payload) {
     commit('SET_LANG', payload)
   }

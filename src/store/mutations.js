@@ -23,6 +23,9 @@ export default {
   UPDATE_USER_PROJECT: (state, project) => {
     state.projects = state.projects.map((p) => (project.id === p.id) ? project : p)
   },
+  UPDATE_USER_CLOUD: (state, cloud) => {
+    state.clouds = state.clouds.map((c) => (cloud.id === c.id) ? cloud : c)
+  },
   SET_CURRENT_CLOUD: (state, cloud) => {
     state.currentCloud = cloud
   },

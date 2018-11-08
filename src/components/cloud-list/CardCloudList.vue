@@ -2,33 +2,28 @@
     <div class="col-xl-2 col-lg-3 col-md-4 col-6">
         <div class="base-card card-item card-bd">
             <div class="card-bd__header">
-                <span class="card-bd__date">{{ project.created_at|formatDate }}</span>
-                <base-button-option>
-                    <ul>
-                        <li @click="remove">{{ $t('project_list.remove') }}</li>
-                    </ul>
-                </base-button-option>
+                <span class="card-bd__date">{{ cloud.created_at|formatDate }}</span>
             </div>
             <div class="card-bd__body">
                 <div class="card-bd__body-container">
                     <div class="card-bd__image">
-                        <router-link :to="{name: 'project', params: {id: project.id}}">
+                        <a href="" @click.prevent="accessCloud">
                             <svgicon name="img-placeholder" height="30" width="30"></svgicon>
-                        </router-link>
+                        </a>
                     </div>
                     <div v-on-clickaway="closeUpdate"
                          class="card-bd__title"
                          :class="{'card-bd__title--edit-mode': editMode}">
                         <div v-show="!editMode"
                              @click="switchToEditMode">
-                            {{ project.name }}
+                            {{ cloud.name }}
                         </div>
                         <div class="card-bd__text-container" v-show="editMode">
                             <input ref="updateInput"
                                    type="text"
                                    v-model="newName"
                                    @keyup.enter="submitUpdate"
-                                   :placeholder="project.name"/>
+                                   :placeholder="cloud.name"/>
                         </div>
                     </div>
                 </div>
@@ -39,7 +34,6 @@
 <script>
 import _ from 'lodash'
 import { mixin as clickaway } from 'vue-clickaway'
-import BaseButtonOption from '@/components/base-components/BaseButtonOption'
 
 export default {
   data () {
@@ -50,17 +44,18 @@ export default {
       newName: ''
     }
   },
-  components: {
-    BaseButtonOption
-  },
   mixins: [ clickaway ],
   props: {
-    project: {
+    cloud: {
       type: Object,
       required: true
     }
   },
   methods: {
+    accessCloud () {
+      this.$store.commit('SET_CURRENT_CLOUD', this.cloud)
+      this.$router.push({name: 'project-list'})
+    },
     switchToEditMode () {
       this.editMode = true
       this.$nextTick(function () {
@@ -78,7 +73,7 @@ export default {
       this.editMode = false
     },
     submitUpdate () {
-      if (this.newName === '' || this.newName === this.project.name) {
+      if (this.newName === '' || this.newName === this.cloud.name) {
         this.newName = ''
         this.editMode = false
       } else {
@@ -89,9 +84,9 @@ export default {
       }
     },
     async update (name) {
-      let project = _.cloneDeep(this.project)
-      project.name = name
-      this.$store.dispatch('updateProject', project).then(() => {
+      let cloud = _.cloneDeep(this.cloud)
+      cloud.name = name
+      this.$store.dispatch('updateCloud', cloud).then(() => {
         return true
       })
     },
