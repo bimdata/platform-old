@@ -1,7 +1,7 @@
 export const oidcSettings = {
-  authority: 'https://login-staging.bimdata.io/',
-  client_id: '952974',
-  redirect_uri: 'http://localhost:8080/oidc-callback',
+  authority: process.env.BD_OIDC_IP,
+  client_id: process.env.BD_OIDC_CLIENT_ID,
+  redirect_uri: process.env.BD_APP_URL + '/oidc-callback',
   // post_logout_redirect_uri: 'http://localhost:8080/signup-required',
   response_type: 'code id_token token',
   scope: 'openid profile email'
