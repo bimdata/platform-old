@@ -5,6 +5,18 @@ Vue.filter('truncate', function (text, stop, clamp) {
   return text.slice(0, stop) + (stop < text.length ? clamp || '...' : '')
 })
 
+Vue.filter('middle-truncate', function (text, stop, clamp) {
+  if (text.length <= stop) {
+    return text
+  }
+  clamp = clamp || '...'
+  let sepLen = clamp.length
+  let charsToShow = stop - sepLen
+  let frontChars = Math.ceil(charsToShow / 2)
+  let backChars = Math.floor(charsToShow / 2)
+  return text.substr(0, frontChars) + clamp + text.substr(text.length - backChars)
+})
+
 Vue.filter('formatDate', function (value) {
   if (value) {
     return moment(String(value)).format('DD/MM/YYYY hh:mm')

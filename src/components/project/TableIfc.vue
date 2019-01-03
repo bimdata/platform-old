@@ -17,7 +17,7 @@
             {{ $t('project.state') }}
         </template>
         <template slot="name" slot-scope="data">
-            {{ data.item.name| truncate(18) }}
+            {{ data.item.name| middle-truncate(24) }}
         </template>
         <template slot="author" slot-scope="data" v-if="data.item.author !== undefined">
             {{ data.item.author.firstname + ' ' + data.item.author.lastname }}
