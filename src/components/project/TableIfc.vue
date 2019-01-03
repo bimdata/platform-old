@@ -4,9 +4,6 @@
         <template slot="HEAD_name" slot-scope="data">
             {{ $t('project.name') }}
         </template>
-        <template slot="HEAD_type" slot-scope="data">
-            {{ $t('project.type') }}
-        </template>
         <template slot="HEAD_author" slot-scope="data">
             {{ $t('project.creator') }}
         </template>
@@ -17,13 +14,13 @@
             {{ $t('project.state') }}
         </template>
         <template slot="name" slot-scope="data">
-            {{ data.item.name| middle-truncate(24) }}
+            {{ data.item.name | middle-truncate(32) }}
         </template>
         <template slot="author" slot-scope="data" v-if="data.item.author !== undefined">
             {{ data.item.author.firstname + ' ' + data.item.author.lastname }}
         </template>
         <template slot="last_modify" slot-scope="data">
-            {{ data.item.last_modify|formatDate }}
+            {{ data.item.last_modify | formatDate }}
         </template>
         <template slot="state" slot-scope="data">
             <svgicon height="22" width="22" v-if="getState(data.item.state) === 'ko'"
@@ -47,7 +44,6 @@ export default {
     return {
       fields: [
         {key: 'name', label: 'Nom'},
-        {key: 'type', label: 'Type'},
         {key: 'author', label: 'Créateur'},
         {key: 'last_modify', label: 'Modifié le'},
         {key: 'state', label: 'Etat'},
@@ -66,7 +62,6 @@ export default {
         ifcs.push(
           [
             { name: ifc.name },
-            { type: 'IFC' },
             { author: ifc.creator },
             { last_modify: ifc.updated_at },
             { state: ifc.status },
