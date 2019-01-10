@@ -1,6 +1,6 @@
 .header {
   display: flex;
-  height: 60px;
+  height: $header-height;
   background-color: white;
   @include bm-box-shadow;
   padding-left: $grid-gutter-width * 2;
@@ -8,7 +8,7 @@
 }
 
 .logo-container {
-  flex-basis: 60px;
+  flex-basis: $header-height;
   display: flex;
   align-items: center;
   justify-content: center;
