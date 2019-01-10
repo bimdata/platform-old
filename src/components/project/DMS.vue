@@ -62,73 +62,73 @@
                      :filter="filter"
                      class="bd-table"
                      :fields="fields">
-                <template slot="HEAD_selected" slot-scope="data">
-                    <label for="select-all"
-                           @click="selectAllItems"
-                           class="base-checkbox">
-                        <input id="select-all"
-                               type="checkbox" v-model="selectAll">
-                        <span></span>
-                    </label>
-                </template>
-                <template slot="HEAD_name" slot-scope="data">
-                    {{ $t('project.name') }}
-                </template>
-                <template slot="HEAD_type" slot-scope="data">
-                    {{ $t('project.type') }}
-                </template>
-                <template slot="HEAD_creator" slot-scope="data">
-                    {{ $t('project.creator') }}
-                </template>
-                <template slot="HEAD_date" slot-scope="data">
-                    {{ $t('project.updated_at') }}
-                </template>
-                <template slot="HEAD_size" slot-scope="data">
-                    {{ $t('project.size') }}
-                </template>
-                <template slot="selected" slot-scope="data">
-                        <label :for="'checkbox-'+ data.item.id"
+                    <template slot="HEAD_selected" slot-scope="data">
+                        <label for="select-all"
+                               @click="selectAllItems"
                                class="base-checkbox">
-                            <input type="checkbox"
-                                   :id="'checkbox-'+ data.item.id"
-                                   :value="{type: data.item.idPrefix, id: data.item.id}"
-                                   v-model="selected">
+                            <input id="select-all"
+                                   type="checkbox" v-model="selectAll">
                             <span></span>
                         </label>
-                </template>
-                <template slot="name" slot-scope="data">
-                    <span @click="clickedFile({type: data.item.type, id: data.item.id})">
-                        <template v-if="data.item.icon !== 'folder2.svg'">
-                        <img width="20"
-                             :src="'/static/img/files-icons/' + data.item.icon" />
-                        </template>
-                        <template v-else>
-                            <svgicon name="folder2" width="20" height="26"></svgicon>
-                        </template>
-                        {{ data.item.name }}
-                     </span>
-                </template>
-                <template slot="creator" slot-scope="data">
-                    <template v-if="data.item.creator !== null">
-                        {{ data.item.creator.firstname }} {{ data.item.creator.lastname }}
                     </template>
-                </template>
-                <template slot="date" slot-scope="data">
-                    {{ data.item.date|formatDate }}
-                </template>
-                <template slot="size" slot-scope="data">
-                    <template v-if="data.item.size > 0">
-                        {{ data.item.size|getFormattedSize }}
+                    <template slot="HEAD_name" slot-scope="data">
+                        {{ $t('project.name') }}
                     </template>
-                </template>
-                <template slot="action" slot-scope="action">
-                    <base-button-option>
-                        <ul>
-                            <li>{{ $t('project.download') }}</li>
-                        </ul>
-                    </base-button-option>
-                </template>
-            </b-table>
+                    <template slot="HEAD_type" slot-scope="data">
+                        {{ $t('project.type') }}
+                    </template>
+                    <template slot="HEAD_creator" slot-scope="data">
+                        {{ $t('project.creator') }}
+                    </template>
+                    <template slot="HEAD_date" slot-scope="data">
+                        {{ $t('project.updated_at') }}
+                    </template>
+                    <template slot="HEAD_size" slot-scope="data">
+                        {{ $t('project.size') }}
+                    </template>
+                    <template slot="selected" slot-scope="data">
+                            <label :for="'checkbox-'+ data.item.id"
+                                   class="base-checkbox">
+                                <input type="checkbox"
+                                       :id="'checkbox-'+ data.item.id"
+                                       :value="{type: data.item.idPrefix, id: data.item.id}"
+                                       v-model="selected">
+                                <span></span>
+                            </label>
+                    </template>
+                    <template slot="name" slot-scope="data">
+                        <span @click="clickedFile({type: data.item.type, id: data.item.id})">
+                            <template v-if="data.item.icon !== 'folder2.svg'">
+                            <img width="20"
+                                 :src="'/static/img/files-icons/' + data.item.icon" />
+                            </template>
+                            <template v-else>
+                                <svgicon name="folder2" width="20" height="26"></svgicon>
+                            </template>
+                            {{ data.item.name }}
+                         </span>
+                    </template>
+                    <template slot="creator" slot-scope="data">
+                        <template v-if="data.item.creator !== null">
+                            {{ data.item.creator.firstname }} {{ data.item.creator.lastname }}
+                        </template>
+                    </template>
+                    <template slot="date" slot-scope="data">
+                        {{ data.item.date|formatDate }}
+                    </template>
+                    <template slot="size" slot-scope="data">
+                        <template v-if="data.item.size > 0">
+                            {{ data.item.size|getFormattedSize }}
+                        </template>
+                    </template>
+                    <template slot="action" slot-scope="documentAction">
+                        <base-button-option>
+                            <ul>
+                                <li @click="downloadFile(documentAction)">{{ $t('project.download') }}</li>
+                            </ul>
+                        </base-button-option>
+                    </template>
+                </b-table>
             </div>
         </div>
     </div>
@@ -281,6 +281,9 @@ export default {
           }
         }
       }
+    },
+    downloadFile (documentAction) {
+      window.open(documentAction.item.file)
     }
   },
   computed: {
@@ -316,6 +319,7 @@ export default {
           icon: (item.file_name !== undefined) ? this.type(item.file_name).toLowerCase() + '.svg' : 'folder2.svg',
           creator: item.created_by,
           size: item.size,
+          file: item.file,
           _rowVariant: result ? 'selected-row' : ''
         })
       }
