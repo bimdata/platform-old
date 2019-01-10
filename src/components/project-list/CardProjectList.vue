@@ -1,5 +1,5 @@
 <template>
-    <div class="col-xl-2 col-lg-3 col-md-4 col-6">
+    <div class="card-container">
         <div class="base-card card-item card-bd">
             <div class="card-bd__header">
                 <span class="card-bd__date">{{ project.created_at|formatDate }}</span>
