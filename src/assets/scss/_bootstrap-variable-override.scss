@@ -7,6 +7,13 @@ $black: #000000;
 $grid-gutter-width: 15px;
 $font-size-base: 0.875rem;
 
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1370px
+);
+
 // border
 $border-color: #F3F3F3;
 $border-radius: 0;

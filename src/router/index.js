@@ -28,7 +28,8 @@ const router = new Router({
           name: 'cloud-list',
           component: PageCloudList,
           meta: {
-            isPublic: false
+            isPublic: false,
+            container: 'container p-0'
           }
         },
         {
@@ -44,7 +45,8 @@ const router = new Router({
           name: 'project-list',
           component: PageProjectList,
           meta: {
-            isPublic: false
+            isPublic: false,
+            container: 'container p-0'
           }
         },
         {

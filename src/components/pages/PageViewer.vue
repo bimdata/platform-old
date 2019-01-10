@@ -17,9 +17,6 @@ export default {
   computed: {
     ...mapGetters(['oidcAccessToken'])
   },
-  beforeCreate () {
-    document.body.className = 'viewer'
-  },
   created () {
     let params = this.$route.params
     if (params.customUrl) {
