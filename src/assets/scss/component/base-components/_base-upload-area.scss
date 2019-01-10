@@ -3,10 +3,13 @@ $base-upload-area: 'upload-area';
 .#{$base-upload-area} {
 
   .uppy-Dashboard-inner {
-    background-color: transparent !important;
     border: 2px dashed $primary !important;
     border-radius: 8px !important;
     height: 160px;
+  }
+
+  &.#{$base-upload-area}-ifc {
+    background-color: transparent !important;
     width: 100% !important;
   }
 

@@ -36,9 +36,8 @@ jobs:
       - run: npm ci
 
       # run tests!
-      - run: mv config/bim.env.js.test config/bim.env.js
-      - run: npm run cypress:install
-      - run: npm run cypress:test
+      # - run: npm run cypress:install
+      # - run: npm run cypress:test
 
       - save_cache:
           key: v2-dependencies-npm-{{ checksum "package-lock.json" }}

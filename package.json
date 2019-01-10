@@ -24,7 +24,7 @@
     "svg-process": "npm run import-material-icon && npm run optimize-svg && npm run generate-icons"
   },
   "dependencies": {
-    "@bimdata/bimdata-api-client": "^2.0.1",
+    "@bimdata/bimdata-api-client": "^2.7.0",
     "@mdi/svg": "^2.5.94",
     "autoprefixer": "^7.1.2",
     "axios": "^0.18.0",

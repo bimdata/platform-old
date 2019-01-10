@@ -8,7 +8,7 @@ import BootstrapVue from 'bootstrap-vue'
 import { i18n } from './setup/i18n-setup'
 import store from './store'
 import { VueSelect } from 'vue-select'
-import moment from 'moment'
+import '@/utils/filters'
 
 Vue.component('v-select', VueSelect)
 
@@ -18,16 +18,6 @@ Vue.use(svgicon, {
 
 Vue.use(BootstrapVue)
 Vue.config.productionTip = false
-
-Vue.filter('truncate', function (text, stop, clamp) {
-  return text.slice(0, stop) + (stop < text.length ? clamp || '...' : '')
-})
-
-Vue.filter('formatDate', function (value) {
-  if (value) {
-    return moment(String(value)).format('DD/MM/YYYY hh:mm')
-  }
-})
 
 /* eslint-disable no-new */
 const AppRoot = new Vue({

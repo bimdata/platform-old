@@ -1,14 +1,19 @@
 .header {
-  display: flex;
-  height: 60px;
+  height: $header-height;
   background-color: white;
   @include bm-box-shadow;
-  padding-left: $grid-gutter-width * 2;
-  padding-right: $grid-gutter-width * 2;
+  padding: $grid-gutter-width $grid-gutter-width * 2;
+
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+  }
 }
 
 .logo-container {
-  flex-basis: 60px;
+  flex-basis: $header-height;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,7 +22,6 @@
 .navigation {
   display: flex;
   justify-content: center;
-  flex: 10 0 auto;
   align-items: stretch;
 
   &__item {

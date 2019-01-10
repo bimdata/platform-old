@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :class="this.$route.name">
     <router-view/>
   </div>
 </template>

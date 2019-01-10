@@ -1,14 +1,26 @@
 <template>
     <base-table-spaced :values="ifcs"
                        :fields="fields">
+        <template slot="HEAD_name" slot-scope="data">
+            {{ $t('project.name') }}
+        </template>
+        <template slot="HEAD_author" slot-scope="data">
+            {{ $t('project.creator') }}
+        </template>
+        <template slot="HEAD_last_modify" slot-scope="data">
+            {{ $t('project.updated_at') }}
+        </template>
+        <template slot="HEAD_state" slot-scope="data">
+            {{ $t('project.state') }}
+        </template>
         <template slot="name" slot-scope="data">
-            {{ data.item.name| truncate(18) }}
+            {{ data.item.name | middle-truncate(32) }}
         </template>
         <template slot="author" slot-scope="data" v-if="data.item.author !== undefined">
             {{ data.item.author.firstname + ' ' + data.item.author.lastname }}
         </template>
         <template slot="last_modify" slot-scope="data">
-            {{ data.item.last_modify|formatDate }}
+            {{ data.item.last_modify | formatDate }}
         </template>
         <template slot="state" slot-scope="data">
             <svgicon height="22" width="22" v-if="getState(data.item.state) === 'ko'"
@@ -20,7 +32,7 @@
             </template>
         </template>
         <template slot="actions" slot-scope="data">
-            <base-button-action v-if="data.item.actions.status === 'C'" size="small" @click="viewIfc(data.item.actions)" icon-position="right" icon-name="play">Visionner</base-button-action>
+            <base-button-action v-if="data.item.actions.status === 'C'" size="small" @click="viewIfc(data.item.actions)" icon-position="right" icon-name="play">{{ $t('project.view') }}</base-button-action>
         </template>
     </base-table-spaced>
 </template>
@@ -32,7 +44,6 @@ export default {
     return {
       fields: [
         {key: 'name', label: 'Nom'},
-        {key: 'type', label: 'Type'},
         {key: 'author', label: 'Créateur'},
         {key: 'last_modify', label: 'Modifié le'},
         {key: 'state', label: 'Etat'},
@@ -51,7 +62,6 @@ export default {
         ifcs.push(
           [
             { name: ifc.name },
-            { type: 'IFC' },
             { author: ifc.creator },
             { last_modify: ifc.updated_at },
             { state: ifc.status },
@@ -71,7 +81,14 @@ export default {
   },
   methods: {
     viewIfc (ifcData) {
-      this.$router.push({name: 'viewer', params: ifcData})
+      // Only check if there if one customized viewer.
+      // If there is more than 1, only the first will be used.
+      // TODO: menu to select the viewer to launch
+      let customViewers = this.$store.state.project.selectedCloud.features.filter(f => f.viewer_url)
+      if (customViewers.length > 0) {
+        ifcData.customUrl = customViewers[0].viewer_url
+      }
+      this.$router.push({ name: 'viewer', params: ifcData })
     },
     getState (state) {
       switch (state) {

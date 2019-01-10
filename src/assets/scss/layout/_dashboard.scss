@@ -1,13 +1,3 @@
-.wrapper {
-  display: flex;
-  flex-flow: row wrap;
-  text-align: center;
-}
-
-.wrapper > * {
-  flex: 1 100%;
-}
-
 @media all and (min-width: 600px) {
   .aside { flex: 0 80px; }
 }

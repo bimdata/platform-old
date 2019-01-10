@@ -3,7 +3,7 @@
                         icon-width="20"
                         icon-height="20"
                         v-on="listeners">
-        Fichier
+        {{ $t('project.file') }}
     </base-button-action>
 </template>
 <script>

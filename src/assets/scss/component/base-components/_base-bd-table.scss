@@ -1,0 +1,49 @@
+$base-cd-table: 'bd-table';
+
+.#{$base-cd-table} {
+  text-align: left;
+  border-collapse: separate;
+  border-spacing: 0 $grid-gutter-width / 2;
+  border: none;
+  font-size: 0.9285rem;
+
+  th, td {
+    border: none;
+    line-height: 1.8rem;
+  }
+
+  thead {
+    color: $primary;
+    th {
+      font-weight: normal;
+      border: none;
+    }
+  }
+
+  tbody {
+    tr {
+      img, svg {
+        margin-right: $grid-gutter-width / 2;
+      }
+
+      svg {
+        color: $primary;
+        transition: .15s linear all;
+      }
+      background-color: white;
+      transition: .15s linear all;
+      &:hover {
+        background-color: #F2F2F2;
+      }
+
+      &.table-selected-row {
+        background-color: $primary;
+        color: white;
+
+        svg {
+          color: white;
+        }
+      }
+    }
+  }
+}

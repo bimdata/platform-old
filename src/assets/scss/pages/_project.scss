@@ -1,4 +1,16 @@
+.project-list {
+  .page-project {
+    .top-toolbar {
+      &__choice-list-items {
+        width: 216px;
+        padding: 0;
+        margin: 0 auto;
+      }
+    }
+  }
+}
 .page-project {
+  padding-bottom: $grid-gutter-width * 10;
   .top-toolbar {
     &__choice-list-items {
       padding-right: $grid-gutter-width;

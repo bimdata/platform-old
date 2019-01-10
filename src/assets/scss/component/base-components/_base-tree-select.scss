@@ -1,0 +1,88 @@
+$base-tree-select: 'base-tree-select';
+
+.#{$base-tree-select} {
+  color: $body-color;
+  z-index: 500;
+  width: 168px;
+  background: white;
+  box-shadow: $bd-box-shadow;
+  font-size: 0.7143rem;
+
+  &__header {
+    padding: 0 $grid-gutter-width / 2;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #F2F2F2;
+
+    svg {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    li {
+      padding: $grid-gutter-width / 2 $grid-gutter-width / 2 $grid-gutter-width / 2 $grid-gutter-width;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: .1s linear all;
+
+      &:hover {
+        cursor: pointer;
+        background: $primary;
+        color: white;
+        svg {
+          color: white;
+        }
+      }
+
+      &.selected {
+        background: $primary;
+        color: white;
+        svg {
+          color: white;
+        }
+      }
+    }
+  }
+
+  &__item-line {
+    flex: 2 auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    svg {
+      color: $primary;
+      margin-right: $grid-gutter-width / 2;
+    }
+  }
+
+  &__select-node {
+    display: flex;
+    align-items: center;
+  }
+
+  &__footer {
+    display: flex;
+    box-shadow: $bd-box-shadow;
+    justify-content: center;
+    align-items: center;
+    padding: $grid-gutter-width / 2 $grid-gutter-width;
+
+    .base-button-action {
+      min-width: 90px;
+    }
+
+    .text-destination {
+      padding: 0.375rem 0;
+    }
+  }
+}

@@ -1,13 +1,17 @@
 import actions from './actions'
 import mutations from './mutations'
-import * as getters from './getters'
+import getters from './getters'
 export default {
   namespaced: true,
   state: {
     selectedCloud: null,
     selectedProject: null,
     ifcs: null,
-    elements: null
+    tree: null,
+    currentFolderId: null,
+    currentElement: null,
+    elements: null,
+    currentPath: []
   },
   actions,
   mutations,
