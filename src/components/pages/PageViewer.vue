@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <div v-if="!customViewer" id="embed" style="width: 100%; height: 800px;" ></div>
-        <iframe v-if="customViewer" :src="customUrl" width="100%" height="800px"></iframe>
+    <div class="h-100">
+        <div v-if="!customViewer" id="embed" style="width: 100%; height: 100%;" ></div>
+        <iframe v-if="customViewer" :src="customUrl" width="100%" height="100%"></iframe>
     </div>
 </template>
 <script>
@@ -16,6 +16,9 @@ export default {
   },
   computed: {
     ...mapGetters(['oidcAccessToken'])
+  },
+  beforeCreate () {
+    document.body.className = 'viewer'
   },
   created () {
     let params = this.$route.params
