@@ -1,7 +1,7 @@
 <template>
     <div class="page-project">
-        <div class="row">
-            <div class="col-12 d-flex align-items-center">
+        <div class="project-list row">
+            <div class="card-container">
                 <base-choice-list :options="optionsCloud"
                                   class="top-toolbar__choice-list-items top-toolbar__choice-list-items--cloud"
                                   :value="selectedCloud"
@@ -12,8 +12,8 @@
         <!--<div class="row">-->
             <!--<div class="col-12">-->
                 <transition-group name="project-item" tag="div" class="project_list row">
-                    <div class="col-xl-2 col-lg-3 col-md-4 col-6" key="new">
-                        <div class="base-card project-item new-project-item">
+                    <div class="card-container" key="new">
+                        <div class="base-card card-item project-item new-project-item">
                         <div class="new-project-item__card-container" :class="{active: displayNewForm}">
                             <div class="new-project-item__button-container new-project-item__container">
                                 <div class="new-project-item__button-new" @click="displayNewForm = true">
