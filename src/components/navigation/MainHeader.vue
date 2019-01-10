@@ -1,8 +1,10 @@
 <template>
     <header class="header">
+      <div class="header__container container-fluid">
         <main-header-logo></main-header-logo>
         <main-header-navigation></main-header-navigation>
         <main-header-user-menu></main-header-user-menu>
+      </div>
     </header>
 </template>
 <script>

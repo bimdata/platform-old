@@ -1,13 +1,54 @@
 .project_list {
   position: relative;
-}
+  display: flex;
+  justify-content: space-between;
 
+  &:after {
+    content: "";
+    flex: auto;
+  }
+}
+.card-container {
+  width: 100%;
+  margin-bottom: $grid-gutter-width * 2;
+
+  // Small devices (landscape phones, 576px and up)
+  @include media-breakpoint-up(sm) { 
+    width: calc(100%/2);
+   }
+
+  // Medium devices (tablets, 768px and up)
+  @include media-breakpoint-up(md) {
+    width: calc(100%/3);
+  }
+
+  // Large devices (desktops, 992px and up)
+  @include media-breakpoint-up(lg) {
+    width: calc(100%/4);
+  }
+
+  // Extra large devices (large desktops, 1200px and up)
+  @include media-breakpoint-up(xl) {
+    width: calc(100%/5);
+  }
+
+  // Extra large devices (large desktops, 1400px and up)
+  @include media-breakpoint-up(xxl) { 
+    width: calc(100%/6);
+   }
+
+   // Extra large devices (large desktops, 1600px and up)
+  @include media-breakpoint-up(xxxl) { 
+    width: calc(100%/7);
+   }
+}
 .card-item {
   padding: $grid-gutter-width;
-  width: 216px;
+  max-width: 216px;
   height: 275px;
-  margin-bottom: $grid-gutter-width * 2;
   flex-direction: column;
+  margin: 0 auto;
+
   & ~ & {
   //  margin-left: 75px;
   }
