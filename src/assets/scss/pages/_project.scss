@@ -10,6 +10,8 @@
   }
 }
 .page-project {
+  padding-bottom: 50px - $grid-gutter-width;
+  
   .ged-card {
     background: #F8F8F9;
     max-height: 560px;
