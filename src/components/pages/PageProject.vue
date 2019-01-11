@@ -30,7 +30,12 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <dms></dms>
+                  <base-card :fullscreen-available="false" class="ged-card">
+                    <template slot="header-title">Project's documents</template>
+                    <template slot="content">
+                      <dms></dms>
+                    </template>
+                  </base-card>
                 </div>
             </div>
         </template>
@@ -48,6 +53,7 @@ import ChoiceListProject from '@/components/project/ChoiceListProject'
 import ChoiceListCloud from '@/components/project/ChoiceListCloud'
 import ButtonUploadNewFile from '@/components/project/ButtonUploadNewFile'
 import CardProjectContent from '@/components/project/CardProjectContent'
+import BaseCard from '@/components/base-components/BaseCard'
 import TableIfc from '@/components/project/TableIfc'
 import UploadIfc from '@/components/project/UploadIfc'
 import store from '@/store'
@@ -61,6 +67,7 @@ export default {
     ButtonUploadNewFile,
     CardProjectContent,
     TableIfc,
+    BaseCard,
     'dms': DMS
   },
   data () {
