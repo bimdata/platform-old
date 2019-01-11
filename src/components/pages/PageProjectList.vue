@@ -75,6 +75,7 @@ export default {
     createProject () {
       this.$store.dispatch('addProject', this.newProjectName).then(() => {
         this.newProjectName = ''
+        this.displayNewForm = false
       })
     },
     getProjectByCloud () {
