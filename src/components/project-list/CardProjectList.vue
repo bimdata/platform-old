@@ -3,9 +3,17 @@
         <div class="base-card card-item card-bd">
             <div class="card-bd__header">
                 <span class="card-bd__date">{{ project.created_at|formatDate }}</span>
-                <base-button-option>
+                <base-button-option @option-toggled="toggleMenu">
                     <ul>
-                        <li @click="remove">{{ $t('project_list.remove') }}</li>
+                        <li @click.stop.self="showRemoveActions = true" class="base-button-option__menu__remove">
+                          {{ $t('project_list.remove') }}
+                          <transition name="slide-fade">
+                            <div class="delete__actions" v-if="showRemoveActions">
+                              <svgicon name="check" @click.native="remove" height="15" width="18" class="check"></svgicon>
+                              <svgicon name="close" @click.native="showRemoveActions = false" height="13" width="13" class="check-cross"></svgicon>
+                            </div>
+                          </transition>
+                        </li>
                     </ul>
                 </base-button-option>
             </div>
@@ -33,6 +41,9 @@
                     </div>
                 </div>
             </div>
+            <div class="loader" v-show="displayLoader">
+              <div class="lds-dual-ring"></div>
+            </div>
         </div>
     </div>
 </template>
@@ -47,7 +58,9 @@ export default {
       clicked: false,
       displayMenu: false,
       editMode: false,
-      newName: ''
+      newName: '',
+      showRemoveActions: false,
+      displayLoader: false
     }
   },
   components: {
@@ -68,8 +81,13 @@ export default {
       })
     },
     remove () {
-      this.$store.dispatch('removeProject', this.project).then(() => {
-      })
+      this.displayLoader = true
+      this.$store.dispatch('removeProject', this.project).then(() => {})
+    },
+    toggleMenu (isOpened) {
+      if (!isOpened) {
+        this.showRemoveActions = false
+      }
     },
     closeTool () {
       this.displayMenu = false
