@@ -8,6 +8,9 @@
   }
 }
 
+.dms-container {
+  padding: 10px;
+}
 .dms__toolbox-selected {
   display: flex;
   .toolbox-selected__content {
@@ -94,10 +97,6 @@
 }
 
 .dms__content {
-  //transform: translateX(-19%);
-  //display: flex;
-  //max-width: 120%;
-  //width: 120%;
   padding-top: $grid-gutter-width;
   transition: .2s ease all;
 
@@ -114,6 +113,8 @@
   .dms__list-files {
     transition: .2s ease all;
     width: 100%;
+    max-height: 420px;
+    overflow: auto;
   }
 
   &.shrinked {

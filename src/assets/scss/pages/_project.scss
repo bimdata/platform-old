@@ -10,6 +10,15 @@
   }
 }
 .page-project {
+  .ged-card {
+    background: #F8F8F9;
+    max-height: 560px;
+    overflow: hidden;
+    
+    .base-card__content {
+      padding: 0;
+    }
+  }
   .top-toolbar {
     &__choice-list-items {
       padding-right: $grid-gutter-width;
