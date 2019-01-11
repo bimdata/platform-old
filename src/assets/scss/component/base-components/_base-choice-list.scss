@@ -18,6 +18,9 @@
     &__text-selected {
       flex: 1 auto;
       padding-left: 1rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     &__display-icon {
