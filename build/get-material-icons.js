@@ -15,7 +15,9 @@ const svgIcons = [
   'cloud.svg',
   'cloud-upload.svg',
   'close.svg',
-  'delete.svg'
+  'delete.svg',
+  'check.svg',
+  'close.svg'
 ];
 
 fs.readdir(sourcePath, function(err, items) {

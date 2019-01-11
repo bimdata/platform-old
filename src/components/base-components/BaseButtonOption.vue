@@ -38,11 +38,13 @@ export default {
   methods: {
     closeTool () {
       this.displayMenu = false
+      this.$emit('option-toggled', this.displayMenu)
     },
     clickedTool () {
       this.displayMenu = !this.displayMenu
       this.clicked = false
       this.clicked = true
+      this.$emit('option-toggled', this.displayMenu)
       setTimeout(() => {
         this.clicked = false
       }, 500)

@@ -61,5 +61,37 @@ $base-button-option: 'base-button-option';
         }
       }
     }
+
+    &__remove {
+      position: relative;
+
+      .delete__actions {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        height: 100%;
+        width: 76px;
+        background: #fff;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: distribute;
+        justify-content: space-around;
+        box-shadow: 0 2px 10px 0 rgba(0,0,0,.07);
+
+        .svg-icon {
+          &:hover {
+            background: red;
+          }
+          &.check {
+            fill: #28a745;
+          }
+          &.check-cross {
+            fill: #dc3545;
+          }
+        }
+      }
+    }
   }
 }
