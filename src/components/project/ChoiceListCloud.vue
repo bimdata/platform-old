@@ -1,6 +1,7 @@
 <template>
     <div>
         <base-choice-list :options="options"
+                          icon="cloud"
                           :value="selected"
                           v-model="selected">
         </base-choice-list>

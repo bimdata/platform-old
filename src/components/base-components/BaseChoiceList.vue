@@ -6,7 +6,7 @@
              v-on="listeners">
             <span class="choice-list__field-selected__icon">
                 <slot>
-                    <svgicon class="icon" name="cloud" width="20" height="15"></svgicon>
+                    <svgicon class="icon" :name="icon" width="20" height="15"></svgicon>
                 </slot>
             </span>
             <span class="choice-list__field-selected__text-selected">
@@ -65,6 +65,10 @@ export default {
     options: {
       type: Array,
       required: true
+    },
+    icon: {
+      type: String,
+      required: false
     }
   },
   watch: {

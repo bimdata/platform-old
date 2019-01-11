@@ -12,6 +12,7 @@ const svgIcons = [
   'close-circle.svg',
   'check-circle.svg',
   'play.svg',
+  'cloud.svg',
   'cloud-upload.svg',
   'close.svg',
   'delete.svg'
