@@ -26,7 +26,7 @@
   }
   .table-spaced {
     &__items--body--state, &__items--header--state {
-      text-align: center;
+      justify-content: center;
     }
     &__items--header--actions {
       min-width: 209px;
