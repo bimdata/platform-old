@@ -3,6 +3,7 @@
         <div class="project-list row">
             <div class="card-container">
                 <base-choice-list :options="optionsCloud"
+                                  icon="cloud"
                                   class="top-toolbar__choice-list-items top-toolbar__choice-list-items--cloud"
                                   :value="selectedCloud"
                                   v-model="selectedCloud">
