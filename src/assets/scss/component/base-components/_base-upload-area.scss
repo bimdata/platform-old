@@ -12,6 +12,9 @@ $base-upload-area: 'upload-area';
   .uppy-Dashboard-innerWrap {
     min-height: auto !important;
   }
+  .uppy-Dashboard-files {
+    padding: 0 !important;
+  }
 
   &.#{$base-upload-area}-ifc {
     background-color: transparent !important;
