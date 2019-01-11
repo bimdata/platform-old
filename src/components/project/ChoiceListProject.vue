@@ -1,7 +1,7 @@
 <template>
     <div>
         <base-choice-list :options="projects"
-                          icon="cloud"
+                          icon="projet"
                           :value="selectedProject"
                           @input="choseProject">
         </base-choice-list>
