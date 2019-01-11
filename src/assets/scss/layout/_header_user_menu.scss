@@ -1,8 +1,14 @@
 
 .user-menu {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 60px;
+
   &__pic {
     $pic-size: 37px;
     display: inline-block;
+    min-width: $pic-size;
     width: $pic-size;
     height: $pic-size;
     line-height: $pic-size;
@@ -13,42 +19,79 @@
     font-weight: normal;
     font-size: 1rem;
     letter-spacing: 1px;
+    &--big {
+      $pic-size: 50px;
+      min-width: $pic-size;
+      width: $pic-size;
+      height: $pic-size;
+      line-height: $pic-size;
+    }
   }
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+
+  &__u {
+    &-info {
+      padding: 10px;
+      display: flex;
+      &--details {
+        padding-left: 10px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 100%;
+      }
+    }
+    &-fullname {
+      margin-bottom: 5px;
+      font-weight: 700;
+      color: $text-color;
+      font-size: 12px;
+    }
+    &-email {
+      margin-bottom: 10px;
+      font-size: 12px;
+    }
+  }
 
   .dropdown-menu {
     width: 200px;
     border: none;
     background-color: white;
+    margin-top: 0;
     @include bm-box-shadow;
-  }
 
-  button {
-    padding: 0 0 0 $grid-gutter-width;
-    outline: none;
-    box-shadow: none;
-    &:hover {
-      cursor: pointer
+    &:after {
+      margin-left: 1.1em;
+    }
+
+    .dropdown-item {
+      background-color: white;
+      outline: none;
     }
   }
 
-  &__ddown {
-    margin: 0 !important;
-  }
-}
-
-#user-menu__ddown__BV_toggle_ {
-  background-color: white;
-  color: $primary;
-  border: none;
-  &:after {
-    margin-left: 1.1em;
-  }
-
-  .dropdown-item {
-    background-color: white;
+  .logout-item {
+    text-align: center;
+    cursor: pointer;
     outline: none;
+    color: $text-color;
+    padding: 5px 0;
+  }
+
+  .btn {
+    min-width: auto;
+    width: 100%;
+  }
+
+  &__ddown {
+    height: 100%;
+    & > .btn.dropdown-toggle {
+      background-color: white;
+      color: $primary;
+      border: none;
+      height: 100%;
+      &:active {
+        background-color: white;
+        color: $primary;
+      }
+    }
   }
 }
