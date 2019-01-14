@@ -81,9 +81,6 @@ $base-button-option: 'base-button-option';
         box-shadow: 0 2px 10px 0 rgba(0,0,0,.07);
 
         .svg-icon {
-          &:hover {
-            background: red;
-          }
           &.check {
             fill: #28a745;
           }
