@@ -61,8 +61,7 @@ module.exports = {
         include: [
           resolve('src'),
           resolve('test'),
-          resolve('node_modules/webpack-dev-server/client'),
-          resolve('node_modules/vuex-oidc/dist/vuex-oidc.esm')
+          resolve('node_modules/webpack-dev-server/client')
         ]
       },
       {

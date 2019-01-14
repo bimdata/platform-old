@@ -29,11 +29,6 @@ exports.cssLoaders = function (options) {
     }
   }
 
-  function resolveResource(fileName) {
-    // Absolute Path
-    return path.resolve(__dirname, '../src/assets/scss/' + fileName)
-  }
-
   // generate loader string to be used with extract text plugin
   function generateLoaders (loader, loaderOptions) {
     const loaders = options.usePostCSS ? [cssLoader, postcssLoader] : [cssLoader]
@@ -46,19 +41,6 @@ exports.cssLoaders = function (options) {
         })
       })
 
-      if (loader === 'sass') {
-        loaders.push({
-          loader: 'sass-resources-loader',
-          options: {
-            resources: [
-              resolveResource('_bootstrap-variable-override.scss'),
-              path.resolve(__dirname, '../node_modules/bootstrap/scss/bootstrap.scss'),
-              resolveResource('_variables.scss'),
-              resolveResource('_mixins.scss')
-            ],
-          },
-        });
-      }
     }
 
     // Extract CSS when that option is specified

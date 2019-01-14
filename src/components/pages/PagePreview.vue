@@ -7,6 +7,9 @@ import ModelPreview from '../project/ModelPreview'
 export default {
   components: {
     ModelPreview
+  },
+  created () {
+
   }
 }
 </script>
