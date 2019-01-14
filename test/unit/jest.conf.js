@@ -17,7 +17,6 @@ module.exports = {
   testPathIgnorePatterns: [
     '/node_modules/'
   ],
-  // testRegex: '(/__tests__/.*|(\\\\.|/)(test|spec))\\\\.jsx?$',
   snapshotSerializers: ['C:/dev/platform/node_modules/jest-serializer-vue'],
   setupFiles: ['C:/dev/platform/test/unit/setup'],
   coverageDirectory: 'C:/dev/platform/test/unit/coverage',
