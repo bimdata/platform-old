@@ -53,9 +53,10 @@ export default {
       })
 
     uppy.on('complete', result => {
-      // console.log('successful files:', result.successful)
-      // console.log('failed files:', result.failed)
       this.$emit('upload-complete', result)
+      setTimeout(() => {
+        uppy.reset()
+      }, 2000)
     })
   }
 }
