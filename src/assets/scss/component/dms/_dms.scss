@@ -154,8 +154,11 @@
   .dms__tree-view-header {
     display: flex;
     justify-content: flex-end;
-
     padding: $grid-gutter-width / 2;
+
+    .svg-icon {
+      cursor: pointer;
+    }
   }
 
   ul {
