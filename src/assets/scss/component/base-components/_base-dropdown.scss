@@ -1,0 +1,31 @@
+.base-dropdown {
+  .b-dropdown {
+    &.show {
+      .dropdown-toggle {
+        @include caretCustom(up);
+        background: $white;
+        color: $primary;
+      }
+    }
+  }
+  .dropdown-toggle {
+    @include caretCustom(down);
+    background-color: $white;
+    color: $primary;
+    border: none;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 0.857rem;
+
+    &:active {
+      background-color: $white !important;  //override btn bootstrap style
+      color: $primary !important; //override btn bootstrap style
+    }
+    &:after {
+      border: none;
+      height: auto;
+      width: auto;
+    }
+  }
+}

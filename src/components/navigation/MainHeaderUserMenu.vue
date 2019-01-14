@@ -1,13 +1,8 @@
 <template>
     <div class="user-menu">
         <span class="user-menu__pic">{{ picName }}</span>
-        <b-dropdown
-          :text="`${getCurrentUserFirstname} ${getCurrentUserLastname}`"
-          size="lg"
-          id="user-menu__ddown"
-          class="user-menu__ddown"
-          right
-        >
+        <base-dropdown :title="`${getCurrentUserFirstname} ${getCurrentUserLastname}`">
+          <div slot="base-dropdown-menu">
             <div class="user-menu__u-info">
                 <span class="user-menu__pic user-menu__pic--big">{{ picName }}</span>
                 <div class="user-menu__u-info--details">
@@ -22,16 +17,21 @@
             <div class="logout-item" @click="logout">
                 {{ $t('dashboard.logout') }}
             </div>
-        </b-dropdown>
+          </div>
+        </base-dropdown>
     </div>
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
 
 import BaseButtonAction from '@/components/base-components/BaseButtonAction'
+import BaseDropdown from '@/components/base-components/BaseDropdown'
 
 export default {
-  components: { BaseButtonAction },
+  components: {
+    BaseButtonAction,
+    BaseDropdown
+  },
   methods: {
     ...mapActions([
       'fetchUserData'

@@ -7,6 +7,8 @@ const svgIcons = [
   'chevron-left.svg',
   'chevron-right.svg',
   'chevron-up.svg',
+  'keyboard_arrow_down',
+  'keyboard_arrow_up',
   'plus.svg',
   'alert-circle.svg',
   'close-circle.svg',
