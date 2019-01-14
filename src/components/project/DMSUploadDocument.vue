@@ -73,8 +73,8 @@ export default {
 
       if (result.successful) {
         setTimeout(() => {
-        uppy.close()
-      }, 2000)
+          uppy.close()
+        }, 2000)
       }
     })
   }
