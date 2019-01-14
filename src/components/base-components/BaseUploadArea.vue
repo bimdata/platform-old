@@ -53,9 +53,9 @@ export default {
       })
 
     uppy.on('complete', result => {
-      this.$emit('upload-complete', result)
       setTimeout(() => {
         uppy.reset()
+        this.$emit('upload-complete', result)
       }, 2000)
     })
   }

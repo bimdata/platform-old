@@ -79,9 +79,7 @@ export default {
   },
   methods: {
     closeUploadIfc () {
-      setTimeout(() => {
-        this.displayUpload = false
-      }, 2000)
+      this.displayUpload = false
     }
   },
   beforeRouteEnter (to, from, next) {
