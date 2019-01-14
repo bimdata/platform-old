@@ -18,6 +18,7 @@ $base-upload-area: 'upload-area';
   &.#{$base-upload-area}-ifc {
     background-color: transparent !important;
     width: 100% !important;
+    margin-top: $grid-gutter-width;
   }
 
   .uppy-Dashboard-dropFilesTitle {

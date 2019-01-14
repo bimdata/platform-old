@@ -1,6 +1,6 @@
 <template>
     <div class="page-project">
-        <div class="project-list row">
+        <div class="toolbar-page row">
             <div class="card-container">
                 <base-choice-list :options="optionsCloud"
                                   icon="cloud"

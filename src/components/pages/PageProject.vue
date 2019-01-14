@@ -1,7 +1,7 @@
 <template>
     <div class="page-project">
-        <div class="row">
-            <div class="col-12 top-toolbar d-flex align-items-center">
+        <div class="toolbar-page row">
+            <div class="col-12 d-flex align-items-center">
                 <choice-list-cloud class="top-toolbar__choice-list-items top-toolbar__choice-list-items--cloud"></choice-list-cloud>
                 <choice-list-project class="top-toolbar__choice-list-items top-toolbar__choice-list-items--project"
                                      @selected-project-loading="loadedProject = false"
