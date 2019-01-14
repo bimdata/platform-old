@@ -13,7 +13,7 @@
                 </button-upload-new-file>
             </div>
             <div class="col-12 upload-area-container">
-                <upload-ifc v-show="displayUpload"></upload-ifc>
+                <upload-ifc @upload-complete="closeUploadIfc" v-show="displayUpload"></upload-ifc>
             </div>
         </div>
 
@@ -75,6 +75,11 @@ export default {
       loadedProject: false,
       loadedDMS: false,
       displayUpload: false
+    }
+  },
+  methods: {
+    closeUploadIfc () {
+      this.displayUpload = false
     }
   },
   beforeRouteEnter (to, from, next) {
