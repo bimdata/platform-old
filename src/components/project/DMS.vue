@@ -31,8 +31,8 @@
                                   @click="displayTreeView">
                 </base-button-tool>
                 <dms-upload-document class="base-button-tool__container"></dms-upload-document>
-                <base-button-tool iconName="add-folder" @click="displayAddFolder">
-                    <div class="new_folder_box" v-show="addFolder">
+                <base-button-tool iconName="add-folder" @click="toggleAddFolderMenu">
+                    <div class="new_folder_box" v-if="addFolder">
                         <div class="new_folder_box__title">
                             {{ $t('project.create_folder') }}
                         </div>
@@ -42,10 +42,11 @@
                             <span class="bar"></span>
                         </div>
                         <div class="new_folder_box__button-validation">
-                            <span @click="closeAddFolder">{{ $t('project.cancel') }}</span>
+                            <span @click="toggleAddFolderMenu">{{ $t('project.cancel') }}</span>
                             <span @click="saveFolder">{{ $t('project.validate') }}</span>
                         </div>
                     </div>
+                    <div class="new_folder_box__overlay" v-if="addFolder" @click="toggleAddFolderMenu"></div>
                 </base-button-tool>
                 <span class="dms__search">
                     <img src="../../assets/images/icons/search.svg" />
@@ -210,18 +211,15 @@ export default {
     closeMoveTo () {
       this.displayTreeSelect = false
     },
-    closeAddFolder () {
-      this.addFolder = false
-      this.newFolderName = ''
-    },
     async saveFolder () {
       if (this.newFolderName !== '') {
         await this.$store.dispatch('project/createFolder', this.newFolderName)
         this.closeAddFolder()
       }
     },
-    displayAddFolder () {
-      this.addFolder = true
+    toggleAddFolderMenu () {
+      this.addFolder = !this.addFolder
+      this.newFolderName = ''
     },
     async deleteElements () {
       await this.$store.dispatch('project/deleteDMSElements', this.selected)
