@@ -1,14 +1,3 @@
-.project-list {
-  .page-project {
-    .top-toolbar {
-      &__choice-list-items {
-        width: 216px;
-        padding: 0;
-        margin: 0 auto;
-      }
-    }
-  }
-}
 .page-project {
   padding-bottom: 50px - $grid-gutter-width;
   
@@ -19,11 +8,6 @@
     
     .base-card__content {
       padding: 0;
-    }
-  }
-  .top-toolbar {
-    &__choice-list-items {
-      padding-right: $grid-gutter-width;
     }
   }
   .table-spaced {
