@@ -11,6 +11,7 @@ ENV NODE_ENV production
 WORKDIR /opt
 ADD package.json /opt
 ADD package-lock.json /opt
+RUN npm install jest -g
 RUN npm install
 
 COPY ./ /opt
