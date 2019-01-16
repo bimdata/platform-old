@@ -43,11 +43,11 @@ export default {
   data () {
     return {
       fields: [
-        {key: 'name', label: 'Nom'},
-        {key: 'author', label: 'Créateur'},
-        {key: 'last_modify', label: 'Modifié le'},
-        {key: 'state', label: 'Etat'},
-        {key: 'actions', label: ''}
+        {key: 'name', label: 'Nom', width: '37%'},
+        {key: 'author', label: 'Créateur', width: '20%'},
+        {key: 'last_modify', label: 'Modifié le', width: '13%'},
+        {key: 'state', label: 'Etat', width: '10%'},
+        {key: 'actions', label: '', width: '20%'}
       ]
     }
   },

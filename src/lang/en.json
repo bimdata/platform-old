@@ -1,6 +1,7 @@
 {
     "dashboard": {
-        "logout": "Logout"
+        "logout": "Logout",
+        "profile_btn": "Profile"
     },
     "project": {
         "download": "Download",

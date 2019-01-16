@@ -6,7 +6,7 @@ $base-button-option: 'base-button-option';
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 38px;
+    width: 27px;
     &:hover {
       cursor: pointer;
     }
@@ -22,12 +22,12 @@ $base-button-option: 'base-button-option';
       transition: .15s linear all;
       display: inline-block;
       content: '';
-      width: 25px;
-      height: 25px;
+      width: 27px;
+      height: 27px;
       border-radius: 50%;
       background-color: $primary;
       position: absolute;
-      left: 2px;
+      left: 0;
       top: 0;
       transform: scale(0);
     }
@@ -36,22 +36,58 @@ $base-button-option: 'base-button-option';
   &__menu {
     color: $body-color;
     position: absolute;
-    top: 35px;
-    left: -120px;
+    top: 25px;
+    right: 7px;
     background: white;
     border-radius: 3px;
     box-shadow: $bd-box-shadow;
+    padding: 8px 0;
     border: 1px solid $border-color;
     text-align: left;
     z-index: 250;
+    width: 114px;
     ul {
       list-style-type: none;
       margin: 0;
       padding: 0;
       z-index: 1500;
       li {
-        padding: $grid-gutter-width;
-        width: 150px;
+        padding: 7px 12px;
+        line-height: 1em;
+        color: #2F374A;
+
+        &:hover {
+          background: #F2F2F2;
+        }
+      }
+    }
+
+    &__remove {
+      position: relative;
+
+      .delete__actions {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        height: 100%;
+        width: 76px;
+        background: #fff;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: distribute;
+        justify-content: space-around;
+        box-shadow: 0 2px 10px 0 rgba(0,0,0,.07);
+
+        .svg-icon {
+          &.check {
+            fill: #28a745;
+          }
+          &.check-cross {
+            fill: #dc3545;
+          }
+        }
       }
     }
   }

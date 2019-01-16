@@ -42,7 +42,7 @@ export default {
       autoProceed: false,
       restrictions: {
         maxFileSize: 1000000000, // 1 Go
-        maxNumberOfFiles: 1,
+        maxNumberOfFiles: null,
         minNumberOfFiles: 1
       }
     })
@@ -70,6 +70,12 @@ export default {
     uppy.on('complete', result => {
       this.$store.dispatch('project/getTree', this.$store.state.project.selectedProject)
       this.$emit('upload-complete', result)
+
+      if (result.successful) {
+        setTimeout(() => {
+          uppy.close()
+        }, 2000)
+      }
     })
   }
 }

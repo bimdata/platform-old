@@ -48,7 +48,7 @@
       background-color: $primary;
       position: absolute;
       left: 0;
-      bottom: 0;
+      bottom: -6px;
       transition: .3s ease all;
     }
 
@@ -58,8 +58,4 @@
       }
     }
   }
-}
-
-.upload-area-container {
-  margin-top: $grid-gutter-width
 }

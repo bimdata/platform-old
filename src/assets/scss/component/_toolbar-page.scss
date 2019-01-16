@@ -1,0 +1,32 @@
+.toolbar-page {
+  margin-bottom: 26px;
+  
+  .card-container {
+    margin: 0;
+  }
+
+  .top-toolbar {
+    &__choice-list-items {
+      padding-right: $grid-gutter-width;
+    }
+  }
+}
+
+.project-list,
+.cloud-list {
+  .top-toolbar {
+    &__choice-list-items {
+      width: 216px;
+      padding: 0;
+      margin: 0 auto;
+    }
+  }
+}
+
+.cloud-list {
+  .top-toolbar {
+    .choice-list__field-selected {
+      cursor: initial;
+    }
+  }
+}

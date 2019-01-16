@@ -3,6 +3,7 @@ $card-header-color: #F8F8F9;
 $toolbox-background: #E6E6E6;
 
 .#{$base-card-name} {
+  position: relative;
   background-color: $white;
   max-width: 100%;
   box-shadow: $bd-box-shadow;

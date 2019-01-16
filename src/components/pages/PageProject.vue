@@ -1,7 +1,7 @@
 <template>
     <div class="page-project">
-        <div class="row">
-            <div class="col-12 top-toolbar d-flex align-items-center">
+        <div class="toolbar-page row">
+            <div class="col-12 d-flex align-items-center">
                 <choice-list-cloud class="top-toolbar__choice-list-items top-toolbar__choice-list-items--cloud"></choice-list-cloud>
                 <choice-list-project class="top-toolbar__choice-list-items top-toolbar__choice-list-items--project"
                                      @selected-project-loading="loadedProject = false"
@@ -13,7 +13,7 @@
                 </button-upload-new-file>
             </div>
             <div class="col-12 upload-area-container">
-                <upload-ifc v-show="displayUpload"></upload-ifc>
+                <upload-ifc @upload-complete="closeUploadIfc" v-show="displayUpload"></upload-ifc>
             </div>
         </div>
 
@@ -30,7 +30,12 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <dms></dms>
+                  <base-card :fullscreen-available="false" class="ged-card">
+                    <template slot="header-title">Project's documents</template>
+                    <template slot="content">
+                      <dms></dms>
+                    </template>
+                  </base-card>
                 </div>
             </div>
         </template>
@@ -48,6 +53,7 @@ import ChoiceListProject from '@/components/project/ChoiceListProject'
 import ChoiceListCloud from '@/components/project/ChoiceListCloud'
 import ButtonUploadNewFile from '@/components/project/ButtonUploadNewFile'
 import CardProjectContent from '@/components/project/CardProjectContent'
+import BaseCard from '@/components/base-components/BaseCard'
 import TableIfc from '@/components/project/TableIfc'
 import UploadIfc from '@/components/project/UploadIfc'
 import store from '@/store'
@@ -61,6 +67,7 @@ export default {
     ButtonUploadNewFile,
     CardProjectContent,
     TableIfc,
+    BaseCard,
     'dms': DMS
   },
   data () {
@@ -68,6 +75,11 @@ export default {
       loadedProject: false,
       loadedDMS: false,
       displayUpload: false
+    }
+  },
+  methods: {
+    closeUploadIfc () {
+      this.displayUpload = false
     }
   },
   beforeRouteEnter (to, from, next) {

@@ -1,24 +1,18 @@
 import _ from 'lodash'
 
-export const getToken = (state) => {
-  return state.token
-}
+export const getToken = state => state.token
 
-export const getCurrentUserFirstname = (state) => {
-  return state.currentUser.firstname
-}
+export const getCurrentUserFirstname = state => state.oidc.user
+  ? state.oidc.user.given_name : null
 
-export const getCurrentUserLastname = (state) => {
-  return state.currentUser.lastname
-}
+export const getCurrentUserLastname = state => state.oidc.user
+  ? state.oidc.user.family_name : null
 
-export const getCurrentUserId = (state) => {
-  return state.currentUser.id
-}
+export const getCurrentUserId = state => state.currentUser.id
 
-export const getCloudsDetails = (state) => {
-  return state.clouds
-}
+export const getCurrentUserEmail = state => state.currentUser.email
+
+export const getCloudsDetails = state => state.clouds
 
 export const getCurrentCloud = (state) => {
   return state.currentCloud

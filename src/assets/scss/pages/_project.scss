@@ -1,24 +1,18 @@
-.project-list {
-  .page-project {
-    .top-toolbar {
-      &__choice-list-items {
-        width: 216px;
-        padding: 0;
-        margin: 0 auto;
-      }
-    }
-  }
-}
 .page-project {
-  padding-bottom: $grid-gutter-width * 10;
-  .top-toolbar {
-    &__choice-list-items {
-      padding-right: $grid-gutter-width;
+  padding-bottom: 50px - $grid-gutter-width;
+  
+  .ged-card {
+    background: #F8F8F9;
+    max-height: 560px;
+    overflow: hidden;
+    
+    .base-card__content {
+      padding: 0;
     }
   }
   .table-spaced {
     &__items--body--state, &__items--header--state {
-      text-align: center;
+      justify-content: center;
     }
     &__items--header--actions {
       min-width: 209px;

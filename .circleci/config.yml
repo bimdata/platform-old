@@ -3,7 +3,7 @@ version: 2
 references:
   container_config: &container_config
     docker:
-      - image: cypress/base:8
+      - image: circleci/node:10
     working_directory: /home/circleci/repo
 
   restore_repo: &restore_repo
@@ -30,27 +30,19 @@ jobs:
       - *restore_repo
       - restore_cache: #Download and cache dependencies
           keys:
-            - v2-dependencies-npm-{{ checksum "package-lock.json" }}
-            - v2-dependencies-npm
+            - v3-dependencies-npm-{{ checksum "package-lock.json" }}
+            - v3-dependencies-npm
 
       - run: npm ci
 
-      # run tests!
-      # - run: npm run cypress:install
-      # - run: npm run cypress:test
+      - run: npm run unit
+      - run: npm run e2e
 
       - save_cache:
-          key: v2-dependencies-npm-{{ checksum "package-lock.json" }}
+          key: v3-dependencies-npm-{{ checksum "package-lock.json" }}
           paths:
             - ~/.npm
             - ~/.cache
-
-      - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
-          path: cypress/screenshots
-      - store_test_results:
-          path: multiple-results
 
   deploy:
     <<: *container_config
