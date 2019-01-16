@@ -18,16 +18,12 @@ export default {
     return {
       items: [
         {
-          routeName: 'home',
+          routeName: 'cloud-list',
           textLabel: 'Home'
         },
         {
-          routeName: 'clouds',
+          routeName: 'cloud-list',
           textLabel: 'Cloud'
-        },
-        {
-          routeName: 'viewer',
-          textLabel: 'View'
         }
       ]
     }
