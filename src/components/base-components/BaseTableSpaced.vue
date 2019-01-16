@@ -1,23 +1,27 @@
 <template>
     <div class="table-spaced">
         <div class="table-spaced__head">
+          <div class="table-spaced__row">
             <div v-for="(field, index) in fields"
                  :key="index"
                  :class="'table-spaced__items--header--' + fields[index].key"
-                 class="table-spaced__items table-spaced__items--header">
+                 class="table-spaced__items table-spaced__items--header"
+                 :style="'width:' + fields[index].width + '; min-width:' + fields[index].width">
                 <slot :name="'HEAD_' + field.key">
                     {{ field.label }}
                 </slot>
             </div>
+          </div>
         </div>
         <div class="table-spaced__body">
             <div v-for="(row, indexRow) in values"
                  :key="indexRow"
-                 class="table-spaced__body-row">
+                 class="table-spaced__row">
                 <div v-for="(item, indexItem) in row"
                      :key="indexItem"
                      :class="'table-spaced__items--body--' + fields[indexItem].key"
-                     class="table-spaced__items table-spaced__items--body">
+                     class="table-spaced__items table-spaced__items--body"
+                     :style="'width:' + fields[indexItem].width + '; min-width:' + fields[indexItem].width">
                     <template v-if="typeof item === 'object'">
                     <slot :name="fields[indexItem].key"
                           :item="item">
