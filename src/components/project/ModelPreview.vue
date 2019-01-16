@@ -1,20 +1,24 @@
 <template>
-  <div ref="div" class="model-preview">
-    <div v-for="(value, index) in nbSlices"
-         :key="value"
-         @mousemove="rotate(index)"
-         class="slice">{{ index }}</div>
-    <img :style="{left: -((14 - imagePositionState) * 640) + 'px'}" ref="image" src="../../assets/images/model-preview.png"/>
-      {{ sliceCurrentIndex }}
+  <div ref="modelPreview" class="model-preview" @mousemove="mouseHolder">
+    <div class="model-image-wrapper">
+      <div
+        :style="{ left }"
+        class="model-image-holder"
+      >
+        <img src="../../assets/images/model-preview.png" alt="">
+      </div>
+    </div>
   </div>
 </template>
 <script>
 export default {
   data () {
     return {
-      nbSlices: 15,
-      sliceCurrentIndex: 0,
-      imagePositionState: 0
+      imageWidth: 15360,
+      imageHeight: 1024,
+      viewerWidth: 0,
+      imageIndex: 0,
+      nbSlices: 15
     }
   },
   props: {
@@ -24,7 +28,26 @@ export default {
       default: '../../assets/images/model-preview.png'
     }
   },
+  mounted () {
+    this.viewerWidth = this.$refs.modelPreview.getBoundingClientRect().width
+  },
+  computed: {
+    left () {
+      return `-${(this.imageWidth / this.nbSlices) * this.imageIndex}px`
+    }
+  },
   methods: {
+    mouseHolder ($event) {
+      const rect = this.$refs.modelPreview.getBoundingClientRect()
+      this.imageIndex = Math.abs(
+        Math.ceil(
+          this.nbSlices * (
+            ($event.clientX - rect.left) /
+            rect.width
+          )
+        )
+      ) - 1
+    },
     rotate (index) {
       let moving = index - this.sliceCurrentIndex
 
@@ -42,11 +65,19 @@ export default {
 </script>
 <style lang="scss">
 .model-preview {
-    display: flex;
+    min-height: 1024px;
+    max-width: 1024px;
     position: relative;
 }
-.slice {
-    min-width: 6.6667%;
-    height: 500px;
+.model-image-holder {
+  position: absolute;
+  height: 1024px;
+  width: 15360px;
+  left: 0;
+  top: 0;
+  img {
+    min-height: 100%;
+    min-width: 100%;
+  }
 }
 </style>
