@@ -118,13 +118,13 @@
 
   .dms__list-files {
     transition: .2s ease all;
-    width: calc(100% - 272px) !important; //Override JS
     height: 100%;
     overflow: auto;
   }
 
   &.shrinked {
     transform: translateX(272px);
+    width: calc(100% - 272px);
 
     .dms__tree-view {
       left: -276px;
@@ -138,9 +138,18 @@
 
   .bd-table {
     width: 100%;
-    max-width: 200%;
     min-width: 0;
     transition: .2s ease all;
+
+    td {
+      vertical-align: middle; 
+      line-height: 1em;
+    }
+  }
+
+  .base-checkbox {
+    margin: 0;
+    line-height: unset;
   }
 
   .bd-table.test {

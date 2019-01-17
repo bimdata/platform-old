@@ -237,7 +237,7 @@ export default {
       if (!this.isVisibleTreeView) {
         this.isVisibleTreeView = true
         this.listViewOriginalWidth = this.$refs.listFiles.clientWidth
-        this.$refs.listFiles.style.width = this.listViewOriginalWidth - 272 + 'px'
+        this.$refs.listFiles.style.width = this.listViewOriginalWidth
       } else {
         this.closeTreeView()
       }
