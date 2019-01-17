@@ -1,11 +1,11 @@
 .page-project {
   padding-bottom: 50px - $grid-gutter-width;
-  
+
   .ged-card {
     background: #F8F8F9;
     max-height: 560px;
     overflow: hidden;
-    
+
     .base-card__content {
       padding: 0;
     }
@@ -25,29 +25,43 @@
 
   .main-ifc {
     display: flex;
+    flex: 1 1;
 
     &__map-info-content {
       padding: $grid-gutter-width;
-      flex: 1.1 auto;
       display: flex;
+      width: 50%;
       justify-content: stretch;
-      align-items: stretch;
+      align-items: center;
     }
 
     &__info-project {
-      flex: 0.8 auto;
+      width: 50%;
+      margin-right: 0;
     }
 
     &__map {
-      flex: 1.2 auto;
-
+      width: 50%;
+      height: 100%;
+      margin: 0;
+      position: relative;
+      .map-wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
       #base-map {
-        height: 277px !important;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
       }
     }
 
     &__detail-content {
-      flex: 0.9 auto;
+      width: 50%;
     }
   }
 

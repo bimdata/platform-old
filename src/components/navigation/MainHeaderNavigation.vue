@@ -1,10 +1,11 @@
 <template>
     <div class="navigation">
-        <navigation-link v-for="(item, index) in items"
-                         :key="index"
-                         :text="item.textLabel"
-                         :routeName="item.routeName">
-        </navigation-link>
+        <navigation-link
+          v-for="(item, index) in items"
+          :key="index"
+          :text="item.textLabel"
+          :routeName="item.routeName"
+        ></navigation-link>
     </div>
 </template>
 <script>
@@ -18,16 +19,8 @@ export default {
     return {
       items: [
         {
-          routeName: 'home',
-          textLabel: 'Home'
-        },
-        {
-          routeName: 'clouds',
+          routeName: 'cloud-list',
           textLabel: 'Cloud'
-        },
-        {
-          routeName: 'viewer',
-          textLabel: 'View'
         }
       ]
     }

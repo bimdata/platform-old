@@ -1,7 +1,12 @@
 <template>
-    <div class="navigation__item">
-        <router-link :to="{name: routeName}">{{ text }}</router-link>
-    </div>
+    <router-link
+      :to="{name: routeName}"
+      active-class="active"
+      class="navigation__item"
+      exact
+    >
+      {{ text }}
+    </router-link>
 </template>
 <script>
 export default {

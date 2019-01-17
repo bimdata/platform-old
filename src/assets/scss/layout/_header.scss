@@ -3,6 +3,7 @@
   background-color: white;
   @include bm-box-shadow;
   padding: $grid-gutter-width $grid-gutter-width * 2;
+  position: relative;
 
   &__container {
     display: flex;
@@ -25,19 +26,12 @@
   align-items: stretch;
 
   &__item {
-    display: flex;
+    display: block;
     align-items: center;
     position: relative;
-
-    a {
-      padding: $grid-gutter-width;
-      display: flex;
-      align-self: stretch;
-      align-items: center;
-      &:hover {
-        text-decoration: none;
-      }
-    }
+    padding: $grid-gutter-width;
+    align-self: stretch;
+    text-decoration: none;
 
     &:after {
       display: inline-block;
@@ -52,7 +46,7 @@
       transition: .3s ease all;
     }
 
-    &:hover {
+    &:hover, &.active {
       &:after {
         opacity: 1;
       }
