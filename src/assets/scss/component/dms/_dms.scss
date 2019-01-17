@@ -103,8 +103,8 @@
 .dms__content {
   padding-top: $grid-gutter-width;
   transition: .2s ease all;
-
   position: relative;
+  height: 420px;
 
   .dms__tree-view {
     padding-top: $grid-gutter-width;
@@ -112,12 +112,14 @@
     position: absolute;
     left: -500px;
     width: 272px;
+    height: 100%;
+    overflow: auto;
   }
 
   .dms__list-files {
     transition: .2s ease all;
-    width: 100%;
-    max-height: 420px;
+    width: calc(100% - 272px) !important; //Override JS
+    height: 100%;
     overflow: auto;
   }
 
