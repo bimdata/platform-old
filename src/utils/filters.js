@@ -17,9 +17,13 @@ Vue.filter('middle-truncate', function (text, stop, clamp) {
   return text.substr(0, frontChars) + clamp + text.substr(text.length - backChars)
 })
 
-Vue.filter('formatDate', function (value) {
+Vue.filter('formatDate', function (value, activeHours = true) {
   if (value) {
-    return moment(String(value)).format('DD/MM/YYYY hh:mm')
+    if (activeHours) {
+      return moment(String(value)).format('DD/MM/YYYY hh:mm')
+    } else {
+      return moment(String(value)).format('DD/MM/YYYY')
+    }
   }
 })
 
