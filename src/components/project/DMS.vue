@@ -58,7 +58,7 @@
                     <dms-tree-view @close="closeTreeView"></dms-tree-view>
                 </div>
                 <div ref="listFiles" class="dms__list-files">
-                    <b-table :items="currentItems"
+                    <b-table :items="filteredList"
                         :filter="filter"
                         class="bd-table"
                         :fields="fields">
@@ -78,7 +78,7 @@
                             {{ $t('project.type') }}
                         </template>
                         <template slot="HEAD_creator" slot-scope="data">
-                            {{ $t('project.creator') }}
+                            <list-choice :label="$t('project.creator')" :list="listCreatorUniq" :nameInput="data.label" @selected-list-choice="setCreatorsList"></list-choice>
                         </template>
                         <template slot="HEAD_date" slot-scope="data">
                             {{ $t('project.updated_at') }}
@@ -110,7 +110,7 @@
                         </template>
                         <template slot="creator" slot-scope="data">
                             <template v-if="data.item.creator !== null">
-                                {{ data.item.creator.firstname }} {{ data.item.creator.lastname }}
+                                {{ data.item.creator.firstname }} {{ data.item.creator.lastname[0] }}
                             </template>
                         </template>
                         <template slot="date" slot-scope="data">
@@ -141,7 +141,9 @@ import BaseButtonTool from '@/components/base-components/BaseButtonTool'
 import BaseTreeSelect from '@/components/base-components/BaseTreeSelect'
 import BaseInputCheckbox from '@/components/base-components/BaseInputCheckbox'
 import DMSUploadDocument from '@/components/project/DMSUploadDocument'
+import ListChoice from '@/components/project/ListChoice'
 import BaseButtonOption from '@/components/base-components/BaseButtonOption'
+import _ from 'lodash'
 
 export default {
   components: {
@@ -151,6 +153,7 @@ export default {
     BaseTreeSelect,
     BaseInputCheckbox,
     BaseButtonOption,
+    ListChoice,
     'dms-upload-document': DMSUploadDocument
   },
   data () {
@@ -160,6 +163,7 @@ export default {
       selectAll: false,
       filter: null,
       selected: [],
+      valueCreatorEvent: '',
       fields: [
         {
           key: 'selected',
@@ -167,11 +171,13 @@ export default {
         },
         {
           key: 'name',
-          label: 'Name'
+          label: 'Name',
+          sortable: true
         },
         {
           key: 'type',
-          label: 'Type'
+          label: 'Type',
+          sortable: true
         },
         {
           key: 'creator',
@@ -179,11 +185,13 @@ export default {
         },
         {
           key: 'date',
-          label: 'Date'
+          label: 'Date',
+          sortable: true
         },
         {
           key: 'size',
-          label: 'Size'
+          label: 'Size',
+          sortable: true
         },
         {
           key: 'action',
@@ -284,6 +292,9 @@ export default {
     },
     downloadFile (documentAction) {
       window.open(documentAction.item.file)
+    },
+    setCreatorsList (value) {
+      this.valueCreatorEvent = value
     }
   },
   computed: {
@@ -325,6 +336,31 @@ export default {
       }
 
       return currentItems
+    },
+    listCreatorUniq () {
+      return this.currentItems
+        .filter(item => item.creator)
+        .map(item => item.creator)
+        .reduce((acc, creator) => {
+          if (!acc.some(uniqueCreator => uniqueCreator.id === creator.id)) {
+            acc.push(creator)
+          }
+          return acc
+        }, [])
+        .map(item => {
+          return {
+            text: item.firstname + ' ' + item.lastname[0],
+            value: item.id,
+            disabled: false
+          }
+        })
+    },
+    filteredList () {
+      let topics = this.currentItems.map(t => t)
+      if (this.valueCreatorEvent.length > 0) {
+        topics = _.filter(topics, topic => this.valueCreatorEvent.includes(topic.status))
+      }
+      return topics
     }
   },
   created () {
