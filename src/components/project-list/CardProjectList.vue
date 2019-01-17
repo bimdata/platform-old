@@ -2,7 +2,7 @@
     <div class="card-container">
         <div class="base-card card-item card-bd">
             <div class="card-bd__header">
-                <span class="card-bd__date">{{ project.created_at|formatDate }}</span>
+                <span class="card-bd__date">{{ project.created_at|formatDate(false) }}</span>
                 <base-button-option @option-toggled="toggleMenu">
                     <ul>
                         <li @click.stop.self="showRemoveActions = true" class="base-button-option__menu__remove">

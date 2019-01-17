@@ -2,7 +2,7 @@
     <div class="card-container">
         <div class="base-card card-item card-bd">
             <div class="card-bd__header">
-                <span class="card-bd__date">{{ cloud.created_at|formatDate }}</span>
+                <span class="card-bd__date">{{ cloud.created_at|formatDate(false) }}</span>
             </div>
             <div class="card-bd__body">
                 <div class="card-bd__body-container">
