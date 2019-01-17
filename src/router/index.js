@@ -18,13 +18,14 @@ const router = new Router({
   routes: [
     {
       path: '/',
+      name: 'home',
       component: LayoutPageDashboard,
       meta: {
         isPublic: false
       },
       children: [
         {
-          path: '/',
+          path: '',
           name: 'cloud-list',
           component: PageCloudList,
           meta: {
