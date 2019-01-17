@@ -107,12 +107,12 @@
   height: 420px;
 
   .dms__tree-view {
-    padding-top: $grid-gutter-width;
+    // padding-top: $grid-gutter-width;
     transition: .2s ease all;
     position: absolute;
     left: -500px;
     width: 272px;
-    height: 100%;
+    height: calc(100% - #{$grid-gutter-width});
     overflow: auto;
   }
 
@@ -127,7 +127,7 @@
     width: calc(100% - 272px);
 
     .dms__tree-view {
-      left: -276px;
+      left: -272px;
     }
   }
 
