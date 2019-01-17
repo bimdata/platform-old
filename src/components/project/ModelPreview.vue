@@ -1,6 +1,17 @@
 <template>
-  <div ref="modelPreview" class="model-preview" @mousemove="mouseHolder">
-    <div class="model-image-wrapper">
+  <div
+    ref="modelPreview"
+    class="model-preview"
+  >
+    <div
+      class="model-image-wrapper"
+      ref="modelWrapper"
+      @mousemove="mouseHolder"
+      :style="{
+        width: `${viewerWidth}px`,
+        height: `${viewerHeight}px`
+      }"
+    >
       <div
         :style="{ left }"
         class="model-image-holder"
@@ -17,6 +28,7 @@ export default {
       imageWidth: 15360,
       imageHeight: 1024,
       viewerWidth: 0,
+      viewerHeight: 0,
       imageIndex: 0,
       nbSlices: 15
     }
@@ -29,16 +41,16 @@ export default {
     }
   },
   mounted () {
-    this.viewerWidth = this.$refs.modelPreview.getBoundingClientRect().width
+    this.viewerWidth = this.viewerHeight = this.$refs.modelPreview.getBoundingClientRect().width
   },
   computed: {
     left () {
-      return `-${(this.imageWidth / this.nbSlices) * this.imageIndex}px`
+      return `-${((this.imageWidth / this.nbSlices) * this.imageIndex) * (this.viewerHeight / this.imageHeight)}px`
     }
   },
   methods: {
     mouseHolder ($event) {
-      const rect = this.$refs.modelPreview.getBoundingClientRect()
+      const rect = this.$refs.modelWrapper.getBoundingClientRect()
       this.imageIndex = Math.abs(
         Math.ceil(
           this.nbSlices * (
@@ -63,21 +75,3 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-.model-preview {
-    min-height: 1024px;
-    max-width: 1024px;
-    position: relative;
-}
-.model-image-holder {
-  position: absolute;
-  height: 1024px;
-  width: 15360px;
-  left: 0;
-  top: 0;
-  img {
-    min-height: 100%;
-    min-width: 100%;
-  }
-}
-</style>
