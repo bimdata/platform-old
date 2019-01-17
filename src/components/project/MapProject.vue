@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="map-wrapper">
         <base-map :lat="lat"
                   :lng="long"
                   v-if="loaded"

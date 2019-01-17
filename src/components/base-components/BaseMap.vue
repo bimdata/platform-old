@@ -1,5 +1,5 @@
 <template>
-    <div id="base-map" :style="{ height: '180px' }">
+    <div id="base-map" :style="{ height: '100%' }">
     </div>
 </template>
 <script>

@@ -7,7 +7,7 @@
             <div class="main-ifc">
                 <div class="shadowed-content main-ifc__map-info-content">
                     <div class="main-ifc__info-project">
-                        test
+                        <model-preview></model-preview>
                     </div>
                     <div class="main-ifc__map">
                         <map-project>
@@ -24,11 +24,13 @@
 <script>
 import BaseCard from '@/components/base-components/BaseCard'
 import MapProject from '@/components/project/MapProject'
+import ModelPreview from '@/components/project/ModelPreview'
 
 export default {
   components: {
     BaseCard,
-    MapProject
+    MapProject,
+    ModelPreview
   },
   computed: {
     projectName () {
