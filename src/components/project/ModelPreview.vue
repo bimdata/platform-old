@@ -54,8 +54,10 @@ export default {
       this.imageIndex = Math.abs(
         Math.ceil(
           this.nbSlices * (
-            ($event.clientX - rect.left) /
-            rect.width
+            1 - (
+              ($event.clientX - rect.left) /
+              rect.width
+            )
           )
         )
       ) - 1
