@@ -68,78 +68,125 @@
 }
 
 .new-project-item {
-  padding: 0;
-  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 216px;
   height: 275px;
-  position: relative;
+  padding: 0;
+  overflow: hidden;
 
   &__card-container {
-    position: absolute;
-    top: 0;
-    left: 0;
     display: flex;
-    flex-direction: row;
-    transition: .3s ease all;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 2px 10px 0 rgba(0,0,0,0.1);
+    height: 60px;
+    width: 60px;
+    border-radius: 7px;
+    padding: 0;
+    transition: all ease-in-out 0.35s;
+    overflow: hidden;
+    z-index: 1;
+
+    .svg-icon {
+      fill: $primary;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+
     &.active {
-      left: -213px;
+      height: 99%;
+      width: 100%;
+      opacity: 1;
+      background: $white;
+      border-radius: 0;
+      box-shadow: none;
+
+      .new-project-item {
+        &__picto-container {
+          z-index: 0;
+          opacity: 0;
+        }
+        &__edit-container {
+          opacity: 1;
+          z-index: 1;
+        }
+      }
     }
   }
 
-  &__container {
-    min-width: 216px;
-    min-height: 275px;
-    padding: $grid-gutter-width;
+  &__title {
+    position: absolute;
+    bottom: 55px;
+    color: $primary;
+    font-weight: 500;
+    font-size: 1rem;
+    margin-top: 20px;
   }
 
-  &__button-container {
+  &__picto-container {
+    z-index: 1;
+    height: 100%;
+    width: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
-    flex-direction: column;
+    justify-content: center;
+    background: $white;
+    opacity: 1;
+    transition: all ease 0.25s;
   }
-  
+
   &__edit-container {
-    width: 216px;
-    height: 275px;
+    position: absolute;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+    padding-right: 15px;
+    z-index: 0;
+    background: $white;
+    opacity: 0;
+    transition: opacity 0.25s ease 0.25s, z-index ease 0.25s;
+
+    .base-input-text-material {
+      margin: 0;
+
+      input {
+        width: 100% !important; // Override base style
+      }
+    }
 
     &__header {
       display: flex;
       justify-content: space-between;
       span {
-        font-size: 1.14285714rem;
-        line-height: 1.5rem;
         color: $primary;
+        font-weight: 500;
+        font-size: 1rem;
       }
 
       svg:hover {
         cursor: pointer;
       }
     }
-  }
-
-  &__button-new {
-    background-color: $primary;
-    height: 60px;
-    width: 60px;
-    border-radius: 7px;
-    display: flex;
-    padding: 0;
-    justify-content: center;
-    align-items: center;
-
-    &:hover {
-      cursor: pointer;
+    &__footer {
+      .btn {
+        min-width: 104px;
+      }
     }
   }
-
-  p {
-    margin: $grid-gutter-width 0 0 0;
-  }
 }
+
 .card-bd {
   display: flex;
   flex-direction: column;

@@ -8,20 +8,20 @@
     width: 185px !important;
     min-width: 0 !important;
     border: none;
-    border-bottom: 1px solid #757575;
+    border-bottom: 1px solid #E1E1E2;
   }
   input:focus {
     outline: none;
   }
 
   label {
-    color: #999;
-    font-size: 1.14285714rem;
+    color: #E1E1E2;
+    font-size: 1rem;
     font-weight: normal;
     position: absolute;
     pointer-events: none;
-    left: 5px;
-    top: 10px;
+    left: 0;
+    top: 15px;
     transition: 0.2s ease all;
   }
 
@@ -35,13 +35,13 @@
   .bar {
     position: relative;
     display: block;
-    width: 185px;
+    width: 100%;
   }
   .bar:before, .bar:after {
     content: '';
     height: 1px;
     width: 0;
-    bottom: 1px;
+    bottom: 0;
     position: absolute;
     background: $primary;
     transition: 0.2s ease all;
