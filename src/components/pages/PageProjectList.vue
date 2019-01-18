@@ -15,7 +15,7 @@
                 <div class="base-card card-item project-item new-project-item">
                 <div class="new-project-item__card-container" :class="{active: displayNewForm}">
                     <div class="new-project-item__button-container new-project-item__container">
-                        <div class="new-project-item__button-new" @click="displayNewForm = true">
+                        <div class="new-project-item__button-new" @click="displayNewForm = true; setFocus()">
                             <svgicon name="plus" height="45" width="45" color="#FFF"></svgicon>
                         </div>
                         <p>{{ $t('project_list.new_project') }}</p>
@@ -32,7 +32,7 @@
                         </div>
                         <div class="new-project-item__edit-container__edit-container__body">
                             <div class="base-input-text-material">
-                                <input type="text" required v-model="newProjectName" v-on:keyup.enter="createProject">
+                                <input type="text" required v-model="newProjectName" v-on:keyup.enter="createProject" ref="inputToFocus">
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
                                 <label>{{ $t('project_list.project_name') }}</label>
@@ -69,6 +69,9 @@ export default {
     CardProjectList
   },
   methods: {
+    setFocus () {
+      this.$refs.inputToFocus.focus()
+    },
     createProject () {
       this.$store.dispatch('addProject', this.newProjectName).then(() => {
         this.newProjectName = ''
