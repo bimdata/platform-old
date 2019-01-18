@@ -22,10 +22,10 @@ export default {
   },
   computed: {
     projectId () {
-      return this.$store.state.project.selectedProject.cloud.id
+      return this.$store.state.project.selectedProject.id
     },
     cloudId () {
-      return this.$store.state.project.selectedProject.id
+      return this.$store.state.project.selectedProject.cloud.id
     },
     currentFolderId () {
       return this.$store.state.project.currentFolderId

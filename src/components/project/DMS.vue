@@ -1,30 +1,30 @@
 <template>
     <div class="dms">
         <dms-breadcrumb @change-folder="changeFolder"></dms-breadcrumb>
-        <div class="dms__toolbox-selected" v-show="displaySelectedToolbox">
-            <div class="toolbox-selected__content">
-                <div class="dms__delete-button" @click="deleteElements">
-                    <svgicon name="delete" width="22" height="22"></svgicon>
-                    {{ $t('project.delete') }}
-                </div>
-                <div class="dms__move-button">
-                    <span class="container-button-move-top" @click="displayMoveTo">
-                        <svgicon name="move" width="22" height="22"></svgicon>
-                        {{ $t('project.move_to') }}
-                    </span>
-                    <base-tree-select v-if="displayTreeSelect"
-                                      @close="closeMoveTo"
-                                      @chooseItem="moveItems"
-                                      :tree="folderTree"
-                                      :initial-parent-node="getCurrentFolderId">
-                    </base-tree-select>
-                </div>
-                <div class="dms__selected-display" @click="deselectAll">
-                    {{ $t('project.unselect_all') }} <span class="item-counter">{{ nbSelectedItems }}</span>
-                </div>
-            </div>
-        </div>
         <div class="dms-container">
+            <div class="dms__toolbox-selected" v-show="displaySelectedToolbox">
+              <div class="toolbox-selected__content">
+                  <div class="dms__delete-button" @click="deleteElements">
+                      <svgicon name="delete" width="22" height="22"></svgicon>
+                      {{ $t('project.delete') }}
+                  </div>
+                  <div class="dms__move-button">
+                      <span class="container-button-move-top" @click="displayMoveTo">
+                          <svgicon name="move" width="22" height="22"></svgicon>
+                          {{ $t('project.move_to') }}
+                      </span>
+                      <base-tree-select v-if="displayTreeSelect"
+                                        @close="closeMoveTo"
+                                        @chooseItem="moveItems"
+                                        :tree="folderTree"
+                                        :initial-parent-node="getCurrentFolderId">
+                      </base-tree-select>
+                  </div>
+                  <div class="dms__selected-display" @click="deselectAll">
+                      {{ $t('project.unselect_all') }} <span class="item-counter">{{ nbSelectedItems }}</span>
+                  </div>
+              </div>
+            </div>
             <div class="dms__toolbox" v-show="!displaySelectedToolbox">
                 <base-button-tool iconName="tree"
                                   :class="{'is-active': isVisibleTreeView}"
