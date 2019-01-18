@@ -345,7 +345,8 @@ export default {
       return currentItems
     },
     listCreatorUniq () {
-      return this.currentItems
+      let hasEmptyCreator = this.currentItems.some(item => !item.creator)
+      let uniqueCreators = this.currentItems
         .filter(item => item.creator)
         .map(item => item.creator)
         .reduce((acc, creator) => {
@@ -361,11 +362,29 @@ export default {
             disabled: false
           }
         })
+
+      if (hasEmptyCreator) {
+        uniqueCreators.push(
+          {
+            text: this.$t('dms.no_creator'),
+            value: 0,
+            disabled: false
+          }
+        )
+      }
+
+      return uniqueCreators
     },
     filteredList () {
       let elements = this.currentItems.map(t => t)
       if (this.valueCreatorEvent.length > 0) {
-        elements = _.filter(elements, element => this.valueCreatorEvent.includes(element.creator.id))
+        elements = _.filter(elements, element => {
+          if (!element.creator) {
+            return this.valueCreatorEvent.includes(0)
+          } else {
+            return this.valueCreatorEvent.includes(element.creator.id)
+          }
+        })
       }
       return elements
     }
