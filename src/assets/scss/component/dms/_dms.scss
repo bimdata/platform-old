@@ -103,29 +103,30 @@
 .dms__content {
   padding-top: $grid-gutter-width;
   transition: .2s ease all;
-
   position: relative;
+  height: 420px;
 
   .dms__tree-view {
-    padding-top: $grid-gutter-width;
     transition: .2s ease all;
     position: absolute;
     left: -500px;
     width: 272px;
+    height: calc(100% - #{$grid-gutter-width});
+    overflow: auto;
   }
 
   .dms__list-files {
     transition: .2s ease all;
-    width: 100%;
-    max-height: 420px;
+    height: 100%;
     overflow: auto;
   }
 
   &.shrinked {
     transform: translateX(272px);
+    width: calc(100% - 272px);
 
     .dms__tree-view {
-      left: -276px;
+      left: -272px;
     }
   }
 
@@ -136,9 +137,62 @@
 
   .bd-table {
     width: 100%;
-    max-width: 200%;
     min-width: 0;
     transition: .2s ease all;
+
+    & > thead {
+      & > tr {
+        & > th {
+          outline: none;
+
+          &.sorting {
+            &:before,
+            &:after {
+              display: none;
+            }
+          }
+        } 
+      }
+    }
+    td {
+      vertical-align: middle; 
+      line-height: 1em;
+      word-break: break-all;
+    }
+
+    .table-selected {
+
+    }
+    .table-name {
+      width: 47%;
+      min-width: 47%;
+    }
+    .table-type {
+      width: 10%;
+      min-width: 10%;
+    }
+    .table-creator {
+      width: 9%;
+      min-width: 9%;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    .table-date {
+      width: 14%;
+      min-width: 14%;
+    }
+    .table-size {
+      width: 9%;
+      min-width: 9%;
+    }
+    .table-action {
+
+    }
+  }
+
+  .base-checkbox {
+    margin: 0;
+    line-height: unset;
   }
 
   .bd-table.test {
