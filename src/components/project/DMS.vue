@@ -1,30 +1,30 @@
 <template>
     <div class="dms">
         <dms-breadcrumb @change-folder="changeFolder"></dms-breadcrumb>
-        <div class="dms__toolbox-selected" v-show="displaySelectedToolbox">
-            <div class="toolbox-selected__content">
-                <div class="dms__delete-button" @click="deleteElements">
-                    <svgicon name="delete" width="22" height="22"></svgicon>
-                    {{ $t('project.delete') }}
-                </div>
-                <div class="dms__move-button">
-                    <span class="container-button-move-top" @click="displayMoveTo">
-                        <svgicon name="move" width="22" height="22"></svgicon>
-                        {{ $t('project.move_to') }}
-                    </span>
-                    <base-tree-select v-if="displayTreeSelect"
-                                      @close="closeMoveTo"
-                                      @chooseItem="moveItems"
-                                      :tree="folderTree"
-                                      :initial-parent-node="getCurrentFolderId">
-                    </base-tree-select>
-                </div>
-                <div class="dms__selected-display" @click="deselectAll">
-                    {{ $t('project.unselect_all') }} <span class="item-counter">{{ nbSelectedItems }}</span>
-                </div>
-            </div>
-        </div>
         <div class="dms-container">
+            <div class="dms__toolbox-selected" v-show="displaySelectedToolbox">
+              <div class="toolbox-selected__content">
+                  <div class="dms__delete-button" @click="deleteElements">
+                      <svgicon name="delete" width="22" height="22"></svgicon>
+                      {{ $t('project.delete') }}
+                  </div>
+                  <div class="dms__move-button">
+                      <span class="container-button-move-top" @click="displayMoveTo">
+                          <svgicon name="move" width="22" height="22"></svgicon>
+                          {{ $t('project.move_to') }}
+                      </span>
+                      <base-tree-select v-if="displayTreeSelect"
+                                        @close="closeMoveTo"
+                                        @chooseItem="moveItems"
+                                        :tree="folderTree"
+                                        :initial-parent-node="getCurrentFolderId">
+                      </base-tree-select>
+                  </div>
+                  <div class="dms__selected-display" @click="deselectAll">
+                      {{ $t('project.unselect_all') }} <span class="item-counter">{{ nbSelectedItems }}</span>
+                  </div>
+              </div>
+            </div>
             <div class="dms__toolbox" v-show="!displaySelectedToolbox">
                 <base-button-tool iconName="tree"
                                   :class="{'is-active': isVisibleTreeView}"
@@ -58,7 +58,7 @@
                     <dms-tree-view @close="closeTreeView"></dms-tree-view>
                 </div>
                 <div ref="listFiles" class="dms__list-files">
-                    <b-table :items="currentItems"
+                    <b-table :items="filteredList"
                         :filter="filter"
                         class="bd-table"
                         :fields="fields">
@@ -78,7 +78,7 @@
                             {{ $t('project.type') }}
                         </template>
                         <template slot="HEAD_creator" slot-scope="data">
-                            {{ $t('project.creator') }}
+                            <list-choice :label="$t('project.creator')" :list="listCreatorUniq" :nameInput="data.label" @selected-list-choice="setCreatorsList"></list-choice>
                         </template>
                         <template slot="HEAD_date" slot-scope="data">
                             {{ $t('project.updated_at') }}
@@ -110,7 +110,7 @@
                         </template>
                         <template slot="creator" slot-scope="data">
                             <template v-if="data.item.creator !== null">
-                                {{ data.item.creator.firstname }} {{ data.item.creator.lastname }}
+                                {{ data.item.creator.firstname }} {{ data.item.creator.lastname[0] }}
                             </template>
                         </template>
                         <template slot="date" slot-scope="data">
@@ -141,7 +141,9 @@ import BaseButtonTool from '@/components/base-components/BaseButtonTool'
 import BaseTreeSelect from '@/components/base-components/BaseTreeSelect'
 import BaseInputCheckbox from '@/components/base-components/BaseInputCheckbox'
 import DMSUploadDocument from '@/components/project/DMSUploadDocument'
+import ListChoice from '@/components/project/ListChoice'
 import BaseButtonOption from '@/components/base-components/BaseButtonOption'
+import _ from 'lodash'
 
 export default {
   components: {
@@ -151,6 +153,7 @@ export default {
     BaseTreeSelect,
     BaseInputCheckbox,
     BaseButtonOption,
+    ListChoice,
     'dms-upload-document': DMSUploadDocument
   },
   data () {
@@ -160,34 +163,46 @@ export default {
       selectAll: false,
       filter: null,
       selected: [],
+      valueCreatorEvent: '',
       fields: [
         {
           key: 'selected',
-          label: ''
+          label: '',
+          class: 'table-selected'
         },
         {
           key: 'name',
-          label: 'Name'
+          label: 'Name',
+          class: 'table-name',
+          sortable: true
         },
         {
           key: 'type',
-          label: 'Type'
+          label: 'Type',
+          class: 'table-type',
+          sortable: true
         },
         {
           key: 'creator',
-          label: 'Creator'
+          label: 'Creator',
+          class: 'table-creator'
         },
         {
           key: 'date',
-          label: 'Date'
+          label: 'Date',
+          class: 'table-date',
+          sortable: true
         },
         {
           key: 'size',
-          label: 'Size'
+          label: 'Size',
+          class: 'table-size',
+          sortable: true
         },
         {
           key: 'action',
-          label: ''
+          label: '',
+          class: 'table-action'
         }
       ],
       currentFolderItems: [],
@@ -237,7 +252,7 @@ export default {
       if (!this.isVisibleTreeView) {
         this.isVisibleTreeView = true
         this.listViewOriginalWidth = this.$refs.listFiles.clientWidth
-        this.$refs.listFiles.style.width = this.listViewOriginalWidth - 272 + 'px'
+        this.$refs.listFiles.style.width = this.listViewOriginalWidth
       } else {
         this.closeTreeView()
       }
@@ -284,6 +299,9 @@ export default {
     },
     downloadFile (documentAction) {
       window.open(documentAction.item.file)
+    },
+    setCreatorsList (value) {
+      this.valueCreatorEvent = value
     }
   },
   computed: {
@@ -325,6 +343,50 @@ export default {
       }
 
       return currentItems
+    },
+    listCreatorUniq () {
+      let hasEmptyCreator = this.currentItems.some(item => !item.creator)
+      let uniqueCreators = this.currentItems
+        .filter(item => item.creator)
+        .map(item => item.creator)
+        .reduce((acc, creator) => {
+          if (!acc.some(uniqueCreator => uniqueCreator.id === creator.id)) {
+            acc.push(creator)
+          }
+          return acc
+        }, [])
+        .map(item => {
+          return {
+            text: item.firstname + ' ' + item.lastname[0],
+            value: item.id,
+            disabled: false
+          }
+        })
+
+      if (hasEmptyCreator) {
+        uniqueCreators.push(
+          {
+            text: this.$t('dms.no_creator'),
+            value: 0,
+            disabled: false
+          }
+        )
+      }
+
+      return uniqueCreators
+    },
+    filteredList () {
+      let elements = this.currentItems.map(t => t)
+      if (this.valueCreatorEvent.length > 0) {
+        elements = _.filter(elements, element => {
+          if (!element.creator) {
+            return this.valueCreatorEvent.includes(0)
+          } else {
+            return this.valueCreatorEvent.includes(element.creator.id)
+          }
+        })
+      }
+      return elements
     }
   },
   created () {
