@@ -160,9 +160,6 @@
       word-break: break-all;
     }
 
-    .table-selected {
-
-    }
     .table-name {
       width: 47%;
       min-width: 47%;
@@ -185,18 +182,11 @@
       width: 9%;
       min-width: 9%;
     }
-    .table-action {
-
-    }
   }
 
   .base-checkbox {
     margin: 0;
     line-height: unset;
-  }
-
-  .bd-table.test {
-    width: 80%;
   }
 }
 
@@ -207,6 +197,7 @@
     background-color: white;
     box-shadow: $bd-box-shadow;
     font-size: 0.7143rem;
+    height: 100%;
   }
 
   .dms__tree-view-header {
