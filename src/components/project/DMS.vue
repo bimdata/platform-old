@@ -167,35 +167,42 @@ export default {
       fields: [
         {
           key: 'selected',
-          label: ''
+          label: '',
+          class: 'table-selected'
         },
         {
           key: 'name',
           label: 'Name',
+          class: 'table-name',
           sortable: true
         },
         {
           key: 'type',
           label: 'Type',
+          class: 'table-type',
           sortable: true
         },
         {
           key: 'creator',
-          label: 'Creator'
+          label: 'Creator',
+          class: 'table-creator'
         },
         {
           key: 'date',
           label: 'Date',
+          class: 'table-date',
           sortable: true
         },
         {
           key: 'size',
           label: 'Size',
+          class: 'table-size',
           sortable: true
         },
         {
           key: 'action',
-          label: ''
+          label: '',
+          class: 'table-action'
         }
       ],
       currentFolderItems: [],
@@ -356,11 +363,11 @@ export default {
         })
     },
     filteredList () {
-      let topics = this.currentItems.map(t => t)
+      let elements = this.currentItems.map(t => t)
       if (this.valueCreatorEvent.length > 0) {
-        topics = _.filter(topics, topic => this.valueCreatorEvent.includes(topic.status))
+        elements = _.filter(elements, element => this.valueCreatorEvent.includes(element.creator.id))
       }
-      return topics
+      return elements
     }
   },
   created () {

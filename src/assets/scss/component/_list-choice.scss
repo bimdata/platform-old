@@ -2,6 +2,8 @@
   position: relative;
 
   &__link {
+    display: block;
+    width: 100%;
     padding: 0.75rem 0;
 
     &:hover {
@@ -11,7 +13,7 @@
   &__filter {
     position: absolute;
     z-index: 2;
-    top: 22px;
+    top: 42px;
     left: 20%;
     background: $white;
     border-radius: 7px;

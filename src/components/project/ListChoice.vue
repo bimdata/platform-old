@@ -1,5 +1,5 @@
 <template>
-    <div class="list-choice">
+    <div class="list-choice" v-on-clickaway="closeList">
         <a href="" @click.prevent="displayList = !displayList" class="list-choice__link">{{ label }}</a>
 
         <transition name="fade">
@@ -11,7 +11,10 @@
     </div>
 </template>
 <script>
+import { mixin as clickaway } from 'vue-clickaway'
+
 export default {
+  mixins: [ clickaway ],
   data () {
     return {
       displayList: false,
@@ -30,6 +33,11 @@ export default {
     nameInput: {
       required: true,
       type: String
+    }
+  },
+  methods: {
+    closeList () {
+      this.displayList = false
     }
   },
   watch: {
