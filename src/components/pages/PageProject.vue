@@ -18,9 +18,12 @@
         </div>
 
         <template v-if="loadedProject && loadedDMS">
-            <div class="row">
-                <div class="col-12 content-project">
+            <div class="row justify-content-between">
+                <div class="content-project">
                     <card-project-content></card-project-content>
+                </div>
+                <div class="user-project">
+                    <div class="card-project-user" style="background: grey; height: 100%; width: 100%;"></div>
                 </div>
             </div>
             <div class="row">

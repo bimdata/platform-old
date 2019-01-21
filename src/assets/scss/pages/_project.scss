@@ -31,28 +31,60 @@
     }
   }
 
+  .content-project {
+    width: 100%;
+
+    @include media-breakpoint-up(lg) {
+      width: calc(100%/3 * 2 - 30px);
+      margin-right: 30px;
+    }
+  }
+  .user-project {
+    width: 100%;
+
+    @include media-breakpoint-up(lg) {
+      width: calc(100%/3 - 30px);
+      margin-left: 30px;
+    }
+  }
+
   .main-ifc {
     display: flex;
-    flex: 1 1;
+    flex-direction: column;
+
+    @include media-breakpoint-up(md) {
+      flex-direction: row;
+      height: 399px;
+    }
 
     &__map-info-content {
       padding: $grid-gutter-width;
-      display: flex;
-      width: 50%;
-      justify-content: stretch;
-      align-items: center;
+      width: 100%;
+      margin-bottom: 21px;
+      box-shadow: 0 2px 10px 0 rgba(0,0,0,0.07);
+
+      @include media-breakpoint-up(md) {
+        max-width: 327px;
+        margin-right: 21px;
+        margin-bottom: 0;
+      }
     }
 
     &__info-project {
-      width: 50%;
+      width: 100%;
       margin-right: 0;
     }
 
     &__map {
-      width: 50%;
-      height: 100%;
+      width: 100%;
       margin: 0;
       position: relative;
+      height: 379px;
+
+      @include media-breakpoint-up(md) {
+        height: 100%;
+      }
+
       .map-wrapper {
         position: absolute;
         top: 0;
