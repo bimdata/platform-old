@@ -28,7 +28,7 @@ export default {
       autoProceed: false,
       restrictions: {
         maxFileSize: 1000000000, // 1 Go
-        maxNumberOfFiles: 1,
+        maxNumberOfFiles: null,
         minNumberOfFiles: 1,
         allowedFileTypes: ['.ifc']
       }
