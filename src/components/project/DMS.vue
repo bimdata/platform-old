@@ -229,7 +229,7 @@ export default {
     async saveFolder () {
       if (this.newFolderName !== '') {
         await this.$store.dispatch('project/createFolder', this.newFolderName)
-        this.closeAddFolder()
+        this.addFolder = false
       }
     },
     toggleAddFolderMenu () {
