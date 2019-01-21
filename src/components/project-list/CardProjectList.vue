@@ -18,12 +18,6 @@
                             </div>
                           </transition>
                         </li>
-                        <li class="base-button-option__menu__remove">
-                          {{ $t('project_list.remove') }}
-                        </li>
-                        <li class="base-button-option__menu__remove">
-                          {{ $t('project_list.remove') }}
-                        </li>
                     </ul>
                 </base-button-option>
             </div>
