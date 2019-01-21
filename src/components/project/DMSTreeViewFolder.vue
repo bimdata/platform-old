@@ -9,7 +9,7 @@
         >
             <span class="dms__line-tree-view-content">
                 <svgicon name="folder2"></svgicon>
-                {{ folder.name }}
+                <span class="dms__line-tree-view-content__name">{{ folder.name }}</span>
             </span>
         </div>
         <ul>

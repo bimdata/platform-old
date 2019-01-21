@@ -249,6 +249,15 @@
           top: 4px;
           left: -11px;
         }
+
+        &__name {
+          display: inline-block;
+          vertical-align: middle;
+          width: 90%;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
       }
 
       &:hover {
