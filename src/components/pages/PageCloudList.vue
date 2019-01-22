@@ -51,6 +51,13 @@ export default {
       clouds: state => state.clouds
     }),
     myClouds () {
+      this.$store.state.clouds.forEach((elt) => {
+        let role = this.$store.state.currentUser.clouds.find((idCloud) => {
+          return idCloud.cloud === elt.id
+        })
+
+        elt.isAdmin = role.role === 100
+      })
       return this.$store.state.clouds
     }
   }

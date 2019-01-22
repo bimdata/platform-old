@@ -2,7 +2,7 @@
     <div class="card-container">
         <div class="base-card card-item card-bd">
             <div class="card-bd__header">
-                <base-button-option @option-toggled="toggleMenu" v-if="isAdmin">
+                <base-button-option @option-toggled="toggleMenu" v-if="cloud.isAdmin">
                     <ul>
                         <li @click.stop.self="showRemoveActions = true" class="base-button-option__menu__remove">
                           {{ $t('project_list.remove') }}
@@ -23,10 +23,10 @@
             <div class="card-bd__body">
                 <div class="card-bd__body-container">
                     <div class="card-bd__circle" @click.prevent="accessCloud">
-                        <div class="card-bd__picto-container d-none">
+                        <div class="card-bd__picto-container">
                             <svgicon name="image-plus" height="26" width="26"></svgicon>
                         </div>
-                        <img src="https://mir-s3-cdn-cf.behance.net/user/276/df2bfd2271051.59b8e8f49b466.jpg" alt="" class="">
+                        <img src="https://mir-s3-cdn-cf.behance.net/user/276/df2bfd2271051.59b8e8f49b466.jpg" alt="" class="d-none">
                     </div>
                     <div v-on-clickaway="closeUpdate"
                          class="card-bd__title"
@@ -43,7 +43,7 @@
                                    :placeholder="cloud.name"/>
                         </div>
                     </div>
-                    <div class="card-bd__infos-cloud" v-if="isAdmin">
+                    <div class="card-bd__infos-cloud" v-if="cloud.isAdmin">
                       <span class="card-bd__infos-cloud__projects">
                         <svgicon name="application" height="30" width="30"></svgicon>
                         +0
@@ -70,8 +70,7 @@ export default {
       displayMenu: false,
       editMode: false,
       newName: '',
-      showRemoveActions: false,
-      isAdmin: true
+      showRemoveActions: false
     }
   },
   components: {
