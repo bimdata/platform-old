@@ -16,7 +16,7 @@
         :style="{ left }"
         class="model-image-holder"
       >
-        <img src="../../assets/images/model-preview.png" alt="">
+        <img :src="panoramas[activePanIndex] || defaultPanorama" alt="">
       </div>
     </div>
   </div>
@@ -30,10 +30,16 @@ export default {
       viewerWidth: 0,
       viewerHeight: 0,
       imageIndex: 0,
-      nbSlices: 15
+      nbSlices: 15,
+      activePanIndex: 0
     }
   },
   props: {
+    panoramas: {
+      type: Array,
+      required: false,
+      default: () => []
+    },
     imgURL: {
       type: String,
       required: false,
@@ -46,6 +52,9 @@ export default {
   computed: {
     left () {
       return `-${((this.imageWidth / this.nbSlices) * this.imageIndex) * (this.viewerHeight / this.imageHeight)}px`
+    },
+    defaultPanorama () {
+      return '../../assets/images/model-preview.png'
     }
   },
   methods: {
@@ -61,18 +70,6 @@ export default {
           )
         )
       ) - 1
-    },
-    rotate (index) {
-      let moving = index - this.sliceCurrentIndex
-
-      if (moving <= 1 && moving >= -1) {
-        this.imagePositionState += moving
-        this.imagePositionState %= this.nbSlices
-        if (this.imagePositionState < 0) {
-          this.imagePositionState += this.nbSlices
-        }
-      }
-      this.sliceCurrentIndex = index
     }
   }
 }
