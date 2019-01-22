@@ -29,7 +29,10 @@
         "project_name": "Project's name",
         "remove": "Remove"
     },
+    "dms": {
+      "no_creator": "No Creator"
+    },
     "ifc": {
-        "view": "View"
+      "view": "View"
     }
 }

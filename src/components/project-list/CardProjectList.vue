@@ -9,8 +9,12 @@
                           {{ $t('project_list.remove') }}
                           <transition name="slide-fade">
                             <div class="delete__actions" v-if="showRemoveActions">
-                              <svgicon name="check" @click.native="remove" height="15" width="18" class="check"></svgicon>
-                              <svgicon name="close" @click.native="showRemoveActions = false" height="13" width="13" class="check-cross"></svgicon>
+                              <span class="check" @click.native="remove">
+                                <svgicon name="check" height="15" width="18"></svgicon>
+                              </span>
+                              <span class="check-cross" @click.native="showRemoveActions = false">
+                                <svgicon name="close"  height="13" width="13"></svgicon>
+                              </span>
                             </div>
                           </transition>
                         </li>

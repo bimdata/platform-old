@@ -12,13 +12,10 @@
                           :show-viewer-button="true"
                         ></model-preview>
                     </div>
-                    <div class="main-ifc__map">
-                        <map-project>
-                        </map-project>
-                    </div>
                 </div>
-                <div class="main-ifc__detail-content">
-                    Informations projet
+                <div class="main-ifc__map">
+                    <map-project>
+                    </map-project>
                 </div>
             </div>
         </template>

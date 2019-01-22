@@ -10,7 +10,7 @@
                 </slot>
             </span>
             <span class="choice-list__field-selected__text-selected">
-                {{ selected.text|truncate(22) }}
+                {{ currentChoice.text|truncate(22) }}
             </span>
             <span class="choice-list__field-selected__display-icon">
                 <svgicon class="icon" name="chevron-right" width="20" :class="{'svg-right': displayListOptions}"></svgicon>
@@ -55,6 +55,7 @@ export default {
       searchRequest: '',
       displayListOptions: false,
       selected: null,
+      currentChoice: null,
       filteredList: [],
       hasClickedForSearch: false,
       selectedIndex: 0
@@ -75,9 +76,16 @@ export default {
     value: {
       immediate: true,
       handler: function (newValue) {
-        this.selected = newValue
+        // this.selected = this.optionsFiteredRaw[0]
+        this.currentChoice = newValue
       }
+    },
+    optionsFiteredRaw: function (value) {
+      this.setSelected(value[0])
     }
+  },
+  created: function () {
+    this.setSelected(this.optionsFiteredRaw[0])
   },
   computed: {
     listeners () {
@@ -113,12 +121,16 @@ export default {
           items.push(item)
         }
       })
+
       return items
     }
   },
   methods: {
     away () {
       this.displayListOptions = false
+    },
+    setSelected (value) {
+      this.selected = value
     },
     choice (option) {
       this.selected = this.options.find(originalOptions => originalOptions.value === option.value)
