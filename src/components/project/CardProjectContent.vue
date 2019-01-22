@@ -43,7 +43,6 @@ export default {
     panoramas () {
       return this.ifcs
         .filter(item => item.viewer_360_file)
-        .map(item => item.viewer_360_file)
     },
     projectName () {
       return this.$store.state.project.selectedProject.name

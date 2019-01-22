@@ -1,12 +1,57 @@
+$arrow-size: 25px;
+
 .model-preview {
   width: 100%;
   position: relative;
   overflow: hidden;
   display: block;
+  user-select: none;
   .model-image-wrapper {
     display: block;
     overflow: hidden;
     position: relative;
+  }
+  .model-preview-controls {
+    position: absolute;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    .model-control-left {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      margin-top: -$arrow-size;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: $arrow-size $arrow-size $arrow-size 0;
+      border-color: transparent $primary transparent transparent;
+      cursor: pointer;
+    }
+    .model-control-right {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      margin-top: -$arrow-size;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: $arrow-size 0 $arrow-size $arrow-size;
+      border-color: transparent transparent transparent $primary;
+      cursor: pointer;
+    }
+    .model-control-button {
+      text-align: center;
+      padding: 10px 0;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      .btn {
+        display: inline-block;
+      }
+    }
   }
   .model-image-holder {
     position: absolute;

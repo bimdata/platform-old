@@ -28,5 +28,8 @@
         "submit": "Submit",
         "project_name": "Project's name",
         "remove": "Remove"
+    },
+    "ifc": {
+      "view": "View"
     }
 }
