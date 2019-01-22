@@ -113,6 +113,14 @@ export default {
       console.log(e)
     }
   },
+  async getCloudUsers (context, idCloud) {
+    try {
+      let result = await this.CloudRepositoryRequest.getCloudUsers(idCloud)
+      return result ? result.length : 0
+    } catch (e) {
+      console.log(e)
+    }
+  },
   setLang ({commit}, payload) {
     commit('SET_LANG', payload)
   }

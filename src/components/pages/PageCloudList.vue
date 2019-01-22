@@ -31,12 +31,28 @@
 import { mapState } from 'vuex'
 import CardCloudList from '@/components/cloud-list/CardCloudList'
 import store from '@/store'
+import _ from 'lodash'
 
 export default {
   components: {
     CardCloudList
   },
+  data () {
+    return {
+      usersByCloud: []
+    }
+  },
   methods: {
+    getNbUsersByCloud () {
+      this.$store.state.clouds.forEach((elt) => {
+        this.$store.dispatch('getCloudUsers', elt.id).then((result) => {
+          this.usersByCloud.push({
+            id: elt.id,
+            nbUsers: result
+          })
+        })
+      })
+    }
   },
   beforeRouteEnter (to, from, next) {
     store.dispatch('init')
@@ -47,6 +63,9 @@ export default {
       next()
     })
   },
+  created () {
+    this.getNbUsersByCloud()
+  },
   computed: {
     ...mapState({
       clouds: state => state.clouds
@@ -56,6 +75,11 @@ export default {
         let role = this.$store.state.currentUser.clouds.find((idCloud) => {
           return idCloud.cloud === elt.id
         })
+        if (_.find(this.usersByCloud, ['id', elt.id]) !== undefined) {
+          elt.nbUsers = _.find(this.usersByCloud, ['id', elt.id]).nbUsers
+        } else {
+          elt.nbUsers = 0
+        }
 
         elt.isAdmin = role.role === 100
       })

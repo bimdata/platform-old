@@ -33,4 +33,13 @@ export class CloudRepository {
       console.log(e.statusCode)
     }
   }
+
+  async getCloudUsers (idCloud) {
+    try {
+      const response = await this.cloudApiClient.getCloudUsers(idCloud)
+      return response
+    } catch (e) {
+      console.log(e.statusCode)
+    }
+  }
 }

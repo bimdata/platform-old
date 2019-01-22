@@ -49,7 +49,7 @@
                         +0
                       </span>
                       <span class="card-bd__infos-cloud__users">
-                        +0
+                        +{{ cloud.nbUsers }}
                         <svgicon name="account" height="30" width="30"></svgicon>
                       </span>
                     </div>
