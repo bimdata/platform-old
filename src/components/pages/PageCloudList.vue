@@ -40,9 +40,10 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     store.dispatch('init')
+    let fetchUser = store.dispatch('fetchUserData')
     let fetchClouds = store.dispatch('fetchUserCloudsDetails')
     let fetchProjects = store.dispatch('fetchSelfUserProjects')
-    Promise.all([fetchClouds, fetchProjects]).then(function () {
+    Promise.all([fetchUser, fetchClouds, fetchProjects]).then(function () {
       next()
     })
   },
