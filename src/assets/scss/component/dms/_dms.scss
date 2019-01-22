@@ -124,6 +124,7 @@
   &.shrinked {
     transform: translateX(272px);
     width: calc(100% - 272px);
+    padding-left: $grid-gutter-width;
 
     .dms__tree-view {
       left: -272px;
@@ -191,7 +192,7 @@
 }
 
 .dms__tree-view {
-  padding-right: $grid-gutter-width;
+  margin-right: $grid-gutter-width;
 
   .dms__tree-view-content {
     background-color: white;
@@ -247,16 +248,17 @@
           width: 0px;
           height: 0px;
           top: 4px;
-          left: -11px;
+          left: -10px;
         }
 
         &__name {
           display: inline-block;
           vertical-align: middle;
-          width: 90%;
+          width: 87%;
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
+          margin-left: 3px;
         }
       }
 

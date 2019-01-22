@@ -10,6 +10,7 @@ const svgIcons = [
   'keyboard_arrow_down',
   'keyboard_arrow_up',
   'plus.svg',
+  'folder-outline.svg',
   'alert-circle.svg',
   'close-circle.svg',
   'check-circle.svg',

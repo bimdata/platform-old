@@ -8,7 +8,8 @@
              :style="{'padding-left': paddingLine + 'px'}"
         >
             <span class="dms__line-tree-view-content">
-                <svgicon name="folder2"></svgicon>
+                <svgicon name="folder-outline" height="19" width="19" v-if="isCurrentPath"></svgicon>
+                <svgicon name="folder2" v-else></svgicon>
                 <span class="dms__line-tree-view-content__name">{{ folder.name }}</span>
             </span>
         </div>
@@ -42,7 +43,7 @@ export default {
       if (this.depth !== 1) {
         return 15 * this.depth
       } else {
-        return 20
+        return 22
       }
     },
     isCurrentPath () {
