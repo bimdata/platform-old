@@ -3,9 +3,7 @@ $base-button-option: 'base-button-option';
 .#{base-button-option} {
   &__tool {
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin-left: auto;
     width: 27px;
     &:hover {
       cursor: pointer;

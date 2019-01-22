@@ -264,10 +264,58 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
   }
 
   &__image {
     padding: $grid-gutter-width;
+  }
+
+  &__circle {
+    height: 87px;
+    width: 87px;
+    border-radius: 100%;
+    padding: 10px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.07);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__picto-container {
+    height: 56px;
+    width: 56px;
+    border-radius: 8px;
+    border: 1px dashed #E1E1E2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__infos-cloud {
+    color: #E1E1E2;
+    font-size: 0.929rem;
+    margin-top: 35px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    &__projects {
+      border-right: 1px solid #E1E1E2;
+      margin-right: 18px;
+      padding-right: 23px;
+      height: 100%;
+
+      .svg-icon {
+        margin-right: 3px;
+      }
+    }
+    &__users {
+      .svg-icon {
+        margin-left: 9px;
+      }
+    }
   }
 
   &__title {
@@ -287,7 +335,7 @@
       position: absolute;
       left: 0;
       right: 0;
-      bottom: -$grid-gutter-width;
+      bottom: -10px;
       margin: 0 auto;
     }
   }

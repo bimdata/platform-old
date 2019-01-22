@@ -3,6 +3,8 @@ const sourcePath = 'node_modules/@mdi/svg/svg';
 const destPath = 'src/assets/images/icons';
 
 const svgIcons = [
+  'account.svg',
+  'application.svg',
   'chevron-down.svg',
   'chevron-left.svg',
   'chevron-right.svg',
@@ -11,6 +13,7 @@ const svgIcons = [
   'keyboard_arrow_up',
   'plus.svg',
   'folder-outline.svg',
+  'image-plus.svg',
   'alert-circle.svg',
   'close-circle.svg',
   'check-circle.svg',
