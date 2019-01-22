@@ -275,12 +275,17 @@
     height: 87px;
     width: 87px;
     border-radius: 100%;
-    padding: 10px;
     box-shadow: 0 0 10px 0 rgba(0,0,0,0.07);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+
+    img {
+      height: 100%;
+      width: 100%;
+    }
   }
   &__picto-container {
     height: 56px;
