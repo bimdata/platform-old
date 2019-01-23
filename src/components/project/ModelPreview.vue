@@ -37,12 +37,12 @@ export default {
   props: {
     imgURL: {
       type: String,
-      required: false
+      required: true
     }
   },
   mounted () {
-    this.viewerWidth = this.$refs.modelPreview.getBoundingClientRect().width
-    this.viewerHeight = this.$refs.modelPreview.getBoundingClientRect().width
+    this.viewerWidth = this.viewerHeight =
+      this.$refs.modelPreview.getBoundingClientRect().width
   },
   computed: {
     left () {

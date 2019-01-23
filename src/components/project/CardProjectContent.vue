@@ -44,15 +44,6 @@ export default {
     projectName () {
       return this.$store.state.project.selectedProject.name
     }
-  },
-  created () {
   }
 }
 </script>
-
-<style>
-  .main-ifc__info-project {
-    height: 100%;
-    position: relative;
-  }
-</style>
