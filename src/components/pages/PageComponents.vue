@@ -58,7 +58,7 @@
             <div class="col-12">
                 <div class="components__divider"></div>
                 <h3>Model Preview</h3>
-                <model-preview></model-preview>
+                <model-preview imgURL="/static/img/model-preview_no_numbers.png"></model-preview>
             </div>
             <div class="col-12">
                 <div class="components__divider"></div>
