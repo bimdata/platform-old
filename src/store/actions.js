@@ -53,14 +53,24 @@ export default {
   async fetchUserCloudsDetails ({commit, dispatch, state}) {
     try {
       const clouds = await this.CloudRepositoryRequest.getSelfUserClouds()
-      for (const cloud of clouds) {
-        let nbUsers = await dispatch('getCloudUsers', cloud.id)
-        let projects = await dispatch('getProjects', cloud.id)
+      let methods = []
 
+      clouds.forEach((cloud) => {
         cloud.role = _.find(state.currentUser.clouds, ['cloud', cloud.id]).role
-        cloud.nbUsers = nbUsers
-        cloud.projects = projects
-      }
+        let nbUserRetrieve = async function () {
+          let nbUsers = await dispatch('getCloudUsers', cloud.id)
+          cloud.nbUsers = nbUsers
+        }
+        let projectsRetrieve = async function () {
+          let projects = await dispatch('getProjects', cloud.id)
+          cloud.projects = projects
+        }
+
+        methods.push(nbUserRetrieve())
+        methods.push(projectsRetrieve())
+      })
+      await Promise.all(methods)
+
       commit('SET_USER_CLOUDS', clouds)
       return clouds
     } catch (e) {
