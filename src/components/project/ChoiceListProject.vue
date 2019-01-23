@@ -46,8 +46,11 @@ export default {
   },
   methods: {
     getProjectByCloud () {
-      let projects = this.$store.state.projects
-      let selectedCloud = this.$store.state.project.selectedCloud
+      let currentCloud = this.$store.state.currentCloud
+      let cloud = this.$store.getters.getCloudById(currentCloud.id)
+      let projects = cloud.projects
+      console.log('projects', projects)
+      let selectedCloud = this.$route.params.id
       return projects.filter(project => {
         return selectedCloud.id === project.cloud.id
       })

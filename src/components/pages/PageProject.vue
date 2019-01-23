@@ -86,12 +86,24 @@ export default {
     }
   },
   beforeRouteEnter (to, from, next) {
-    store.dispatch('init')
+    console.log('------', store.state.currentCloud)
+    if (!store.state.currentCloud) {
+      console.log('test')
+      store.dispatch('init')
+      let fetchClouds = store.dispatch('fetchUserCloudsDetails')
+      let fetchProjects = store.dispatch('fetchSelfUserProjects')
+      Promise.all([fetchClouds, fetchProjects]).then(function () {
+        next()
+      })
+    } else {
+      next()
+    }
+    /* store.dispatch('init')
     let fetchClouds = store.dispatch('fetchUserCloudsDetails')
     let fetchProjects = store.dispatch('fetchSelfUserProjects')
     Promise.all([fetchClouds, fetchProjects]).then(function () {
       next()
-    })
+    }) */
   },
   created () {
     let project = this.$store.getters.getProjectById(this.$route.params.id)

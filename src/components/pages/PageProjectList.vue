@@ -49,7 +49,7 @@
 <script>
 import BaseChoiceList from '@/components/base-components/BaseChoiceList'
 import CardProjectList from '@/components/project-list/CardProjectList'
-import store from '@/store/'
+import _ from 'lodash'
 import BaseButtonAction from '@/components/base-components/BaseButtonAction'
 
 export default {
@@ -77,20 +77,10 @@ export default {
       })
     },
     getProjectByCloud () {
-      let projects = this.$store.getters.getProjectsByCreatedDate
       let currentCloud = this.$store.state.currentCloud
-      return projects.filter(project => {
-        return currentCloud.id === project.cloud.id
-      })
+      let cloud = this.$store.getters.getCloudById(currentCloud.id)
+      return cloud ? _.orderBy(this.$store.state.currentCloud.projects, p => p.created_at, 'desc') : null
     }
-  },
-  beforeRouteEnter (to, from, next) {
-    store.dispatch('init')
-    let fetchClouds = store.dispatch('fetchUserCloudsDetails')
-    let fetchProjects = store.dispatch('fetchSelfUserProjects')
-    Promise.all([fetchClouds, fetchProjects]).then(function () {
-      next()
-    })
   },
   watch: {
     selectedCloud ({ value }) {

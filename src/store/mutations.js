@@ -14,8 +14,8 @@ export default {
   SET_USER_PROJECTS: (state, projects) => {
     state.projects = projects
   },
-  ADD_USER_PROJECT: (state, project) => {
-    state.projects.push(project)
+  ADD_PROJECT: (state, project) => {
+    state.currentCloud.projects.push(project)
   },
   DELETE_USER_PROJECT: (state, project) => {
     state.projects = state.projects.filter((p) => project.id !== p.id)
@@ -28,8 +28,5 @@ export default {
   },
   SET_CURRENT_CLOUD: (state, cloud) => {
     state.currentCloud = cloud
-  },
-  SET_CURRENT_PROJECT: (state, project) => {
-    state.currentProject = project
   }
 }

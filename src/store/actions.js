@@ -89,7 +89,7 @@ export default {
   async addProject (context, projectName) {
     try {
       const newProject = await this.ProjectRepositoryRequest.createNewProject(context.state.currentCloud.id, projectName)
-      context.commit('ADD_USER_PROJECT', newProject)
+      context.commit('ADD_PROJECT', newProject)
       return newProject
     } catch (e) {
       console.log(e)
