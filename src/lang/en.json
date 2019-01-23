@@ -30,6 +30,9 @@
         "remove": "Remove"
     },
     "dms": {
-      "no_creator": "No Creator"
+        "no_creator": "No Creator"
+    },
+    "ifc": {
+        "view": "View"
     }
 }

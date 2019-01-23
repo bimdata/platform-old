@@ -7,7 +7,10 @@
             <div class="main-ifc">
                 <div class="shadowed-content main-ifc__map-info-content">
                     <div class="main-ifc__info-project">
-                        <model-preview></model-preview>
+                        <model-preview-slider
+                          :panoramas="panoramas"
+                          :show-viewer-button="true"
+                        ></model-preview-slider>
                     </div>
                 </div>
                 <div class="main-ifc__map">
@@ -19,22 +22,28 @@
     </base-card>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import BaseCard from '@/components/base-components/BaseCard'
 import MapProject from '@/components/project/MapProject'
-import ModelPreview from '@/components/project/ModelPreview'
+import ModelPreviewSlider from '@/components/project/ModelPreviewSlider'
 
 export default {
   components: {
     BaseCard,
     MapProject,
-    ModelPreview
+    ModelPreviewSlider
   },
   computed: {
+    ...mapGetters({
+      ifcs: 'project/getSortedIfc'
+    }),
+    panoramas () {
+      return this.ifcs
+        .filter(item => item.viewer_360_file)
+    },
     projectName () {
       return this.$store.state.project.selectedProject.name
     }
-  },
-  created () {
   }
 }
 </script>
