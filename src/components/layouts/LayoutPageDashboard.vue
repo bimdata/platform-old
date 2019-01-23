@@ -16,6 +16,20 @@ import MainHeader from '@/components/navigation/MainHeader'
 export default {
   components: {
     'main-header': MainHeader
+  },
+  methods: {
+    initApp () {
+      this.$store.dispatch('init')
+      let fetchUsers = this.$store.dispatch('fetchUserData')
+      let fetchClouds = this.$store.dispatch('fetchUserCloudsDetails')
+      // let fetchProjects = this.$store.dispatch('fetchSelfUserProjects')
+      Promise.all([fetchUsers, fetchClouds]).then(function () {
+        // next()
+      })
+    }
+  },
+  created () {
+    this.initApp()
   }
 }
 </script>

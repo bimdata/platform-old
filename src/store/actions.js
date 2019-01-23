@@ -3,11 +3,11 @@ import { CloudRepository } from '@/api/CloudRepository'
 import { ProjectRepository } from '@/api/ProjectRepository'
 import router from '@/router'
 import { generateClient } from '@/api/initClient'
+import _ from 'lodash'
 
 export default {
   init ({getters}) {
     let defaultClient = generateClient(getters.oidcAccessToken)
-    console.log(getters.oidcAccessToken)
     this.UserRepositoryRequest = new UserRepository(defaultClient)
     this.CloudRepositoryRequest = new CloudRepository(defaultClient)
     this.ProjectRepositoryRequest = new ProjectRepository(defaultClient)
@@ -50,11 +50,19 @@ export default {
       console.log(e)
     }
   },
-  async fetchUserCloudsDetails (context) {
+  async fetchUserCloudsDetails ({commit, dispatch, state}) {
     try {
-      const response = await this.CloudRepositoryRequest.getSelfUserClouds()
-      context.commit('SET_USER_CLOUDS', response)
-      return response
+      const clouds = await this.CloudRepositoryRequest.getSelfUserClouds()
+      for (const cloud of clouds) {
+        let nbUsers = await dispatch('getCloudUsers', cloud.id)
+        let projects = await dispatch('getProjects', cloud.id)
+
+        cloud.role = _.find(state.currentUser.clouds, ['cloud', cloud.id]).role
+        cloud.nbUsers = nbUsers
+        cloud.projects = projects
+      }
+      commit('SET_USER_CLOUDS', clouds)
+      return clouds
     } catch (e) {
       console.log(e)
     }
@@ -117,6 +125,14 @@ export default {
     try {
       let result = await this.CloudRepositoryRequest.getCloudUsers(idCloud)
       return result ? result.length : 0
+    } catch (e) {
+      console.log(e)
+    }
+  },
+  async getProjects (contexte, idCloud) {
+    try {
+      let result = await this.ProjectRepositoryRequest.getProjects(idCloud)
+      return result
     } catch (e) {
       console.log(e)
     }

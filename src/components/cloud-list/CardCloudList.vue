@@ -2,7 +2,7 @@
     <div class="card-container">
         <div class="base-card card-item card-bd">
             <div class="card-bd__header">
-                <base-button-option @option-toggled="toggleMenu" v-if="cloud.isAdmin">
+                <base-button-option @option-toggled="toggleMenu" v-if="isAdmin">
                     <ul>
                         <li @click.stop.self="showRemoveActions = true" class="base-button-option__menu__remove">
                           {{ $t('project_list.remove') }}
@@ -43,10 +43,10 @@
                                    :placeholder="cloud.name"/>
                         </div>
                     </div>
-                    <div class="card-bd__infos-cloud" v-if="cloud.isAdmin">
+                    <div class="card-bd__infos-cloud" v-if="isAdmin">
                       <span class="card-bd__infos-cloud__projects">
                         <svgicon name="application" height="30" width="30"></svgicon>
-                        +0
+                        +{{ cloud.projects.length }}
                       </span>
                       <span class="card-bd__infos-cloud__users">
                         +{{ cloud.nbUsers }}
@@ -81,6 +81,11 @@ export default {
     cloud: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    isAdmin () {
+      return this.cloud.role === 100
     }
   },
   methods: {
