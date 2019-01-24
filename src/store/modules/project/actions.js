@@ -6,6 +6,15 @@ export default {
     let defaultClient = generateClient(token)
     this.IFCRepositoryRequest = new IFCRepository(defaultClient)
   },
+  async getProjectIfcImage (store, params) {
+    try {
+      let ifcs = await this.IFCRepositoryRequest.getProjectIfcs(params)
+      ifcs = ifcs.filter(ifc => ifc.viewer_360_file)
+      return ifcs[0] && ifcs[0].viewer_360_file ? ifcs[0].viewer_360_file : null
+    } catch (e) {
+      return Promise.reject(e)
+    }
+  },
   async fetchProjectIfc ({ commit }, project) {
     try {
       let params = {
