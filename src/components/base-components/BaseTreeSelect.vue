@@ -6,7 +6,7 @@
                 <svgicon v-if="currentParent.parent_id !== null" name="arrow-back"></svgicon>
             </div>
             <div class="base-tree-select__title">
-                {{ currentParent.name }}
+                {{ currentParent.name | middle-truncate(30) }}
             </div>
             <div class="base-tree-select__close" @click="close">
                 <svgicon name="close"></svgicon>
@@ -17,7 +17,7 @@
                 :key="index"
                 :class="{'selected': item.id === selectedNode}">
                 <div class="base-tree-select__item-line" @click="selectNode(item.id)">
-                    <svgicon name="folder2"></svgicon> {{ item.name }}
+                    <svgicon name="folder2"></svgicon> {{ item.name| middle-truncate(25) }}
                 </div>
                 <div v-if="item.children.length > 0" class="base-tree-select__select-node" @click="changeCurrentNode(item.id)">
                     <svgicon name="chevron-right"></svgicon>
@@ -25,9 +25,9 @@
             </li>
         </ul>
         <div class="base-tree-select__footer">
-            <base-button-action v-show="displayMoveHere" @click="chooseItem(currentParentNode)">DEPLACER ICI</base-button-action>
-            <base-button-action v-show="displayMoveToward" @click="chooseItem(selectedNode)">DEPLACER VERS</base-button-action>
-            <span v-show="displayTextMove" class="text-destination">Choisir une destination</span>
+            <base-button-action v-show="displayMoveHere" @click="chooseItem(currentParentNode)">{{ $t('dms.move_here')  }}</base-button-action>
+            <base-button-action v-show="displayMoveToward" @click="chooseItem(selectedNode)">{{ $t('dms.move_to')  }}</base-button-action>
+            <span v-show="displayTextMove" class="text-destination">{{ $t('dms.choose_destination')  }}</span>
         </div>
     </div>
 </template>

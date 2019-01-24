@@ -3,17 +3,20 @@ $base-tree-select: 'base-tree-select';
 .#{$base-tree-select} {
   color: $body-color;
   z-index: 500;
-  width: 168px;
-  background: white;
+  width: 200px;
+  height: 223px;
+  overflow: hidden;
+  background: $white;
   box-shadow: $bd-box-shadow;
-  font-size: 0.7143rem;
+  font-size: 0.714rem;
+  border-radius: 4px;
 
   &__header {
-    padding: 0 $grid-gutter-width / 2;
+    padding: 0 $grid-gutter-width - 1px;
+    padding-left: $grid-gutter-width - 3px;
     height: 38px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     background-color: #F2F2F2;
 
     svg {
@@ -23,12 +26,21 @@ $base-tree-select: 'base-tree-select';
     }
   }
 
+  &__previous {
+    margin-right: 11px;
+  }
+  &__close {
+    margin-left: auto;
+  }
+
   ul {
+    height: calc(100% - 38px - 38px);
+    overflow: auto;
     margin: 0;
     padding: 0;
     list-style-type: none;
     li {
-      padding: $grid-gutter-width / 2 $grid-gutter-width / 2 $grid-gutter-width / 2 $grid-gutter-width;
+      padding: 5.5px $grid-gutter-width - 1px 5.5px $grid-gutter-width - 1px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -61,7 +73,7 @@ $base-tree-select: 'base-tree-select';
 
     svg {
       color: $primary;
-      margin-right: $grid-gutter-width / 2;
+      margin-right: 11px;
     }
   }
 
@@ -75,10 +87,13 @@ $base-tree-select: 'base-tree-select';
     box-shadow: $bd-box-shadow;
     justify-content: center;
     align-items: center;
-    padding: $grid-gutter-width / 2 $grid-gutter-width;
+    height: 38px;
+    padding: $grid-gutter-width / 2 $grid-gutter-width - 3px;
 
     .base-button-action {
-      min-width: 90px;
+      width: 100%;
+      height: auto;
+      text-transform: uppercase;
     }
 
     .text-destination {
