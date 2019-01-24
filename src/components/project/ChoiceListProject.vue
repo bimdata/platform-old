@@ -18,7 +18,6 @@ export default {
     projects () {
       let projectResult = []
       let projects = this.getProjectsByCloud()
-      console.log('projects---', projects)
       for (let {id, name} of projects) {
         projectResult.push({value: id, text: name})
       }
@@ -26,7 +25,6 @@ export default {
       if (projectResult.length === 0) {
         projectResult.push({value: null, text: 'Aucun projet disponible'})
       }
-      console.log('projectResult', projectResult)
       return projectResult
     },
     selectedProject () {

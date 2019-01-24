@@ -8,10 +8,10 @@
                           {{ $t('project_list.remove') }}
                           <transition name="slide-fade">
                             <div class="delete__actions" v-if="showRemoveActions">
-                              <span class="check" @click.native="remove">
+                              <span class="check" @click="remove">
                                 <svgicon name="check" height="15" width="18"></svgicon>
                               </span>
-                              <span class="check-cross" @click.native="showRemoveActions = false">
+                              <span class="check-cross" @click="showRemoveActions = false">
                                 <svgicon name="close"  height="13" width="13"></svgicon>
                               </span>
                             </div>
@@ -101,7 +101,8 @@ export default {
     },
     remove () {
       this.displayLoader = true
-      this.$store.dispatch('removeProject', this.project).then(() => {})
+      // TODO : implement the next function
+      // this.$store.dispatch('removeCloud', this.cloud).then(() => {})
     },
     toggleMenu (isOpened) {
       if (!isOpened) {

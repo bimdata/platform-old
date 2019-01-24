@@ -14,22 +14,6 @@ export const getCurrentCloud = (state) => {
   return state.currentCloud
 }
 
-/* export const getCloudProjects = (state, idCloud) => {
-  return state.projects.filter(elt => {
-    return idCloud === elt.cloud.id
-  })
-} */
-
-/* export const getProjectsByCreatedDate = (state) => {
-  return _.orderBy(state.projects, p => p.created_at, 'desc')
-} */
-
-/* export const getCurrentCloudProjects = (state) => {
-  return state.projects.filter(project => {
-    return state.currentCloud.id === project.cloud.id
-  })
-} */
-
 export const getCloudById = state => idCloud => {
   return state.clouds.find(cloud => {
     return parseInt(idCloud) === cloud.id
@@ -37,20 +21,25 @@ export const getCloudById = state => idCloud => {
 }
 
 export const getProjectById = state => idProject => {
-  return state.currentCloud.projects.find(project => {
-    return parseInt(idProject) === project.id
-  })
+  if (state.currentCloud.projects) {
+    return state.currentCloud.projects.find(project => {
+      return parseInt(idProject) === project.id
+    })
+  }
+
+  return []
 }
 
 export const getCloudByProjectId = state => idProject => {
-  let result = []
-  state.clouds.forEach((cloud) => {
-    cloud.projects.find(project => {
-      if (parseInt(idProject) === project.id) {
-        result.push(project.cloud)
-      }
+  let cloudResult = null
+  if (state.clouds) {
+    state.clouds.forEach((cloud) => {
+      cloud.projects.find(project => {
+        if (parseInt(idProject) === project.id) {
+          cloudResult = cloud
+        }
+      })
     })
-  })
-
-  return result
+  }
+  return cloudResult
 }

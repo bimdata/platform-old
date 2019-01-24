@@ -41,17 +41,7 @@ export default {
       console.log(e)
     }
   },
-  async fetchSelfUserProjects ({commit}) {
-    try {
-      const response = await this.UserRepositoryRequest.getSelfProjects()
-      commit('SET_USER_PROJECTS', response)
-      return response
-    } catch (e) {
-      console.log(e)
-    }
-  },
   async fetchUserCloudsDetails ({commit, dispatch, state}) {
-    console.log('HEREEEEEEEEEEEE')
     try {
       const clouds = await this.CloudRepositoryRequest.getSelfUserClouds()
       let methods = []
@@ -73,7 +63,6 @@ export default {
       await Promise.all(methods)
 
       commit('SET_USER_CLOUDS', clouds)
-      console.log('AAAAAAAAAAAAA', state.clouds)
       return clouds
     } catch (e) {
       console.error(e)
@@ -82,7 +71,7 @@ export default {
   async removeProject (context, project) {
     try {
       await this.ProjectRepositoryRequest.deleteProject(context.state.currentCloud.id, project)
-      context.commit('DELETE_USER_PROJECT', project)
+      context.commit('DELETE_PROJECT', project)
       return true
     } catch (e) {
       console.log(e)
