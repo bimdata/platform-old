@@ -14,6 +14,7 @@
                           {{ $t('project.move_to') }}
                       </span>
                       <base-tree-select v-if="displayTreeSelect"
+                                        v-on-clickaway="closeMoveTo"
                                         @close="closeMoveTo"
                                         @chooseItem="moveItems"
                                         :tree="folderTree"
@@ -143,9 +144,11 @@ import BaseInputCheckbox from '@/components/base-components/BaseInputCheckbox'
 import DMSUploadDocument from '@/components/project/DMSUploadDocument'
 import ListChoice from '@/components/project/ListChoice'
 import BaseButtonOption from '@/components/base-components/BaseButtonOption'
+import { mixin as clickaway } from 'vue-clickaway'
 import _ from 'lodash'
 
 export default {
+  mixins: [ clickaway ],
   components: {
     'dms-breadcrumb': DMSBreadcrumb,
     'dms-tree-view': DMSTreeView,
@@ -221,7 +224,7 @@ export default {
       })
     },
     displayMoveTo () {
-      this.displayTreeSelect = true
+      this.displayTreeSelect = !this.displayTreeSelect
     },
     closeMoveTo () {
       this.displayTreeSelect = false
