@@ -145,6 +145,7 @@
       & > tr {
         & > th {
           outline: none;
+          line-height: 1em;
 
           &.sorting {
             &:before,
@@ -195,7 +196,7 @@
   margin-right: $grid-gutter-width;
 
   .dms__tree-view-content {
-    background-color: white;
+    background-color: $white;
     box-shadow: $bd-box-shadow;
     font-size: 0.7143rem;
     height: 100%;
