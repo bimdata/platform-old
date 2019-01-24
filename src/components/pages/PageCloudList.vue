@@ -20,7 +20,7 @@
       <transition-group name="project-item"
                         tag="div"
                         class="project_list row">
-          <card-cloud-list v-for="cloud in myClouds"
+          <card-cloud-list v-for="cloud in clouds"
                             :key="cloud.id"
                             :cloud="cloud">
           </card-cloud-list>
@@ -38,10 +38,7 @@ export default {
   computed: {
     ...mapState({
       clouds: state => state.clouds
-    }),
-    myClouds () {
-      return this.clouds
-    }
+    })
   }
 }
 </script>
