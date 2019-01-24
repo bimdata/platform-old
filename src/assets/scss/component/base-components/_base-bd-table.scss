@@ -28,6 +28,7 @@ $base-cd-table: 'bd-table';
 
       svg {
         color: $primary;
+        cursor: pointer;
         transition: .15s linear all;
       }
       background-color: white;
