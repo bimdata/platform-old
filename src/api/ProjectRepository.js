@@ -94,4 +94,13 @@ export class ProjectRepository {
       console.log(e.statusCode)
     }
   }
+
+  async getProjects (idCloud) {
+    try {
+      const response = await this.projectApiClient.getProjects(idCloud)
+      return response
+    } catch (e) {
+      console.log(e.statusCode)
+    }
+  }
 }

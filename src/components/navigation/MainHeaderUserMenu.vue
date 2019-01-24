@@ -33,10 +33,6 @@ export default {
     BaseDropdown
   },
   methods: {
-    ...mapActions([
-      'fetchUserData'
-    ]
-    ),
     ...mapActions('authentication', [
       'logoutUser'
     ]),
@@ -63,9 +59,6 @@ export default {
             .toUpperCase()
         ) : 'NN'
     }
-  },
-  created () {
-    this.fetchUserData()
   }
 }
 </script>

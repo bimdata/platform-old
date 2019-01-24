@@ -3,11 +3,11 @@ import { CloudRepository } from '@/api/CloudRepository'
 import { ProjectRepository } from '@/api/ProjectRepository'
 import router from '@/router'
 import { generateClient } from '@/api/initClient'
+import _ from 'lodash'
 
 export default {
   init ({getters}) {
     let defaultClient = generateClient(getters.oidcAccessToken)
-    console.log(getters.oidcAccessToken)
     this.UserRepositoryRequest = new UserRepository(defaultClient)
     this.CloudRepositoryRequest = new CloudRepository(defaultClient)
     this.ProjectRepositoryRequest = new ProjectRepository(defaultClient)
@@ -41,28 +41,37 @@ export default {
       console.log(e)
     }
   },
-  async fetchSelfUserProjects ({commit}) {
+  async fetchUserCloudsDetails ({commit, dispatch, state}) {
     try {
-      const response = await this.UserRepositoryRequest.getSelfProjects()
-      commit('SET_USER_PROJECTS', response)
-      return response
+      const clouds = await this.CloudRepositoryRequest.getSelfUserClouds()
+      let methods = []
+
+      clouds.forEach((cloud) => {
+        cloud.role = _.find(state.currentUser.clouds, ['cloud', cloud.id]).role
+        let nbUserRetrieve = async function () {
+          let nbUsers = await dispatch('getCloudUsers', cloud.id)
+          cloud.nbUsers = nbUsers
+        }
+        let projectsRetrieve = async function () {
+          let projects = await dispatch('getProjects', cloud.id)
+          cloud.projects = projects
+        }
+
+        methods.push(nbUserRetrieve())
+        methods.push(projectsRetrieve())
+      })
+      await Promise.all(methods)
+
+      commit('SET_USER_CLOUDS', clouds)
+      return clouds
     } catch (e) {
-      console.log(e)
-    }
-  },
-  async fetchUserCloudsDetails (context) {
-    try {
-      const response = await this.CloudRepositoryRequest.getSelfUserClouds()
-      context.commit('SET_USER_CLOUDS', response)
-      return response
-    } catch (e) {
-      console.log(e)
+      console.error(e)
     }
   },
   async removeProject (context, project) {
     try {
       await this.ProjectRepositoryRequest.deleteProject(context.state.currentCloud.id, project)
-      context.commit('DELETE_USER_PROJECT', project)
+      context.commit('DELETE_PROJECT', project)
       return true
     } catch (e) {
       console.log(e)
@@ -71,7 +80,7 @@ export default {
   async addProject (context, projectName) {
     try {
       const newProject = await this.ProjectRepositoryRequest.createNewProject(context.state.currentCloud.id, projectName)
-      context.commit('ADD_USER_PROJECT', newProject)
+      context.commit('ADD_PROJECT', newProject)
       return newProject
     } catch (e) {
       console.log(e)
@@ -109,6 +118,22 @@ export default {
       await this.CloudRepositoryRequest.updateCloud(cloud)
       context.commit('UPDATE_USER_CLOUD', cloud)
       return cloud
+    } catch (e) {
+      console.log(e)
+    }
+  },
+  async getCloudUsers (context, idCloud) {
+    try {
+      let result = await this.CloudRepositoryRequest.getCloudUsers(idCloud)
+      return result ? result.length : 0
+    } catch (e) {
+      console.log(e)
+    }
+  },
+  async getProjects (contexte, idCloud) {
+    try {
+      let result = await this.ProjectRepositoryRequest.getProjects(idCloud)
+      return result
     } catch (e) {
       console.log(e)
     }

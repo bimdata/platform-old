@@ -13,13 +13,10 @@ let oidc = vuexOidcCreateStoreModule(oidcSettings)
 const store = new Vuex.Store({
   state: {
     isAuthenticated: false,
-    token: null,
     lang: 'fr',
     currentUser: {},
     currentCloud: {id: 2, name: 'GABZZ'},
-    currentProject: {},
-    clouds: [],
-    projects: []
+    clouds: []
   },
   modules: {
     oidc,

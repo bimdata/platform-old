@@ -17,7 +17,7 @@ export default {
   computed: {
     projects () {
       let projectResult = []
-      let projects = this.getProjectByCloud()
+      let projects = this.getProjectsByCloud()
       for (let {id, name} of projects) {
         projectResult.push({value: id, text: name})
       }
@@ -29,7 +29,7 @@ export default {
     },
     selectedProject () {
       let selected
-      let projects = this.getProjectByCloud()
+      let projects = this.getProjectsByCloud()
       let project = this.$store.state.project.selectedProject
       for (let {id, name} of projects) {
         if (project.id === id) {
@@ -45,12 +45,10 @@ export default {
     }
   },
   methods: {
-    getProjectByCloud () {
-      let projects = this.$store.state.projects
-      let selectedCloud = this.$store.state.project.selectedCloud
-      return projects.filter(project => {
-        return selectedCloud.id === project.cloud.id
-      })
+    getProjectsByCloud () {
+      let currentCloud = this.$store.state.currentCloud
+      let cloud = this.$store.getters.getCloudById(currentCloud.id)
+      return cloud.projects
     },
     choseProject ({value}) {
       this.$router.push({name: 'project', params: {id: value}})

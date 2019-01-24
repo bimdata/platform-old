@@ -59,7 +59,6 @@ import CardProjectContent from '@/components/project/CardProjectContent'
 import BaseCard from '@/components/base-components/BaseCard'
 import TableIfc from '@/components/project/TableIfc'
 import UploadIfc from '@/components/project/UploadIfc'
-import store from '@/store'
 import DMS from '@/components/project/DMS'
 
 export default {
@@ -83,28 +82,27 @@ export default {
   methods: {
     closeUploadIfc () {
       this.displayUpload = false
+    },
+    setCurrentCloud () {
+      let cloudProject = this.$store.getters.getCloudByProjectId(this.$route.params.id)
+      this.$store.commit('SET_CURRENT_CLOUD', cloudProject)
+    },
+    setProject () {
+      let project = this.$store.getters.getProjectById(this.$route.params.id)
+      this.$store.dispatch('project/init')
+      this.loadedProject = false
+      this.$store.commit('project/SET_PROJECT', project)
+      this.$store.dispatch('project/getTree', project).then(tree => {
+        this.loadedDMS = true
+      })
+      this.$store.dispatch('project/fetchProjectIfc', project).then(() => {
+        this.loadedProject = true
+      })
     }
   },
-  beforeRouteEnter (to, from, next) {
-    store.dispatch('init')
-    let fetchClouds = store.dispatch('fetchUserCloudsDetails')
-    let fetchProjects = store.dispatch('fetchSelfUserProjects')
-    Promise.all([fetchClouds, fetchProjects]).then(function () {
-      next()
-    })
-  },
   created () {
-    let project = this.$store.getters.getProjectById(this.$route.params.id)
-    this.$store.dispatch('project/init')
-    this.loadedProject = false
-    this.$store.commit('project/SET_PROJECT', project)
-    this.$store.dispatch('project/getTree', project).then(tree => {
-      this.loadedDMS = true
-    })
-    this.$store.dispatch('project/fetchProjectIfc', project).then(() => {
-      this.loadedProject = true
-    })
-    this.$store.commit('project/SET_CLOUD', {id: 2, name: 'GABZZZ'})
+    this.setCurrentCloud()
+    this.setProject()
   }
 }
 </script>

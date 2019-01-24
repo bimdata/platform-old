@@ -2,14 +2,31 @@
     <div class="card-container">
         <div class="base-card card-item card-bd">
             <div class="card-bd__header">
-                <span class="card-bd__date">{{ cloud.created_at|formatDate(false) }}</span>
+                <base-button-option @option-toggled="toggleMenu" v-if="isAdmin">
+                    <ul>
+                        <li @click.stop.self="showRemoveActions = true" class="base-button-option__menu__remove">
+                          {{ $t('project_list.remove') }}
+                          <transition name="slide-fade">
+                            <div class="delete__actions" v-if="showRemoveActions">
+                              <span class="check" @click="remove">
+                                <svgicon name="check" height="15" width="18"></svgicon>
+                              </span>
+                              <span class="check-cross" @click="showRemoveActions = false">
+                                <svgicon name="close"  height="13" width="13"></svgicon>
+                              </span>
+                            </div>
+                          </transition>
+                        </li>
+                    </ul>
+                </base-button-option>
             </div>
             <div class="card-bd__body">
                 <div class="card-bd__body-container">
-                    <div class="card-bd__image">
-                        <a href="" @click.prevent="accessCloud">
-                            <svgicon name="img-placeholder" height="30" width="30"></svgicon>
-                        </a>
+                    <div class="card-bd__circle" @click.prevent="accessCloud">
+                        <div class="card-bd__picto-container">
+                            <svgicon name="image-plus" height="26" width="26"></svgicon>
+                        </div>
+                        <img src="https://mir-s3-cdn-cf.behance.net/user/276/df2bfd2271051.59b8e8f49b466.jpg" alt="" class="d-none">
                     </div>
                     <div v-on-clickaway="closeUpdate"
                          class="card-bd__title"
@@ -26,6 +43,16 @@
                                    :placeholder="cloud.name"/>
                         </div>
                     </div>
+                    <div class="card-bd__infos-cloud" v-if="isAdmin">
+                      <span class="card-bd__infos-cloud__projects">
+                        <svgicon name="application" height="30" width="30"></svgicon>
+                        +{{ cloud.projects.length }}
+                      </span>
+                      <span class="card-bd__infos-cloud__users">
+                        +{{ cloud.nbUsers }}
+                        <svgicon name="account" height="30" width="30"></svgicon>
+                      </span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -34,6 +61,7 @@
 <script>
 import _ from 'lodash'
 import { mixin as clickaway } from 'vue-clickaway'
+import BaseButtonOption from '@/components/base-components/BaseButtonOption'
 
 export default {
   data () {
@@ -41,14 +69,23 @@ export default {
       clicked: false,
       displayMenu: false,
       editMode: false,
-      newName: ''
+      newName: '',
+      showRemoveActions: false
     }
+  },
+  components: {
+    BaseButtonOption
   },
   mixins: [ clickaway ],
   props: {
     cloud: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    isAdmin () {
+      return this.cloud.role === 100
     }
   },
   methods: {
@@ -63,8 +100,14 @@ export default {
       })
     },
     remove () {
-      this.$store.dispatch('removeProject', this.project).then(() => {
-      })
+      this.displayLoader = true
+      // TODO : implement the next function
+      // this.$store.dispatch('removeCloud', this.cloud).then(() => {})
+    },
+    toggleMenu (isOpened) {
+      if (!isOpened) {
+        this.showRemoveActions = false
+      }
     },
     closeTool () {
       this.displayMenu = false
