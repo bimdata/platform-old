@@ -30,7 +30,10 @@
         "remove": "Remove"
     },
     "dms": {
-      "no_creator": "No Creator"
+      "no_creator": "No Creator",
+      "move_here": "Move here",
+      "move_to": "Move to",
+      "choose_destination": "Choose destination"
     },
     "ifc": {
       "view": "View"
