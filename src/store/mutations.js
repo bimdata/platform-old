@@ -5,6 +5,9 @@ export default {
     app.$i18n.locale = payload
     state.lang = payload
   },
+  SET_INITIALIZED_DATA: (state, value) => {
+    state.initializedData = value
+  },
   SET_USER_DATA: (state, user) => {
     state.currentUser = user
   },

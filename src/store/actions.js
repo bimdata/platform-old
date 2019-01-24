@@ -51,6 +51,7 @@ export default {
     }
   },
   async fetchUserCloudsDetails ({commit, dispatch, state}) {
+    console.log('HEREEEEEEEEEEEE')
     try {
       const clouds = await this.CloudRepositoryRequest.getSelfUserClouds()
       let methods = []
@@ -72,9 +73,10 @@ export default {
       await Promise.all(methods)
 
       commit('SET_USER_CLOUDS', clouds)
+      console.log('AAAAAAAAAAAAA', state.clouds)
       return clouds
     } catch (e) {
-      console.log(e)
+      console.error(e)
     }
   },
   async removeProject (context, project) {

@@ -12,6 +12,7 @@ let oidc = vuexOidcCreateStoreModule(oidcSettings)
 
 const store = new Vuex.Store({
   state: {
+    initializedData: false,
     isAuthenticated: false,
     lang: 'fr',
     currentUser: {},

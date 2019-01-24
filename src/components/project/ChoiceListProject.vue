@@ -17,7 +17,8 @@ export default {
   computed: {
     projects () {
       let projectResult = []
-      let projects = this.getProjectByCloud()
+      let projects = this.getProjectsByCloud()
+      console.log('projects---', projects)
       for (let {id, name} of projects) {
         projectResult.push({value: id, text: name})
       }
@@ -25,11 +26,12 @@ export default {
       if (projectResult.length === 0) {
         projectResult.push({value: null, text: 'Aucun projet disponible'})
       }
+      console.log('projectResult', projectResult)
       return projectResult
     },
     selectedProject () {
       let selected
-      let projects = this.getProjectByCloud()
+      let projects = this.getProjectsByCloud()
       let project = this.$store.state.project.selectedProject
       for (let {id, name} of projects) {
         if (project.id === id) {
@@ -45,15 +47,10 @@ export default {
     }
   },
   methods: {
-    getProjectByCloud () {
+    getProjectsByCloud () {
       let currentCloud = this.$store.state.currentCloud
       let cloud = this.$store.getters.getCloudById(currentCloud.id)
-      let projects = cloud.projects
-      console.log('projects', projects)
-      let selectedCloud = this.$route.params.id
-      return projects.filter(project => {
-        return selectedCloud.id === project.cloud.id
-      })
+      return cloud.projects
     },
     choseProject ({value}) {
       this.$router.push({name: 'project', params: {id: value}})

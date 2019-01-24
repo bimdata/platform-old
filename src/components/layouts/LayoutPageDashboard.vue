@@ -17,19 +17,13 @@ export default {
   components: {
     'main-header': MainHeader
   },
-  methods: {
-    initApp () {
-      this.$store.dispatch('init')
-      let fetchUsers = this.$store.dispatch('fetchUserData')
-      let fetchClouds = this.$store.dispatch('fetchUserCloudsDetails')
-      // let fetchProjects = this.$store.dispatch('fetchSelfUserProjects')
-      Promise.all([fetchUsers, fetchClouds]).then(function () {
-        // next()
-      })
-    }
-  },
-  created () {
-    this.initApp()
+  async beforeCreate () {
+    this.$store.dispatch('init')
+    let fetchUsers = this.$store.dispatch('fetchUserData')
+    let fetchClouds = this.$store.dispatch('fetchUserCloudsDetails')
+    // let fetchProjects = this.$store.dispatch('fetchSelfUserProjects')
+    await Promise.all([fetchUsers, fetchClouds])
+    this.$store.commit('SET_INITIALIZED_DATA', true)
   }
 }
 </script>
