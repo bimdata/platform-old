@@ -6,6 +6,11 @@ $base-table-spaced: 'table-spaced';
   font-size: 0.9286rem;
   font-weight: normal;
 
+  .error-message {
+    color: #F40C0C;
+    font-size: 0.857rem;;
+  }
+
   &__head {
     color: $primary;
     margin-bottom: $grid-gutter-width;

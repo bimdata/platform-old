@@ -21,7 +21,8 @@
         "cancel": "Cancel",
         "validate": "Validate",
         "folder_name": "Folder's name",
-        "project_document": "Project's documents"
+        "project_document": "Project's documents",
+        "error_conversion": "Error in conversion"
     },
     "project_list": {
         "new_project": "New Project",
@@ -30,7 +31,10 @@
         "remove": "Remove"
     },
     "dms": {
-      "no_creator": "No Creator"
+      "no_creator": "No Creator",
+      "move_here": "Move here",
+      "move_to": "Move to",
+      "choose_destination": "Choose destination"
     },
     "ifc": {
       "view": "View"
