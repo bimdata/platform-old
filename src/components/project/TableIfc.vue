@@ -24,7 +24,7 @@
         </template>
         <template slot="state" slot-scope="data">
             <svgicon height="22" width="22" v-if="getState(data.item.state) === 'ko'"
-                     name="close-circle" color="#C11E07"></svgicon>
+                     name="close-circle" color="#F40C0C"></svgicon>
             <svgicon height="22" width="22" v-if="getState(data.item.state) === 'ok'"
                      name="check-circle" color="#219434"></svgicon>
             <template v-if="getState(data.item.state) === 'loading'">
@@ -49,6 +49,7 @@
             </template>
         </template>
         <template slot="actions" slot-scope="data">
+            <span v-if="getState(data.item.actions.status) === 'ko'" class="error-message">{{ $t('project.error_conversion') }}</span>
             <base-button-action v-if="data.item.actions.status === 'C'" size="small" @click="viewIfc(data.item.actions)" icon-position="right" icon-name="play">{{ $t('project.view') }}</base-button-action>
         </template>
     </base-table-spaced>
@@ -118,8 +119,6 @@ export default {
           return 'loading'
       }
     }
-  },
-  created () {
   }
 }
 </script>
