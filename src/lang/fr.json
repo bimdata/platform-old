@@ -31,5 +31,8 @@
     },
     "dms": {
       "no_creator": "No Creator"
+    },
+    "ifc": {
+      "view": "View"
     }
 }

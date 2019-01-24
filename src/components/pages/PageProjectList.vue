@@ -42,11 +42,17 @@
                   <p class="new-project-item__title" v-if="!displayNewForm">{{ $t('project_list.new_project') }}</p>
               </div>
             </div>
-            <card-project-list v-for="(project) in getProjectByCloud()" :key="project.id" :project="project"></card-project-list>
+            <card-project-list
+              v-for="(project) in getProjectByCloud()"
+              :cloudId="currentCloud.id"
+              :project="project"
+              :key="project.id"
+            ></card-project-list>
         </transition-group>
     </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import BaseChoiceList from '@/components/base-components/BaseChoiceList'
 import CardProjectList from '@/components/project-list/CardProjectList'
 import _ from 'lodash'
@@ -65,6 +71,11 @@ export default {
     BaseButtonAction,
     BaseChoiceList,
     CardProjectList
+  },
+  computed: {
+    ...mapGetters({
+      currentCloud: 'getCurrentCloud'
+    })
   },
   methods: {
     setFocus () {
@@ -89,6 +100,7 @@ export default {
     }
   },
   created () {
+    this.$store.dispatch('project/init')
     let clouds = this.$store.getters['getCloudsDetails']
     let currentCloud = this.$store.getters['getCurrentCloud']
     for (let {id, name} of clouds) {

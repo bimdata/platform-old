@@ -21,13 +21,14 @@
                     </ul>
                 </base-button-option>
             </div>
+            <router-link :to="{name: 'project', params: {id: project.id}}">
+                <project-preview
+                  :cloudId="cloudId"
+                  :projectId="project.id"
+                ></project-preview>
+            </router-link>
             <div class="card-bd__body">
                 <div class="card-bd__body-container">
-                    <div class="card-bd__image">
-                        <router-link :to="{name: 'project', params: {id: project.id}}">
-                            <svgicon name="img-placeholder" height="30" width="30"></svgicon>
-                        </router-link>
-                    </div>
                     <div v-on-clickaway="closeUpdate"
                          class="card-bd__title"
                          :class="{'card-bd__title--edit-mode': editMode}">
@@ -55,6 +56,7 @@
 import _ from 'lodash'
 import { mixin as clickaway } from 'vue-clickaway'
 import BaseButtonOption from '@/components/base-components/BaseButtonOption'
+import ProjectPreview from '../project/ProjectPreview'
 
 export default {
   data () {
@@ -68,12 +70,17 @@ export default {
     }
   },
   components: {
+    ProjectPreview,
     BaseButtonOption
   },
   mixins: [ clickaway ],
   props: {
     project: {
       type: Object,
+      required: true
+    },
+    cloudId: {
+      type: Number,
       required: true
     }
   },

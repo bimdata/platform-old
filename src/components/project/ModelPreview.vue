@@ -2,6 +2,7 @@
   <div
     ref="modelPreview"
     class="model-preview"
+    v-if="imgURL"
   >
     <div
       class="model-image-wrapper"
@@ -16,7 +17,7 @@
         :style="{ left }"
         class="model-image-holder"
       >
-        <img src="../../assets/images/model-preview.png" alt="">
+        <img :src="imgURL" alt="">
       </div>
     </div>
   </div>
@@ -36,12 +37,12 @@ export default {
   props: {
     imgURL: {
       type: String,
-      required: false,
-      default: '../../assets/images/model-preview.png'
+      required: true
     }
   },
   mounted () {
-    this.viewerWidth = this.viewerHeight = this.$refs.modelPreview.getBoundingClientRect().width
+    this.viewerWidth = this.viewerHeight =
+      this.$refs.modelPreview.getBoundingClientRect().width
   },
   computed: {
     left () {
@@ -61,18 +62,6 @@ export default {
           )
         )
       ) - 1
-    },
-    rotate (index) {
-      let moving = index - this.sliceCurrentIndex
-
-      if (moving <= 1 && moving >= -1) {
-        this.imagePositionState += moving
-        this.imagePositionState %= this.nbSlices
-        if (this.imagePositionState < 0) {
-          this.imagePositionState += this.nbSlices
-        }
-      }
-      this.sliceCurrentIndex = index
     }
   }
 }

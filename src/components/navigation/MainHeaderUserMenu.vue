@@ -8,7 +8,7 @@
                 <div class="user-menu__u-info--details">
                     <p class="user-menu__u-fullname">{{ `${getCurrentUserFirstname} ${getCurrentUserLastname}` }}</p>
                     <p class="user-menu__u-email">{{ getCurrentUserEmail }}</p>
-                    <base-button-action size="small">
+                    <base-button-action @click="openProfile" size="small">
                       {{ $t('dashboard.profile_btn')  }}
                     </base-button-action>
                 </div>
@@ -36,6 +36,9 @@ export default {
     ...mapActions('authentication', [
       'logoutUser'
     ]),
+    openProfile () {
+      window.open(`${process.env.BD_OIDC_IP}profile`)
+    },
     logout () {
       this.logoutUser().then(resolve => {
         this.$router.push({name: 'login'})
