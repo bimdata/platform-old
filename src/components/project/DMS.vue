@@ -38,7 +38,7 @@
                             {{ $t('project.create_folder') }}
                         </div>
                         <div class="base-input-text-material">
-                            <input type="text" :placeholder="$t('project.folder_name')" required v-model="newFolderName" v-on:keyup.enter="saveFolder">
+                            <input type="text" autofocus :placeholder="$t('project.folder_name')" required v-model="newFolderName" v-on:keyup.enter="saveFolder">
                             <span class="highlight"></span>
                             <span class="bar"></span>
                         </div>
