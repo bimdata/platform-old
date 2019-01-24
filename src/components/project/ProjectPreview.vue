@@ -1,6 +1,8 @@
 <template>
   <div class="project-preview">
-    <svgicon v-if="!image" name="img-placeholder" height="30" width="30"></svgicon>
+    <div v-if="!image" class="project-preview-icon">
+      <svgicon name="img-placeholder" height="30" width="30"></svgicon>
+    </div>
     <model-preview v-if="image" :imgURL="image"></model-preview>
   </div>
 </template>
