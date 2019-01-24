@@ -10,6 +10,9 @@ export default {
     try {
       let ifcs = await this.IFCRepositoryRequest.getProjectIfcs(params)
       ifcs = ifcs.filter(ifc => ifc.viewer_360_file)
+      ifcs.sort(
+        (a, b) => (new Date(b.created_at) - new Date(a.created_at))
+      )
       return ifcs[0] && ifcs[0].viewer_360_file ? ifcs[0].viewer_360_file : null
     } catch (e) {
       return Promise.reject(e)
