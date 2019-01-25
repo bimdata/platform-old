@@ -124,9 +124,45 @@
                             </template>
                         </template>
                         <template slot="action" slot-scope="documentAction">
-                            <base-button-option>
+                            <base-button-option @option-toggled="toggleMenuAction">
                                 <ul>
-                                    <li @click="downloadFile(documentAction)">{{ $t('project.download') }}</li>
+                                    <li @click="downloadFile(documentAction)">
+                                      <svgicon name="download" width="13" height="13"></svgicon>
+                                      {{ $t('project.download') }}
+                                      </li>
+                                    <li @click.stop.self="toggleRename(documentAction)" :class="{'actif': displayRename}">
+                                      <svgicon name="pencil" width="13" height="13"></svgicon>
+                                      {{ $t('project.rename') }}
+
+                                      <div class="new_folder_box rename" v-if="displayRename">
+                                        <div class="new_folder_box__title">
+                                            {{ $t('project.rename_folder') }}
+                                        </div>
+                                        <div class="base-input-text-material">
+                                            <input type="text" autofocus :placeholder="$t('project.folder_name')" required v-model="renameFolder" v-on:keyup.enter="saveRename(documentAction)">
+                                            <span class="highlight"></span>
+                                            <span class="bar"></span>
+                                        </div>
+                                        <div class="new_folder_box__button-validation">
+                                            <span @click="displayRename = false">{{ $t('project.cancel') }}</span>
+                                            <span @click="saveRename(documentAction)">{{ $t('project.validate') }}</span>
+                                        </div>
+                                    </div>
+                                    </li>
+                                    <li @click.stop.self="displayRemoveActions" class="base-button-option__menu__remove" :class="{'actif': showRemoveActions}">
+                                      <svgicon name="delete" width="13" height="13"></svgicon>
+                                      {{ $t('project.delete') }}
+                                      <transition name="slide-fade">
+                                        <div class="delete__actions" v-if="showRemoveActions">
+                                          <span class="check" @click="remove">
+                                            <svgicon name="check" height="15" width="18"></svgicon>
+                                          </span>
+                                          <span class="check-cross" @click="showRemoveActions = false">
+                                            <svgicon name="close"  height="13" width="13"></svgicon>
+                                          </span>
+                                        </div>
+                                      </transition>
+                                    </li>
                                 </ul>
                             </base-button-option>
                         </template>
@@ -147,6 +183,7 @@ import ListChoice from '@/components/project/ListChoice'
 import BaseButtonOption from '@/components/base-components/BaseButtonOption'
 import { mixin as clickaway } from 'vue-clickaway'
 import _ from 'lodash'
+import { mapState } from 'vuex'
 
 export default {
   mixins: [ clickaway ],
@@ -167,7 +204,10 @@ export default {
       selectAll: false,
       filter: null,
       selected: [],
+      showRemoveActions: false,
       valueCreatorEvent: '',
+      displayRename: false,
+      renameFolder: '',
       fields: [
         {
           key: 'selected',
@@ -224,8 +264,37 @@ export default {
         this.selected = []
       })
     },
+    toggleRename (documentAction) {
+      this.displayRename = !this.displayRename
+      this.showRemoveActions = false
+      this.renameFolder = documentAction.item.name
+    },
+    saveRename (documentAction) {
+      let type = documentAction.item.type
+      let id = documentAction.item.id
+      let name = this.renameFolder
+
+      if (type === 'Folder') {
+        this.$store.dispatch('project/updateNameFolder', {id, name})
+      } else {
+        this.$store.dispatch('project/updateNameDocument', {id, name})
+      }
+
+      this.toggleMenuAction(false)
+    },
+    remove () {
+      this.displayLoader = true
+    },
+    toggleMenuAction (isOpened) {
+      this.showRemoveActions = isOpened
+      this.displayRename = isOpened
+    },
     displayMoveTo () {
       this.displayTreeSelect = !this.displayTreeSelect
+    },
+    displayRemoveActions () {
+      this.showRemoveActions = !this.showRemoveActions
+      this.displayRename = false
     },
     closeMoveTo () {
       this.displayTreeSelect = false
@@ -309,6 +378,9 @@ export default {
     }
   },
   computed: {
+    ...mapState('project', {
+      currentElement: 'currentElement'
+    }),
     getCurrentFolderId () {
       return this.$store.state.project.currentFolderId
     },
@@ -325,7 +397,7 @@ export default {
     },
     currentItems () {
       let currentItems = []
-      let currentChildren = this.$store.getters['project/getCurrentChildren']
+      let currentChildren = this.currentElement.children
       for (let item of currentChildren) {
         let result = this.selected.some((element) => {
           let type = (this.type(item.file_name) === 'Folder') ? 'folder' : 'file'

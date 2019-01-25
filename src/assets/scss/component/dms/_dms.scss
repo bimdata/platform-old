@@ -186,6 +186,28 @@
     }
   }
 
+  .base-button-option__menu {
+    width: 157px;
+
+    ul {
+      li {
+        padding: 6px 12px;
+
+        .svg-icon {
+          margin-right: 10px;
+        }
+      }
+    }
+
+    &__remove {
+      .delete__actions {
+        .svg-icon {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
   .base-checkbox {
     margin: 0;
     line-height: unset;
@@ -299,6 +321,11 @@
   color: $primary;
   font-size: 0.786rem;
   z-index: 2;
+
+  &.rename {
+    left: -207px;
+    top: 33px;
+  }
 
   &__overlay {
     position: fixed;
