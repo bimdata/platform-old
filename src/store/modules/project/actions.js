@@ -180,5 +180,27 @@ export default {
       },
       id: idProject
     })
+  },
+  async removeFolder ({commit, state, dispatch}, id) {
+    let idCloud = state.selectedProject.cloud.id
+    let idProject = state.selectedProject.id
+    await this.ProjectRepositoryRequest.deleteFolder(idCloud, idProject, id)
+    await dispatch('getTree', {
+      cloud: {
+        id: idCloud
+      },
+      id: idProject
+    })
+  },
+  async removeDocument ({commit, state, dispatch}, id) {
+    let idCloud = state.selectedProject.cloud.id
+    let idProject = state.selectedProject.id
+    await this.ProjectRepositoryRequest.deleteDocument(idCloud, idProject, id)
+    await dispatch('getTree', {
+      cloud: {
+        id: idCloud
+      },
+      id: idProject
+    })
   }
 }

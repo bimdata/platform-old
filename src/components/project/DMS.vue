@@ -154,7 +154,7 @@
                                       {{ $t('project.delete') }}
                                       <transition name="slide-fade">
                                         <div class="delete__actions" v-if="showRemoveActions">
-                                          <span class="check" @click="remove">
+                                          <span class="check" @click="remove(documentAction)">
                                             <svgicon name="check" height="15" width="18"></svgicon>
                                           </span>
                                           <span class="check-cross" @click="showRemoveActions = false">
@@ -282,8 +282,17 @@ export default {
 
       this.toggleMenuAction(false)
     },
-    remove () {
-      this.displayLoader = true
+    remove (documentAction) {
+      let type = documentAction.item.type
+      let id = documentAction.item.id
+
+      if (type === 'Folder') {
+        this.$store.dispatch('project/removeFolder', id)
+      } else {
+        this.$store.dispatch('project/removeDocument', id)
+      }
+
+      this.toggleMenuAction(false)
     },
     toggleMenuAction (isOpened) {
       this.showRemoveActions = isOpened
