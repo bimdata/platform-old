@@ -18,6 +18,7 @@
                                         @close="closeMoveTo"
                                         @chooseItem="moveItems"
                                         :tree="folderTree"
+                                        :selected="selected"
                                         :initial-parent-node="getCurrentFolderId">
                       </base-tree-select>
                   </div>
