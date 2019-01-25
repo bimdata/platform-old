@@ -33,6 +33,8 @@
 </template>
 <script>
 import BaseButtonAction from './BaseButtonAction'
+import _ from 'lodash'
+
 export default {
   components: {BaseButtonAction},
   data () {
@@ -49,6 +51,10 @@ export default {
     initialParentNode: {
       type: Number,
       default: 0
+    },
+    selected: {
+      required: true,
+      type: Array
     }
   },
   computed: {
@@ -62,16 +68,24 @@ export default {
       return !this.displayMoveHere && !this.displayMoveToward
     },
     currentItems () {
+      let result = []
+
       if (this.currentParentNode === 0) {
-        return this.tree[0].children.filter(elt => {
+        result = this.tree[0].children.filter(elt => {
           return Array.isArray(elt.children)
         })
       } else {
         let elt = this.getElement(this.currentParentNode)
-        return elt.children.filter(elt => {
+        result = elt.children.filter(elt => {
           return Array.isArray(elt.children)
         })
       }
+
+      this.selected.forEach((selectItem) => {
+        _.remove(result, ['id', selectItem.id])
+      })
+
+      return result
     },
     currentParent () {
       let currentItemParent = this.getElement(this.currentParentNode)
