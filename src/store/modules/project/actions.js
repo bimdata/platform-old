@@ -158,22 +158,16 @@ export default {
 
     await dispatch('getTree', state.selectedProject)
   },
-  async updateNameFolder ({commit, state, dispatch}, {id, name}) {
-    let idCloud = state.selectedProject.cloud.id
-    let idProject = state.selectedProject.id
-    await this.ProjectRepositoryRequest.updateFolder(idCloud, idProject, id, {name})
-    await dispatch('getTree', {
-      cloud: {
-        id: idCloud
-      },
-      id: idProject
-    })
-  },
-  async updateNameDocument ({commit, state, dispatch}, {id, name}) {
+  async updateName ({commit, state, dispatch}, {type, id, name}) {
     let idCloud = state.selectedProject.cloud.id
     let idProject = state.selectedProject.id
 
-    await this.ProjectRepositoryRequest.updateDocument(idCloud, idProject, id, {name})
+    if (type === 'Folder') {
+      await this.ProjectRepositoryRequest.updateFolder(idCloud, idProject, id, {name})
+    } else {
+      await this.ProjectRepositoryRequest.updateDocument(idCloud, idProject, id, {name})
+    }
+
     await dispatch('getTree', {
       cloud: {
         id: idCloud
@@ -181,21 +175,15 @@ export default {
       id: idProject
     })
   },
-  async removeFolder ({commit, state, dispatch}, id) {
+  async remove ({commit, state, dispatch}, {type, id}) {
     let idCloud = state.selectedProject.cloud.id
     let idProject = state.selectedProject.id
-    await this.ProjectRepositoryRequest.deleteFolder(idCloud, idProject, id)
-    await dispatch('getTree', {
-      cloud: {
-        id: idCloud
-      },
-      id: idProject
-    })
-  },
-  async removeDocument ({commit, state, dispatch}, id) {
-    let idCloud = state.selectedProject.cloud.id
-    let idProject = state.selectedProject.id
-    await this.ProjectRepositoryRequest.deleteDocument(idCloud, idProject, id)
+
+    if (type === 'Folder') {
+      await this.ProjectRepositoryRequest.deleteFolder(idCloud, idProject, id)
+    } else {
+      await this.ProjectRepositoryRequest.deleteDocument(idCloud, idProject, id)
+    }
     await dispatch('getTree', {
       cloud: {
         id: idCloud

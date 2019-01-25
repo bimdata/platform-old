@@ -274,11 +274,7 @@ export default {
       let id = documentAction.item.id
       let name = this.renameFolder
 
-      if (type === 'Folder') {
-        this.$store.dispatch('project/updateNameFolder', {id, name})
-      } else {
-        this.$store.dispatch('project/updateNameDocument', {id, name})
-      }
+      this.$store.dispatch('project/updateName', {type, id, name})
 
       this.toggleMenuAction(false)
     },
@@ -286,11 +282,7 @@ export default {
       let type = documentAction.item.type
       let id = documentAction.item.id
 
-      if (type === 'Folder') {
-        this.$store.dispatch('project/removeFolder', id)
-      } else {
-        this.$store.dispatch('project/removeDocument', id)
-      }
+      this.$store.dispatch('project/remove', {type, id})
 
       this.toggleMenuAction(false)
     },
