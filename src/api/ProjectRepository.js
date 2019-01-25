@@ -73,10 +73,12 @@ export class ProjectRepository {
     }
   }
 
-  async updateFolder (idCloud, idProject, idFolder, idParent) {
+  async updateFolder (idCloud, idProject, idFolder, params) {
     try {
       let folder = new this.defaultClient.Folder()
-      folder.parent_id = idParent
+      Object.keys(params).forEach(key => {
+        folder[key] = params[key]
+      })
       const response = await this.projectApiClient.updateFolder(idCloud, idFolder, idProject, folder)
       return response
     } catch (e) {
@@ -84,10 +86,12 @@ export class ProjectRepository {
     }
   }
 
-  async updateDocument (idCloud, idProject, idFolder, idParent) {
+  async updateDocument (idCloud, idProject, idFolder, params) {
     try {
       let folder = new this.defaultClient.Folder()
-      folder.parent_id = idParent
+      Object.keys(params).forEach(key => {
+        folder[key] = params[key]
+      })
       const response = await this.projectApiClient.updateDocument(idCloud, idFolder, idProject, folder)
       return response
     } catch (e) {

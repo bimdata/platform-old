@@ -4,26 +4,26 @@ const destPath = 'src/assets/images/icons';
 
 const svgIcons = [
   'account.svg',
+  'alert-circle.svg',
   'application.svg',
+  'check-circle.svg',
+  'check.svg',
   'chevron-down.svg',
   'chevron-left.svg',
   'chevron-right.svg',
   'chevron-up.svg',
-  'keyboard_arrow_down',
-  'keyboard_arrow_up',
-  'plus.svg',
+  'close-circle.svg',
+  'close.svg',
+  'cloud-upload.svg',
+  'cloud.svg',
+  'delete.svg',
   'folder-outline.svg',
   'image-plus.svg',
-  'alert-circle.svg',
-  'close-circle.svg',
-  'check-circle.svg',
+  'keyboard_arrow_down',
+  'keyboard_arrow_up',
+  'pencil.svg',
   'play.svg',
-  'cloud.svg',
-  'cloud-upload.svg',
-  'close.svg',
-  'delete.svg',
-  'check.svg',
-  'close.svg'
+  'plus.svg'
 ];
 
 fs.readdir(sourcePath, function(err, items) {

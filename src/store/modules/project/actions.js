@@ -78,7 +78,6 @@ export default {
       commit('SET_CURRENT_FOLDER_ID', tree.id)
       let treeArray = []
       treeArray.push(tree)
-      console.log(treeArray)
       let result = await dispatch('getElement', {tree: treeArray, searchedId: state.currentFolderId})
       commit('SET_CURRENT_ELEMENT', result)
       return tree
@@ -150,13 +149,46 @@ export default {
     for (let item of items) {
       if (item.type === 'folder') {
         if (idNewParentFolder !== item.id) {
-          await this.ProjectRepositoryRequest.updateFolder(idCloud, idProject, item.id, idNewParentFolder)
+          await this.ProjectRepositoryRequest.updateFolder(idCloud, idProject, item.id, {parent_id: idNewParentFolder})
         }
       } else if (item.type === 'file') {
-        await this.ProjectRepositoryRequest.updateDocument(idCloud, idProject, item.id, idNewParentFolder)
+        await this.ProjectRepositoryRequest.updateDocument(idCloud, idProject, item.id, {parent_id: idNewParentFolder})
       }
     }
 
     await dispatch('getTree', state.selectedProject)
+  },
+  async updateName ({commit, state, dispatch}, {type, id, name}) {
+    let idCloud = state.selectedProject.cloud.id
+    let idProject = state.selectedProject.id
+
+    if (type === 'Folder') {
+      await this.ProjectRepositoryRequest.updateFolder(idCloud, idProject, id, {name})
+    } else {
+      await this.ProjectRepositoryRequest.updateDocument(idCloud, idProject, id, {name})
+    }
+
+    await dispatch('getTree', {
+      cloud: {
+        id: idCloud
+      },
+      id: idProject
+    })
+  },
+  async remove ({commit, state, dispatch}, {type, id}) {
+    let idCloud = state.selectedProject.cloud.id
+    let idProject = state.selectedProject.id
+
+    if (type === 'Folder') {
+      await this.ProjectRepositoryRequest.deleteFolder(idCloud, idProject, id)
+    } else {
+      await this.ProjectRepositoryRequest.deleteDocument(idCloud, idProject, id)
+    }
+    await dispatch('getTree', {
+      cloud: {
+        id: idCloud
+      },
+      id: idProject
+    })
   }
 }

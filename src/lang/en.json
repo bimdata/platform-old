@@ -22,7 +22,9 @@
         "validate": "Validate",
         "folder_name": "Folder's name",
         "project_document": "Project's documents",
-        "error_conversion": "Error in conversion"
+        "error_conversion": "Error in conversion",
+        "rename": "Rename",
+        "rename_folder": "Rename folder"
     },
     "project_list": {
         "new_project": "New Project",

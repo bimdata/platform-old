@@ -36,7 +36,7 @@ $base-button-option: 'base-button-option';
     position: absolute;
     top: 25px;
     right: 7px;
-    background: white;
+    background: $white;
     border-radius: 3px;
     box-shadow: $bd-box-shadow;
     padding: 8px 0;
@@ -53,8 +53,11 @@ $base-button-option: 'base-button-option';
         padding: 7px 12px;
         line-height: 1em;
         color: #2F374A;
+        display: flex;
+        align-items: center;
 
-        &:hover {
+        &:hover,
+        &.actif {
           background: #F2F2F2;
         }
       }
