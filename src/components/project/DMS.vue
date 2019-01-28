@@ -103,11 +103,14 @@
                                 <template v-if="data.item.icon !== 'folder2.svg'">
                                 <img width="20"
                                     :src="'/static/img/files-icons/' + data.item.icon" />
+                                    {{ data.item.name }}
                                 </template>
                                 <template v-else>
-                                    <svgicon name="folder2" width="20" height="26"></svgicon>
+                                    <span class="table-name__name">
+                                      <svgicon name="folder2" width="20" height="26"></svgicon>
+                                      {{ data.item.name }}
+                                    </span>
                                 </template>
-                                {{ data.item.name }}
                             </span>
                         </template>
                         <template slot="creator" slot-scope="data">
