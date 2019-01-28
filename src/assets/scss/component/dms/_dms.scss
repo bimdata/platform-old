@@ -153,11 +153,11 @@
               display: none;
             }
           }
-        } 
+        }
       }
     }
     td {
-      vertical-align: middle; 
+      vertical-align: middle;
       line-height: 1em;
       word-break: break-all;
     }
@@ -261,7 +261,7 @@
 
       .dms__line-tree-view-content {
         position: relative;
-        &:before {
+        .folder-carret {
           position: absolute;
           display: inline-block;
           content: '';
@@ -301,7 +301,7 @@
 
     li.is-current-path > .dms__line-tree-view > .dms__line-tree-view-content {
       transition: .3s ease all;
-      &:before {
+      .folder-carret {
         transform: rotate(90deg);
       }
     }

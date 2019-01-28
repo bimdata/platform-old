@@ -1,20 +1,21 @@
 <template>
-        <div class="dms__tree-view-content">
-            <div class="dms__tree-view-header">
-                <div @click="close">
-                    <svgicon name="close"
-                             height="20"
-                             width="20">
-                    </svgicon>
-                </div>
+    <div class="dms__tree-view-content">
+        <div class="dms__tree-view-header">
+            <div @click="close">
+                <svgicon name="close"
+                         height="20"
+                         width="20">
+                </svgicon>
             </div>
-            <ul class="dms__tree-folder-list">
-                <dms-tree-view-folder v-for="(folder, index) in treeViewFolder"
-                                      :folder="folder"
-                                      :key="folder.id + '-' + index">
-                </dms-tree-view-folder>
-            </ul>
         </div>
+        <ul class="dms__tree-folder-list">
+            <dms-tree-view-folder
+                v-for="(folder, index) in treeViewFolder"
+                :folder="folder"
+                :key="folder.id + '-' + index"
+            ></dms-tree-view-folder>
+        </ul>
+    </div>
 </template>
 <script>
 import {mapState} from 'vuex'

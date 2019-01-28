@@ -19,5 +19,19 @@ export default {
   },
   getCurrentChildren: state => {
     return (state.currentElement !== null) ? state.currentElement.children : null
+  },
+
+  folders: state => {
+    const foldersFromTree = (link, tree) => {
+      const folders = [ ...link, ...tree.filter(item => item.type === 'Folder') ]
+
+      return folders.map(
+        folder => folder.children
+          ? foldersFromTree(folders, folder.children)
+          : folder
+      )
+    }
+
+    return state.tree ? foldersFromTree([], state.tree.children) : null
   }
 }
