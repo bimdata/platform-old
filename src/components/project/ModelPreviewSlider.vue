@@ -56,10 +56,6 @@ export default {
         ifcId
       }
 
-      let customViewers = this.$store.state.project.selectedCloud.features.filter(f => f.viewer_url)
-      if (customViewers.length > 0) {
-        params.customUrl = customViewers[0].viewer_url
-      }
       this.$router.push({ name: 'viewer', params })
     },
     nextPan () {
