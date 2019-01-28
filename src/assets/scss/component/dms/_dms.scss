@@ -165,6 +165,10 @@
     .table-name {
       width: 47%;
       min-width: 47%;
+
+      &__name {
+        cursor: pointer;
+      }
     }
     .table-type {
       width: 10%;
