@@ -43,12 +43,12 @@
                                    :placeholder="cloud.name"/>
                         </div>
                     </div>
-                    <div class="card-bd__infos-cloud" v-if="isAdmin">
-                      <span class="card-bd__infos-cloud__projects">
+                    <div class="card-bd__infos-cloud">
+                      <span class="card-bd__infos-cloud__projects" v-if="isAdmin">
                         <svgicon name="application" height="30" width="30"></svgicon>
                         +{{ cloud.projects.length }}
                       </span>
-                      <span class="card-bd__infos-cloud__users">
+                      <span class="card-bd__infos-cloud__users" v-if="isAdmin">
                         +{{ cloud.nbUsers }}
                         <svgicon name="account" height="30" width="30"></svgicon>
                       </span>

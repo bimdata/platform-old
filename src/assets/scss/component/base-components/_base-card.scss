@@ -35,4 +35,10 @@ $toolbox-background: #E6E6E6;
   padding: 15px;
 }
 
+.#{$base-card-name}__link {
+  &:hover {
+    text-decoration: none;
+  }
+}
+
 
