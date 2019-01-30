@@ -33,7 +33,7 @@
                             :class="{'card-bd__title--edit-mode': editMode}">
                             <div v-show="!editMode"
                                 @click="switchToEditMode">
-                                {{ project.name | middle-truncate(25) }}
+                                <span v-b-tooltip.hover :title="project.name">{{ project.name | middle-truncate(25) }}</span>
                             </div>
                             <div class="card-bd__text-container" v-show="editMode">
                                 <input ref="updateInput"
