@@ -57,8 +57,9 @@
       margin-right: 30px;
     }
 
-    .model-image-wrapper {
-      height: 338px !important; // Override component style
+    .model-preview-slider {
+      height: 338px;
+      background: #E6E6E6;
     }
   }
   .user-project {
