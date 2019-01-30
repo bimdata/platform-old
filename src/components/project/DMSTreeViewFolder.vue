@@ -11,7 +11,7 @@
             :style="{'padding-left': paddingLine + 'px'}"
         >
             <span class="dms__line-tree-view-content">
-                <span @click.stop="getPath(folder.id)" class="folder-carret"></span>
+                <span @click.stop="toggleFolderOpened(folder.id)" class="folder-carret"></span>
                 <svgicon name="folder-outline" height="19" width="19" v-if="isCurrentPath"></svgicon>
                 <svgicon name="folder2" v-else></svgicon>
                 <span class="dms__line-tree-view-content__name">{{ folder.name }}</span>
@@ -30,7 +30,7 @@
     </li>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   name: 'dms-tree-view-folder',
   props: {
@@ -61,6 +61,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      toggleFolderOpened: 'project/toggleFolderOpened'
+    }),
     async changeFolder (id) {
       this.$store.dispatch('project/changeFolder', id).then(() => {
         this.$store.dispatch('project/getPath').then((result) => {

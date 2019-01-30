@@ -22,5 +22,17 @@ export default {
   },
   SET_CURRENT_PATH: (state, currentPath) => {
     state.currentPath = currentPath
+  },
+  TOGGLE_FOLDER: (state, folderId) => {
+    const isFolderOpened = state.openedFolderIds.includes(folderId)
+
+    if (isFolderOpened) {
+      const index = state.openedFolderIds
+        .findIndex(item => item === folderId)
+
+      state.openedFolderIds.splice(index, 1)
+    } else {
+      state.openedFolderIds.push(folderId)
+    }
   }
 }
