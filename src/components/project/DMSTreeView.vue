@@ -10,7 +10,7 @@
         </div>
         <ul class="dms__tree-folder-list">
             <dms-tree-view-folder
-                v-for="(folder, index) in treeViewFolder"
+                v-for="(folder, index) in folders"
                 :folder="folder"
                 :key="folder.id + '-' + index"
             ></dms-tree-view-folder>
@@ -18,7 +18,7 @@
     </div>
 </template>
 <script>
-import {mapState} from 'vuex'
+import { mapGetters } from 'vuex'
 import DMSTreeViewFolder from '@/components/project/DMSTreeViewFolder'
 
 export default {
@@ -32,15 +32,9 @@ export default {
     }
   },
   computed: {
-    ...mapState('project', {
-      tree: state => state.tree
-    }),
-    treeViewFolder () {
-      let result = []
-      result.push(this.tree)
-
-      return result
-    }
+    ...mapGetters({
+      folders: 'project/folders'
+    })
   }
 }
 </script>
