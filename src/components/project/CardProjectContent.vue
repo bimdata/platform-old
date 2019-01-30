@@ -14,7 +14,9 @@
                         ></model-preview-slider>
                     </div>
                     <div class="main-ifc__navigation-project">
-                      <div class="main-ifc__navigation-project__title">{{ this.currentNamePanorama|middle-truncate(40) }}</div>
+                      <div class="main-ifc__navigation-project__title">
+                        <span v-b-tooltip.hover :title="this.currentNamePanorama">{{ this.currentNamePanorama|middle-truncate(40) }}</span>
+                      </div>
                     </div>
                 </div>
                 <div class="main-ifc__map">
