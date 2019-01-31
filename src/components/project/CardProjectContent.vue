@@ -15,7 +15,8 @@
                     </div>
                     <div class="main-ifc__navigation-project">
                       <div class="main-ifc__navigation-project__title">
-                        <span v-b-tooltip.hover :title="this.currentNamePanorama">{{ this.currentNamePanorama|middle-truncate(40) }}</span>
+                        <span v-if="this.currentNamePanorama && this.currentNamePanorama.length > 40" v-b-tooltip.hover :title="this.currentNamePanorama">{{ this.currentNamePanorama|middle-truncate(40) }}</span>
+                        <span v-else>{{ this.currentNamePanorama }}</span>
                       </div>
                     </div>
                 </div>
