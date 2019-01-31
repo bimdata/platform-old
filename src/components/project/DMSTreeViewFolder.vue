@@ -14,7 +14,7 @@
             <span class="dms__line-tree-view-content">
                 <span class="folder-carret"></span>
                 <svgicon name="folder-outline" height="19" width="19" v-if="isCurrentPath"></svgicon>
-                <svgicon name="folder2" v-else></svgicon>
+                <svgicon name="folder2" height="19" width="19" v-else></svgicon>
                 <span
                   @click.stop="changeFolder(folder.id)"
                   v-b-tooltip.hover
@@ -23,22 +23,17 @@
                 >{{ truncate(folder.name, 10) }}</span>
             </span>
         </div>
-        <transition
-          name="accordion"
-          v-on:before-enter="beforeEnter"
-          v-on:enter="enter"
-          v-on:before-leave="beforeLeave"
-          v-on:leave="leave"
+        <ul
+          v-for="(children, index) in folder.children"
+          :key="children.id + '-' + index"
+          class="collapse-tree"
+          v-show="isFolderOpened(folder.id)"
         >
-          <ul class="collapse-tree" v-show="isFolderOpened(folder.id)">
             <dms-tree-view-folder
-              v-for="(folder, index) in folder.children"
-              :folder="folder"
+              :folder="children"
               :depth="depth + 1"
-              :key="folder.id + '-' + index"
             ></dms-tree-view-folder>
-          </ul>
-        </transition>
+        </ul>
     </li>
 </template>
 <script>
@@ -95,18 +90,6 @@ export default {
     },
     async getPath (folderId) {
       await this.$store.dispatch('project/getPath', folderId)
-    },
-    beforeEnter (el) {
-      el.style.height = '0'
-    },
-    enter (el) {
-      el.style.height = el.scrollHeight + 'px'
-    },
-    beforeLeave (el) {
-      el.style.height = el.scrollHeight + 'px'
-    },
-    leave (el) {
-      el.style.height = '0'
     }
   }
 }
