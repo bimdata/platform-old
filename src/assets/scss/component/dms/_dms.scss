@@ -225,6 +225,8 @@
     background-color: $white;
     box-shadow: $bd-box-shadow;
     font-size: 0.7143rem;
+    height: 100%;
+    overflow: auto;
     min-height: 100%;
   }
 

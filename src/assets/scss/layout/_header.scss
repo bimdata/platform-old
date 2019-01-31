@@ -47,6 +47,8 @@
     }
 
     &:hover, &.active {
+      text-decoration: none;
+      
       &:after {
         opacity: 1;
       }

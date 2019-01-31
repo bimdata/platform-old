@@ -17,10 +17,14 @@
                 <svgicon name="folder2" height="19" width="19" v-else></svgicon>
                 <span
                   @click.stop="changeFolder(folder.id)"
+                  v-if="folder.name && folder.name.length > 10"
                   v-b-tooltip.hover
                   :title="folder.name"
                   class="dms__line-tree-view-content__name"
-                >{{ truncate(folder.name, 10) }}</span>
+                >{{ folder.name | middle-truncate(10) }}</span>
+                <span class="dms__line-tree-view-content__name" v-else>
+                  {{ folder.name }}
+                </span>
             </span>
         </div>
         <ul
@@ -70,12 +74,6 @@ export default {
     },
     isCurrentFolder () {
       return this.folder.id === this.currentElement.id
-    },
-    truncate () {
-      return (title, lenght) =>
-        (title.length > lenght)
-          ? title.substring(0, lenght) + '...'
-          : title
     }
   },
   methods: {

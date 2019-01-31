@@ -2,7 +2,7 @@
     <div class="card-container">
         <div class="base-card card-item card-bd card-project">
             <div class="card-bd__header">
-                <svgicon name="eye" height="18" width="54"></svgicon>
+                <svgicon name="eye" height="18" width="54" @click.native="viewModel" v-if="displayEye"></svgicon>
                 <base-button-option @option-toggled="toggleMenu">
                     <ul>
                         <li @click.stop.self="showRemoveActions = true" class="base-button-option__menu__remove">
@@ -25,6 +25,7 @@
                 <project-preview
                   :cloudId="cloudId"
                   :projectId="project.id"
+                  @has-image="displayPreviewFonctionnality"
                 ></project-preview>
                 <div class="card-bd__body">
                     <div class="card-bd__body-container">
@@ -33,7 +34,8 @@
                             :class="{'card-bd__title--edit-mode': editMode}">
                             <div v-show="!editMode"
                                 @click="switchToEditMode">
-                                <span v-b-tooltip.hover :title="project.name">{{ project.name | middle-truncate(25) }}</span>
+                                <span v-if="project.name && project.name.length > 25" v-b-tooltip.hover :title="project.name">{{ project.name | middle-truncate(25) }}</span>
+                                <span v-else>{{ project.name }}</span>
                             </div>
                             <div class="card-bd__text-container" v-show="editMode">
                                 <input ref="updateInput"
@@ -66,7 +68,9 @@ export default {
       editMode: false,
       newName: '',
       showRemoveActions: false,
-      displayLoader: false
+      displayLoader: false,
+      displayEye: false,
+      ifcImage: null
     }
   },
   components: {
@@ -85,6 +89,20 @@ export default {
     }
   },
   methods: {
+    displayPreviewFonctionnality (idIfc) {
+      this.ifcImage = idIfc
+      this.displayEye = true
+    },
+    viewModel () {
+      console.log('click')
+      const params = {
+        cloudId: this.$store.state.currentCloud.id,
+        projectId: this.project.id,
+        ifcId: this.ifcImage
+      }
+
+      this.$router.push({ name: 'viewer', params })
+    },
     switchToEditMode () {
       this.editMode = true
       this.$nextTick(function () {
