@@ -3,7 +3,7 @@
         <ul>
             <li v-for="(item, index) in currentPath"
                 :key="index">
-                <template v-if="item.id != currentFolderId">
+                <template v-if="item.id !== currentFolderId">
                     <a @click.prevent="folderSelected(item.id)">{{ item.name }}</a>
                 </template>
                 <template v-else>

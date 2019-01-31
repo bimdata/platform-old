@@ -85,6 +85,9 @@ export default {
       console.log(e)
     }
   },
+  toggleFolderOpened ({commit}, folderId) {
+    commit('TOGGLE_FOLDER', folderId)
+  },
   async getElement (context, {tree, searchedId}) {
     let o
     tree.some(function iter (a) {

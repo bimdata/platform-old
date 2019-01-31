@@ -1,5 +1,29 @@
 import _ from 'lodash'
 
+function setFoldersTree (folder, folders) {
+  const children = folders.filter(item => item.parent_id === folder.id)
+
+  return {
+    ...folder,
+    children: children.length
+      ? children.map(
+        child => setFoldersTree(child, folders)
+      )
+      : null
+  }
+}
+
+function flattenFolders (list, acc = []) {
+  const folders = list.filter(item => item.type === 'Folder')
+  let arr = [ ...acc, ...folders ]
+
+  folders.forEach(folder => {
+    arr = folder.children ? flattenFolders(folder.children, arr) : arr
+  })
+
+  return arr
+}
+
 export default {
   getIfcElements: state => idIfc => {
     return state.elements.find(element => {
@@ -19,5 +43,19 @@ export default {
   },
   getCurrentChildren: state => {
     return (state.currentElement !== null) ? state.currentElement.children : null
+  },
+
+  folders: state => {
+    if (!state.tree) return null
+
+    const { children, ...rest } = state.tree
+
+    const folders = flattenFolders(children, [{ ...rest }])
+
+    const foldersTree = folders
+      .filter(folder => !folder.parent_id)
+      .map(folder => setFoldersTree(folder, folders))
+
+    return foldersTree
   }
 }

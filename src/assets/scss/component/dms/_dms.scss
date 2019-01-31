@@ -153,11 +153,11 @@
               display: none;
             }
           }
-        } 
+        }
       }
     }
     td {
-      vertical-align: middle; 
+      vertical-align: middle;
       line-height: 1em;
       word-break: break-all;
     }
@@ -227,6 +227,7 @@
     font-size: 0.7143rem;
     height: 100%;
     overflow: auto;
+    min-height: 100%;
   }
 
   .dms__tree-view-header {
@@ -264,9 +265,16 @@
         }
       }
 
+      .collapse-tree {
+        transition: all 0.3s ease-in-out;
+        will-change: height;
+        overflow: hidden;
+      }
+
       .dms__line-tree-view-content {
         position: relative;
-        &:before {
+        .folder-carret {
+          transition: transform 0.3s ease-in-out;
           position: absolute;
           display: inline-block;
           content: '';
@@ -306,9 +314,10 @@
 
     li.is-current-path > .dms__line-tree-view > .dms__line-tree-view-content {
       transition: .3s ease all;
-      &:before {
-        transform: rotate(90deg);
-      }
+    }
+
+    .is-folder-opened > .dms__line-tree-view > .dms__line-tree-view-content .folder-carret {
+      transform: rotate(90deg);
     }
   }
 }
