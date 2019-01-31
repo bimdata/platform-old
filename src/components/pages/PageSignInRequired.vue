@@ -1,7 +1,10 @@
 <template>
-    <div>
-        sign in required
-        <button @click="redirectLogin">Redirect</button>
+    <div class="signin-required__card base-card">
+      <div class="signin-required__card__body">
+        <img class="signin-required__card__logo" src="../../assets/images/logo-rectangle.svg" />
+        <p class="signin-required__card__text">Better data for better projects !</p>
+        <button @click="redirectLogin" class="btn btn-primary signin-required__card__btn">Login</button>
+      </div>
     </div>
 </template>
 <script>

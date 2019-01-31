@@ -15,13 +15,13 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['oidcAccessToken'])
+    ...mapGetters(['oidcAccessToken', 'getCustomUrl'])
   },
   created () {
-    let params = this.$route.params
-    if (params.customUrl) {
+    const params = this.$route.params
+    if (this.getCustomUrl) {
       this.customViewer = true
-      this.customUrl = `${params.customUrl}/?cloudId=${params.cloudId}&projectId=${params.projectId}&ifcId=${params.ifcId}&accessToken=${this.oidcAccessToken}`
+      this.customUrl = `${this.getCustomUrl}/?cloudId=${params.cloudId}&projectId=${params.projectId}&ifcId=${params.ifcId}&accessToken=${this.oidcAccessToken}`
     } else {
       scriptjs('https://cdn-staging.bimdata.io/js/bimdata-viewer-embed.js', () => {
         window.BIMDataViewer('embed', {

@@ -10,7 +10,13 @@
                         <model-preview-slider
                           :panoramas="panoramas"
                           :show-viewer-button="true"
+                          @current-panorama-name="setCurrentPanoramaName"
                         ></model-preview-slider>
+                    </div>
+                    <div class="main-ifc__navigation-project">
+                      <div class="main-ifc__navigation-project__title">
+                        <span v-b-tooltip.hover :title="this.currentNamePanorama">{{ this.currentNamePanorama|middle-truncate(40) }}</span>
+                      </div>
                     </div>
                 </div>
                 <div class="main-ifc__map">
@@ -33,6 +39,11 @@ export default {
     MapProject,
     ModelPreviewSlider
   },
+  data () {
+    return {
+      currentNamePanorama: ''
+    }
+  },
   computed: {
     ...mapGetters({
       ifcs: 'project/getSortedIfc'
@@ -43,6 +54,11 @@ export default {
     },
     projectName () {
       return this.$store.state.project.selectedProject.name
+    }
+  },
+  methods: {
+    setCurrentPanoramaName (name) {
+      this.currentNamePanorama = name
     }
   }
 }

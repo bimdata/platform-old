@@ -31,12 +31,35 @@
     }
   }
 
+  .card-project {
+    overflow: hidden;
+    padding: 0;
+
+    .card-bd__title {
+      padding: 0;
+
+
+      &:after {
+        display: none;
+      }
+    }
+    .card-bd__body {
+      height: 61px;
+      padding: 22px 27px;
+    }
+  }
+
   .content-project {
     width: 100%;
 
     @include media-breakpoint-up(lg) {
       width: calc(100%/3 * 2 - 30px);
       margin-right: 30px;
+    }
+
+    .model-preview-slider {
+      height: 338px;
+      background: #E6E6E6;
     }
   }
   .user-project {
@@ -58,7 +81,6 @@
     }
 
     &__map-info-content {
-      padding: $grid-gutter-width;
       width: 100%;
       margin-bottom: 21px;
       box-shadow: 0 2px 10px 0 rgba(0,0,0,0.07);
@@ -73,6 +95,17 @@
     &__info-project {
       width: 100%;
       margin-right: 0;
+      height: 338px;
+    }
+    &__navigation-project {
+      display: flex;
+      align-items: center;
+      height: 61px;
+      padding: 16px 11px;
+
+      &__title {
+        width: 75%;
+      }
     }
 
     &__map {

@@ -1,7 +1,7 @@
 <template>
   <div class="project-preview">
     <div v-if="!image" class="project-preview-icon">
-      <svgicon name="img-placeholder" height="30" width="30"></svgicon>
+      <svgicon name="model" height="64" width="70"></svgicon>
     </div>
     <model-preview v-if="image" :imgURL="image"></model-preview>
   </div>

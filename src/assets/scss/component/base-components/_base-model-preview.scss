@@ -1,4 +1,4 @@
-$arrow-size: 25px;
+$arrow-color: #94979A;
 
 .model-preview {
   position: relative;
@@ -22,49 +22,51 @@ $arrow-size: 25px;
       width: auto;
     }
   }
+  &-counter {
+    position: absolute;
+    top: 19px;
+    right: 16px;
+    font-size: 15px;
+    color: #95989A;
+  }
 }
 
 .model-preview-controls {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  .model-control-left {
-    z-index: 1;
+  .model-control {
     position: absolute;
-    top: 50%;
-    left: 10px;
-    margin-top: -$arrow-size;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: $arrow-size $arrow-size $arrow-size 0;
-    border-color: transparent $primary transparent transparent;
+    bottom: -45px;
+    height: 29px;
+    width: 29px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
     cursor: pointer;
-  }
-  .model-control-right {
-    z-index: 1;
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    margin-top: -$arrow-size;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: $arrow-size 0 $arrow-size $arrow-size;
-    border-color: transparent transparent transparent $primary;
-    cursor: pointer;
+    transition: all 0.25s ease;
+
+    &:hover {
+      background: #F6F6F6;
+      color: $primary;
+    }
+
+    &__left {
+      right: 48px;
+    }
+    &__right {
+      right: 11px;
+    }
   }
   .model-control-button {
     z-index: 1;
     text-align: center;
-    padding: 10px 0;
     position: absolute;
-    bottom: 0;
+    top: 13px;
+    left: 11px;
     width: 100%;
+
     .btn {
-      display: inline-block;
+      min-width: 85px;
+      border-radius: 7px;
     }
   }
 }

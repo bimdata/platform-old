@@ -99,13 +99,6 @@ export default {
   },
   methods: {
     viewIfc (ifcData) {
-      // Only check if there if one customized viewer.
-      // If there is more than 1, only the first will be used.
-      // TODO: menu to select the viewer to launch
-      let customViewers = this.$store.state.project.selectedCloud.features.filter(f => f.viewer_url)
-      if (customViewers.length > 0) {
-        ifcData.customUrl = customViewers[0].viewer_url
-      }
       this.$router.push({ name: 'viewer', params: ifcData })
     },
     getState (state) {

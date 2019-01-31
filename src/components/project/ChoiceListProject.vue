@@ -9,15 +9,19 @@
 </template>
 <script>
 import BaseChoiceList from '@/components/base-components/BaseChoiceList'
+import { mapState } from 'vuex'
 
 export default {
   components: {
     BaseChoiceList
   },
   computed: {
+    ...mapState({
+      selectedCloud: state => state.project.selectedCloud
+    }),
     projects () {
       let projectResult = []
-      let projects = this.getProjectsByCloud()
+      let projects = this.selectedCloud ? this.selectedCloud.projects : []
       for (let {id, name} of projects) {
         projectResult.push({value: id, text: name})
       }
@@ -29,7 +33,7 @@ export default {
     },
     selectedProject () {
       let selected
-      let projects = this.getProjectsByCloud()
+      let projects = this.selectedCloud ? this.selectedCloud.projects : []
       let project = this.$store.state.project.selectedProject
       for (let {id, name} of projects) {
         if (project.id === id) {
@@ -45,18 +49,8 @@ export default {
     }
   },
   methods: {
-    getProjectsByCloud () {
-      let currentCloud = this.$store.state.currentCloud
-      let cloud = this.$store.getters.getCloudById(currentCloud.id)
-      return cloud.projects
-    },
     choseProject ({value}) {
       this.$router.push({name: 'project', params: {id: value}})
-      // let project = this.$store.getters.getProjectById(value)
-      // this.$emit('selected-project-loading')
-      // this.$store.dispatch('project/fetchProjectIfc', project).then(() => {
-      //   this.$emit('selected-project-loaded')
-      // })
     }
   }
 }
