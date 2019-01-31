@@ -1,21 +1,26 @@
 <template>
   <div v-if="isPanoramaExist" class="model-preview-slider">
+    <model-preview :imgURL="panoramas[activePanIndex].viewer_360_file"></model-preview>
     <div class="model-preview-controls">
       <div
         @click="prevPan"
         v-if="activePanIndex > 0"
-        class="model-control-left"
-      ></div>
+        class="model-control model-control__left"
+      >
+        <svgicon name="chevron-left" height="30" width="30"></svgicon>
+      </div>
       <div
         @click="nextPan"
         v-if="activePanIndex < panoramas.length - 1"
-        class="model-control-right"
-      ></div>
-      <div v-if="showViewerButton" class="model-control-button">
-        <base-button-action @click="viewModel(panoramas[activePanIndex].id)" icon-name="model">{{ $t('ifc.view') }}</base-button-action>
+        class="model-control model-control__right"
+      >
+        <svgicon name="chevron-right" height="30" width="30"></svgicon>
       </div>
+      <div v-if="showViewerButton" class="model-control-button">
+        <base-button-action @click="viewModel(panoramas[activePanIndex].id)" icon-name="eye">{{ $t('ifc.open') }}</base-button-action>
+      </div>
+      <div class="model-preview-counter"><b class="text-primary">{{currentCounter}}</b>/{{this.panoramas.length}}</div>
     </div>
-    <model-preview :imgURL="panoramas[activePanIndex].viewer_360_file"></model-preview>
   </div>
 </template>
 
@@ -34,6 +39,9 @@ export default {
   computed: {
     isPanoramaExist () {
       return this.panoramas.length > 0
+    },
+    currentCounter () {
+      return this.activePanIndex + 1
     }
   },
   props: {
@@ -56,18 +64,19 @@ export default {
         ifcId
       }
 
-      let customViewers = this.$store.state.project.selectedCloud.features.filter(f => f.viewer_url)
-      if (customViewers.length > 0) {
-        params.customUrl = customViewers[0].viewer_url
-      }
       this.$router.push({ name: 'viewer', params })
     },
     nextPan () {
       this.activePanIndex++
+      this.$emit('current-panorama-name', this.panoramas[this.activePanIndex].name)
     },
     prevPan () {
       this.activePanIndex--
+      this.$emit('current-panorama-name', this.panoramas[this.activePanIndex].name)
     }
+  },
+  created () {
+    this.$emit('current-panorama-name', this.panoramas[this.activePanIndex].name)
   }
 }
 </script>

@@ -17,6 +17,7 @@ const svgIcons = [
   'cloud-upload.svg',
   'cloud.svg',
   'delete.svg',
+  'eye.svg',
   'folder-outline.svg',
   'image-plus.svg',
   'keyboard_arrow_down',

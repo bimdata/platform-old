@@ -41,8 +41,7 @@ export default {
     }
   },
   mounted () {
-    this.viewerWidth = this.viewerHeight =
-      this.$refs.modelPreview.getBoundingClientRect().width
+    this.viewerWidth = this.viewerHeight = this.$refs.modelPreview.getBoundingClientRect().width
   },
   computed: {
     left () {

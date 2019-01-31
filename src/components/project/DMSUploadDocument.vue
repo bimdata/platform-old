@@ -17,6 +17,11 @@ export default {
       default: '.DMSDashboardContainer'
     }
   },
+  data () {
+    return {
+      uppy: null
+    }
+  },
   components: {
     BaseButtonTool
   },
@@ -31,13 +36,20 @@ export default {
       return this.$store.state.project.currentFolderId
     }
   },
+  watch: {
+    currentFolderId () {
+      this.uppy.setMeta({
+        parent_id: this.currentFolderId
+      })
+    }
+  },
   mounted () {
     let baseApiUrl = process.env.BD_API_BASE_URL
     let endpointUpload = baseApiUrl + '/cloud/' + this.cloudId + '/project/' + this.projectId + '/document'
     let token = this.$store.state.oidc.access_token
     let target = this.target
 
-    const uppy = Uppy({
+    this.uppy = Uppy({
       debug: true,
       autoProceed: false,
       restrictions: {
@@ -64,16 +76,16 @@ export default {
           'authorization': `Bearer ${token}`
         }
       })
-    uppy.setMeta({
-      parentId: this.currentFolderId
+    this.uppy.setMeta({
+      parent_id: this.currentFolderId
     })
-    uppy.on('complete', result => {
+    this.uppy.on('complete', result => {
       this.$store.dispatch('project/getTree', this.$store.state.project.selectedProject)
       this.$emit('upload-complete', result)
 
       if (result.successful) {
         setTimeout(() => {
-          uppy.close()
+          this.uppy.close()
         }, 2000)
       }
     })

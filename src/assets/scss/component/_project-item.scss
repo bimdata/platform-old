@@ -48,9 +48,6 @@
   flex-direction: column;
   margin: 0 auto;
 
-  & ~ & {
-  //  margin-left: 75px;
-  }
   &-move { transition: all 600ms ease-in-out 50ms }
   &-enter-active { transition: all 600ms ease-out }
 
@@ -190,15 +187,21 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+
   &__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
+    z-index: 1;
+    position: absolute;
+    top: 6px;
+    right: 0;
+    left: 0;
+    height: 25px;
 
-  &__date {
-    font-size: 0.8571rem;
-    line-height: 1rem;
+    .base-button-option__tool {
+      margin-right: 2px;
+    }
   }
 
   &__tool {
@@ -323,12 +326,13 @@
   }
 
   &__title {
-    padding: $grid-gutter-width 0 0 0;
     color: $primary;
+    padding: 15px 0 0 0;
     width: 100%;
     font-size: 1rem;
     text-align: center;
     position: relative;
+
     &:after {
       transition: .15s ease all;
       display: inline-block;
@@ -363,15 +367,19 @@
 }
 
 .project-preview {
+  height: 216px;
+  background: #E6E6E6;
+
   &-icon {
-    padding-top: 100%;
-    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 12px;
+
     .svg-icon {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      margin-left: -15px;
-      margin-top: -15px;
+      color: $primary;
     }
   }
 }

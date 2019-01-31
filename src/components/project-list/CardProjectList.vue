@@ -1,8 +1,8 @@
 <template>
     <div class="card-container">
-        <div class="base-card card-item card-bd">
+        <div class="base-card card-item card-bd card-project">
             <div class="card-bd__header">
-                <span class="card-bd__date">{{ project.created_at|formatDate(false) }}</span>
+                <svgicon name="eye" height="18" width="54"></svgicon>
                 <base-button-option @option-toggled="toggleMenu">
                     <ul>
                         <li @click.stop.self="showRemoveActions = true" class="base-button-option__menu__remove">
@@ -21,31 +21,31 @@
                     </ul>
                 </base-button-option>
             </div>
-            <router-link :to="{name: 'project', params: {id: project.id}}">
+            <router-link :to="{name: 'project', params: {id: project.id}}" class="base-card__link">
                 <project-preview
                   :cloudId="cloudId"
                   :projectId="project.id"
                 ></project-preview>
-            </router-link>
-            <div class="card-bd__body">
-                <div class="card-bd__body-container">
-                    <div v-on-clickaway="closeUpdate"
-                         class="card-bd__title"
-                         :class="{'card-bd__title--edit-mode': editMode}">
-                        <div v-show="!editMode"
-                             @click="switchToEditMode">
-                            {{ project.name }}
-                        </div>
-                        <div class="card-bd__text-container" v-show="editMode">
-                            <input ref="updateInput"
-                                   type="text"
-                                   v-model="newName"
-                                   @keyup.enter="submitUpdate"
-                                   :placeholder="project.name"/>
+                <div class="card-bd__body">
+                    <div class="card-bd__body-container">
+                        <div v-on-clickaway="closeUpdate"
+                            class="card-bd__title"
+                            :class="{'card-bd__title--edit-mode': editMode}">
+                            <div v-show="!editMode"
+                                @click="switchToEditMode">
+                                <span v-b-tooltip.hover :title="project.name">{{ project.name | middle-truncate(25) }}</span>
+                            </div>
+                            <div class="card-bd__text-container" v-show="editMode">
+                                <input ref="updateInput"
+                                      type="text"
+                                      v-model="newName"
+                                      @keyup.enter="submitUpdate"
+                                      :placeholder="project.name"/>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </router-link>
             <div class="loader" v-show="displayLoader">
               <div class="lds-dual-ring"></div>
             </div>

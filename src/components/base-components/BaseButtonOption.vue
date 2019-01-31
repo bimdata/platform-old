@@ -4,8 +4,8 @@
           v-on-clickaway="closeTool"
           :class="{clicked: clicked}">
         <svgicon name="more-vert"
-                 height="25"
-                 width="25"
+                 height="17"
+                 width="17"
                  color="transparent #95989A">
         </svgicon>
         <div class="base-button-option__menu" v-show="displayMenu">

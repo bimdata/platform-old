@@ -2,6 +2,10 @@ html {
   font-size: 14px;
 }
 
+body {
+  height: 100vh;
+}
+
 .row + .row {
   margin-top: $grid-gutter-width;
 }

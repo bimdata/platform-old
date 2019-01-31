@@ -15,7 +15,12 @@
                 <span class="folder-carret"></span>
                 <svgicon name="folder-outline" height="19" width="19" v-if="isCurrentPath"></svgicon>
                 <svgicon name="folder2" v-else></svgicon>
-                <span @click.stop="changeFolder(folder.id)" class="dms__line-tree-view-content__name">{{ folder.name }}</span>
+                <span
+                  @click.stop="changeFolder(folder.id)"
+                  v-b-tooltip.hover
+                  :title="folder.name"
+                  class="dms__line-tree-view-content__name"
+                >{{ truncate(folder.name, 10) }}</span>
             </span>
         </div>
         <transition
@@ -70,6 +75,12 @@ export default {
     },
     isCurrentFolder () {
       return this.folder.id === this.currentElement.id
+    },
+    truncate () {
+      return (title, lenght) =>
+        (title.length > lenght)
+          ? title.substring(0, lenght) + '...'
+          : title
     }
   },
   methods: {
