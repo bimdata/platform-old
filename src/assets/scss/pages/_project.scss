@@ -43,6 +43,11 @@
         display: none;
       }
     }
+    .card-bd__header {
+      .svg-icon {
+        cursor: pointer;
+      }
+    }
     .card-bd__body {
       height: 61px;
       padding: 22px 27px;

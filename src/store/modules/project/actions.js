@@ -13,7 +13,7 @@ export default {
       ifcs.sort(
         (a, b) => (new Date(b.created_at) - new Date(a.created_at))
       )
-      return ifcs[0] && ifcs[0].viewer_360_file ? ifcs[0].viewer_360_file : null
+      return ifcs[0] && ifcs[0].viewer_360_file ? {'id': ifcs[0].id, 'image': ifcs[0].viewer_360_file} : null
     } catch (e) {
       return Promise.reject(e)
     }

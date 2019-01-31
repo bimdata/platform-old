@@ -37,10 +37,15 @@ export default {
       getProjectIfcImage: 'project/getProjectIfcImage'
     }),
     async getProjectImage () {
-      this.image = await this.getProjectIfcImage({
+      let ifc = await this.getProjectIfcImage({
         cloudPk: this.cloudId,
         projectPk: this.projectId
       })
+
+      if (ifc) {
+        this.image = ifc.image
+        this.$emit('has-image', ifc.id)
+      }
     }
   }
 }
