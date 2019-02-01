@@ -37,7 +37,7 @@ export default {
       'logoutUser'
     ]),
     openProfile () {
-      window.open(`${process.env.BD_OIDC_IP}profile`)
+      window.open(`${process.env.BD_OIDC_IP}/profile`)
     },
     logout () {
       this.logoutUser().then(resolve => {
