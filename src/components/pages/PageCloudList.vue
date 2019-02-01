@@ -9,7 +9,7 @@
                     <svgicon class="icon" name="cloud" width="20" height="15"></svgicon>
                   </span>
                   <span class="choice-list__field-selected__text-selected">
-                      Liste de vos espaces
+                      {{ $t('cloud_list.clouds_list') }}
                   </span>
                 </div>
               </div>
