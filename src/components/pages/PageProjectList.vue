@@ -9,6 +9,16 @@
                                   v-model="selectedCloud">
                 </base-choice-list>
             </div>
+            <div class="ml-auto">
+              <div class="search-component">
+                <b-input-group>
+                  <b-input-group-text slot="append">
+                      <svgicon name="search"></svgicon>
+                  </b-input-group-text>
+                  <b-form-input class="search-input"></b-form-input>
+                </b-input-group>
+              </div>
+            </div>
         </div>
         <transition-group name="project-item" tag="div" class="project_list row">
             <div class="card-container" key="new">
