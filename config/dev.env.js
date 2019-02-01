@@ -8,5 +8,6 @@ module.exports = merge(prodEnv, {
   BD_OIDC_CLIENT_ID: process.env.BD_OIDC_CLIENT_ID || '"952974"',
   BD_APP_URL: process.env.HOST || '"http://localhost:8080"',
   BD_API_BASE_URL: process.env.BD_API_BASE_URL || '"https://api-staging.bimdata.io"',
+  BD_CDN_BASE_URL: process.env.BD_CDN_BASE_URL || '"https://cdn-staging.bimdata.io"',
   BD_PLATFORM_BACK_BASE_URL: process.env.BD_PLATFORM_BACK_BASE_URL || '"https://platform-back-staging.bimdata.io"'
 })
