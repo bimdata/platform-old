@@ -34,20 +34,20 @@ const router = new Router({
           }
         },
         {
-          path: 'project/:id(\\d+)',
-          name: 'project',
-          component: PageProject,
-          meta: {
-            isPublic: false
-          }
-        },
-        {
-          path: 'projects/',
+          path: 'cloud/:id(\\d+)',
           name: 'project-list',
           component: PageProjectList,
           meta: {
             isPublic: false,
             container: 'container p-0'
+          }
+        },
+        {
+          path: 'cloud/:projectId(\\d+)/project/:cloudId(\\d+)',
+          name: 'project',
+          component: PageProject,
+          meta: {
+            isPublic: false
           }
         },
         {
