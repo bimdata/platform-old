@@ -33,14 +33,13 @@ export const getProjectsByCloudId = state => cloudId => {
 }
 
 export const getCloudById = state => cloudId => {
-  return state.clouds.find(cloud => cloud.id === cloudId)
+  return state.clouds.find(cloud => +cloud.id === +cloudId)
 }
 
-export const getProjectById = state => idProject => {
-  if (state.currentCloud.projects) {
-    return state.currentCloud.projects.find(project => {
-      return parseInt(idProject) === project.id
-    })
+export const getProjectById = state => projectId => {
+  if (state.currentCloud.projects.length) {
+    return state.currentCloud.projects
+      .find(project => +projectId === +project.id)
   }
 
   return []

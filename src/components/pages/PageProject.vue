@@ -55,6 +55,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import ChoiceListProject from '@/components/project/ChoiceListProject'
 import ChoiceListCloud from '@/components/project/ChoiceListCloud'
 import ButtonUploadNewFile from '@/components/project/ButtonUploadNewFile'
@@ -87,17 +88,18 @@ export default {
       this.displayUpload = false
     },
     setCurrentCloud () {
-      let cloudProject = this.$store.getters.getCloudByProjectId(this.$route.params.cloudId)
-      this.$store.commit('SET_CURRENT_CLOUD', cloudProject)
+      const cloud = this.getCloudById(this.$route.params.cloudId)
+      this.$store.commit('SET_CURRENT_CLOUD', cloud)
     },
     setProject () {
-      let project = this.$store.getters.getProjectById(this.$route.params.projectId)
+      const project = this.$store.getters.getProjectById(this.$route.params.projectId)
       this.$store.dispatch('project/init')
       this.loadedProject = false
       this.$store.commit('project/SET_PROJECT', project)
-      this.$store.dispatch('project/getTree', project).then(tree => {
-        this.loadedDMS = true
-      })
+      this.$store.dispatch('project/getTree', project)
+        .then(tree => {
+          this.loadedDMS = true
+        })
       this.$store.dispatch('project/fetchProjectIfc', project).then(() => {
         this.loadedProject = true
       })
@@ -106,6 +108,11 @@ export default {
   created () {
     this.setCurrentCloud()
     this.setProject()
+  },
+  computed: {
+    ...mapGetters({
+      getCloudById: 'getCloudById'
+    })
   }
 }
 </script>
