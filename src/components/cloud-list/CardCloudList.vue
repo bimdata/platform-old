@@ -91,7 +91,7 @@ export default {
   methods: {
     accessCloud () {
       this.$store.commit('SET_CURRENT_CLOUD', this.cloud)
-      this.$router.push({name: 'project-list'})
+      this.$router.push({name: 'project-list', params: {cloudId: this.cloud.id}})
     },
     switchToEditMode () {
       this.editMode = true

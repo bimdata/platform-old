@@ -21,7 +21,7 @@
                     </ul>
                 </base-button-option>
             </div>
-            <router-link :to="{name: 'project', params: {id: project.id}}" class="base-card__link">
+            <router-link :to="{name: 'project', params: {cloudId: cloudId, projectId: project.id}}" class="base-card__link">
                 <project-preview
                   :cloudId="cloudId"
                   :projectId="project.id"

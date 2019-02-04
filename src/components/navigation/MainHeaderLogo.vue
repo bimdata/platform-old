@@ -1,6 +1,6 @@
 <template>
     <div class="logo-container">
-        <router-link :to="{name: 'cloud-list'}">
+        <router-link :to="{name: 'home'}">
           <img
             class="logo-container__logo"
             src="../../assets/images/logo.svg"

@@ -6,7 +6,7 @@ import { generateClient } from '@/api/initClient'
 import _ from 'lodash'
 
 export default {
-  init ({getters}) {
+  async init ({commit, getters, dispatch}) {
     let defaultClient = generateClient(getters.oidcAccessToken)
     this.UserRepositoryRequest = new UserRepository(defaultClient)
     this.CloudRepositoryRequest = new CloudRepository(defaultClient)
@@ -47,7 +47,8 @@ export default {
       let methods = []
 
       clouds.forEach((cloud) => {
-        cloud.role = _.find(state.currentUser.clouds, ['cloud', cloud.id]).role
+        const role = _.find(state.currentUser.clouds, ['cloud', cloud.id])
+        cloud.role = role ? role.role : null
         let nbUserRetrieve = async function () {
           let nbUsers = await dispatch('getCloudUsers', cloud.id)
           cloud.nbUsers = nbUsers
@@ -130,7 +131,7 @@ export default {
       console.log(e)
     }
   },
-  async getProjects (contexte, idCloud) {
+  async getProjects (context, idCloud) {
     try {
       let result = await this.ProjectRepositoryRequest.getProjects(idCloud)
       return result

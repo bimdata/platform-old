@@ -33,7 +33,7 @@
             >
                 <li
                         v-for="(option, index) in optionsFiltered"
-                        :key="option.value"
+                        :key="`option-${index}`"
                         :data-index="index"
                         @click="choice(option)"
                         v-html="option.text"
