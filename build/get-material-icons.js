@@ -22,6 +22,7 @@ const svgIcons = [
   'image-plus.svg',
   'keyboard_arrow_down',
   'keyboard_arrow_up',
+  'magnify.svg',
   'pencil.svg',
   'play.svg',
   'plus.svg'
