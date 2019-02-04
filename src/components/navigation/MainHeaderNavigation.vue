@@ -5,6 +5,7 @@
           :key="index"
           :text="item.textLabel"
           :routeName="item.routeName"
+          :displayLink="item.displayLink"
         ></navigation-link>
     </div>
 </template>
@@ -15,12 +16,21 @@ export default {
   components: {
     NavigationLink
   },
-  data () {
-    return {
-      items: [
+  computed: {
+    getNamePage () {
+      return this.$route.name
+    },
+    items () {
+      return [
         {
           routeName: 'home',
-          textLabel: 'Cloud'
+          textLabel: 'Cloud',
+          displayLink: true
+        },
+        {
+          routeName: 'project-list',
+          textLabel: 'Project\'s clouds',
+          displayLink: this.getNamePage === 'project'
         }
       ]
     }

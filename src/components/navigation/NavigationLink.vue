@@ -1,5 +1,6 @@
 <template>
     <router-link
+      v-if="displayLink"
       :to="{name: routeName}"
       active-class="active"
       class="navigation__item"
@@ -12,7 +13,8 @@
 export default {
   props: {
     text: String,
-    routeName: String
+    routeName: String,
+    displayLink: Boolean
   }
 }
 </script>
