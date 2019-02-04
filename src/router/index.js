@@ -43,7 +43,7 @@ const router = new Router({
           }
         },
         {
-          path: 'cloud/:projectId(\\d+)/project/:cloudId(\\d+)',
+          path: 'cloud/:cloudId(\\d+)/project/:projectId(\\d+)',
           name: 'project',
           component: PageProject,
           meta: {
@@ -51,7 +51,7 @@ const router = new Router({
           }
         },
         {
-          path: 'viewer/cloud/:cloudId(\\d+)/project/:projectId(\\d+)/ifc/:ifcId(\\d+)',
+          path: 'cloud/:cloudId(\\d+)/project/:projectId(\\d+)/viewer/:ifcId(\\d+)',
           name: 'viewer',
           component: PageViewer,
           meta: {
