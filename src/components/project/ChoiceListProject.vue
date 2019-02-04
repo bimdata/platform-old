@@ -54,7 +54,7 @@ export default {
       const {id: cloudId} = this.$store.state.clouds
         .find(
           cloud => cloud.projects
-            .find(project => +project.id === +projectId)
+            .find(project => parseInt(project.id) === parseInt(projectId))
         )
 
       this.$router.push({name: 'project', params: {cloudId, projectId}})

@@ -119,7 +119,7 @@ export default {
   created () {
     this.$store.dispatch('project/init')
     const clouds = this.getCloudsDetails
-    const cloud = clouds.find(cloud => +cloud.id === +this.$route.params.cloudId)
+    const cloud = clouds.find(cloud => parseInt(cloud.id) === parseInt(this.$route.params.cloudId))
     this.$store.commit('SET_CURRENT_CLOUD', cloud)
     this.cloud = cloud
     const currentCloud = this.$store.getters['getCurrentCloud']
