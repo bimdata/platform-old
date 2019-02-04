@@ -8,6 +8,7 @@
                 <div class="shadowed-content main-ifc__map-info-content">
                     <div class="main-ifc__info-project">
                         <model-preview-slider
+                          v-if="panoramas.length"
                           :panoramas="panoramas"
                           :show-viewer-button="true"
                           @current-panorama-name="setCurrentPanoramaName"

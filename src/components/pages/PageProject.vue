@@ -84,11 +84,11 @@ export default {
       this.displayUpload = false
     },
     setCurrentCloud () {
-      let cloudProject = this.$store.getters.getCloudByProjectId(this.$route.params.id)
+      let cloudProject = this.$store.getters.getCloudByProjectId(this.$route.params.cloudId)
       this.$store.commit('SET_CURRENT_CLOUD', cloudProject)
     },
     setProject () {
-      let project = this.$store.getters.getProjectById(this.$route.params.id)
+      let project = this.$store.getters.getProjectById(this.$route.params.projectId)
       this.$store.dispatch('project/init')
       this.loadedProject = false
       this.$store.commit('project/SET_PROJECT', project)

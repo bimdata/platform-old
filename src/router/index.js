@@ -18,7 +18,7 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: '',
       component: LayoutPageDashboard,
       meta: {
         isPublic: false
@@ -26,7 +26,7 @@ const router = new Router({
       children: [
         {
           path: '',
-          name: 'cloud-list',
+          name: 'home',
           component: PageCloudList,
           meta: {
             isPublic: false,

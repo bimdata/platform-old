@@ -19,7 +19,7 @@ export default {
     return {
       items: [
         {
-          routeName: 'cloud-list',
+          routeName: 'home',
           textLabel: 'Cloud'
         }
       ]
