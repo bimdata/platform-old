@@ -1,6 +1,6 @@
 <template>
     <div class="page-project">
-        <div class="toolbar-page row">
+        <div class="toolbar-page row justify-content-center justify-content-sm-between">
             <div class="card-container">
                 <base-choice-list :options="optionsCloud"
                                   icon="cloud"
@@ -9,8 +9,8 @@
                                   v-model="selectedCloud">
                 </base-choice-list>
             </div>
-            <div class="ml-auto">
-              <base-search-bar @on-search="toSearch"></base-search-bar>
+            <div class="mt-2 mt-sm-0">
+              <base-search-bar @on-search="toSearch" class="m-auto"></base-search-bar>
             </div>
         </div>
         <transition-group name="project-item" tag="div" class="project_list row">
