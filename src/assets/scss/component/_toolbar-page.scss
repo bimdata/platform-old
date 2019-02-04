@@ -8,13 +8,13 @@
   .top-toolbar {
     &__choice-list-items {
       padding-right: $grid-gutter-width;
-      margin: 0 auto;
     }
   }
 }
 
 .project-list,
-.cloud-list {
+.cloud-list,
+.page-clouds {
   .top-toolbar {
     &__choice-list-items {
       width: 216px;

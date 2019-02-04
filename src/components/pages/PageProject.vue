@@ -1,55 +1,58 @@
 <template>
-    <div class="page-project">
-        <div class="toolbar-page row">
-            <div class="col-12 d-flex align-items-center">
-                <choice-list-cloud class="top-toolbar__choice-list-items top-toolbar__choice-list-items--cloud"></choice-list-cloud>
-                <choice-list-project class="top-toolbar__choice-list-items top-toolbar__choice-list-items--project"
-                                     @selected-project-loading="loadedProject = false"
-                                     @selected-project-loaded="loadedProject = true">
-                </choice-list-project>
-                <button-upload-new-file class="top-toolbar__button-new-file ml-auto"
-                                        :class="{'active': displayUpload}"
-                                        @click="displayUpload = !displayUpload">
-                </button-upload-new-file>
-            </div>
-            <div class="col-12 upload-area-container">
-                <upload-ifc @upload-complete="closeUploadIfc" v-show="displayUpload"></upload-ifc>
-            </div>
-        </div>
-
-        <template v-if="loadedProject && loadedDMS">
-            <div class="row justify-content-between">
-                <div class="content-project">
-                    <card-project-content></card-project-content>
-                </div>
-                <div class="user-project">
-                    <div class="card-project-user" style="background: grey; height: 100%; width: 100%;"></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <table-ifc></table-ifc>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                  <base-card :fullscreen-available="false" class="ged-card">
-                    <template slot="header-title">Project's documents</template>
-                    <template slot="content">
-                      <dms></dms>
-                    </template>
-                  </base-card>
-                </div>
-            </div>
-        </template>
-        <template v-else>
-            <div class="row">
-                <div class="col-12 content-project">
-                    Loading ...
-                </div>
-            </div>
-        </template>
+  <div class="page-project">
+    <div class="toolbar-page row">
+      <div class="col-12 d-flex align-items-center">
+        <choice-list-cloud
+          class="top-toolbar__choice-list-items top-toolbar__choice-list-items--cloud"></choice-list-cloud>
+        <choice-list-project
+          @selected-project-loaded="loadedProject = true"
+          @selected-project-loading="loadedProject = false"
+          class="top-toolbar__choice-list-items top-toolbar__choice-list-items--project"
+        ></choice-list-project>
+        <button-upload-new-file
+          class="top-toolbar__button-new-file ml-auto"
+          :class="{'active': displayUpload}"
+          @click="displayUpload = !displayUpload"
+        ></button-upload-new-file>
+      </div>
+      <div class="col-12 upload-area-container">
+        <upload-ifc @upload-complete="closeUploadIfc" v-show="displayUpload"></upload-ifc>
+      </div>
     </div>
+
+    <template v-if="loadedProject && loadedDMS">
+      <div class="row justify-content-between">
+        <div class="content-project">
+          <card-project-content></card-project-content>
+        </div>
+        <div class="user-project">
+          <div class="card-project-user" style="background: grey; height: 100%; width: 100%;"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <table-ifc></table-ifc>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <base-card :fullscreen-available="false" class="ged-card">
+            <template slot="header-title">Project's documents</template>
+            <template slot="content">
+              <dms></dms>
+            </template>
+          </base-card>
+        </div>
+      </div>
+    </template>
+    <template v-else>
+      <div class="row">
+        <div class="col-12 content-project">
+          Loading ...
+        </div>
+      </div>
+    </template>
+  </div>
 </template>
 <script>
 import ChoiceListProject from '@/components/project/ChoiceListProject'

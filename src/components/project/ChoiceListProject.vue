@@ -1,15 +1,16 @@
 <template>
-    <div>
-        <base-choice-list :options="projects"
-                          icon="projet"
-                          :value="selectedProject"
-                          @input="choseProject">
-        </base-choice-list>
-    </div>
+  <div>
+    <base-choice-list
+      :options="projects"
+      icon="projet"
+      :value="selectedProject"
+      @input="choseProject"
+    ></base-choice-list>
+  </div>
 </template>
 <script>
 import BaseChoiceList from '@/components/base-components/BaseChoiceList'
-import { mapState } from 'vuex'
+import {mapState} from 'vuex'
 
 export default {
   components: {
@@ -49,8 +50,9 @@ export default {
     }
   },
   methods: {
-    choseProject ({value}) {
-      this.$router.push({name: 'project', params: {id: value}})
+    choseProject ({value: projectId}) {
+      const cloudId = this.$store.state.currentCloud.id
+      this.$router.push({name: 'project', params: {cloudId, projectId}})
     }
   }
 }
