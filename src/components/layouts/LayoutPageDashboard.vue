@@ -12,6 +12,14 @@
             </transition>
           </div>
         </article>
+        <div class="loader loader-redirect" v-show="displayLoader">
+          <img
+            class="logo-container__logo"
+            src="../../assets/images/logo.svg"
+            width="110"
+            height="50"
+          />
+        </div>
     </div>
 </template>
 <script>
@@ -24,7 +32,8 @@ export default {
   },
   data () {
     return {
-      initializedData: false
+      initializedData: false,
+      displayLoader: true
     }
   },
   computed: {
@@ -36,6 +45,7 @@ export default {
     }
   },
   async created () {
+    this.displayLoader = false
     await this.init()
     this.$store.commit('SET_LOADER_PAGE', true)
     await this.fetchUserCloudsDetails()

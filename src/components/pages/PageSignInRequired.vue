@@ -1,9 +1,19 @@
 <template>
-    <div class="signin-required__card base-card">
-      <div class="signin-required__card__body">
-        <img class="signin-required__card__logo" src="../../assets/images/logo-rectangle.svg" />
-        <p class="signin-required__card__text">Better data for better projects !</p>
-        <button @click="redirectLogin" class="btn btn-primary signin-required__card__btn">Login</button>
+    <div>
+      <div class="signin-required__card base-card" v-show="!displayLoader">
+        <div class="signin-required__card__body">
+          <img class="signin-required__card__logo" src="../../assets/images/logo-rectangle.svg" />
+          <p class="signin-required__card__text">Better data for better projects !</p>
+          <button @click="redirectLogin" class="btn btn-primary signin-required__card__btn">Login</button>
+        </div>
+      </div>
+      <div class="loader loader-redirect" v-show="displayLoader">
+        <img
+          class="logo-container__logo"
+          src="../../assets/images/logo.svg"
+          width="110"
+          height="50"
+        />
       </div>
     </div>
 </template>
@@ -12,6 +22,11 @@ import { vuexOidcCreateUserManager } from 'vuex-oidc'
 import { oidcSettings } from '@/config/OIDCSettings'
 
 export default {
+  data () {
+    return {
+      displayLoader: false
+    }
+  },
   methods: {
     getCurrentState () {
       let listOfStates = []
@@ -29,6 +44,7 @@ export default {
       return currentState
     },
     redirectLogin () {
+      this.displayLoader = true
       const oidcUserManager = vuexOidcCreateUserManager(oidcSettings)
       oidcUserManager.signinRedirect().then(() => {
         let state = this.getCurrentState()
