@@ -9,7 +9,7 @@
                                   v-model="selectedCloud">
                 </base-choice-list>
             </div>
-            <div class="mt-2 mt-sm-0">
+            <div class="search-container mt-2 mt-sm-0">
               <base-search-bar @on-search="toSearch" class="m-auto"></base-search-bar>
             </div>
         </div>
