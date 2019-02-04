@@ -9,6 +9,29 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  &-layout {
+    position: relative;
+    flex-direction: column;
+    background: none;
+    margin-top: 6rem;
+
+    &__text {
+      color: $body-color;
+      font-size: 0.714rem;
+      margin-bottom: 1.5rem;
+    }
+    .lds-dual-ring {
+      width: auto;
+      height: auto;
+    }
+    .lds-dual-ring:after {
+      width: 76px;
+      height: 76px;
+      border-color: $primary transparent $primary transparent;
+      border-width: 10px;
+    }
+  }
 }
 
 .lds-dual-ring {
