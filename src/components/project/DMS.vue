@@ -356,7 +356,7 @@ export default {
         return 'Folder'
       }
 
-      let ext = fileName.split('.').pop()
+      let ext = fileName ? fileName.split('.').pop() : ''
 
       return ext.toUpperCase()
     },
