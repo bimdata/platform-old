@@ -3,8 +3,13 @@ $base-button-option: 'base-button-option';
 .#{base-button-option} {
   &__tool {
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-left: auto;
     width: 27px;
+    height: 27px;
+    
     &:hover {
       cursor: pointer;
     }

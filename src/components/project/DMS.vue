@@ -114,9 +114,7 @@
                             </span>
                         </template>
                         <template slot="creator" slot-scope="data">
-                            <template v-if="data.item.creator !== null">
-                                {{ data.item.creator.firstname }} {{ data.item.creator.lastname[0] }}
-                            </template>
+                          {{ data.value }}
                         </template>
                         <template slot="date" slot-scope="data">
                             {{ data.item.date|formatDate }}
@@ -232,6 +230,7 @@ export default {
         {
           key: 'creator',
           label: 'Creator',
+          formatter: 'formatCreatorCell',
           class: 'table-creator'
         },
         {
@@ -260,6 +259,15 @@ export default {
     }
   },
   methods: {
+    formatCreatorCell (creator) {
+      if (creator) {
+        if (creator.firstname != null && creator.lastname != null) {
+          return creator.firstname + ' ' + creator.lastname[0]
+        } else {
+          return ''
+        }
+      }
+    },
     moveItems (idNewParentFolder) {
       this.$store.dispatch('project/moveItemsDMS', {idNewParentFolder, items: this.selected}).then(() => {
         this.closeMoveTo()
@@ -348,7 +356,7 @@ export default {
         return 'Folder'
       }
 
-      let ext = fileName.split('.').pop()
+      let ext = fileName ? fileName.split('.').pop() : ''
 
       return ext.toUpperCase()
     },
@@ -436,8 +444,12 @@ export default {
           return acc
         }, [])
         .map(item => {
+          let name = ''
+          if (item.firstname != null && item.lastname != null) {
+            name = item.firstname + ' ' + item.lastname[0]
+          }
           return {
-            text: item.firstname + ' ' + item.lastname[0],
+            text: name,
             value: item.id,
             disabled: false
           }

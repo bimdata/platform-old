@@ -1,3 +1,6 @@
+$width-tree: 272px;
+$width-lg-tree: 350px;
+
 .dms {
   font-size: 0.92857143rem;
   position: relative;
@@ -110,9 +113,13 @@
     transition: .2s ease all;
     position: absolute;
     left: -500px;
-    width: 272px;
+    width: $width-tree;
     height: calc(100% - #{$grid-gutter-width});
     overflow: auto;
+
+    @include media-breakpoint-up(lg) { 
+      width: $width-lg-tree;
+    }
   }
 
   .dms__list-files {
@@ -122,18 +129,32 @@
   }
 
   &.shrinked {
-    transform: translateX(272px);
-    width: calc(100% - 272px);
+    transform: translateX($width-tree);
+    width: calc(100% - $width-tree);
     padding-left: $grid-gutter-width;
 
+    @include media-breakpoint-up(lg) { 
+      transform: translateX($width-lg-tree);
+      width: calc(100% - $width-lg-tree);
+    }
+
     .dms__tree-view {
-      left: -272px;
+      left: -$width-tree;
+
+      @include media-breakpoint-up(lg) { 
+        left: -$width-lg-tree;
+      }
     }
   }
 
   .dms__tree-view {
-    width: 272px;
-    min-width: 272px;
+    width: $width-tree;
+    min-width: $width-tree;
+
+    @include media-breakpoint-up(lg) { 
+      width: $width-lg-tree;
+      min-width: $width-lg-tree;
+    }
   }
 
   .bd-table {

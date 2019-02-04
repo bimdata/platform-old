@@ -6,7 +6,8 @@
         <svgicon name="more-vert"
                  height="17"
                  width="17"
-                 color="transparent #95989A">
+                 color="transparent #95989A"
+                 class="m-0">
         </svgicon>
         <div class="base-button-option__menu" v-show="displayMenu">
             <slot>

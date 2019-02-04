@@ -1,6 +1,6 @@
 <template>
   <div class="page-project">
-    <div class="toolbar-page row">
+    <div class="toolbar-page row justify-content-center justify-content-sm-between">
       <div class="card-container">
         <base-choice-list
           @input="selectCloud"
@@ -10,6 +10,9 @@
           :value="selectedCloud"
           v-model="selectedCloud"
         ></base-choice-list>
+      </div>
+      <div class="search-container mt-2 mt-sm-0">
+        <base-search-bar @on-search="toSearch" class="m-auto"></base-search-bar>
       </div>
     </div>
     <transition-group name="project-item" tag="div" class="project_list row">
@@ -60,8 +63,9 @@
   </div>
 </template>
 <script>
-import {mapGetters} from 'vuex'
+import { mapGetters } from 'vuex'
 import BaseChoiceList from '@/components/base-components/BaseChoiceList'
+import BaseSearchBar from '@/components/base-components/BaseSearchBar'
 import CardProjectList from '@/components/project-list/CardProjectList'
 import BaseButtonAction from '@/components/base-components/BaseButtonAction'
 
@@ -72,13 +76,15 @@ export default {
       optionsCloud: [],
       displayNewForm: false,
       newProjectName: '',
-      cloud: null
+      cloud: null,
+      searchFilter: ''
     }
   },
   components: {
     BaseButtonAction,
     BaseChoiceList,
-    CardProjectList
+    CardProjectList,
+    BaseSearchBar
   },
   computed: {
     ...mapGetters({
@@ -92,6 +98,9 @@ export default {
     }
   },
   methods: {
+    toSearch (value) {
+      this.searchFilter = value
+    },
     selectCloud ({ value: cloudId }) {
       this.$router.push({name: 'project-list', params: {cloudId}})
       const cloud = this.getCloudById(cloudId)

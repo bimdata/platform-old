@@ -31,18 +31,20 @@ $base-cd-table: 'bd-table';
         cursor: pointer;
         transition: .15s linear all;
       }
-      background-color: white;
+
+      background-color: $white;
       transition: .15s linear all;
+      
       &:hover {
         background-color: #F2F2F2;
       }
 
       &.table-selected-row {
         background-color: $primary;
-        color: white;
+        color: $white;
 
         svg {
-          color: white;
+          color: $white;
         }
       }
     }

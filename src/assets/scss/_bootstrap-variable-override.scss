@@ -57,7 +57,7 @@ $breadcrumb-padding-x: 1rem;
 $breadcrumb-item-padding: .5rem;
 $breadcrumb-margin-bottom: 1rem;
 
-$breadcrumb-bg: white;
+$breadcrumb-bg: $white;
 $breadcrumb-divider-color: $bim-cyan;
 $breadcrumb-active-color: $bim-cyan;
 $breadcrumb-divider: quote(">");
@@ -65,6 +65,6 @@ $breadcrumb-divider: quote(">");
 $breadcrumb-border-radius: $border-radius;
 
 // Tooltips
-$tooltip-font-size: 0.75rem;
+$tooltip-font-size: 0.857rem;
 $tooltip-bg: $primary;
 $tooltip-border-radius: 7px;

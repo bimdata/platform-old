@@ -26,6 +26,9 @@
         "rename": "Rename",
         "rename_folder": "Rename folder"
     },
+    "cloud_list": {
+      "clouds_list": "Clouds list"
+    },
     "project_list": {
         "new_project": "New Project",
         "submit": "Submit",

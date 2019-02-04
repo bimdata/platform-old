@@ -85,7 +85,7 @@ export default {
 
       if (result.successful) {
         setTimeout(() => {
-          this.uppy.close()
+          this.uppy.getPlugin('Dashboard').closeModal()
         }, 2000)
       }
     })

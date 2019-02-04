@@ -10,6 +10,19 @@
       padding-right: $grid-gutter-width;
     }
   }
+
+  .search-container {
+    @include media-breakpoint-up(sm) { 
+      width: calc(100%/2);
+    }
+    @include media-breakpoint-up(md) { 
+      width: auto;
+      margin-right: 1rem;
+    }
+    @include media-breakpoint-up(xxl) { 
+      margin-right: 2rem;
+    }
+  }
 }
 
 .project-list,

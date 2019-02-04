@@ -200,7 +200,8 @@
     height: 25px;
 
     .base-button-option__tool {
-      margin-right: 2px;
+      margin-right: 6px;
+      margin-top: 4px;
     }
   }
 
@@ -208,13 +209,6 @@
     position: relative;
     &:hover {
       cursor: pointer;
-    }
-
-    &.clicked {
-      &:after {
-        animation-name: circle;
-        animation-duration: .5s;
-      }
     }
 
     &:after {
