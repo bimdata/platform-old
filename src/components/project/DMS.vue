@@ -34,12 +34,12 @@
                 </base-button-tool>
                 <dms-upload-document class="base-button-tool__container"></dms-upload-document>
                 <base-button-tool iconName="add-folder" @click="toggleAddFolderMenu">
-                    <div class="new_folder_box" v-if="addFolder">
+                    <div class="new_folder_box" v-show="addFolder">
                         <div class="new_folder_box__title">
                             {{ $t('project.create_folder') }}
                         </div>
                         <div class="base-input-text-material">
-                            <input type="text" autofocus :placeholder="$t('project.folder_name')" required v-model="newFolderName" v-on:keyup.enter="saveFolder">
+                            <input type="text" ref="createFolderInput" :placeholder="$t('project.folder_name')" required v-model="newFolderName" v-on:keyup.enter="saveFolder">
                             <span class="highlight"></span>
                             <span class="bar"></span>
                         </div>
@@ -48,7 +48,7 @@
                             <span @click="saveFolder">{{ $t('project.validate') }}</span>
                         </div>
                     </div>
-                    <div class="new_folder_box__overlay" v-if="addFolder" @click="toggleAddFolderMenu"></div>
+                    <div class="new_folder_box__overlay" v-show="addFolder" @click="toggleAddFolderMenu"></div>
                 </base-button-tool>
                 <span class="dms__search">
                     <img src="../../assets/images/icons/search.svg" />
@@ -319,6 +319,9 @@ export default {
     },
     toggleAddFolderMenu () {
       this.addFolder = !this.addFolder
+      this.$nextTick(() => {
+        this.$refs.createFolderInput.focus()
+      })
       this.newFolderName = ''
     },
     async deleteElements () {
