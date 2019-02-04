@@ -23,7 +23,7 @@ export default {
       this.customViewer = true
       this.customUrl = `${this.getCustomUrl}/?cloudId=${params.cloudId}&projectId=${params.projectId}&ifcId=${params.ifcId}&accessToken=${this.oidcAccessToken}`
     } else {
-      scriptjs('https://cdn-staging.bimdata.io/js/bimdata-viewer-embed.js', () => {
+      scriptjs(`${process.env.BD_CDN_BASE_URL}/js/bimdata-viewer-embed.js`, () => {
         window.BIMDataViewer('embed', {
           accessToken: this.oidcAccessToken,
           cloudId: parseInt(params.cloudId),
