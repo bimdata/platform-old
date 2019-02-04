@@ -10,14 +10,7 @@
                 </base-choice-list>
             </div>
             <div class="ml-auto">
-              <div class="search-component">
-                <b-input-group>
-                  <b-input-group-text slot="append">
-                      <svgicon name="search"></svgicon>
-                  </b-input-group-text>
-                  <b-form-input class="search-input"></b-form-input>
-                </b-input-group>
-              </div>
+              <base-search-bar @on-search="toSearch"></base-search-bar>
             </div>
         </div>
         <transition-group name="project-item" tag="div" class="project_list row">
@@ -64,6 +57,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import BaseChoiceList from '@/components/base-components/BaseChoiceList'
+import BaseSearchBar from '@/components/base-components/BaseSearchBar'
 import CardProjectList from '@/components/project-list/CardProjectList'
 import _ from 'lodash'
 import BaseButtonAction from '@/components/base-components/BaseButtonAction'
@@ -74,13 +68,15 @@ export default {
       selectedCloud: {},
       optionsCloud: [],
       displayNewForm: false,
-      newProjectName: ''
+      newProjectName: '',
+      searchFilter: ''
     }
   },
   components: {
     BaseButtonAction,
     BaseChoiceList,
-    CardProjectList
+    CardProjectList,
+    BaseSearchBar
   },
   computed: {
     ...mapGetters({
@@ -88,6 +84,9 @@ export default {
     })
   },
   methods: {
+    toSearch (value) {
+      this.searchFilter = value
+    },
     setFocus () {
       this.$refs.inputToFocus.focus()
     },
@@ -100,7 +99,12 @@ export default {
     getProjectByCloud () {
       let currentCloud = this.$store.state.currentCloud
       let cloud = this.$store.getters.getCloudById(currentCloud.id)
-      return cloud ? _.orderBy(this.$store.state.currentCloud.projects, p => p.created_at, 'desc') : null
+      let projects = _.orderBy(this.$store.state.currentCloud.projects, p => p.created_at, 'desc')
+      let filteredprojects = projects.filter(project => {
+        return project.name.toLowerCase().includes(this.searchFilter.toLowerCase())
+      })
+
+      return cloud ? filteredprojects : null
     }
   },
   watch: {
