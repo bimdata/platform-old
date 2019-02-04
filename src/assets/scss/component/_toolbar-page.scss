@@ -1,6 +1,6 @@
 .toolbar-page {
   margin-bottom: 26px;
-  
+
   .card-container {
     margin: 0;
   }
@@ -8,6 +8,7 @@
   .top-toolbar {
     &__choice-list-items {
       padding-right: $grid-gutter-width;
+      margin: 0 auto;
     }
   }
 }

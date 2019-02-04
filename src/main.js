@@ -27,11 +27,7 @@ const AppRoot = new Vue({
   store,
   strict: true,
   components: { App },
-  template: '<App/>',
-  created () {
-    // Init config
-    this.$store.dispatch('init')
-  }
+  template: '<App/>'
 })
 
 window.appRoot = App

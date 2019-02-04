@@ -11,6 +11,7 @@
     </div>
 </template>
 <script>
+import { mapActions } from 'vuex'
 import MainHeader from '@/components/navigation/MainHeader'
 
 export default {
@@ -22,12 +23,15 @@ export default {
       initializedData: false
     }
   },
-  beforeCreate () {
-    this.$store.dispatch('init')
-    let fetchUsers = this.$store.dispatch('fetchUserData')
-    let fetchClouds = this.$store.dispatch('fetchUserCloudsDetails')
-    Promise.all([fetchUsers, fetchClouds]).then(() => {
-      this.initializedData = true
+  async created () {
+    await this.init()
+    await this.fetchUserCloudsDetails()
+    this.initializedData = true
+  },
+  methods: {
+    ...mapActions({
+      init: 'init',
+      fetchUserCloudsDetails: 'fetchUserCloudsDetails'
     })
   }
 }

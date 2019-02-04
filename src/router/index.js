@@ -34,7 +34,7 @@ const router = new Router({
           }
         },
         {
-          path: 'cloud/:id(\\d+)',
+          path: 'cloud/:cloudId(\\d+)',
           name: 'project-list',
           component: PageProjectList,
           meta: {
