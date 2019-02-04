@@ -46,6 +46,11 @@
     .card-bd__header {
       .svg-icon {
         cursor: pointer;
+        transition: all ease 0.5s;
+
+        &:hover {
+          fill: $primary;
+        }
       }
     }
     .card-bd__body {
