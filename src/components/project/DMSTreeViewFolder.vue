@@ -22,7 +22,7 @@
                   :title="folder.name"
                   class="dms__line-tree-view-content__name"
                 >{{ folder.name | middle-truncate(10) }}</span>
-                <span class="dms__line-tree-view-content__name" v-else>
+                <span @click.stop="changeFolder(folder.id)" class="dms__line-tree-view-content__name" v-else>
                   {{ folder.name }}
                 </span>
             </span>
