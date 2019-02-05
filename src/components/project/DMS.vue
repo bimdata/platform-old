@@ -128,27 +128,34 @@
                             <base-button-option @option-toggled="toggleMenuAction">
                                 <ul>
                                     <li @click="downloadFile(documentAction)">
-                                      <svgicon name="download" width="13" height="13"></svgicon>
-                                      {{ $t('project.download') }}
-                                      </li>
+                                        <svgicon name="download" width="13" height="13"></svgicon>
+                                        {{ $t('project.download') }}
+                                    </li>
                                     <li @click.stop.self="toggleRename(documentAction)" :class="{'actif': displayRename}">
-                                      <svgicon name="pencil" width="13" height="13"></svgicon>
-                                      {{ $t('project.rename') }}
+                                        <svgicon name="pencil" width="13" height="13"></svgicon>
+                                        {{ $t('project.rename') }}
 
-                                      <div class="new_folder_box rename" v-if="displayRename">
-                                        <div class="new_folder_box__title">
-                                            {{ $t('project.rename_folder') }}
+                                        <div class="new_folder_box rename" v-if="displayRename">
+                                            <div class="new_folder_box__title">
+                                                {{ $t((documentAction.item.idPrefix === 'folder') ? 'project.rename_folder' : 'project.rename_file') }}
+                                            </div>
+                                            <div class="base-input-text-material">
+                                                <input
+                                                  type="text"
+                                                  autofocus
+                                                  :placeholder="$t('project.folder_name')"
+                                                  required
+                                                  v-model="renameFolder"
+                                                  v-on:keyup.enter="saveRename(documentAction)"
+                                                >
+                                                <span class="highlight"></span>
+                                                <span class="bar"></span>
+                                            </div>
+                                            <div class="new_folder_box__button-validation">
+                                                <span @click="cancelRename">{{ $t('project.cancel') }}</span>
+                                                <span @click="saveRename(documentAction)">{{ $t('project.validate') }}</span>
+                                            </div>
                                         </div>
-                                        <div class="base-input-text-material">
-                                            <input type="text" autofocus :placeholder="$t('project.folder_name')" required v-model="renameFolder" v-on:keyup.enter="saveRename(documentAction)">
-                                            <span class="highlight"></span>
-                                            <span class="bar"></span>
-                                        </div>
-                                        <div class="new_folder_box__button-validation">
-                                            <span @click="displayRename = false">{{ $t('project.cancel') }}</span>
-                                            <span @click="saveRename(documentAction)">{{ $t('project.validate') }}</span>
-                                        </div>
-                                    </div>
                                     </li>
                                     <li @click.stop.self="displayRemoveActions" class="base-button-option__menu__remove" :class="{'actif': showRemoveActions}">
                                       <svgicon name="delete" width="13" height="13"></svgicon>
@@ -259,6 +266,9 @@ export default {
     }
   },
   methods: {
+    cancelRename () {
+      this.displayRename = false
+    },
     formatCreatorCell (creator) {
       if (creator) {
         if (creator.firstname != null && creator.lastname != null) {
@@ -288,6 +298,7 @@ export default {
       this.$store.dispatch('project/updateName', {type, id, name})
 
       this.toggleMenuAction(false)
+      document.body.click()
     },
     remove (documentAction) {
       let type = documentAction.item.type
@@ -296,10 +307,13 @@ export default {
       this.$store.dispatch('project/remove', {type, id})
 
       this.toggleMenuAction(false)
+      document.body.click()
     },
     toggleMenuAction (isOpened) {
-      this.showRemoveActions = isOpened
-      this.displayRename = isOpened
+      if (!isOpened) {
+        this.showRemoveActions = isOpened
+        this.displayRename = isOpened
+      }
     },
     displayMoveTo () {
       this.displayTreeSelect = !this.displayTreeSelect
