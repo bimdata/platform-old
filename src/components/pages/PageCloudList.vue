@@ -14,13 +14,16 @@
           </div>
         </div>
       </div>
-      <transition-group name="project-item"
-                        tag="div"
-                        class="project_list row">
-          <card-cloud-list v-for="cloud in clouds"
-                            :key="cloud.id"
-                            :cloud="cloud">
-          </card-cloud-list>
+      <transition-group
+        name="project-item"
+        tag="div"
+        class="project_list row"
+      >
+        <card-cloud-list
+          v-for="cloud in clouds"
+          :key="cloud.id"
+          :cloud="cloud"
+        ></card-cloud-list>
       </transition-group>
     </div>
 </template>
