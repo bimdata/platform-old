@@ -3,7 +3,7 @@
     </div>
 </template>
 <script>
-import { LeafletMap } from '@/utils/LeafletMap'
+import { LeafletMap } from '@/utils/OSMBuildingsMap'
 
 export default {
   props: {
@@ -22,10 +22,8 @@ export default {
   },
   mounted () {
     this.$nextTick(function () {
-      let map = new LeafletMap()
-      map.load('base-map')
-      map.addMarker(this.lat, this.lng, this.text)
-      map.center()
+      let contextmap = new LeafletMap()
+      contextmap.load('base-map', this.lat, this.lng)
     })
   }
 }
