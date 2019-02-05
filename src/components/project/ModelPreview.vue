@@ -50,6 +50,8 @@ export default {
   },
   methods: {
     mouseHolder ($event) {
+      if (!this.$refs.modelWrapper) return
+
       const rect = this.$refs.modelWrapper.getBoundingClientRect()
       this.imageIndex = Math.abs(
         Math.ceil(
@@ -61,6 +63,8 @@ export default {
           )
         )
       ) - 1
+
+      this.imageIndex = this.imageIndex ? this.imageIndex : 1
     }
   }
 }

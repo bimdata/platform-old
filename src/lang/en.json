@@ -24,7 +24,8 @@
         "project_document": "Project's documents",
         "error_conversion": "Error in conversion",
         "rename": "Rename",
-        "rename_folder": "Rename folder"
+        "rename_folder": "Rename folder",
+        "rename_file": "Rename file"
     },
     "cloud_list": {
       "clouds_list": "Clouds list"
