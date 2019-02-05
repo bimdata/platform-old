@@ -117,6 +117,7 @@ export default {
     }
   },
   created () {
+    this.$store.commit('SET_LOADER_PAGE', true)
     this.$store.dispatch('project/init')
     const clouds = this.getCloudsDetails
     const cloud = clouds.find(cloud => parseInt(cloud.id) === parseInt(this.$route.params.cloudId))
@@ -131,6 +132,8 @@ export default {
       }
       this.optionsCloud.push(listItem)
     }
+
+    this.$store.commit('SET_LOADER_PAGE', false)
   }
 }
 </script>

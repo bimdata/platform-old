@@ -36,8 +36,9 @@ export default {
     }
   },
   async created () {
-    await this.init()
     this.$store.commit('SET_LOADER_PAGE', true)
+    await this.init()
+    await this.fetchUserData()
     await this.fetchUserCloudsDetails()
     this.initializedData = true
     this.$store.commit('SET_LOADER_PAGE', false)
@@ -45,6 +46,7 @@ export default {
   methods: {
     ...mapActions({
       init: 'init',
+      fetchUserData: 'fetchUserData',
       fetchUserCloudsDetails: 'fetchUserCloudsDetails'
     })
   }
