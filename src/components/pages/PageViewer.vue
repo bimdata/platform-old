@@ -27,23 +27,31 @@ export default {
     setCurrentCloud () {
       const cloud = this.getCloudById(this.$route.params.cloudId)
       this.mutateCurrentCloud(cloud)
+    },
+    createViewer (params, callback) {
+      if (this.getCustomUrl) {
+        this.customUrl = `${this.getCustomUrl}/?cloudId=${params.cloudId}&projectId=${params.projectId}&ifcId=${params.ifcId}&accessToken=${this.oidcAccessToken}`
+      } else {
+        scriptjs(`${process.env.BD_CDN_BASE_URL}/js/bimdata-viewer-embed.js`, () => {
+          window.BIMDataViewer('embed', {
+            accessToken: this.oidcAccessToken,
+            cloudId: parseInt(params.cloudId),
+            projectId: parseInt(params.projectId),
+            ifcId: parseInt(params.ifcId)
+          })
+        })
+      }
+      callback()
     }
   },
   created () {
     this.setCurrentCloud()
     const params = this.$route.params
-    if (this.getCustomUrl) {
-      this.customUrl = `${this.getCustomUrl}/?cloudId=${params.cloudId}&projectId=${params.projectId}&ifcId=${params.ifcId}&accessToken=${this.oidcAccessToken}`
-    } else {
-      scriptjs(`${process.env.BD_CDN_BASE_URL}/js/bimdata-viewer-embed.js`, () => {
-        window.BIMDataViewer('embed', {
-          accessToken: this.oidcAccessToken,
-          cloudId: parseInt(params.cloudId),
-          projectId: parseInt(params.projectId),
-          ifcId: parseInt(params.ifcId)
-        })
-      })
-    }
+    this.$store.commit('SET_LOADER_PAGE', true)
+    let vm = this
+    this.createViewer(params, function () {
+      vm.$store.commit('SET_LOADER_PAGE', false)
+    })
   }
 }
 </script>

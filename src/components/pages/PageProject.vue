@@ -46,10 +46,9 @@
       </div>
     </template>
     <template v-else>
-      <div class="row">
-        <div class="col-12 content-project">
-          Loading ...
-        </div>
+      <div class="loader loader-layout">
+        <p class="loader-layout__text">Loading</p>
+        <div class="lds-dual-ring"></div>
       </div>
     </template>
   </div>

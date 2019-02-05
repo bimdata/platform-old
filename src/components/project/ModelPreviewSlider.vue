@@ -60,7 +60,7 @@ export default {
     viewModel (ifcId) {
       const params = {
         cloudId: this.$store.state.currentCloud.id,
-        projectId: this.$route.params.id,
+        projectId: this.$store.state.project.currentElement.id,
         ifcId
       }
 

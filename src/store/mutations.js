@@ -28,5 +28,8 @@ export default {
   },
   SET_CURRENT_CLOUD: (state, cloud) => {
     state.currentCloud = cloud
+  },
+  SET_LOADER_PAGE: (state, value) => {
+    state.loaderPage = value
   }
 }

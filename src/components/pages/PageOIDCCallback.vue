@@ -1,5 +1,13 @@
 <template>
     <div>
+      <div class="loader loader-redirect" v-show="displayLoader">
+        <img
+          class="logo-container__logo"
+          src="../../assets/images/logo-page-loader.svg"
+          width="150"
+          height="200"
+        />
+      </div>
     </div>
 </template>
 
@@ -10,6 +18,11 @@ import request from 'axios'
 
 export default {
   name: 'OidcCallback',
+  data () {
+    return {
+      displayLoader: true
+    }
+  },
   methods: {
     ...mapActions([
       'oidcSignInCallback'

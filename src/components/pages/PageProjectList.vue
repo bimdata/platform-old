@@ -68,6 +68,7 @@ import BaseChoiceList from '@/components/base-components/BaseChoiceList'
 import BaseSearchBar from '@/components/base-components/BaseSearchBar'
 import CardProjectList from '@/components/project-list/CardProjectList'
 import BaseButtonAction from '@/components/base-components/BaseButtonAction'
+import _ from 'lodash'
 
 export default {
   data () {
@@ -94,7 +95,11 @@ export default {
       getCloudsDetails: 'getCloudsDetails'
     }),
     cloudProjects () {
-      return this.getProjectsByCloudId(this.currentCloud.id)
+      let projects = _.orderBy(this.getProjectsByCloudId(this.currentCloud.id), p => p.created_at, 'desc')
+      let filteredprojects = projects.filter(project => {
+        return project.name.toLowerCase().includes(this.searchFilter.toLowerCase())
+      })
+      return filteredprojects
     }
   },
   methods: {
@@ -117,6 +122,7 @@ export default {
     }
   },
   created () {
+    this.$store.commit('SET_LOADER_PAGE', true)
     this.$store.dispatch('project/init')
     const clouds = this.getCloudsDetails
     const cloud = clouds.find(cloud => parseInt(cloud.id) === parseInt(this.$route.params.cloudId))
@@ -131,6 +137,8 @@ export default {
       }
       this.optionsCloud.push(listItem)
     }
+
+    this.$store.commit('SET_LOADER_PAGE', false)
   }
 }
 </script>
