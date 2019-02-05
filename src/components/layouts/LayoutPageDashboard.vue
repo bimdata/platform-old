@@ -25,12 +25,14 @@ export default {
   },
   async created () {
     await this.init()
+    await this.fetchUserData()
     await this.fetchUserCloudsDetails()
     this.initializedData = true
   },
   methods: {
     ...mapActions({
       init: 'init',
+      fetchUserData: 'fetchUserData',
       fetchUserCloudsDetails: 'fetchUserCloudsDetails'
     })
   }
