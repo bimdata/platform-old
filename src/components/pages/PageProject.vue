@@ -50,11 +50,6 @@
         <p class="loader-layout__text">Loading</p>
         <div class="lds-dual-ring"></div>
       </div>
-      <!--<div class="row">
-        <div class="col-12 content-project">
-          Loading ...
-        </div>
-      </div>-->
     </template>
   </div>
 </template>
