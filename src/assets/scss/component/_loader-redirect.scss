@@ -1,3 +1,19 @@
 .loader-redirect {
   background: $primary;
+
+  .logo-container__logo {
+    opacity: 1;
+    animation: opacityblink 2s infinite;
+  }
+}
+@keyframes opacityblink {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
 }

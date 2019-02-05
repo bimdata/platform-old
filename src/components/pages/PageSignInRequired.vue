@@ -10,9 +10,9 @@
       <div class="loader loader-redirect" v-show="displayLoader">
         <img
           class="logo-container__logo"
-          src="../../assets/images/logo.svg"
-          width="110"
-          height="50"
+          src="../../assets/images/logo-page-loader.svg"
+          width="150"
+          height="200"
         />
       </div>
     </div>
