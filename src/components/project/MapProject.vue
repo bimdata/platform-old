@@ -56,6 +56,16 @@ export default {
     }
   },
   created () {
+    let osmbuildingsStyle = document.createElement('link')
+    osmbuildingsStyle.setAttribute('href', 'https://cdn.osmbuildings.org/4.0.1/OSMBuildings.css')
+    osmbuildingsStyle.setAttribute('rel', 'stylesheet')
+    document.head.appendChild(osmbuildingsStyle)
+    let osmbuildingsScript = document.createElement('script')
+    osmbuildingsScript.setAttribute('src', 'https://cdn.osmbuildings.org/4.0.1/OSMBuildings.js')
+    osmbuildingsScript.setAttribute('crossorigin', 'anonymous')
+    document.body.appendChild(osmbuildingsScript)
+  },
+  mounted () {
     this.$store.dispatch('project/fetchElements').then(() => {
       this.loaded = true
       this.setMapElements()
