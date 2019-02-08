@@ -28,13 +28,15 @@
         "rename_file": "Rename file"
     },
     "cloud_list": {
-      "clouds_list": "Clouds list"
+      "clouds_list": "Clouds list",
+      "rename_cloud": "Rename Cloud"
     },
     "project_list": {
         "new_project": "New Project",
         "submit": "Submit",
         "project_name": "Project's name",
-        "remove": "Remove"
+        "remove": "Remove",
+        "rename_project": "Rename Project"
     },
     "dms": {
       "no_creator": "No Creator",

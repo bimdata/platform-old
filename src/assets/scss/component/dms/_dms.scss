@@ -358,8 +358,15 @@ $width-lg-tree: 350px;
   z-index: 2;
 
   &.rename {
-    left: -207px;
-    top: 33px;
+    left: -120%;
+    top: 60px;
+
+    @include media-breakpoint-up(md) {
+      left: -110%;
+    }
+    @include media-breakpoint-up(xl) {
+      left: -100%;
+    }
   }
 
   &__overlay {

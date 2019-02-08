@@ -55,6 +55,10 @@ export default {
         }
         let projectsRetrieve = async function () {
           let projects = await dispatch('getProjects', cloud.id)
+          projects.forEach((project) => {
+            const role = _.find(state.currentUser.projects, ['project', project.id])
+            project.role = role ? role.role : null
+          })
           cloud.projects = projects
         }
 
@@ -141,5 +145,14 @@ export default {
   },
   setLang ({commit}, payload) {
     commit('SET_LANG', payload)
+  },
+  async updateCloudName ({commit}, {id, name}) {
+    try {
+      await this.CloudRepositoryRequest.updateCloud({id, name})
+      await this.dispatch('fetchUserCloudsDetails')
+      return true
+    } catch (e) {
+      console.log(e)
+    }
   }
 }

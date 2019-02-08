@@ -95,7 +95,9 @@ export default {
       getCloudsDetails: 'getCloudsDetails'
     }),
     cloudProjects () {
-      let projects = _.orderBy(this.getProjectsByCloudId(this.currentCloud.id), p => p.created_at, 'desc')
+      let cloudId = this.$store.state.currentCloud.id
+      let cloudProjects = _.find(this.$store.state.clouds, ['id', cloudId]).projects
+      let projects = _.orderBy(cloudProjects, p => p.created_at, 'desc')
       let filteredprojects = projects.filter(project => {
         return project.name.toLowerCase().includes(this.searchFilter.toLowerCase())
       })

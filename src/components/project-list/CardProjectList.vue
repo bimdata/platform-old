@@ -3,7 +3,7 @@
         <div class="base-card card-item card-bd card-project">
             <div class="card-bd__header">
                 <svgicon name="eye" height="18" width="54" @click.native="viewModel" v-if="displayEye"></svgicon>
-                <base-button-option @option-toggled="toggleMenu">
+                <base-button-option @option-toggled="toggleMenu" v-if="isAdmin">
                     <ul>
                         <li @click.stop.self="showRemoveActions = true" class="base-button-option__menu__remove">
                           {{ $t('project_list.remove') }}
@@ -17,6 +17,31 @@
                               </span>
                             </div>
                           </transition>
+                        </li>
+                        <li @click.stop.self="toggleRename()" :class="{'actif': displayRename}">
+                            {{ $t('project.rename') }}
+
+                            <div class="new_folder_box rename" v-if="displayRename">
+                                <div class="new_folder_box__title">
+                                    {{ $t('project_list.rename_project') }}
+                                </div>
+                                <div class="base-input-text-material">
+                                    <input
+                                      type="text"
+                                      autofocus
+                                      :placeholder="project.name"
+                                      required
+                                      v-model="renameProject"
+                                      v-on:keyup.enter="saveRename"
+                                    >
+                                    <span class="highlight"></span>
+                                    <span class="bar"></span>
+                                </div>
+                                <div class="new_folder_box__button-validation">
+                                    <span @click="cancelRename">{{ $t('project.cancel') }}</span>
+                                    <span @click="saveRename">{{ $t('project.validate') }}</span>
+                                </div>
+                            </div>
                         </li>
                     </ul>
                 </base-button-option>
@@ -70,7 +95,9 @@ export default {
       showRemoveActions: false,
       displayLoader: false,
       displayEye: false,
-      ifcImage: null
+      ifcImage: null,
+      renameProject: '',
+      displayRename: false
     }
   },
   components: {
@@ -89,12 +116,29 @@ export default {
     }
   },
   methods: {
+    toggleRename () {
+      this.displayRename = !this.displayRename
+      this.showRemoveActions = false
+      this.renameProject = this.project.name
+    },
+    saveRename () {
+      this.$store.dispatch('project/updateProjectName', {cloudPk: this.$store.state.currentCloud.id, id: this.project.id, name: this.renameProject})
+      this.toggleMenuAction(false)
+    },
+    toggleMenuAction (isOpened) {
+      if (!isOpened) {
+        this.showRemoveActions = isOpened
+        this.displayRename = isOpened
+      }
+    },
+    cancelRename () {
+      this.displayRename = false
+    },
     displayPreviewFonctionnality (idIfc) {
       this.ifcImage = idIfc
       this.displayEye = true
     },
     viewModel () {
-      console.log('click')
       const params = {
         cloudId: this.$store.state.currentCloud.id,
         projectId: this.project.id,
@@ -149,6 +193,11 @@ export default {
       setTimeout(() => {
         this.clicked = false
       }, 500)
+    }
+  },
+  computed: {
+    isAdmin () {
+      return this.project.role === 100
     }
   }
 }
