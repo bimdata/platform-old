@@ -35,7 +35,8 @@
         "new_project": "New Project",
         "submit": "Submit",
         "project_name": "Project's name",
-        "remove": "Remove"
+        "remove": "Remove",
+        "rename_project": "Rename Project"
     },
     "dms": {
       "no_creator": "No Creator",

@@ -196,5 +196,14 @@ export default {
       },
       id: idProject
     })
+  },
+  async updateProjectName ({commit, state}, {cloudPk, id, name}) {
+    try {
+      await this.ProjectRepositoryRequest.updateProject(cloudPk, {id, name})
+      await this.dispatch('fetchUserCloudsDetails')
+      return true
+    } catch (e) {
+      console.log(e)
+    }
   }
 }
