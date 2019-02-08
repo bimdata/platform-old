@@ -10,6 +10,7 @@
     "lint:fix": "eslint --ext .js,.vue src --fix",
     "unit": "jest --config test/jest.config.js",
     "unit:debug": "node --inspect node_modules/.bin/jest --runInBand --config test/jest.config.js",
+    "test": "npm run unit",
     "generate-icons": "vsvg -s ./src/assets/images/icons/compiled -t ./src/icons --es6",
     "optimize-svg": "svgo -f ./src/assets/images/icons -o ./src/assets/images/icons/compiled",
     "import-material-icon": "node build/get-material-icons.js",
