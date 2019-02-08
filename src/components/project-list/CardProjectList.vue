@@ -3,7 +3,7 @@
         <div class="base-card card-item card-bd card-project">
             <div class="card-bd__header">
                 <svgicon name="eye" height="18" width="54" @click.native="viewModel" v-if="displayEye"></svgicon>
-                <base-button-option @option-toggled="toggleMenu">
+                <base-button-option @option-toggled="toggleMenu" v-if="isAdmin">
                     <ul>
                         <li @click.stop.self="showRemoveActions = true" class="base-button-option__menu__remove">
                           {{ $t('project_list.remove') }}
@@ -149,6 +149,11 @@ export default {
       setTimeout(() => {
         this.clicked = false
       }, 500)
+    }
+  },
+  computed: {
+    isAdmin () {
+      return this.project.role === 100
     }
   }
 }

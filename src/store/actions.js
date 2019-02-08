@@ -55,6 +55,10 @@ export default {
         }
         let projectsRetrieve = async function () {
           let projects = await dispatch('getProjects', cloud.id)
+          projects.forEach((project) => {
+            const role = _.find(state.currentUser.projects, ['project', project.id])
+            project.role = role ? role.role : null
+          })
           cloud.projects = projects
         }
 
