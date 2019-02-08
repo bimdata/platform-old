@@ -17,6 +17,31 @@
                             </div>
                           </transition>
                         </li>
+                        <li @click.stop.self="toggleRename()" :class="{'actif': displayRename}">
+                          {{ $t('project.rename') }}
+
+                          <div class="new_folder_box rename" v-if="displayRename">
+                              <div class="new_folder_box__title">
+                                  {{ $t('cloud_list.rename_cloud') }}
+                              </div>
+                              <div class="base-input-text-material">
+                                  <input
+                                    type="text"
+                                    autofocus
+                                    :placeholder="cloud.name"
+                                    required
+                                    v-model="renameCloud"
+                                    v-on:keyup.enter="saveRename"
+                                  >
+                                  <span class="highlight"></span>
+                                  <span class="bar"></span>
+                              </div>
+                              <div class="new_folder_box__button-validation">
+                                  <span @click="cancelRename">{{ $t('project.cancel') }}</span>
+                                  <span @click="saveRename">{{ $t('project.validate') }}</span>
+                              </div>
+                          </div>
+                      </li>
                     </ul>
                 </base-button-option>
             </div>
@@ -30,12 +55,11 @@
                     </div>
                     <div v-on-clickaway="closeUpdate"
                          class="card-bd__title"
-                         :class="{'card-bd__title--edit-mode': editMode}">
-                        <div v-show="!editMode"
-                             @click="switchToEditMode">
+                         :class="{'card-bd__title--edit-mode': editMode && isAdmin}">
+                        <div v-show="!editMode" @click="switchToEditMode">
                             {{ cloud.name }}
                         </div>
-                        <div class="card-bd__text-container" v-show="editMode">
+                        <div class="card-bd__text-container" v-show="editMode && isAdmin">
                             <input ref="updateInput"
                                    type="text"
                                    v-model="newName"
@@ -70,7 +94,9 @@ export default {
       displayMenu: false,
       editMode: false,
       newName: '',
-      showRemoveActions: false
+      showRemoveActions: false,
+      displayRename: false,
+      renameCloud: ''
     }
   },
   components: {
@@ -89,15 +115,35 @@ export default {
     }
   },
   methods: {
+    toggleRename () {
+      this.displayRename = !this.displayRename
+      this.showRemoveActions = false
+      this.renameCloud = this.cloud.name
+    },
+    saveRename () {
+      this.$store.dispatch('updateCloudName', {id: this.cloud.id, name: this.renameCloud})
+      this.toggleMenuAction(false)
+    },
+    toggleMenuAction (isOpened) {
+      if (!isOpened) {
+        this.showRemoveActions = isOpened
+        this.displayRename = isOpened
+      }
+    },
+    cancelRename () {
+      this.displayRename = false
+    },
     accessCloud () {
       this.$store.commit('SET_CURRENT_CLOUD', this.cloud)
       this.$router.push({name: 'project-list', params: {cloudId: this.cloud.id}})
     },
     switchToEditMode () {
-      this.editMode = true
-      this.$nextTick(function () {
-        this.$refs.updateInput.focus()
-      })
+      if (this.isAdmin) {
+        this.editMode = true
+        this.$nextTick(function () {
+          this.$refs.updateInput.focus()
+        })
+      }
     },
     remove () {
       this.displayLoader = true
@@ -107,6 +153,7 @@ export default {
     toggleMenu (isOpened) {
       if (!isOpened) {
         this.showRemoveActions = false
+        this.displayRename = false
       }
     },
     closeTool () {

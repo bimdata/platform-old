@@ -28,7 +28,8 @@
         "rename_file": "Rename file"
     },
     "cloud_list": {
-      "clouds_list": "Clouds list"
+      "clouds_list": "Clouds list",
+      "rename_cloud": "Rename Cloud"
     },
     "project_list": {
         "new_project": "New Project",

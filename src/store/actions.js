@@ -141,5 +141,14 @@ export default {
   },
   setLang ({commit}, payload) {
     commit('SET_LANG', payload)
+  },
+  async updateCloudName ({commit}, {id, name}) {
+    try {
+      await this.CloudRepositoryRequest.updateCloud({id, name})
+      await this.dispatch('fetchUserCloudsDetails')
+      return true
+    } catch (e) {
+      console.log(e)
+    }
   }
 }
