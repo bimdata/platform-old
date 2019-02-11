@@ -26,7 +26,7 @@
           <card-project-content></card-project-content>
         </div>
         <div class="user-project">
-          <div class="card-project-user" style="background: grey; height: 100%; width: 100%;"></div>
+          <users-list></users-list>
         </div>
       </div>
       <div class="row">
@@ -61,6 +61,7 @@ import ButtonUploadNewFile from '@/components/project/ButtonUploadNewFile'
 import CardProjectContent from '@/components/project/CardProjectContent'
 import BaseCard from '@/components/base-components/BaseCard'
 import TableIfc from '@/components/project/TableIfc'
+import UsersList from '@/components/project/UsersList'
 import UploadIfc from '@/components/project/UploadIfc'
 import DMS from '@/components/project/DMS'
 
@@ -73,6 +74,7 @@ export default {
     CardProjectContent,
     TableIfc,
     BaseCard,
+    UsersList,
     'dms': DMS
   },
   data () {
