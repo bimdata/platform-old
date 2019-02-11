@@ -25,7 +25,7 @@ $search-lg-size-input: $search-lg-size-container - $search-btn-size;
     padding: 9px 14px;
     min-width: auto;
     border: none;
-    transition: all linear 0.35s;
+    transition: all linear 0.25s;
 
     @include media-breakpoint-up(md) { 
       width: $search-md-size-input;
