@@ -8,20 +8,18 @@
   }
   &__header {
     box-shadow: $bd-box-shadow;
-    padding: 5px 3px 5px 9px;
+    padding: 3px 3px 3px 9px;
     display: flex;
     align-items: center;
+    height: 32px;
 
     .svg-icon {
       cursor: pointer;
     }
 
-    &__left-container {
-
-    }
     &__right-container {
       margin-left: auto;
-      width: 24%;
+      width: 14%; // TODO : Passer cette variable à 24 quand on rajoutera le troisième picto (filtre)
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -33,6 +31,7 @@
   &__users {
     padding: 0;
     margin: 0;
+    max-height: 397px;
   }
   &__user {
     display: flex;
@@ -72,6 +71,10 @@
           display: block;
         }
       }
+
+      a {
+        text-decoration: underline;
+      }
     }
     &__name {
       color: $primary;
@@ -86,10 +89,23 @@
           font-size: 0.714rem;
 
           li {
-          
+            justify-content: flex-end;
           }
           .svg-icon {
             margin-left: 10px;
+          }
+          .new_folder_box {
+            left: -141px;
+            width: 140px;
+            top: 8px;
+          }
+
+          &__remove {
+            .delete__actions {
+              .svg-icon {
+                margin: 0;
+              }
+            }
           }
         }
 

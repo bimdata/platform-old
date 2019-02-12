@@ -50,7 +50,10 @@
     "users": {
       "users": "Users",
       "administrator": "Admin",
-      "remove": "Deleter user",
-      "modify_rights": "Edit user rights"
+      "remove": "Delete user",
+      "modify_rights": "Edit user rights",
+      "resend_invitation": "Resend invitation ?",
+      "guest": "Guest",
+      "without_answer": "without answer"
     }
 }
