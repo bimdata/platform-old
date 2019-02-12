@@ -49,6 +49,8 @@
     },
     "users": {
       "users": "Users",
-      "administrator": "Administrator"
+      "administrator": "Admin",
+      "remove": "Deleter user",
+      "modify_rights": "Edit user rights"
     }
 }
