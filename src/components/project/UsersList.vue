@@ -1,5 +1,5 @@
 <template>
-    <base-card :fullscreen-available="true" class="users-list__card">
+    <base-card :fullscreen-available="false" class="users-list__card">
       <template slot="header-title">
           {{ $t('users.users') }}
       </template>
@@ -73,7 +73,7 @@
                       <p>
                         <span class="users-list__user__name">{{ user.name }}</span>
                         <span>{{ user.job }}</span>
-                        <span>{{ user.compagny }}</span>
+                        <span>{{ user.company }}</span>
                       </p>
                       <span class="badge badge-primary" v-if="isAdmin(user.role)">{{ $t('users.administrator') }}</span>
                     </div>
@@ -83,7 +83,7 @@
                         <span>{{ $t('users.guest') }} - {{ $t('users.without_answer') }}. <a href="">{{ $t('users.resend_invitation') }}</a></span>
                       </p>
                     </div>
-                    <div class="users-list__user__actions" v-if="user.hasAccepted && isAdmin(user.role)">
+                    <div class="users-list__user__actions" v-if="user.hasAccepted && isAdmin()">
                       <base-button-option @option-toggled="toggleMenu" class="users-list__user__actions__menu">
                         <ul>
                             <li @click.stop.self="toggleRights()" :class="{'actif': displayRights}" class="arrow-left">
@@ -182,7 +182,7 @@ export default {
           id: 1,
           name: 'Gabriel Cambreling',
           job: 'Architecte',
-          compagny: 'Cabinet Marsouin',
+          company: 'Cabinet Marsouin',
           photo: 'https://mir-s3-cdn-cf.behance.net/user/276/df2bfd2271051.59b8e8f49b466.jpg',
           role: 100
         },
@@ -190,7 +190,7 @@ export default {
           id: 2,
           name: 'Lorem ipsum',
           job: '',
-          compagny: '',
+          company: '',
           photo: '',
           role: 25
         },
@@ -198,7 +198,7 @@ export default {
           id: 3,
           name: 'Gabriel Cambreling',
           job: 'Architecte',
-          compagny: '',
+          company: '',
           photo: '',
           role: 50
         },
@@ -206,7 +206,7 @@ export default {
           id: 4,
           name: 'François Thierry',
           job: '',
-          compagny: '',
+          company: '',
           photo: 'https://d2cxspbh1aoie1.cloudfront.net/avatars/local/0b08b2d76dd021b129244840525ce6f469a07ccf9d8b6a7463712a051d686d2e/160',
           role: 25
         },
@@ -214,7 +214,7 @@ export default {
           id: 5,
           name: 'Gabriel Cambreling',
           job: 'Chauffagiste',
-          compagny: 'mon entreprise',
+          company: 'mon entreprise',
           photo: '',
           role: 50
         },
@@ -222,7 +222,7 @@ export default {
           id: 6,
           name: 'François Thierry',
           job: 'Plombier',
-          compagny: 'Cabinet Marsouin',
+          company: 'Cabinet Marsouin',
           photo: 'https://d2cxspbh1aoie1.cloudfront.net/avatars/local/0b08b2d76dd021b129244840525ce6f469a07ccf9d8b6a7463712a051d686d2e/160',
           role: 25
         },
@@ -230,7 +230,7 @@ export default {
           id: 7,
           name: 'François Thierry',
           job: 'Architecte',
-          compagny: 'Cabinet Marsouin',
+          company: 'Cabinet Marsouin',
           photo: 'https://d2cxspbh1aoie1.cloudfront.net/avatars/local/0b08b2d76dd021b129244840525ce6f469a07ccf9d8b6a7463712a051d686d2e/160',
           role: 100
         }
@@ -257,8 +257,14 @@ export default {
       // Call to remove user
     },
     isAdmin (userRole) {
-      if (userRole === 100) {
-        return true
+      if (userRole) {
+        if (userRole === 100) {
+          return true
+        }
+      } else {
+        if (this.$store.state.project.selectedProject.role === 100) {
+          return true
+        }
       }
 
       return false
@@ -302,7 +308,7 @@ export default {
       id: guest.id,
       name: guest.name,
       job: '',
-      compagny: '',
+      company: '',
       photo: '',
       hasAccepted: false,
       role: guest.role
@@ -312,7 +318,7 @@ export default {
     filteredUsers () {
       return this.users.filter(user => {
         return user.name.toLowerCase().includes(this.searchFilter.toLowerCase()) ||
-                user.compagny.toLowerCase().includes(this.searchFilter.toLowerCase()) ||
+                user.company.toLowerCase().includes(this.searchFilter.toLowerCase()) ||
                 user.job.toLowerCase().includes(this.searchFilter.toLowerCase())
       }).reverse()
     }
