@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     onSelect () {
-      this.$emit('input', {id: this.id, value: this.option.value})
+      this.$emit('input', {id: this.id, value: this.option.value, text: this.option.text})
     }
   }
 }

@@ -17,3 +17,10 @@ body {
 .no-borders {
   border: none;
 }
+
+.ellipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+}

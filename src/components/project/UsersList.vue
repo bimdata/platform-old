@@ -9,15 +9,57 @@
               <div class="users-list__header__left-container d-none">
                 <svgicon name="menu" width="23" height="23"></svgicon>
               </div>
-              <div class="users-list__header__right-container">
-                <svgicon name="account-plus" width="22" height="22"></svgicon>
-                <svgicon name="magnify" height="21" width="21"></svgicon>
-                <svgicon name="filter-variant" width="25" height="26" class="d-none"></svgicon>
-              </div>
+              <transition name="fade">
+                <div class="users-list__header__right-container" v-if="!displaySendInvit && !displaySearchUser">
+                  <span class="base-button-option__tool" :class="{clicked: clicked}">
+                    <svgicon name="account-plus" width="22" height="22" @click.native="openSendInvit" class="account-plus"></svgicon>
+                  </span>
+                  <svgicon name="magnify" height="21" width="21" @click.native="openSearchUser"></svgicon>
+                  <svgicon name="filter-variant" width="25" height="26" class="d-none"></svgicon>
+                </div>
+              </transition>
+              <transition name="fade">
+                <div class="users-list__header__invitation" v-if="displaySendInvit">
+                  <input type="text" v-model="mailInvitation" placeholder="Email adress">
+                  <div class="rights-select">
+                    <svgicon name="chevron-down" width="20" height="18" class="arrow-down"></svgicon>
+                    <span @click="toggleRightsInvitation" class="ellipsis">{{ rightChoosed.text }}</span>
+                    <div class="base-button-option__menu" v-if="displayRightsInvitation" v-on-clickaway="away">
+                      <ul>
+                        <li v-for="(right, index) in rights" :key="index">
+                          <base-input-radio
+                            :option="right"
+                            name="invitation-rights"
+                            @input="setInvitationRight"
+                          ></base-input-radio>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="users-list__header__invitation__actions">
+                    <span class="check" @click="sendInvitation">
+                      <svgicon name="check" height="22" width="24"></svgicon>
+                    </span>
+                    <span class="check-cross" @click="displaySendInvit = false">
+                      <svgicon name="close"  height="21" width="21"></svgicon>
+                    </span>
+                  </div>
+                </div>
+              </transition>
+              <transition name="fade">
+                <div class="users-list__header__search" v-if="displaySearchUser">
+                  <input type="text" placeholder="Search user" v-model="searchFilter">
+                  <div class="users-list__header__invitation__actions">
+                    <span class="check-cross" @click="resetSearchUser">
+                      <svgicon name="close"  height="21" width="21"></svgicon>
+                    </span>
+                  </div>
+                </div>
+              </transition>
             </div>
             <div class="users-list__body">
                 <ul class="users-list__users">
-                  <li v-for="(user, index) in users" :key="index" class="users-list__user">
+                  <li v-for="(user, index) in filteredUsers" :key="index" class="users-list__user">
                     <div class="users-list__user__picture" v-if="user.hasAccepted">
                       <img :src="user.photo" alt="" class="img-fluid circle" v-if="user.photo">
                       <span class="user-menu__pic" v-else>{{ user.name|initialsFormat }}</span>
@@ -86,8 +128,10 @@
 import BaseCard from '@/components/base-components/BaseCard'
 import BaseButtonOption from '@/components/base-components/BaseButtonOption'
 import BaseInputRadio from '@/components/base-components/BaseInputRadio'
+import { mixin as clickaway } from 'vue-clickaway'
 
 export default {
+  mixins: [ clickaway ],
   components: {
     BaseCard,
     BaseButtonOption,
@@ -96,8 +140,18 @@ export default {
   data () {
     return {
       displayRights: false,
+      displayRightsInvitation: false,
       showRemoveActions: false,
-      selectedRights: 100,
+      displaySendInvit: false,
+      displaySearchUser: false,
+      clicked: false,
+      searchFilter: '',
+      rightChoosed: {
+        value: null,
+        text: 'Droits'
+      },
+      mailInvitation: '',
+      rightInvitation: null,
       rights: [
         {
           text: 'Administrateur',
@@ -126,8 +180,8 @@ export default {
         {
           id: 2,
           name: 'Lorem ipsum',
-          job: 'Architecte',
-          enterprise: 'Cabinet Marsouin',
+          job: '',
+          enterprise: '',
           photo: '',
           hasAccepted: false,
           inline: true,
@@ -137,7 +191,7 @@ export default {
           id: 3,
           name: 'Gabriel Cambreling',
           job: 'Architecte',
-          enterprise: 'Cabinet Marsouin',
+          enterprise: '',
           photo: '',
           hasAccepted: true,
           inline: false,
@@ -146,8 +200,8 @@ export default {
         {
           id: 4,
           name: 'François Thierry',
-          job: 'Architecte',
-          enterprise: 'Cabinet Marsouin',
+          job: '',
+          enterprise: '',
           photo: 'https://d2cxspbh1aoie1.cloudfront.net/avatars/local/0b08b2d76dd021b129244840525ce6f469a07ccf9d8b6a7463712a051d686d2e/160',
           hasAccepted: false,
           inline: false,
@@ -156,8 +210,8 @@ export default {
         {
           id: 5,
           name: 'Gabriel Cambreling',
-          job: 'Architecte',
-          enterprise: 'Cabinet Marsouin',
+          job: 'Chauffagiste',
+          enterprise: 'mon entreprise',
           photo: '',
           hasAccepted: true,
           inline: false,
@@ -166,10 +220,10 @@ export default {
         {
           id: 6,
           name: 'François Thierry',
-          job: 'Architecte',
+          job: 'Plombier',
           enterprise: 'Cabinet Marsouin',
           photo: 'https://d2cxspbh1aoie1.cloudfront.net/avatars/local/0b08b2d76dd021b129244840525ce6f469a07ccf9d8b6a7463712a051d686d2e/160',
-          hasAccepted: false,
+          hasAccepted: true,
           inline: true,
           role: 25
         },
@@ -211,6 +265,45 @@ export default {
       }
 
       return false
+    },
+    openSendInvit () {
+      this.clicked = false
+      this.clicked = true
+      setTimeout(() => {
+        this.clicked = false
+        this.displaySearchUser = false
+        this.displaySendInvit = true
+      }, 500)
+    },
+    openSearchUser () {
+      this.displaySendInvit = false
+      this.displaySearchUser = true
+    },
+    toggleRightsInvitation () {
+      this.displayRightsInvitation = !this.displayRightsInvitation
+    },
+    away () {
+      this.displayRightsInvitation = false
+    },
+    sendInvitation () {
+      // Call to send invitation
+    },
+    setInvitationRight (value) {
+      this.rightChoosed = value
+      this.displayRightsInvitation = false
+    },
+    resetSearchUser () {
+      this.displaySearchUser = false
+      this.searchFilter = ''
+    }
+  },
+  computed: {
+    filteredUsers () {
+      return this.users.filter(user => {
+        return user.name.toLowerCase().includes(this.searchFilter.toLowerCase()) ||
+                user.enterprise.toLowerCase().includes(this.searchFilter.toLowerCase()) ||
+                user.job.toLowerCase().includes(this.searchFilter.toLowerCase())
+      })
     }
   }
 }

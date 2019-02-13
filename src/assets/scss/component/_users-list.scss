@@ -24,6 +24,114 @@
       justify-content: space-between;
       align-items: center;
     }
+
+    &__search {
+      display: flex;
+      align-items: center;
+      width: 100%;
+
+      input {
+        min-width: auto;
+        width: 50%;
+        max-width: 204px;
+        border: 1px solid #F3F3F3;
+        padding: 4px;
+        max-height: 22px;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+    &__invitation {
+      display: flex;
+      align-items: center;
+      width: 100%;
+
+      input {
+        min-width: auto;
+        width: 50%;
+        max-width: 204px;
+        border: 1px solid #F3F3F3;
+        padding: 4px;
+        max-height: 22px;
+
+        &:focus {
+          outline: none;
+        }
+      }
+
+      &__actions {
+        text-align: right;
+        margin-left: auto;
+        max-width: 20%;
+        display: flex;
+        align-items: center;
+
+        .check {
+          .svg-icon {
+            fill: #28a745;
+          }
+        }
+        .check-cross {
+          .svg-icon {
+            fill: #dc3545;
+          }
+        }
+      }
+
+      .rights-select {
+        position: relative;
+        max-width: 125px;
+        width: 30%;
+        height: 22px;
+        border: 1px solid #F3F3F3;
+        color: $primary;
+        cursor: pointer;
+        margin-left: 11px;
+        display: flex;
+        align-items: center;
+        padding: 4px;
+        padding-right: 15px;
+
+        .arrow-down {
+          position: absolute;
+          right: 2px;
+        }
+        .base-button-option__menu {
+          width: 167px;
+          top: 26px;
+          left: 0;
+
+          ul {
+            li {
+              padding: 5px 8px;
+            }
+          }
+
+          .base-input-radio {
+            margin: 0;
+            width: 100%;
+          }
+          label {
+            padding-left: 0;
+
+            &:before,
+            &:after {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+    .account-plus {
+      &.clicked {
+        &:after {
+          animation-name: circle;
+          animation-duration: .5s;
+        }
+      }
+    }
   }
   &__body {
     overflow-y: auto;
@@ -85,8 +193,18 @@
 
       &__menu {
         .base-button-option__menu {
-          width: 184px;
+          width: 134px;
           font-size: 0.714rem;
+
+          @include media-breakpoint-up(sm) {
+            width: 184px;
+          }
+          @include media-breakpoint-up(lg) {
+            width: 134px;
+          }
+          @include media-breakpoint-up(xl) {
+            width: 184px;
+          }
 
           li {
             justify-content: flex-end;
@@ -95,9 +213,22 @@
             margin-left: 10px;
           }
           .new_folder_box {
-            left: -141px;
-            width: 140px;
+            width: 125px;
+              left: -126px;
             top: 8px;
+
+            @include media-breakpoint-up(sm) {
+              left: -141px;
+            width: 140px;
+            }
+            @include media-breakpoint-up(lg) {
+              width: 125px;
+              left: -126px;
+            }
+            @include media-breakpoint-up(xl) {
+              left: -141px;
+            width: 140px;
+            }
           }
 
           &__remove {
