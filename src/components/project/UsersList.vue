@@ -63,8 +63,8 @@
                     <div class="users-list__user__picture" v-if="user.hasAccepted">
                       <img :src="user.photo" alt="" class="img-fluid circle" v-if="user.photo">
                       <span class="user-menu__pic" v-else>{{ user.name|initialsFormat }}</span>
-                      <span class="users-list__user__status users-list__user__status--inline" v-if="user.inline"></span>
-                      <span class="users-list__user__status users-list__user__status--outline" v-else></span>
+                      <!--<span class="users-list__user__status users-list__user__status--inline" v-if="user.online"></span>
+                      <span class="users-list__user__status users-list__user__status--outline" v-else></span>-->
                     </div>
                     <div class="users-list__user__picture" v-else>
                       <svgicon name="user-invit-pending" height="40" width="40"></svgicon>
@@ -73,7 +73,7 @@
                       <p>
                         <span class="users-list__user__name">{{ user.name }}</span>
                         <span>{{ user.job }}</span>
-                        <span>{{ user.enterprise }}</span>
+                        <span>{{ user.compagny }}</span>
                       </p>
                       <span class="badge badge-primary" v-if="isAdmin(user.role)">{{ $t('users.administrator') }}</span>
                     </div>
@@ -82,9 +82,8 @@
                         <span class="users-list__user__name">{{ user.name }}</span>
                         <span>{{ $t('users.guest') }} - {{ $t('users.without_answer') }}. <a href="">{{ $t('users.resend_invitation') }}</a></span>
                       </p>
-                      <span class="badge badge-primary" v-if="isAdmin(user.role)">{{ $t('users.administrator') }}</span>
                     </div>
-                    <div class="users-list__user__actions" v-if="user.hasAccepted">
+                    <div class="users-list__user__actions" v-if="user.hasAccepted && isAdmin(user.role)">
                       <base-button-option @option-toggled="toggleMenu" class="users-list__user__actions__menu">
                         <ul>
                             <li @click.stop.self="toggleRights()" :class="{'actif': displayRights}" class="arrow-left">
@@ -166,75 +165,73 @@ export default {
           value: 25
         }
       ],
+      guests: [
+        {
+          id: 7,
+          name: 'Sarah Croche',
+          role: 50
+        },
+        {
+          id: 8,
+          name: 'Sarah Pelle',
+          role: 100
+        }
+      ],
       users: [
         {
           id: 1,
           name: 'Gabriel Cambreling',
           job: 'Architecte',
-          enterprise: 'Cabinet Marsouin',
+          compagny: 'Cabinet Marsouin',
           photo: 'https://mir-s3-cdn-cf.behance.net/user/276/df2bfd2271051.59b8e8f49b466.jpg',
-          hasAccepted: true,
-          inline: true,
           role: 100
         },
         {
           id: 2,
           name: 'Lorem ipsum',
           job: '',
-          enterprise: '',
+          compagny: '',
           photo: '',
-          hasAccepted: false,
-          inline: true,
           role: 25
         },
         {
           id: 3,
           name: 'Gabriel Cambreling',
           job: 'Architecte',
-          enterprise: '',
+          compagny: '',
           photo: '',
-          hasAccepted: true,
-          inline: false,
           role: 50
         },
         {
           id: 4,
           name: 'François Thierry',
           job: '',
-          enterprise: '',
+          compagny: '',
           photo: 'https://d2cxspbh1aoie1.cloudfront.net/avatars/local/0b08b2d76dd021b129244840525ce6f469a07ccf9d8b6a7463712a051d686d2e/160',
-          hasAccepted: false,
-          inline: false,
           role: 25
         },
         {
           id: 5,
           name: 'Gabriel Cambreling',
           job: 'Chauffagiste',
-          enterprise: 'mon entreprise',
+          compagny: 'mon entreprise',
           photo: '',
-          hasAccepted: true,
-          inline: false,
           role: 50
         },
         {
           id: 6,
           name: 'François Thierry',
           job: 'Plombier',
-          enterprise: 'Cabinet Marsouin',
+          compagny: 'Cabinet Marsouin',
           photo: 'https://d2cxspbh1aoie1.cloudfront.net/avatars/local/0b08b2d76dd021b129244840525ce6f469a07ccf9d8b6a7463712a051d686d2e/160',
-          hasAccepted: true,
-          inline: true,
           role: 25
         },
         {
           id: 7,
           name: 'François Thierry',
           job: 'Architecte',
-          enterprise: 'Cabinet Marsouin',
+          compagny: 'Cabinet Marsouin',
           photo: 'https://d2cxspbh1aoie1.cloudfront.net/avatars/local/0b08b2d76dd021b129244840525ce6f469a07ccf9d8b6a7463712a051d686d2e/160',
-          hasAccepted: true,
-          inline: true,
           role: 100
         }
       ]
@@ -297,13 +294,27 @@ export default {
       this.searchFilter = ''
     }
   },
+  created () {
+    this.users.map(user => {
+      user.hasAccepted = true
+    })
+    this.guests.map(guest => this.users.push({
+      id: guest.id,
+      name: guest.name,
+      job: '',
+      compagny: '',
+      photo: '',
+      hasAccepted: false,
+      role: guest.role
+    }))
+  },
   computed: {
     filteredUsers () {
       return this.users.filter(user => {
         return user.name.toLowerCase().includes(this.searchFilter.toLowerCase()) ||
-                user.enterprise.toLowerCase().includes(this.searchFilter.toLowerCase()) ||
+                user.compagny.toLowerCase().includes(this.searchFilter.toLowerCase()) ||
                 user.job.toLowerCase().includes(this.searchFilter.toLowerCase())
-      })
+      }).reverse()
     }
   }
 }
