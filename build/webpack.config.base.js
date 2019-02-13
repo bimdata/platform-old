@@ -37,7 +37,8 @@ module.exports = {
         exclude: /(node_modules)/,
       }, {
         test: /\.vue$/,
-        use: 'vue-loader'
+        use: 'vue-loader',
+        exclude: /(node_modules)/
       }, {
         test: /\.js$/,
         use: [
