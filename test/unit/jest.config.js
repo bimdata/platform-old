@@ -6,7 +6,7 @@ module.exports = {
   collectCoverageFrom: [
     'src/**/*.{js,vue}'
   ],
-  coverageDirectory: '<rootDir>/test/coverage',
+  coverageDirectory: '<rootDir>/unit/coverage',
   moduleFileExtensions: [
     'js',
     'vue'
@@ -19,6 +19,6 @@ module.exports = {
     '^.+\\.vue$': 'vue-jest'
   },
   snapshotSerializers: [
-    '<rootDir>/node_modules/jest-serializer-vue'
+    'jest-serializer-vue'
   ]
 }
