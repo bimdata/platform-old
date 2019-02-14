@@ -5,6 +5,7 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
+const Dotenv = require('dotenv-webpack');
 
 const utils = require('./utils')
 
@@ -80,6 +81,7 @@ module.exports = {
   },
 
   plugins: [
+    new Dotenv(),
     new webpack.DefinePlugin({
       'process.env': require('../config/dev.env')
     }),
