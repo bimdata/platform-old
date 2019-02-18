@@ -22,7 +22,7 @@
     </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 import BaseButtonAction from '@/components/base-components/BaseButtonAction'
 import BaseDropdown from '@/components/base-components/BaseDropdown'
@@ -33,13 +33,18 @@ export default {
     BaseDropdown
   },
   methods: {
+    ...mapActions({
+      signout: 'signout'
+    }),
     openProfile () {
       window.open(`${process.env.BD_OIDC_IP}/profile`)
     },
     logout () {
-      window.localStorage.clear()
-      this.$router.push({ name: 'signin-required' })
-      window.location.reload()
+      this.signout()
+        .then(() => {
+          this.$router.push({ name: 'signin-required' })
+          window.location.reload()
+        })
     }
   },
   computed: {
