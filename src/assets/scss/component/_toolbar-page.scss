@@ -12,6 +12,9 @@
   }
 
   .search-container {
+    display: flex;
+    align-items: center;
+
     @include media-breakpoint-up(sm) { 
       width: calc(100%/2);
     }

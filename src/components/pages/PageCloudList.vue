@@ -14,7 +14,11 @@
           </div>
         </div>
         <div class="search-container mt-2 mt-sm-0">
-          <base-search-bar @on-search="toSearch" class="m-auto"></base-search-bar>
+          <base-search-bar @on-search="toSearch" class="mr-3"></base-search-bar>
+          <button type="button" class="btn btn-secondary base-button-action top-toolbar__button-new-file ml-auto" @click="toggleOpenCreationCloud">
+            <svgicon name="plus" height="20" width="20"></svgicon>
+            Create cloud
+          </button>
         </div>
       </div>
       <transition-group
@@ -22,20 +26,18 @@
         tag="div"
         class="project_list row"
       >
-        <!--<div class="card-container" key="new">
+        <div class="card-container" key="new" v-show="openCreationCloud">
           <div class="base-card card-item project-item new-project-item">
             <div
-              :class="{active: displayNewForm}"
-              @click="displayNewForm = true; setFocus()"
-              class="new-project-item__card-container"
+              class="active new-project-item__card-container"
             >
               <div class="new-project-item__picto-container">
                 <svgicon name="plus" height="45" width="45"></svgicon>
               </div>
               <div class="new-project-item__edit-container">
                 <div class="new-project-item__edit-container__header">
-                  <span>{{ $t('project_list.new_project') }}</span>
-                  <div @click.stop="displayNewForm = false">
+                  <span>New cloud</span>
+                  <div @click.stop="toggleOpenCreationCloud">
                     <svgicon name="close"
                             height="20"
                             width="20">
@@ -44,21 +46,19 @@
                 </div>
                 <div class="new-project-item__edit-container__body">
                   <div class="base-input-text-material">
-                    <input type="text" required v-model="newProjectName" v-on:keyup.enter="createProject"
-                          ref="inputToFocus">
+                    <input type="text" required v-model="newCloudName" v-on:keyup.enter="createCloud" ref="inputToFocus">
                     <span class="highlight"></span>
                     <span class="bar"></span>
-                    <label>{{ $t('project_list.project_name') }}</label>
+                    <label>{{ $t('cloud_list.cloud_name') }}</label>
                   </div>
                 </div>
                 <div class="new-project-item__edit-container__edit-container__footer">
-                  <base-button-action @click="createProject">{{ $t('project_list.submit') }}</base-button-action>
+                  <base-button-action @click="createCloud">{{ $t('project_list.submit') }}</base-button-action>
                 </div>
               </div>
             </div>
-            <p class="new-project-item__title" v-if="!displayNewForm">{{ $t('project_list.new_project') }}</p>
           </div>
-        </div>-->
+        </div>
         <card-cloud-list
           v-for="cloud in filteredClouds"
           :key="cloud.id"
@@ -71,15 +71,19 @@
 import { mapState } from 'vuex'
 import CardCloudList from '@/components/cloud-list/CardCloudList'
 import BaseSearchBar from '@/components/base-components/BaseSearchBar'
+import BaseButtonAction from '@/components/base-components/BaseButtonAction'
 
 export default {
   components: {
     CardCloudList,
-    BaseSearchBar
+    BaseSearchBar,
+    BaseButtonAction
   },
   data () {
     return {
-      searchFilter: ''
+      searchFilter: '',
+      newCloudName: '',
+      openCreationCloud: false
     }
   },
   computed: {
@@ -96,6 +100,16 @@ export default {
   methods: {
     toSearch (value) {
       this.searchFilter = value
+    },
+    toggleOpenCreationCloud () {
+      this.openCreationCloud = !this.openCreationCloud
+      this.$refs.inputToFocus.focus()
+    },
+    createCloud () {
+      /* this.$store.dispatch('addProject', this.newProjectName).then(() => {
+        this.newProjectName = ''
+        this.displayNewForm = false
+      }) */
     }
   }
 }
