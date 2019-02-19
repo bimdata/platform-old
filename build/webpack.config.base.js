@@ -10,7 +10,7 @@ const Dotenv = require('dotenv-webpack');
 const utils = require('./utils')
 
 module.exports = {
-  
+
   entry: './src/main.js',
 
   resolve: {
@@ -24,7 +24,7 @@ module.exports = {
       'components': utils.resolve('src/components')
     }
   },
-  
+
   output: {
     publicPath: '/'
   },
@@ -81,7 +81,7 @@ module.exports = {
   },
 
   plugins: [
-    new Dotenv(),
+    new Dotenv({systemvars: true}),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html',
