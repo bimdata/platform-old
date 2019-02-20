@@ -45,7 +45,10 @@ export default {
       type: Array,
       required: true
     },
-    values: Array
+    values: {
+      type: Array,
+      default: () => []
+    }
   }
 }
 </script>

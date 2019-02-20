@@ -11,9 +11,16 @@ import XHRUpload from '@uppy/xhr-upload'
 
 export default {
   props: {
-    projectId: Number,
-    cloudId: Number,
+    projectId: {
+      type: Number,
+      default: null
+    },
+    cloudId: {
+      type: Number,
+      default: null
+    },
     target: {
+      type: String,
       default: '.DashboardContainer'
     }
   },

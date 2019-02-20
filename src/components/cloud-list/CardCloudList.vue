@@ -12,7 +12,7 @@
                                 <svgicon name="check" height="15" width="18"></svgicon>
                               </span>
                               <span class="check-cross" @click="showRemoveActions = false">
-                                <svgicon name="close"  height="13" width="13"></svgicon>
+                                <svgicon name="close" height="13" width="13"></svgicon>
                               </span>
                             </div>
                           </transition>
@@ -31,7 +31,7 @@
                                     :placeholder="cloud.name"
                                     required
                                     v-model="renameCloud"
-                                    v-on:keyup.enter="saveRename"
+                                    @keyup.enter="saveRename"
                                   >
                                   <span class="highlight"></span>
                                   <span class="bar"></span>
@@ -64,7 +64,7 @@
                                    type="text"
                                    v-model="newName"
                                    @keyup.enter="submitUpdate"
-                                   :placeholder="cloud.name"/>
+                                   :placeholder="cloud.name" />
                         </div>
                     </div>
                     <div class="card-bd__infos-cloud">

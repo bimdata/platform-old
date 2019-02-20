@@ -46,7 +46,7 @@
                 </div>
                 <div class="new-project-item__edit-container__body">
                   <div class="base-input-text-material">
-                    <input type="text" required v-model="newCloudName" v-on:keyup.enter="createCloud" ref="inputToFocus">
+                    <input type="text" required v-model="newCloudName" @keyup.enter="createCloud" ref="inputToFocus">
                     <span class="highlight"></span>
                     <span class="bar"></span>
                     <label>{{ $t('cloud_list.cloud_name') }}</label>

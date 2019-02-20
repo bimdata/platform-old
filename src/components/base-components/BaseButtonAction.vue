@@ -13,8 +13,14 @@
 <script>
 export default {
   props: {
-    size: String,
-    iconPosition: String,
+    size: {
+      type: String,
+      default: ''
+    },
+    iconPosition: {
+      type: String,
+      default: ''
+    },
     iconWidth: {
       type: String,
       default: '15'
@@ -23,7 +29,10 @@ export default {
       type: String,
       default: '15'
     },
-    iconName: String
+    iconName: {
+      type: String,
+      default: ''
+    }
   },
   computed: {
     listeners () {

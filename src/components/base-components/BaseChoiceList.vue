@@ -3,7 +3,7 @@
         <div class="choice-list__field-selected"
              v-bind="$attrs"
              @click="toggleListOptions"
-             v-on="listeners">
+             @="listeners">
             <span class="choice-list__field-selected__icon">
                 <slot>
                     <svgicon class="icon" :name="icon" width="20" height="15"></svgicon>
@@ -26,9 +26,9 @@
             </li>
             <transition-group name="list-complete"
                               class="items-container"
-                              v-on:before-enter="beforeEnter"
-                              v-on:enter="enter"
-                              v-on:leave="leave"
+                              @:before-enter="beforeEnter"
+                              @:enter="enter"
+                              @:leave="leave"
                               tag="div"
             >
                 <li
@@ -62,14 +62,18 @@ export default {
     }
   },
   props: {
-    value: null,
+    value: {
+      type: Object,
+      default: () => {}
+    },
     options: {
       type: Array,
       required: true
     },
     icon: {
       type: String,
-      required: false
+      required: false,
+      default: ''
     }
   },
   watch: {

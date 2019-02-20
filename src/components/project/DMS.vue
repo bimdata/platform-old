@@ -39,7 +39,7 @@
                             {{ $t('project.create_folder') }}
                         </div>
                         <div class="base-input-text-material">
-                            <input type="text" ref="createFolderInput" :placeholder="$t('project.folder_name')" required v-model="newFolderName" v-on:keyup.enter="saveFolder">
+                            <input type="text" ref="createFolderInput" :placeholder="$t('project.folder_name')" required v-model="newFolderName" @keyup.enter="saveFolder">
                             <span class="highlight"></span>
                             <span class="bar"></span>
                         </div>
@@ -146,7 +146,7 @@
                                                   :placeholder="$t('project.folder_name')"
                                                   required
                                                   v-model="renameFolder"
-                                                  v-on:keyup.enter="saveRename(documentAction)"
+                                                  @:keyup.enter="saveRename(documentAction)"
                                                 >
                                                 <span class="highlight"></span>
                                                 <span class="bar"></span>
@@ -166,7 +166,7 @@
                                             <svgicon name="check" height="15" width="18"></svgicon>
                                           </span>
                                           <span class="check-cross" @click="showRemoveActions = false">
-                                            <svgicon name="close"  height="13" width="13"></svgicon>
+                                            <svgicon name="close" height="13" width="13"></svgicon>
                                           </span>
                                         </div>
                                       </transition>

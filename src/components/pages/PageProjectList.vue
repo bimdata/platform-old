@@ -38,7 +38,7 @@
               </div>
               <div class="new-project-item__edit-container__body">
                 <div class="base-input-text-material">
-                  <input type="text" required v-model="newProjectName" v-on:keyup.enter="createProject"
+                  <input type="text" required v-model="newProjectName" @keyup.enter="createProject"
                          ref="inputToFocus">
                   <span class="highlight"></span>
                   <span class="bar"></span>

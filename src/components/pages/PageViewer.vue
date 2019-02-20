@@ -1,6 +1,6 @@
 <template>
     <div class="h-100">
-        <div v-if="!customViewer" id="embed" style="width: 100%; height: 100%;" ></div>
+        <div v-if="!customViewer" id="embed" style="width: 100%; height: 100%;"></div>
         <iframe v-if="customViewer" :src="customUrl" width="100%" height="100%" class="no-borders"></iframe>
     </div>
 </template>
