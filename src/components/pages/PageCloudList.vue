@@ -106,10 +106,10 @@ export default {
       this.$refs.inputToFocus.focus()
     },
     createCloud () {
-      /* this.$store.dispatch('addProject', this.newProjectName).then(() => {
-        this.newProjectName = ''
+      this.$store.dispatch('addCloud', this.newCloudName).then(() => {
+        this.newCloudName = ''
         this.displayNewForm = false
-      }) */
+      })
     }
   }
 }
