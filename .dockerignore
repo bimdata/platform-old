@@ -1,3 +1,5 @@
 node_modules/
 test/
-cypress/
+dist/
+.env
+test/
