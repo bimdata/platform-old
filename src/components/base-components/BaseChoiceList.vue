@@ -64,11 +64,17 @@ export default {
   props: {
     value: {
       type: Object,
-      default: () => {}
+      default: () => {
+        return {
+          text: '',
+          value: null
+        }
+      }
     },
     options: {
       type: Array,
-      required: true
+      required: true,
+      default: () => []
     },
     icon: {
       type: String,
