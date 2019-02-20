@@ -17,7 +17,10 @@ export default {
       type: String,
       default: '15'
     },
-    iconName: String
+    iconName: {
+      type: String,
+      default: ''
+    }
   },
   computed: {
     listeners () {
