@@ -85,21 +85,15 @@ export default {
   async addProject (context, projectName) {
     try {
       const newProject = await this.ProjectRepositoryRequest.createNewProject(context.state.currentCloud.id, projectName)
+      await this.dispatch('fetchUserData')
+      const role = _.find(context.state.currentUser.projects, ['project', newProject.id])
+      newProject.role = role ? role.role : null
       context.commit('ADD_PROJECT', newProject)
       return newProject
     } catch (e) {
       console.log(e)
     }
   },
-  /* async addCloud (context, cloudName) {
-    try {
-      const newProject = await this.ProjectRepositoryRequest.createNewProject(context.state.currentCloud.id, cloudName)
-      context.commit('ADD_PROJECT', newProject)
-      return newProject
-    } catch (e) {
-      console.log(e)
-    }
-  }, */
   async updateProject (context, project) {
     try {
       await this.ProjectRepositoryRequest.updateProject(context.state.currentCloud.id, project)
