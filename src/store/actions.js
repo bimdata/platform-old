@@ -79,6 +79,7 @@ export default {
   async removeProject (context, project) {
     try {
       await this.ProjectRepositoryRequest.deleteProject(context.state.currentCloud.id, project)
+      await this.dispatch('fetchUserData')
       context.commit('DELETE_PROJECT', project)
       return true
     } catch (e) {

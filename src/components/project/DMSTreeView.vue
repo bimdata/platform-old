@@ -23,7 +23,7 @@ import DMSTreeViewFolder from '@/components/project/DMSTreeViewFolder'
 
 export default {
   components: {
-    DMSTreeViewFolder
+    'dms-tree-view-folder': DMSTreeViewFolder
   },
   methods: {
     close () {
