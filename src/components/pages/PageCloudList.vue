@@ -22,11 +22,11 @@
         </div>
       </div>
       <transition-group
-        name="project-item"
+        name="card-item"
         tag="div"
         class="project_list row"
       >
-        <div class="card-container" key="new" v-show="openCreationCloud">
+        <div class="card-container card-new-cloud" key="new" :class="{'display-card': openCreationCloud}">
           <div class="base-card card-item project-item new-project-item">
             <div
               class="active new-project-item__card-container"

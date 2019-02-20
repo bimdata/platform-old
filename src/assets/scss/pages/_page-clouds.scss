@@ -1,0 +1,15 @@
+.page-clouds {
+  .card-new-cloud {
+    transition: all 600ms ease-in-out 50ms;
+    position: absolute;
+    left: -267px;
+    z-index: 0;
+    opacity: 0;
+
+    &.display-card {
+      position: relative;
+      opacity: 1;
+      left: 0;
+    }
+  }
+}
