@@ -19,7 +19,7 @@ export default {
     },
     iconPosition: {
       type: String,
-      default: ''
+      default: 'left'
     },
     iconWidth: {
       type: String,
@@ -31,7 +31,7 @@ export default {
     },
     iconName: {
       type: String,
-      default: ''
+      default: 'plus'
     }
   },
   computed: {
