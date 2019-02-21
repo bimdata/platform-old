@@ -6,7 +6,7 @@
                'base-button-action--icon-right': iconPosition === 'right'
            }"
             v-on="listeners">
-        <svgicon class="base-button-action__icon" v-show="iconName !== undefined" :name="iconName" :width="iconWidth" :height="iconHeight"></svgicon>
+        <svgicon class="base-button-action__icon" v-show="iconName" :name="iconName" :width="iconWidth" :height="iconHeight"></svgicon>
         <span><slot>Button</slot></span>
     </b-btn>
 </template>
