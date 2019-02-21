@@ -9,6 +9,14 @@
     &__choice-list-items {
       padding-right: $grid-gutter-width;
     }
+
+    &__button-new-file svg {
+      transition: .2s ease-in-out all;
+    }
+  
+    &__button-new-file.active svg {
+      transform: rotate(135deg);
+    }
   }
 
   .search-container {
