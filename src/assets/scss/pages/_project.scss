@@ -146,12 +146,4 @@
       width: 50%;
     }
   }
-
-  .top-toolbar__button-new-file svg {
-    transition: .2s ease-in-out all;
-  }
-
-  .top-toolbar__button-new-file.active svg {
-    transform: rotate(135deg);
-  }
 }
