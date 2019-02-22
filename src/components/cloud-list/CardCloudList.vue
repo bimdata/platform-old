@@ -82,6 +82,9 @@
           </div>
         </div>
       </div>
+      <div class="loader" v-show="displayLoader">
+        <div class="lds-dual-ring"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -99,6 +102,7 @@ export default {
       newName: '',
       showRemoveActions: false,
       displayRename: false,
+      displayLoader: false,
       renameCloud: ''
     }
   },
@@ -150,8 +154,9 @@ export default {
     },
     remove () {
       this.displayLoader = true
-      // TODO : implement the next function
-      // this.$store.dispatch('removeCloud', this.cloud).then(() => {})
+      this.$store.dispatch('removeCloud', this.cloud.id).then(() => {
+        this.displayLoader = false
+      })
     },
     toggleMenu (isOpened) {
       if (!isOpened) {

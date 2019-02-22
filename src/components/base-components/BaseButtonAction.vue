@@ -6,15 +6,21 @@
                'base-button-action--icon-right': iconPosition === 'right'
            }"
             v-on="listeners">
-        <svgicon class="base-button-action__icon" v-show="iconName !== undefined" :name="iconName" :width="iconWidth" :height="iconHeight"></svgicon>
+        <svgicon class="base-button-action__icon" v-show="iconName" :name="iconName" :width="iconWidth" :height="iconHeight"></svgicon>
         <span><slot>Button</slot></span>
     </b-btn>
 </template>
 <script>
 export default {
   props: {
-    size: String,
-    iconPosition: String,
+    size: {
+      type: String,
+      default: ''
+    },
+    iconPosition: {
+      type: String,
+      default: 'left'
+    },
     iconWidth: {
       type: String,
       default: '15'
@@ -23,7 +29,10 @@ export default {
       type: String,
       default: '15'
     },
-    iconName: String
+    iconName: {
+      type: String,
+      default: 'plus'
+    }
   },
   computed: {
     listeners () {

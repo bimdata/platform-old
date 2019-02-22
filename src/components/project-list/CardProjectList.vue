@@ -2,7 +2,7 @@
     <div class="card-container">
         <div class="base-card card-item card-bd card-project">
             <div class="card-bd__header">
-                <svgicon name="eye" height="18" width="54" @click.native="viewModel" v-if="displayEye"></svgicon>
+                <svgicon name="eye" height="18" width="54" @click.native="viewModel" v-if="displayEye" class="icon-eye"></svgicon>
                 <base-button-option @option-toggled="toggleMenu" v-if="isAdmin">
                     <ul>
                         <li @click.stop.self="showRemoveActions = true" class="base-button-option__menu__remove">

@@ -15,7 +15,7 @@
         <base-search-bar @on-search="toSearch" class="m-auto"></base-search-bar>
       </div>
     </div>
-    <transition-group name="project-item" tag="div" class="project_list row">
+    <transition-group name="card-item" tag="div" class="project_list row">
       <div class="card-container" key="new">
         <div class="base-card card-item project-item new-project-item">
           <div

@@ -26,7 +26,8 @@ export default {
         this.$store.commit('project/SET_PROJECT', project)
         return this.$store.state.project ? this.$store.state.project.selectedProject.name : 'Back to project'
       }
-      return ''
+
+      return null
     },
     items () {
       return [

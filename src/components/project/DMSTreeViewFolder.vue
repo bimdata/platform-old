@@ -35,17 +35,18 @@
           class="collapse-tree"
           v-show="isFolderOpened(folder.id)"
         >
-            <dms-tree-view-folder
+            <DMSTreeViewFolder
               :folder="children"
               :depth="depth + 1"
-            ></dms-tree-view-folder>
+            ></DMSTreeViewFolder>
         </ul>
     </li>
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
+
 export default {
-  name: 'DmsTreeViewFolder',
+  name: 'DMSTreeViewFolder',
   props: {
     depth: {
       type: Number,

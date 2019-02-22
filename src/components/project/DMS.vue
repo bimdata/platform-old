@@ -40,8 +40,14 @@
                             {{ $t('project.create_folder') }}
                         </div>
                         <div class="base-input-text-material">
-                            <input type="text" ref="createFolderInput" :placeholder="$t('project.folder_name')" required
-                                   v-model="newFolderName" @keyup.enter="saveFolder">
+                            <input
+                              ref="createFolderInput"
+                              @keyup.enter="saveFolder"
+                              v-model="newFolderName"
+                              :placeholder="$t('project.folder_name')"
+                              type="text"
+                              required
+                            >
                             <span class="highlight"></span>
                             <span class="bar"></span>
                         </div>
@@ -62,16 +68,23 @@
                     <dms-tree-view @close="closeTreeView"></dms-tree-view>
                 </div>
                 <div ref="listFiles" class="dms__list-files">
-                    <b-table :items="filteredList"
-                             :filter="filter"
-                             class="bd-table"
-                             :fields="fields">
+                    <b-table
+                        :items="filteredList"
+                        :filter="filter"
+                        class="bd-table"
+                        :fields="fields"
+                    >
                         <template slot="HEAD_selected" slot-scope="data">
-                            <label for="select-all"
-                                   @click="selectAllItems"
-                                   class="base-checkbox">
-                                <input id="select-all"
-                                       type="checkbox" v-model="selectAll">
+                            <label
+                                for="select-all"
+                                 @click="selectAllItems"
+                                 class="base-checkbox"
+                            >
+                                <input
+                                    v-model="selectAll"
+                                    id="select-all"
+                                    type="checkbox"
+                                >
                                 <span></span>
                             </label>
                         </template>
@@ -82,8 +95,12 @@
                             {{ $t('project.type') }}
                         </template>
                         <template slot="HEAD_creator" slot-scope="data">
-                            <list-choice :label="$t('project.creator')" :list="listCreatorUniq" :nameInput="data.label"
-                                         @selected-list-choice="setCreatorsList"></list-choice>
+                            <list-choice
+                                @selected-list-choice="setCreatorsList"
+                                :label="$t('project.creator')"
+                                :list="listCreatorUniq"
+                                :nameInput="data.label"
+                            ></list-choice>
                         </template>
                         <template slot="HEAD_date" slot-scope="data">
                             {{ $t('project.updated_at') }}
@@ -104,8 +121,10 @@
                         <template slot="name" slot-scope="data">
                             <span @click="clickedFile({type: data.item.type, id: data.item.id})">
                                 <template v-if="data.item.icon !== 'folder2.svg'">
-                                <img width="20"
-                                     :src="'/static/img/files-icons/' + data.item.icon" />
+                                <img
+                                    :src="'/static/img/files-icons/' + data.item.icon"
+                                    width="20"
+                                />
                                     {{ data.item.name }}
                                 </template>
                                 <template v-else>
@@ -134,15 +153,13 @@
                                         <svgicon name="download" width="13" height="13"></svgicon>
                                         {{ $t('project.download') }}
                                     </li>
-                                    <li @click.stop.self="toggleRename(documentAction)"
-                                        :class="{'actif': displayRename}">
+                                    <li @click.stop.self="toggleRename(documentAction)" :class="{'actif': displayRename}">
                                         <svgicon name="pencil" width="13" height="13"></svgicon>
                                         {{ $t('project.rename') }}
 
                                         <div class="new_folder_box rename" v-if="displayRename">
                                             <div class="new_folder_box__title">
-                                                {{ $t((documentAction.item.idPrefix === 'folder') ?
-                                                'project.rename_folder' : 'project.rename_file') }}
+                                                {{ $t((documentAction.item.idPrefix === 'folder') ? 'project.rename_folder' : 'project.rename_file') }}
                                             </div>
                                             <div class="base-input-text-material">
                                                 <input
@@ -162,18 +179,21 @@
                                             </div>
                                         </div>
                                     </li>
-                                    <li @click.stop.self="displayRemoveActions" class="base-button-option__menu__remove"
-                                        :class="{'actif': showRemoveActions}">
+                                    <li
+                                        @click.stop.self="displayRemoveActions"
+                                        class="base-button-option__menu__remove"
+                                        :class="{'actif': showRemoveActions}"
+                                    >
                                         <svgicon name="delete" width="13" height="13"></svgicon>
                                         {{ $t('project.delete') }}
                                         <transition name="slide-fade">
                                             <div class="delete__actions" v-if="showRemoveActions">
-                                          <span class="check" @click="remove(documentAction)">
-                                            <svgicon name="check" height="15" width="18"></svgicon>
-                                          </span>
+                                                <span class="check" @click="remove(documentAction)">
+                                                    <svgicon name="check" height="15" width="18"></svgicon>
+                                                </span>
                                                 <span class="check-cross" @click="showRemoveActions = false">
-                                            <svgicon name="close" height="13" width="13"></svgicon>
-                                          </span>
+                                                    <svgicon name="close"  height="13" width="13"></svgicon>
+                                                </span>
                                             </div>
                                         </transition>
                                     </li>
@@ -195,12 +215,12 @@ import BaseInputCheckbox from '@/components/base-components/BaseInputCheckbox'
 import DMSUploadDocument from '@/components/project/DMSUploadDocument'
 import ListChoice from '@/components/project/ListChoice'
 import BaseButtonOption from '@/components/base-components/BaseButtonOption'
-import {mixin as clickaway} from 'vue-clickaway'
+import { mixin as clickaway } from 'vue-clickaway'
 import _ from 'lodash'
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
-  mixins: [clickaway],
+  mixins: [ clickaway ],
   components: {
     'dms-breadcrumb': DMSBreadcrumb,
     'dms-tree-view': DMSTreeView,

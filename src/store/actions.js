@@ -79,6 +79,7 @@ export default {
   async removeProject (context, project) {
     try {
       await this.ProjectRepositoryRequest.deleteProject(context.state.currentCloud.id, project)
+      await this.dispatch('fetchUserData')
       context.commit('DELETE_PROJECT', project)
       return true
     } catch (e) {
@@ -88,6 +89,9 @@ export default {
   async addProject (context, projectName) {
     try {
       const newProject = await this.ProjectRepositoryRequest.createNewProject(context.state.currentCloud.id, projectName)
+      await this.dispatch('fetchUserData')
+      const role = _.find(context.state.currentUser.projects, ['project', newProject.id])
+      newProject.role = role ? role.role : null
       context.commit('ADD_PROJECT', newProject)
       return newProject
     } catch (e) {
@@ -103,10 +107,11 @@ export default {
       console.log(e)
     }
   },
-  async removeCloud (context, cloud) {
+  async removeCloud (context, cloudId) {
     try {
-      await this.CloudRepositoryRequest.deleteCloud(context.state.currentCloud.id, cloud)
-      context.commit('DELETE_USER_CLOUD', cloud)
+      await this.CloudRepositoryRequest.deleteCloud(cloudId, context.state.currentUser.id)
+      await this.dispatch('fetchUserData')
+      await this.dispatch('fetchUserCloudsDetails')
       return true
     } catch (e) {
       console.log(e)
@@ -114,9 +119,10 @@ export default {
   },
   async addCloud (context, projectName) {
     try {
-      const newProject = await this.CloudRepositoryRequest.createNewCloud(context.state.currentCloud.id, projectName)
-      context.commit('ADD_USER_CLOUD', newProject)
-      return newProject
+      const newCloud = await this.CloudRepositoryRequest.createNewCloud(projectName)
+      await this.dispatch('fetchUserData')
+      await this.dispatch('fetchUserCloudsDetails')
+      return newCloud
     } catch (e) {
       console.log(e)
     }

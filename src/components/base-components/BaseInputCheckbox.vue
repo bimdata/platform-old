@@ -3,7 +3,7 @@
         <input :id="id" type="checkbox" v-bind="$attrs"
                v-on="listeners"
                v-model="selected"
-               @click="testa">
+               @click="onClick">
         <label :for="id">test</label>
     </div>
 </template>
@@ -17,15 +17,16 @@ export default {
   inheritAttrs: false,
   props: {
     id: {
-      type: String
+      type: String,
+      default: ''
     },
     value: {
-      type: Object
+      type: Object,
+      default: () => {}
     }
   },
   methods: {
-    testa () {
-      console.log('eeee')
+    onClick () {
       this.$emit('input', this.value)
     }
   },
