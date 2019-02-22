@@ -13,7 +13,7 @@
                                 <svgicon name="check" height="15" width="18"></svgicon>
                               </span>
                               <span class="check-cross" @click="showRemoveActions = false">
-                                <svgicon name="close"  height="13" width="13"></svgicon>
+                                <svgicon name="close" height="13" width="13"></svgicon>
                               </span>
                             </div>
                           </transition>
@@ -32,7 +32,7 @@
                                       :placeholder="project.name"
                                       required
                                       v-model="renameProject"
-                                      v-on:keyup.enter="saveRename"
+                                      @keyup.enter="saveRename"
                                     >
                                     <span class="highlight"></span>
                                     <span class="bar"></span>
@@ -63,11 +63,13 @@
                                 <span v-else>{{ project.name }}</span>
                             </div>
                             <div class="card-bd__text-container" v-show="editMode">
-                                <input ref="updateInput"
-                                      type="text"
-                                      v-model="newName"
-                                      @keyup.enter="submitUpdate"
-                                      :placeholder="project.name"/>
+                                <input
+                                    ref="updateInput"
+                                    type="text"
+                                    v-model="newName"
+                                    @keyup.enter="submitUpdate"
+                                    :placeholder="project.name"
+                                />
                             </div>
                         </div>
                     </div>

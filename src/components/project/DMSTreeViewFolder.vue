@@ -21,7 +21,9 @@
                   v-b-tooltip.hover
                   :title="folder.name"
                   class="dms__line-tree-view-content__name"
-                >{{ folder.name | middle-truncate(10) }}</span>
+                >
+                    {{ folder.name | middle-truncate(10) }}
+                </span>
                 <span @click.stop="changeFolder(folder.id)" class="dms__line-tree-view-content__name" v-else>
                   {{ folder.name }}
                 </span>
@@ -43,12 +45,16 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 export default {
-  name: 'dms-tree-view-folder',
+  name: 'DmsTreeViewFolder',
   props: {
     depth: {
+      type: Number,
       default: 1
     },
-    folder: null
+    folder: {
+      type: Object,
+      default: null
+    }
   },
   computed: {
     ...mapState('project', {

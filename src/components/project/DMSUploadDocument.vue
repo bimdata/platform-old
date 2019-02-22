@@ -14,6 +14,7 @@ import BaseButtonTool from '@/components/base-components/BaseButtonTool'
 export default {
   props: {
     target: {
+      type: String,
       default: '.DMSDashboardContainer'
     }
   },

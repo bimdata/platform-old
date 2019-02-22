@@ -9,7 +9,7 @@
                     <p class="user-menu__u-fullname">{{ `${getCurrentUserFirstname} ${getCurrentUserLastname}` }}</p>
                     <p class="user-menu__u-email">{{ getCurrentUserEmail }}</p>
                     <base-button-action @click="openProfile" size="small">
-                      {{ $t('dashboard.profile_btn')  }}
+                      {{ $t('dashboard.profile_btn') }}
                     </base-button-action>
                 </div>
             </div>
