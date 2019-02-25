@@ -37,7 +37,7 @@ export default {
         maxFileSize: 1000000000, // 1 Go
         maxNumberOfFiles: null,
         minNumberOfFiles: 1,
-        allowedFileTypes: ['.ifc']
+        allowedFileTypes: ['.ifc', '.ifczip']
       }
     })
       .use(Dashboard, {
