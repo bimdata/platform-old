@@ -95,6 +95,11 @@ export default {
     async getPath (folderId) {
       await this.$store.dispatch('project/getPath', folderId)
     }
+  },
+  created () {
+    if (this.depth === 1) {
+      this.openedFolderIds.push(this.folder.id)
+    }
   }
 }
 </script>
