@@ -15,7 +15,7 @@
         <base-search-bar @on-search="toSearch" class="m-auto"></base-search-bar>
       </div>
     </div>
-    <transition-group name="project-item" tag="div" class="project_list row">
+    <transition-group name="card-item" tag="div" class="project_list row">
       <div class="card-container" key="new">
         <div class="base-card card-item project-item new-project-item">
           <div
@@ -38,7 +38,7 @@
               </div>
               <div class="new-project-item__edit-container__body">
                 <div class="base-input-text-material">
-                  <input type="text" required v-model="newProjectName" v-on:keyup.enter="createProject"
+                  <input type="text" required v-model="newProjectName" @keyup.enter="createProject"
                          ref="inputToFocus">
                   <span class="highlight"></span>
                   <span class="bar"></span>

@@ -130,12 +130,12 @@ $width-lg-tree: 350px;
 
   &.shrinked {
     transform: translateX($width-tree);
-    width: calc(100% - $width-tree);
+    width: calc(100% - #{$width-tree});
     padding-left: $grid-gutter-width;
 
     @include media-breakpoint-up(lg) { 
       transform: translateX($width-lg-tree);
-      width: calc(100% - $width-lg-tree);
+      width: calc(100% - #{$width-lg-tree});
     }
 
     .dms__tree-view {

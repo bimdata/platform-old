@@ -12,8 +12,14 @@
 <script>
 export default {
   props: {
-    text: String,
-    routeName: String,
+    text: {
+      type: String,
+      default: ''
+    },
+    routeName: {
+      type: String,
+      default: ''
+    },
     displayLink: Boolean
   }
 }

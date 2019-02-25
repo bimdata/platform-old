@@ -13,12 +13,20 @@ export class CloudRepository {
     }
   }
 
-  async createNewCloud (idCloud, name) {
+  async createNewCloud (name) {
     try {
       let cloud = new this.defaultClient.Cloud()
-      // project.
       cloud.name = name
       const response = await this.cloudApiClient.createCloud(cloud)
+      return response
+    } catch (e) {
+      console.log(e.statusCode)
+    }
+  }
+
+  async deleteCloud (idCloud, userId) {
+    try {
+      const response = await this.cloudApiClient.deleteCloudUser(idCloud, userId)
       return response
     } catch (e) {
       console.log(e.statusCode)

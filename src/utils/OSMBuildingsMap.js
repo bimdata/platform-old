@@ -11,6 +11,8 @@ export class LeafletMap {
       zoom: 16,
       minZoom: 10,
       maxZoom: 20,
+      tilt: 45,
+      rotation: -45,
       attribution: ' '
     })
     this.map.addMapTiles('https://{s}.tiles.mapbox.com/v3/osmbuildings.kbpalbpk/{z}/{x}/{y}.png')

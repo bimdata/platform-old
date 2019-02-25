@@ -1,22 +1,32 @@
-FROM nginx:stable
+FROM node:10
 
-RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive \
-	apt-get -y --no-install-recommends install wget ca-certificates && \
-    wget https://raw.githubusercontent.com/visionmedia/n/master/bin/n -O /usr/local/bin/n && \
-    chmod +x /usr/local/bin/n && \
-    n 10
-
-ENV NODE_ENV production
 WORKDIR /opt
 ADD package.json /opt
 ADD package-lock.json /opt
-RUN npm install jest -g
-RUN npm install
-
+RUN npm ci
 COPY ./ /opt
 
-RUN rm -rf /usr/share/nginx/html && \
-    ln -s /opt/dist /usr/share/nginx/html
+ENV NODE_ENV production
 
-ENTRYPOINT ["/opt/entrypoint.sh"]
+ARG BD_APP_URL
+ARG BD_APP_URL
+ARG BD_OIDC_IP
+ARG BD_OIDC_CLIENT_ID
+ARG BD_API_BASE_URL
+ARG BD_CDN_BASE_URL
+ARG BD_PLATFORM_BACK_BASE_URL
+
+ENV BD_APP_URL=$BD_APP_URL
+ENV BD_APP_URL=$BD_APP_URL
+ENV BD_OIDC_IP=$BD_OIDC_IP
+ENV BD_OIDC_CLIENT_ID=$BD_OIDC_CLIENT_ID
+ENV BD_API_BASE_URL=$BD_API_BASE_URL
+ENV BD_CDN_BASE_URL=$BD_CDN_BASE_URL
+ENV BD_PLATFORM_BACK_BASE_URL=$BD_PLATFORM_BACK_BASE_URL
+
+
+RUN npm run build
+
+
+FROM nginx:stable
+COPY --from=0 /opt/dist /usr/share/nginx/html
