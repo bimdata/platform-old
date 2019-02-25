@@ -1,10 +1,13 @@
+import { ProjectRepository } from '@/api/ProjectRepository'
 import { IFCRepository } from '@/api/IFCRepository'
 import { generateClient } from '@/api/initClient'
+
 export default {
   init ({rootState}) {
     let token = rootState.oidc.access_token
     let defaultClient = generateClient(token)
     this.IFCRepositoryRequest = new IFCRepository(defaultClient)
+    this.ProjectRepositoryRequest = new ProjectRepository(defaultClient)
   },
   async getProjectIfcImage (store, params) {
     try {
@@ -205,5 +208,12 @@ export default {
     } catch (e) {
       console.log(e)
     }
+  },
+
+  async fetchProjectUsers ({ commit, state }, project) {
+    const users = await this.ProjectRepositoryRequest
+      .getProjectUsers(project.cloud.id, project.id)
+
+    commit('SET_PROJECT_USERS', users)
   }
 }

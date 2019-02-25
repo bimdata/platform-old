@@ -60,29 +60,29 @@
         </div>
         <div class="users-list__body">
           <ul class="users-list__users">
-            <li v-for="(user, index) in filteredUsers" :key="index" class="users-list__user">
-              <div class="users-list__user__picture" v-if="user.hasAccepted">
-                <img :src="user.photo" alt="" class="img-fluid circle" v-if="user.photo">
-                <span class="user-menu__pic" v-else>{{ user.name|initialsFormat }}</span>
-                <!--<span class="users-list__user__status users-list__user__status--inline" v-if="user.online"></span>
-                <span class="users-list__user__status users-list__user__status--outline" v-else></span>-->
+            <li v-for="user in filteredUsers" :key="`user-${user.id}`" class="users-list__user">
+              <div class="users-list__user__picture">
+                <template v-if="user.hasAccepted">
+                  <img :src="user.photo" alt="" class="img-fluid circle" v-if="user.photo">
+                  <span class="user-menu__pic" v-else>{{ `${user.firstname} ${user.lastname}` | initialsFormat }}</span>
+                </template>
+                <template v-if="!user.hasAccepted">
+                  <svgicon name="user-invit-pending" height="40" width="40"></svgicon>
+                </template>
               </div>
-              <div class="users-list__user__picture" v-else>
-                <svgicon name="user-invit-pending" height="40" width="40"></svgicon>
-              </div>
-              <div class="users-list__user__datas" v-if="user.hasAccepted">
-                <p>
-                  <span class="users-list__user__name">{{ user.name }}</span>
+              <div class="users-list__user__datas">
+                <p v-if="user.hasAccepted">
+                  <span class="users-list__user__name">{{ user.firstname }} {{ user.lastname }}</span>
                   <span>{{ user.job }}</span>
                   <span>{{ user.company }}</span>
                 </p>
-                <span class="badge badge-primary" v-if="isAdmin(user.role)">{{ $t('users.administrator') }}</span>
-              </div>
-              <div class="users-list__user__datas" v-else>
-                <p>
-                  <span class="users-list__user__name">{{ user.name }}</span>
-                  <span>{{ $t('users.guest') }} - {{ $t('users.without_answer') }}. <a href="">{{ $t('users.resend_invitation') }}</a></span>
+                <p v-if="!user.hasAccepted">
+                  <span class="users-list__user__name">{{ user.firstname }} {{ user.lastname }}</span>
+                  <span>{{ $t('users.guest') }} - {{ $t('users.without_answer') }}. <a href="#">{{ $t('users.resend_invitation') }}</a></span>
                 </p>
+                <span class="badge badge-primary" v-if="isAdmin(user.project_role)">
+                    {{ $t('users.administrator') }}
+                  </span>
               </div>
               <div class="users-list__user__actions" v-if="user.hasAccepted && isAdmin()">
                 <base-button-option @option-toggled="toggleMenu" class="users-list__user__actions__menu">
@@ -98,7 +98,7 @@
                           :option="right"
                           name="rights"
                           @input="radioSelected"
-                          :selected="user.role"
+                          :selected="user.project_role"
                         ></base-input-radio>
                       </div>
                     </li>
@@ -243,7 +243,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      fetchProjectUsers: 'fetchProjectUsers'
+      fetchProjectUsers: 'project/fetchProjectUsers'
     }),
     toggleRights () {
       this.displayRights = !this.displayRights
@@ -326,17 +326,26 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getProjectById: 'getProjectById'
+      getProjectById: 'getProjectById',
+      projectUsers: 'project/users'
     }),
     project () {
       return this.getProjectById(this.$route.params.projectId)
     },
+    allUsers () {
+      return [
+        ...this.projectUsers.map(user => ({...user, hasAccepted: true}))
+      ]
+    },
     filteredUsers () {
-      return this.users.filter(user => {
-        return user.name.toLowerCase().includes(this.searchFilter.toLowerCase()) ||
-          user.company.toLowerCase().includes(this.searchFilter.toLowerCase()) ||
-          user.job.toLowerCase().includes(this.searchFilter.toLowerCase())
-      }).reverse()
+      return this.allUsers.filter(
+        user => (
+          (user.firstname ? user.firstname.toLowerCase().includes(this.searchFilter.toLowerCase()) : false) ||
+          (user.lastname ? user.lastname.toLowerCase().includes(this.searchFilter.toLowerCase()) : false) ||
+          (user.company ? user.company.toLowerCase().includes(this.searchFilter.toLowerCase()) : false) ||
+          (user.job ? user.job.toLowerCase().includes(this.searchFilter.toLowerCase()) : false)
+        )
+      ).reverse()
     }
   }
 }

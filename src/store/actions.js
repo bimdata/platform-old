@@ -163,11 +163,5 @@ export default {
     } catch (e) {
       console.log(e)
     }
-  },
-  async fetchProjectUsers ({ commit, state }, project) {
-    const users = await this.ProjectRepositoryRequest
-      .getProjectUsers(project.cloud.id, project.id)
-
-    console.log(users)
   }
 }
