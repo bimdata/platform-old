@@ -13,6 +13,7 @@
       </div>
       <div class="search-container mt-2 mt-sm-0">
         <base-search-bar @on-search="toSearch" class="m-auto"></base-search-bar>
+        <base-button-icon iconName="user-croix" height="16" width="16" @on-click-action="showModal = !showModal" class="ml-2"></base-button-icon>
       </div>
     </div>
     <transition-group name="card-item" tag="div" class="project_list row">
@@ -60,6 +61,34 @@
         :key="project.id"
       ></card-project-list>
     </transition-group>
+
+    <b-modal v-model="showModal" centered hide-header hide-footer>
+      <button type="button" class="close" @click="showModal = false">x</button>
+      <template v-if="!showModalUsersList">
+        <users-list :displayMenu="false" :users="users">
+          <base-card slot="header-title">
+            Gestion des administrateurs
+            {{ $t('users.manage_admin') }}
+          </base-card>
+          <template slot="users-list-header">
+            MON HEADER ADMINISTRATEURS
+          </template>
+        </users-list>
+      </template>
+      <template v-else>
+        <users-list :displayMenu="false" :users="users">
+          <template slot="users-header">
+            <template slot="header-title">
+              Liste des utilisateurs
+              {{ $t('users.users_list') }}
+            </template>
+          </template>
+          <template slot="users-list-header">
+            MON HEADER UTILISATEURS
+          </template>
+        </users-list>
+      </template>
+    </b-modal>
   </div>
 </template>
 <script>
@@ -67,7 +96,10 @@ import { mapGetters } from 'vuex'
 import BaseChoiceList from '@/components/base-components/BaseChoiceList'
 import BaseSearchBar from '@/components/base-components/BaseSearchBar'
 import CardProjectList from '@/components/project-list/CardProjectList'
+import BaseCard from '@/components/base-components/BaseCard'
 import BaseButtonAction from '@/components/base-components/BaseButtonAction'
+import BaseButtonIcon from '@/components/base-components/BaseButtonIcon'
+import UsersList from '@/components/project/UsersList'
 import _ from 'lodash'
 
 export default {
@@ -78,14 +110,77 @@ export default {
       displayNewForm: false,
       newProjectName: '',
       cloud: null,
-      searchFilter: ''
+      searchFilter: '',
+      showModal: false,
+      showModalUsersList: false,
+      users: [
+        {
+          id: 1,
+          name: 'Gabriel Cambreling',
+          job: 'Architecte',
+          company: 'Cabinet Marsouin',
+          photo: 'https://mir-s3-cdn-cf.behance.net/user/276/df2bfd2271051.59b8e8f49b466.jpg',
+          role: 100
+        },
+        {
+          id: 2,
+          name: 'Lorem ipsum',
+          job: '',
+          company: '',
+          photo: '',
+          role: 25
+        },
+        {
+          id: 3,
+          name: 'Gabriel Cambreling',
+          job: 'Architecte',
+          company: '',
+          photo: '',
+          role: 50
+        },
+        {
+          id: 4,
+          name: 'François Thierry',
+          job: '',
+          company: '',
+          photo: 'https://d2cxspbh1aoie1.cloudfront.net/avatars/local/0b08b2d76dd021b129244840525ce6f469a07ccf9d8b6a7463712a051d686d2e/160',
+          role: 25
+        },
+        {
+          id: 5,
+          name: 'Gabriel Cambreling',
+          job: 'Chauffagiste',
+          company: 'mon entreprise',
+          photo: '',
+          role: 50
+        },
+        {
+          id: 6,
+          name: 'François Thierry',
+          job: 'Plombier',
+          company: 'Cabinet Marsouin',
+          photo: 'https://d2cxspbh1aoie1.cloudfront.net/avatars/local/0b08b2d76dd021b129244840525ce6f469a07ccf9d8b6a7463712a051d686d2e/160',
+          role: 25
+        },
+        {
+          id: 7,
+          name: 'François Thierry',
+          job: 'Architecte',
+          company: 'Cabinet Marsouin',
+          photo: 'https://d2cxspbh1aoie1.cloudfront.net/avatars/local/0b08b2d76dd021b129244840525ce6f469a07ccf9d8b6a7463712a051d686d2e/160',
+          role: 100
+        }
+      ]
     }
   },
   components: {
     BaseButtonAction,
     BaseChoiceList,
     CardProjectList,
-    BaseSearchBar
+    BaseSearchBar,
+    BaseButtonIcon,
+    BaseCard,
+    UsersList
   },
   computed: {
     ...mapGetters({

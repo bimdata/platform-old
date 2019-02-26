@@ -103,12 +103,12 @@ $base-button-option: 'base-button-option';
         }
         .check {
           .svg-icon {
-            fill: #28a745;
+            fill: $success;
           }
         }
         .check-cross {
           .svg-icon {
-            fill: #dc3545;
+            fill: $danger;
           }
         }
       }
