@@ -66,10 +66,9 @@
       <button type="button" class="close" @click="showModal = false">x</button>
       <template v-if="!showModalUsersList">
         <users-list :displayMenu="false" :users="users">
-          <base-card slot="header-title">
-            Gestion des administrateurs
+          <template slot="header-title">
             {{ $t('users.manage_admin') }}
-          </base-card>
+          </template>
           <template slot="users-list-header">
             MON HEADER ADMINISTRATEURS
           </template>
@@ -77,11 +76,8 @@
       </template>
       <template v-else>
         <users-list :displayMenu="false" :users="users">
-          <template slot="users-header">
-            <template slot="header-title">
-              Liste des utilisateurs
-              {{ $t('users.users_list') }}
-            </template>
+          <template slot="header-title">
+            {{ $t('users.users_list') }}
           </template>
           <template slot="users-list-header">
             MON HEADER UTILISATEURS

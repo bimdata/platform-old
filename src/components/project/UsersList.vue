@@ -1,8 +1,8 @@
 <template>
     <base-card :fullscreen-available="false" class="users-list__card">
-      <template slot="header-title" name="header-title" slot-scoped="user">
+      <slot slot="header-title" name="header-title">
         {{ $t('users.users') }}
-      </template>
+      </slot>
       <template slot="content">
         <div class="users-list">
           <slot name="users-list-header">
