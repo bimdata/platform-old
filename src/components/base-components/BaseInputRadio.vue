@@ -15,16 +15,22 @@ export default {
   },
   props: {
     id: {
-      type: Number
+      type: Number,
+      default: 0
     },
     option: {
-      type: Object
+      type: Object,
+      default: () => {
+        return {}
+      }
     },
     name: {
-      type: String
+      type: String,
+      default: ''
     },
     selected: {
-      type: Number
+      type: Number,
+      default: 0
     }
   },
   methods: {

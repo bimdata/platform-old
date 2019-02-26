@@ -41,7 +41,7 @@
                       <svgicon name="check" height="22" width="24"></svgicon>
                     </span>
                     <span class="check-cross" @click="displaySendInvit = false">
-                      <svgicon name="close"  height="21" width="21"></svgicon>
+                      <svgicon name="close" height="21" width="21"></svgicon>
                     </span>
                   </div>
                 </div>
@@ -51,7 +51,7 @@
                   <input type="text" placeholder="Search user" v-model="searchFilter">
                   <div class="users-list__header__invitation__actions">
                     <span class="check-cross" @click="resetSearchUser">
-                      <svgicon name="close"  height="21" width="21"></svgicon>
+                      <svgicon name="close" height="21" width="21"></svgicon>
                     </span>
                   </div>
                 </div>
@@ -91,8 +91,9 @@
 
                               <div class="new_folder_box" v-if="displayRights">
                                 <base-input-radio
-                                  v-for="(right, index) in rights"
-                                  :key="index" :id="user.id"
+                                  v-for="(right, indexRight) in rights"
+                                  :key="indexRight"
+                                  :id="user.id"
                                   :option="right"
                                   name="rights"
                                   @input="radioSelected"
@@ -108,7 +109,7 @@
                                     <svgicon name="check" height="15" width="18"></svgicon>
                                   </span>
                                   <span class="check-cross" @click="showRemoveActions = false">
-                                    <svgicon name="close"  height="13" width="13"></svgicon>
+                                    <svgicon name="close" height="13" width="13"></svgicon>
                                   </span>
                                 </div>
                               </transition>
