@@ -20,6 +20,9 @@ export default {
     },
     toggleSearchBar () {
       this.isOpen = !this.isOpen
+      if (this.isOpen) {
+        this.$el.children[0].focus()
+      }
     }
   }
 }

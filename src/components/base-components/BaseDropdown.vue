@@ -7,9 +7,7 @@
           class="user-menu__ddown"
           right
         >
-          <slot name="base-dropdown-menu">
-
-          </slot>
+        <slot name="base-dropdown-menu"></slot>
         </b-dropdown>
   </div>
 </template>

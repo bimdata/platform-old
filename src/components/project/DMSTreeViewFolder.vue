@@ -20,8 +20,9 @@
                   v-if="folder.name && folder.name.length > 10"
                   v-b-tooltip.hover
                   :title="folder.name"
-                  class="dms__line-tree-view-content__name"
-                >{{ folder.name | middle-truncate(10) }}</span>
+                  class="dms__line-tree-view-content__name">
+                  {{ folder.name | middle-truncate(10) }}
+                </span>
                 <span @click.stop="changeFolder(folder.id)" class="dms__line-tree-view-content__name" v-else>
                   {{ folder.name }}
                 </span>
@@ -33,22 +34,27 @@
           class="collapse-tree"
           v-show="isFolderOpened(folder.id)"
         >
-            <dms-tree-view-folder
+            <DMSTreeViewFolder
               :folder="children"
               :depth="depth + 1"
-            ></dms-tree-view-folder>
+            ></DMSTreeViewFolder>
         </ul>
     </li>
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
+
 export default {
-  name: 'dms-tree-view-folder',
+  name: 'DMSTreeViewFolder',
   props: {
     depth: {
+      type: Number,
       default: 1
     },
-    folder: null
+    folder: {
+      type: Object,
+      default: null
+    }
   },
   computed: {
     ...mapState('project', {
@@ -88,6 +94,11 @@ export default {
     },
     async getPath (folderId) {
       await this.$store.dispatch('project/getPath', folderId)
+    }
+  },
+  created () {
+    if (this.depth === 1) {
+      this.openedFolderIds.push(this.folder.id)
     }
   }
 }

@@ -43,7 +43,7 @@
       }
     }
     .card-bd__header {
-      .svg-icon {
+      .icon-eye {
         cursor: pointer;
         transition: all ease 0.5s;
 
@@ -68,7 +68,7 @@
 
     .model-preview-slider {
       height: 338px;
-      background: #E6E6E6;
+      background: $bg-preview;
     }
   }
   .user-project {
@@ -145,13 +145,5 @@
     &__detail-content {
       width: 50%;
     }
-  }
-
-  .top-toolbar__button-new-file svg {
-    transition: .2s ease-in-out all;
-  }
-
-  .top-toolbar__button-new-file.active svg {
-    transform: rotate(135deg);
   }
 }

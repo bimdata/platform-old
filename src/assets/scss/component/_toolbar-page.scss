@@ -9,9 +9,20 @@
     &__choice-list-items {
       padding-right: $grid-gutter-width;
     }
+
+    &__button-new-file svg {
+      transition: .2s ease-in-out all;
+    }
+  
+    &__button-new-file.active svg {
+      transform: rotate(135deg);
+    }
   }
 
   .search-container {
+    display: flex;
+    align-items: center;
+
     @include media-breakpoint-up(sm) { 
       width: calc(100%/2);
     }
@@ -22,6 +33,9 @@
     @include media-breakpoint-up(xxl) { 
       margin-right: 2rem;
     }
+  }
+  .base-button-action {
+    height: 100%;
   }
 }
 

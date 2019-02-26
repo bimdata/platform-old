@@ -22,7 +22,6 @@ import { mapGetters } from 'vuex'
 import DMSTreeViewFolder from '@/components/project/DMSTreeViewFolder'
 
 export default {
-  name: 'dms-tree-view',
   components: {
     'dms-tree-view-folder': DMSTreeViewFolder
   },
