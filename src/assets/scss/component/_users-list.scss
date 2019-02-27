@@ -13,6 +13,10 @@
     align-items: center;
     height: 32px;
 
+    &--large {
+      height: 50px;
+    }
+
     .svg-icon {
       cursor: pointer;
     }
@@ -270,6 +274,15 @@
       &--outline {
         background: $bim-negative;
       }
+    }
+  }
+
+  &-modal {
+    .close {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      z-index: 1;
     }
   }
 }

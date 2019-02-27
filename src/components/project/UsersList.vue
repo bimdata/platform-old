@@ -118,17 +118,19 @@
                         </li>
                     </ul>
                   </base-button-option>
-                  <template v-else>
-                    <svgicon name="check" height="15" width="18" @click="showRemoveActions = true"></svgicon>
-                    <div class="delete__actions" v-if="showRemoveActions">
-                      <span class="check" @click="removeUser(user.id)">
-                        <svgicon name="check" height="15" width="18"></svgicon>
-                      </span>
-                      <span class="check-cross" @click="showRemoveActions = false">
-                        <svgicon name="close" height="13" width="13"></svgicon>
-                      </span>
-                    </div>
-                  </template>
+                  <div v-else class="base-button-option__menu__remove">
+                    <svgicon name="delete" height="15" width="18" @click="showRemoveActions = true"></svgicon>
+                    <transition name="slide-fade">
+                      <div class="delete__actions" v-if="showRemoveActions">
+                        <span class="check" @click="removeUser(user.id)">
+                          <svgicon name="check" height="15" width="18"></svgicon>
+                        </span>
+                        <span class="check-cross" @click="showRemoveActions = false">
+                          <svgicon name="close" height="13" width="13"></svgicon>
+                        </span>
+                      </div>
+                    </transition>
+                  </div>
                 </div>
               </li>
             </ul>

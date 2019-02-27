@@ -13,7 +13,7 @@
       </div>
       <div class="search-container mt-2 mt-sm-0">
         <base-search-bar @on-search="toSearch" class="m-auto"></base-search-bar>
-        <base-button-icon iconName="user-croix" height="16" width="16" @on-click-action="showModal = !showModal" class="ml-2"></base-button-icon>
+        <base-button-icon iconName="account-plus" height="16" width="16" @on-click-action="showModal = !showModal" class="ml-2"></base-button-icon>
       </div>
     </div>
     <transition-group name="card-item" tag="div" class="project_list row">
@@ -62,15 +62,24 @@
       ></card-project-list>
     </transition-group>
 
-    <b-modal v-model="showModal" centered hide-header hide-footer>
-      <button type="button" class="close" @click="showModal = false">x</button>
+    <b-modal v-model="showModal" centered hide-header hide-footer class="users-list-modal">
+      <button type="button" class="close" @click="showModal = false">
+        <svgicon name="close" height="20" width="20"></svgicon>
+      </button>
       <template v-if="!showModalUsersList">
         <users-list :displayMenu="false" :users="users">
           <template slot="header-title">
             {{ $t('users.manage_admin') }}
           </template>
           <template slot="users-list-header">
-            MON HEADER ADMINISTRATEURS
+            <div class="users-list__header users-list__header--large">
+              <svgicon name="account-plus" height="20" width="20"></svgicon>
+
+              <button type="button" class="btn btn-primary">
+                <svgicon name="account"></svgicon>
+                {{ $t('users.users') }}
+              </button>
+            </div>
           </template>
         </users-list>
       </template>
@@ -80,7 +89,9 @@
             {{ $t('users.users_list') }}
           </template>
           <template slot="users-list-header">
-            MON HEADER UTILISATEURS
+            <div class="users-list__header">
+              HEADER USERS
+            </div>
           </template>
         </users-list>
       </template>
