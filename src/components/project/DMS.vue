@@ -161,14 +161,7 @@
                                       <svgicon name="delete" width="13" height="13"></svgicon>
                                       {{ $t('project.delete') }}
                                       <transition name="slide-fade">
-                                        <div class="delete__actions" v-if="showRemoveActions">
-                                          <span class="check" @click="remove(documentAction)">
-                                            <svgicon name="check" height="15" width="18"></svgicon>
-                                          </span>
-                                          <span class="check-cross" @click="showRemoveActions = false">
-                                            <svgicon name="close" height="13" width="13"></svgicon>
-                                          </span>
-                                        </div>
+                                        <base-valid-delete v-if="showRemoveActions" @on-valid-action="remove(documentAction)" @on-cancel-action="showRemoveActions = false"></base-valid-delete>
                                       </transition>
                                     </li>
                                 </ul>
@@ -187,6 +180,7 @@ import BaseButtonTool from '@/components/base-components/BaseButtonTool'
 import BaseTreeSelect from '@/components/base-components/BaseTreeSelect'
 import BaseInputCheckbox from '@/components/base-components/BaseInputCheckbox'
 import DMSUploadDocument from '@/components/project/DMSUploadDocument'
+import BaseValidDelete from '@/components/base-components/BaseValidDelete'
 import ListChoice from '@/components/project/ListChoice'
 import BaseButtonOption from '@/components/base-components/BaseButtonOption'
 import { mixin as clickaway } from 'vue-clickaway'
@@ -203,6 +197,7 @@ export default {
     BaseInputCheckbox,
     BaseButtonOption,
     ListChoice,
+    BaseValidDelete,
     'dms-upload-document': DMSUploadDocument
   },
   data () {

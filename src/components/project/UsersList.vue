@@ -106,14 +106,7 @@
                       <li @click.stop.self="showRemoveActions = true" class="base-button-option__menu__remove">
                           {{ $t('users.remove') }} <svgicon name="user-croix" width="12" height="12"></svgicon>
                           <transition name="slide-fade">
-                            <div class="delete__actions" v-if="showRemoveActions">
-                              <span class="check" @click="removeUser(user.id)">
-                                <svgicon name="check" height="15" width="18"></svgicon>
-                              </span>
-                              <span class="check-cross" @click="showRemoveActions = false">
-                                <svgicon name="close" height="13" width="13"></svgicon>
-                              </span>
-                            </div>
+                            <base-valid-delete v-if="showRemoveActions" @on-valid-action="removeUser(user.id)" @on-cancel-action="showRemoveActions = false"></base-valid-delete>
                           </transition>
                         </li>
                     </ul>
@@ -121,14 +114,7 @@
                   <div v-else class="base-button-option__menu__remove">
                     <svgicon name="delete" height="15" width="18" @click="showRemoveActions = true"></svgicon>
                     <transition name="slide-fade">
-                      <div class="delete__actions" v-if="showRemoveActions">
-                        <span class="check" @click="removeUser(user.id)">
-                          <svgicon name="check" height="15" width="18"></svgicon>
-                        </span>
-                        <span class="check-cross" @click="showRemoveActions = false">
-                          <svgicon name="close" height="13" width="13"></svgicon>
-                        </span>
-                      </div>
+                      <base-valid-delete v-if="showRemoveActions" @on-valid-action="removeUser(user.id)" @on-cancel-action="showRemoveActions = false"></base-valid-delete>
                     </transition>
                   </div>
                 </div>
@@ -142,6 +128,7 @@
 <script>
 import BaseCard from '@/components/base-components/BaseCard'
 import BaseButtonOption from '@/components/base-components/BaseButtonOption'
+import BaseValidDelete from '@/components/base-components/BaseValidDelete'
 import BaseInputRadio from '@/components/base-components/BaseInputRadio'
 import { mixin as clickaway } from 'vue-clickaway'
 import _ from 'lodash'
@@ -151,7 +138,8 @@ export default {
   components: {
     BaseCard,
     BaseButtonOption,
-    BaseInputRadio
+    BaseInputRadio,
+    BaseValidDelete
   },
   props: {
     displayMenu: {
