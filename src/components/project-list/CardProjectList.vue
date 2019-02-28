@@ -7,7 +7,9 @@
                     <ul>
                         <li @click.stop.self="showRemoveActions = true" class="base-button-option__menu__remove">
                           {{ $t('project_list.remove') }}
-                          <transition name="slide-fade">
+                          <base-valid-delete @on-valid-action="remove" :showRemoveActions="showRemoveActions"></base-valid-delete>
+
+                          <!--<transition name="slide-fade">
                             <div class="delete__actions" v-if="showRemoveActions">
                               <span class="check" @click="remove">
                                 <svgicon name="check" height="15" width="18"></svgicon>
@@ -16,7 +18,7 @@
                                 <svgicon name="close" height="13" width="13"></svgicon>
                               </span>
                             </div>
-                          </transition>
+                          </transition>-->
                         </li>
                         <li @click.stop.self="toggleRename()" :class="{'actif': displayRename}">
                             {{ $t('project.rename') }}
@@ -83,6 +85,7 @@
 import _ from 'lodash'
 import { mixin as clickaway } from 'vue-clickaway'
 import BaseButtonOption from '@/components/base-components/BaseButtonOption'
+import BaseValidDelete from '@/components/base-components/BaseValidDelete'
 import ProjectPreview from '../project/ProjectPreview'
 
 export default {
@@ -102,7 +105,8 @@ export default {
   },
   components: {
     ProjectPreview,
-    BaseButtonOption
+    BaseButtonOption,
+    BaseValidDelete
   },
   mixins: [ clickaway ],
   props: {
