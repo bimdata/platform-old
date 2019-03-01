@@ -194,6 +194,8 @@
     }
     &__actions {
       margin-left: auto;
+      position: relative;
+      cursor: pointer;
 
       &__menu {
         .base-button-option__menu {
