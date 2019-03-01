@@ -1,27 +1,27 @@
 <template>
     <div class="users-list__user">
-      <div class="users-list__user__picture" v-if="user.hasAccepted">
-        <img :src="user.photo" alt="" class="img-fluid circle" v-if="user.photo">
-        <span class="user-menu__pic" v-else>{{ user.name|initialsFormat }}</span>
-        <!--<span class="users-list__user__status users-list__user__status--inline" v-if="user.online"></span>
-        <span class="users-list__user__status users-list__user__status--outline" v-else></span>-->
+      <div class="users-list__user__picture">
+        <template v-if="user.hasAccepted">
+          <img :src="user.photo" alt="" class="img-fluid circle" v-if="user.photo">
+          <span class="user-menu__pic" v-else>{{ `${user.firstname} ${user.lastname}` | initialsFormat }}</span>
+          <!--<span class="users-list__user__status users-list__user__status--inline" v-if="user.online"></span>
+          <span class="users-list__user__status users-list__user__status--outline" v-else></span>-->
+        </template>
+        <template v-else>
+            <svgicon name="user-invit-pending" height="40" width="40"></svgicon>
+        </template>
       </div>
-      <div class="users-list__user__picture" v-else>
-        <svgicon name="user-invit-pending" height="40" width="40"></svgicon>
-      </div>
-      <div class="users-list__user__datas" v-if="user.hasAccepted">
-        <p>
-          <span class="users-list__user__name">{{ user.name }}</span>
+      <div class="users-list__user__datas">
+        <p v-if="user.hasAccepted">
+          <span class="users-list__user__name">{{ user.firstname }} {{ user.lastname }}</span>
           <span>{{ user.job }}</span>
           <span>{{ user.company }}</span>
         </p>
-        <span v-html="getBadge(user.role)"></span>
-      </div>
-      <div class="users-list__user__datas" v-else>
-        <p>
-          <span class="users-list__user__name">{{ user.name }}</span>
+        <p v-else>
+          <span class="users-list__user__name">{{ user.firstname }} {{ user.lastname }}</span>
           <span>{{ $t('users.guest') }} - {{ $t('users.without_answer') }}. <a href="">{{ $t('users.resend_invitation') }}</a></span>
         </p>
+        <span v-if="user.hasAccepted" v-html="getBadge(user.project_role)"></span>
       </div>
       <div class="users-list__user__actions" v-if="user.hasAccepted && isAdmin()">
         <base-button-option @option-toggled="toggleMenu" class="users-list__user__actions__menu" v-if="displayMenu">
@@ -37,7 +37,7 @@
                     :option="right"
                     name="rights"
                     @input="radioSelected"
-                    :selected="user.role"
+                    :selected="user.project_role"
                   ></base-input-radio>
                 </div>
             </li>
@@ -61,6 +61,7 @@
 <script>
 import BaseValidDelete from '@/components/base-components/BaseValidDelete'
 import BaseButtonOption from '@/components/base-components/BaseButtonOption'
+import BaseInputRadio from '@/components/base-components/BaseInputRadio'
 import { mixin as clickaway } from 'vue-clickaway'
 import _ from 'lodash'
 
@@ -68,7 +69,8 @@ export default {
   mixins: [ clickaway ],
   components: {
     BaseButtonOption,
-    BaseValidDelete
+    BaseValidDelete,
+    BaseInputRadio
   },
   data () {
     return {
@@ -104,6 +106,10 @@ export default {
     }
   },
   methods: {
+    radioSelected (object) {
+      console.log('object', object)
+      // Call ajax
+    },
     toggleRights () {
       this.displayRights = !this.displayRights
       this.showRemoveActions = false
@@ -138,6 +144,9 @@ export default {
       }
 
       return false
+    },
+    removeUser (userId) {
+      // Call to remove user
     }
   }
 }

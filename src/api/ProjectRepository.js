@@ -107,4 +107,13 @@ export class ProjectRepository {
       console.log(e.statusCode)
     }
   }
+
+  async getProjectUsers (cloudPk, projectPk) {
+    try {
+      const response = await this.projectApiClient.getProjectUsers(cloudPk, projectPk)
+      return response
+    } catch (e) {
+      console.log(e.statusCode)
+    }
+  }
 }

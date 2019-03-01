@@ -26,7 +26,7 @@
           <card-project-content></card-project-content>
         </div>
         <div class="user-project">
-          <users-list :users="users" :filter="searchFilter">
+          <users-list :users="allUsers" :filter="searchFilter">
             <template slot="users-list-header">
               <div class="users-list__header">
                 <div class="users-list__header__left-container d-none">
@@ -109,7 +109,7 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import ChoiceListProject from '@/components/project/ChoiceListProject'
 import ChoiceListCloud from '@/components/project/ChoiceListCloud'
 import ButtonUploadNewFile from '@/components/project/ButtonUploadNewFile'
@@ -118,6 +118,7 @@ import BaseCard from '@/components/base-components/BaseCard'
 import TableIfc from '@/components/project/TableIfc'
 import UsersList from '@/components/project/UsersList'
 import UploadIfc from '@/components/project/UploadIfc'
+import BaseInputRadio from '@/components/base-components/BaseInputRadio'
 import DMS from '@/components/project/DMS'
 import { mixin as clickaway } from 'vue-clickaway'
 
@@ -132,10 +133,29 @@ export default {
     TableIfc,
     BaseCard,
     UsersList,
+    BaseInputRadio,
     'dms': DMS
   },
   data () {
     return {
+      rightChoosed: {
+        value: null,
+        text: 'Droits'
+      },
+      rights: [
+        {
+          text: this.$t('users.administrator'),
+          value: 100
+        },
+        {
+          text: this.$t('users.user'),
+          value: 50
+        },
+        {
+          text: this.$t('users.guest'),
+          value: 25
+        }
+      ],
       searchFilter: '',
       loadedProject: false,
       loadedDMS: false,
@@ -144,67 +164,32 @@ export default {
       displaySearchUser: false,
       displayRightsInvitation: false,
       clicked: false,
-      users: [
-        {
-          id: 1,
-          name: 'Gabriel Cambreling',
-          job: 'Architecte',
-          company: 'Cabinet Marsouin',
-          photo: 'https://mir-s3-cdn-cf.behance.net/user/276/df2bfd2271051.59b8e8f49b466.jpg',
-          role: 100
-        },
-        {
-          id: 2,
-          name: 'Lorem ipsum',
-          job: '',
-          company: '',
-          photo: '',
-          role: 25
-        },
-        {
-          id: 3,
-          name: 'Gabriel Cambreling',
-          job: 'Architecte',
-          company: '',
-          photo: '',
-          role: 50
-        },
-        {
-          id: 4,
-          name: 'François Thierry',
-          job: '',
-          company: '',
-          photo: 'https://d2cxspbh1aoie1.cloudfront.net/avatars/local/0b08b2d76dd021b129244840525ce6f469a07ccf9d8b6a7463712a051d686d2e/160',
-          role: 25
-        },
-        {
-          id: 5,
-          name: 'Gabriel Cambreling',
-          job: 'Chauffagiste',
-          company: 'mon entreprise',
-          photo: '',
-          role: 50
-        },
-        {
-          id: 6,
-          name: 'François Thierry',
-          job: 'Plombier',
-          company: 'Cabinet Marsouin',
-          photo: 'https://d2cxspbh1aoie1.cloudfront.net/avatars/local/0b08b2d76dd021b129244840525ce6f469a07ccf9d8b6a7463712a051d686d2e/160',
-          role: 25
-        },
+      mailInvitation: '',
+      guests: [
         {
           id: 7,
-          name: 'François Thierry',
-          job: 'Architecte',
-          company: 'Cabinet Marsouin',
-          photo: 'https://d2cxspbh1aoie1.cloudfront.net/avatars/local/0b08b2d76dd021b129244840525ce6f469a07ccf9d8b6a7463712a051d686d2e/160',
-          role: 100
+          firstname: 'Sarah',
+          lastname: 'Croche',
+          project_role: 50,
+          hasAccepted: false
+        },
+        {
+          id: 8,
+          firstname: 'Sarah',
+          lastname: 'Pelle',
+          project_role: 100,
+          hasAccepted: false
         }
       ]
     }
   },
   methods: {
+    ...mapActions({
+      fetchProjectUsers: 'project/fetchProjectUsers'
+    }),
+    sendInvitation () {
+      // Call to send invitation
+    },
     closeUploadIfc () {
       this.displayUpload = false
     },
@@ -253,14 +238,30 @@ export default {
       this.searchFilter = ''
     }
   },
+  mounted () {
+    this.fetchProjectUsers(this.project)
+  },
   created () {
     this.setCurrentCloud()
     this.setProject()
   },
   computed: {
     ...mapGetters({
-      getCloudById: 'getCloudById'
-    })
+      getCloudById: 'getCloudById',
+      getProjectById: 'getProjectById',
+      projectUsers: 'project/users'
+    }),
+    project () {
+      return this.getProjectById(this.$route.params.projectId)
+    },
+    users () {
+      return [
+        ...this.projectUsers.map(user => ({...user, hasAccepted: true}))
+      ]
+    },
+    allUsers () {
+      return this.users.concat(this.guests).reverse()
+    }
   }
 }
 </script>

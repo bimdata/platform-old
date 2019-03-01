@@ -12,7 +12,8 @@ export default {
     currentElement: null,
     elements: null,
     currentPath: [],
-    openedFolderIds: []
+    openedFolderIds: [],
+    users: []
   },
   actions,
   mutations,
