@@ -68,7 +68,7 @@
       </button>
       <transition name="slide-fade">
         <template v-if="!showModalUsersList">
-          <users-list :displayMenu="false" :users="users">
+          <users-list :displayMenu="false" :users="usersAdminCloud">
             <template slot="header-title">
               {{ $t('users.manage_admin') }}
             </template>
@@ -88,7 +88,7 @@
           </users-list>
         </template>
         <template v-else>
-          <users-list :displayMenu="false" :users="users" :filter="searchUserFilter">
+          <users-list :displayMenu="false" :users="usersNotAdminCloud" :filter="searchUserFilter">
             <template slot="header-title">
               {{ $t('users.users_list') }}
             </template>
@@ -149,11 +149,12 @@ export default {
       users: [
         {
           id: 1,
-          name: 'Gabriel Cambreling',
+          firstname: 'Gabriel',
+          lastname: 'Cambreling',
           job: 'Architecte',
           company: 'Cabinet Marsouin',
           photo: 'https://mir-s3-cdn-cf.behance.net/user/276/df2bfd2271051.59b8e8f49b466.jpg',
-          role: 100
+          project_role: 100
         },
         {
           id: 2,
@@ -161,47 +162,52 @@ export default {
           job: '',
           company: '',
           photo: '',
-          role: 25
+          project_role: 25
         },
         {
           id: 3,
-          name: 'Gabriel Cambreling',
+          firstname: 'Gabriel',
+          lastname: 'Cambreling',
           job: 'Architecte',
           company: '',
           photo: '',
-          role: 50
+          project_role: 50
         },
         {
           id: 4,
-          name: 'François Thierry',
+          firstname: 'François',
+          lastname: 'Thierry',
           job: '',
           company: '',
           photo: 'https://d2cxspbh1aoie1.cloudfront.net/avatars/local/0b08b2d76dd021b129244840525ce6f469a07ccf9d8b6a7463712a051d686d2e/160',
-          role: 25
+          project_role: 25
         },
         {
           id: 5,
-          name: 'Gabriel Cambreling',
+          firstname: 'Gabriel',
+          lastname: 'Cambreling',
           job: 'Chauffagiste',
           company: 'mon entreprise',
           photo: '',
-          role: 50
+          project_role: 50
         },
         {
           id: 6,
-          name: 'François Thierry',
+          firstname: 'François',
+          lastname: 'Thierry',
           job: 'Plombier',
           company: 'Cabinet Marsouin',
           photo: 'https://d2cxspbh1aoie1.cloudfront.net/avatars/local/0b08b2d76dd021b129244840525ce6f469a07ccf9d8b6a7463712a051d686d2e/160',
-          role: 25
+          project_role: 25
         },
         {
           id: 7,
-          name: 'François Thierry',
+          firstname: 'François',
+          lastname: 'Thierry',
           job: 'Architecte',
           company: 'Cabinet Marsouin',
           photo: 'https://d2cxspbh1aoie1.cloudfront.net/avatars/local/0b08b2d76dd021b129244840525ce6f469a07ccf9d8b6a7463712a051d686d2e/160',
-          role: 100
+          project_role: 100
         }
       ]
     }
@@ -240,6 +246,18 @@ export default {
       }
 
       return false
+    },
+    usersAdminCloud () {
+      let usersAdmin = _.filter(this.users, {project_role: 100})
+      return [
+        ...usersAdmin.map(user => ({...user, hasAccepted: true}))
+      ]
+    },
+    usersNotAdminCloud () {
+      let usersNotAdmin = _.filter(this.users, function (u) { return u.project_role !== 100 })
+      return [
+        ...usersNotAdmin.map(user => ({...user, hasAccepted: true}))
+      ]
     }
   },
   methods: {
