@@ -66,35 +66,56 @@
       <button type="button" class="close" @click="showModal = false">
         <svgicon name="close" height="20" width="20"></svgicon>
       </button>
-      <template v-if="!showModalUsersList">
-        <users-list :displayMenu="false" :users="users">
-          <template slot="header-title">
-            {{ $t('users.manage_admin') }}
-          </template>
-          <template slot="users-list-header">
-            <div class="users-list__header users-list__header--large">
-              <svgicon name="account-plus" height="20" width="20"></svgicon>
-
-              <button type="button" class="btn btn-primary">
-                <svgicon name="account"></svgicon>
-                {{ $t('users.users') }}
-              </button>
-            </div>
-          </template>
-        </users-list>
-      </template>
-      <template v-else>
-        <users-list :displayMenu="false" :users="users">
-          <template slot="header-title">
-            {{ $t('users.users_list') }}
-          </template>
-          <template slot="users-list-header">
-            <div class="users-list__header">
-              HEADER USERS
-            </div>
-          </template>
-        </users-list>
-      </template>
+      <transition name="slide-fade">
+        <template v-if="!showModalUsersList">
+          <users-list :displayMenu="false" :users="users">
+            <template slot="header-title">
+              {{ $t('users.manage_admin') }}
+            </template>
+            <template slot="users-list-header">
+              <div class="users-list__header users-list__header--large users-list__header__admin">
+                <svgicon name="account-plus" height="20" width="20" class="account-plus"></svgicon>
+                <input type="email" v-model="emailInvit" placeholder="Email invitation" class="users-list-modal__input-mail" />
+                <transition name="slide-fade">
+                  <base-valid-delete v-if="emailInvitValid" @on-valid-action="sendInvitation" @on-cancel-action="resetEmailInvit"></base-valid-delete>
+                </transition>
+                <button type="button" class="btn base-button-action" @click="showModalUsersList = true">
+                  <svgicon name="account" height="12" width="12"></svgicon>
+                  {{ $t('users.users') }}
+                </button>
+              </div>
+            </template>
+          </users-list>
+        </template>
+        <template v-else>
+          <users-list :displayMenu="false" :users="users" :filter="searchUserFilter">
+            <template slot="header-title">
+              {{ $t('users.users_list') }}
+            </template>
+            <template slot="users-list-header">
+              <div class="users-list__header">
+                <div class="users-list__header__left-container">
+                  <svgicon name="arrow-back" width="23" height="23" @click="showModalUsersList = false"></svgicon>
+                </div>
+                <div class="users-list__header__right-container" v-if="!displaySearchUser">
+                    <svgicon name="magnify" height="21" width="21" @click.native="displaySearchUser = true"></svgicon>
+                    <svgicon name="filter-variant" width="25" height="26" class="d-none"></svgicon>
+                </div>
+                <transition name="fade">
+                  <div class="users-list__header__search" v-if="displaySearchUser">
+                    <input type="text" placeholder="Search user" v-model="searchUserFilter">
+                    <div class="users-list__header__invitation__actions">
+                      <span class="check-cross" @click="resetSearchUser">
+                        <svgicon name="close" height="21" width="21"></svgicon>
+                      </span>
+                    </div>
+                  </div>
+                </transition>
+              </div>
+            </template>
+          </users-list>
+        </template>
+      </transition>
     </b-modal>
   </div>
 </template>
@@ -106,6 +127,7 @@ import CardProjectList from '@/components/project-list/CardProjectList'
 import BaseCard from '@/components/base-components/BaseCard'
 import BaseButtonAction from '@/components/base-components/BaseButtonAction'
 import BaseButtonIcon from '@/components/base-components/BaseButtonIcon'
+import BaseValidDelete from '@/components/base-components/BaseValidDelete'
 import UsersList from '@/components/project/UsersList'
 import _ from 'lodash'
 
@@ -115,10 +137,14 @@ export default {
       selectedCloud: {},
       optionsCloud: [],
       displayNewForm: false,
+      displaySearchUser: false,
       newProjectName: '',
+      emailInvit: '',
       cloud: null,
       searchFilter: '',
+      searchUserFilter: '',
       showModal: false,
+      showSubmitInvit: false,
       showModalUsersList: false,
       users: [
         {
@@ -187,7 +213,8 @@ export default {
     BaseSearchBar,
     BaseButtonIcon,
     BaseCard,
-    UsersList
+    UsersList,
+    BaseValidDelete
   },
   computed: {
     ...mapGetters({
@@ -204,11 +231,24 @@ export default {
         return project.name.toLowerCase().includes(this.searchFilter.toLowerCase())
       })
       return filteredprojects
+    },
+    emailInvitValid () {
+      let regex = new RegExp(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)
+
+      if (regex.test(this.emailInvit)) {
+        return true
+      }
+
+      return false
     }
   },
   methods: {
     toSearch (value) {
       this.searchFilter = value
+    },
+    resetSearchUser () {
+      this.displaySearchUser = false
+      this.searchUserFilter = ''
     },
     selectCloud ({ value: cloudId }) {
       this.$router.push({name: 'project-list', params: {cloudId}})
@@ -223,6 +263,12 @@ export default {
         this.newProjectName = ''
         this.displayNewForm = false
       })
+    },
+    sendInvitation () {
+      // TODO call to send invitation to this.emailInvit
+    },
+    resetEmailInvit () {
+      this.emailInvit = ''
     }
   },
   created () {
