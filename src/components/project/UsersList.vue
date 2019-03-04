@@ -192,13 +192,6 @@ export default {
       const cloudId = this.$route.params.cloudId
       const projectId = this.$route.params.projectId
 
-      console.log({
-        cloudId,
-        projectId,
-        userId: user.id,
-        role: right.value
-      })
-
       await this.updateProjectUserRole({
         cloudId,
         projectId,
@@ -254,7 +247,7 @@ export default {
           invite: {
             email: this.mailInvitation,
             role: this.rightChoosed.value,
-            redirect_uri: `${process.env.BD_APP_URL}/cloud/${this.$route.params.cloudId}/${this.$route.params.projectId}`
+            redirect_uri: `${process.env.BD_APP_URL}/cloud/${this.$route.params.cloudId}/project/${this.$route.params.projectId}`
           }
         })
 
