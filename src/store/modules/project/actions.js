@@ -213,5 +213,17 @@ export default {
     } catch (e) {
       console.log(e)
     }
+  },
+  projectInvite (store, {project, invite}) {
+    return this.ProjectRepositoryRequest
+      .projectInvite(project.cloud.id, project.id, invite)
+  },
+  updateProjectUserRole (store, {cloudId, projectId, userId, role}) {
+    return this.ProjectRepositoryRequest
+      .updateUserRights(cloudId, userId, projectId, { role })
+  },
+  deleteProjectUser (store, {cloudId, projectId, userId}) {
+    return this.ProjectRepositoryRequest
+      .deleteUser({cloudId, projectId, userId})
   }
 }

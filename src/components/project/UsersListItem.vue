@@ -36,7 +36,7 @@
                     :id="user.id"
                     :option="right"
                     name="rights"
-                    @input="radioSelected"
+                    @input="radioSelected(user, right)"
                     :selected="user.project_role"
                   ></base-input-radio>
                 </div>
@@ -59,6 +59,7 @@
     </div>
 </template>
 <script>
+import { mapActions } from 'vuex'
 import BaseValidDelete from '@/components/base-components/BaseValidDelete'
 import BaseButtonOption from '@/components/base-components/BaseButtonOption'
 import BaseInputRadio from '@/components/base-components/BaseInputRadio'
@@ -106,13 +107,37 @@ export default {
     }
   },
   methods: {
-    radioSelected (object) {
-      console.log('object', object)
-      // Call ajax
+    ...mapActions({
+      fetchProjectUsers: 'project/fetchProjectUsers',
+      deleteUser: 'project/deleteProjectUser',
+      updateProjectUserRole: 'project/updateProjectUserRole'
+    }),
+    async radioSelected (user, right) {
+      const cloudId = this.$route.params.cloudId
+      const projectId = this.$route.params.projectId
+      console.log({
+        cloudId,
+        projectId,
+        userId: user.id,
+        role: right.value
+      })
+      await this.updateProjectUserRole({
+        cloudId,
+        projectId,
+        userId: user.id,
+        role: right.value
+      })
     },
     toggleRights () {
       this.displayRights = !this.displayRights
       this.showRemoveActions = false
+    },
+    async removeUser (userId) {
+      const cloudId = this.$route.params.cloudId
+      const projectId = this.$route.params.projectId
+
+      await this.deleteUser({ cloudId, projectId, userId })
+      this.fetchProjectUsers(this.project)
     },
     toggleMenu (isOpened) {
       if (!isOpened) {
@@ -144,9 +169,6 @@ export default {
       }
 
       return false
-    },
-    removeUser (userId) {
-      // Call to remove user
     }
   }
 }

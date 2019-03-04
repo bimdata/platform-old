@@ -21,67 +21,69 @@
     </div>
 
     <template v-if="loadedProject && loadedDMS">
-      <div class="row justify-content-between">
-        <div class="content-project">
-          <card-project-content></card-project-content>
-        </div>
-        <div class="user-project">
-          <users-list :users="allUsers" :filter="searchFilter">
-            <template slot="users-list-header">
-              <div class="users-list__header">
-                <div class="users-list__header__left-container d-none">
-                  <svgicon name="menu" width="23" height="23"></svgicon>
-                </div>
-                <transition name="fade">
-                  <div class="users-list__header__right-container" v-if="!displaySendInvit && !displaySearchUser">
-                    <span class="base-button-option__tool" :class="{clicked: clicked}">
-                      <svgicon name="account-plus" width="22" height="22" @click.native="openSendInvit" class="account-plus"></svgicon>
-                    </span>
-                    <svgicon name="magnify" height="21" width="21" @click.native="openSearchUser"></svgicon>
-                    <svgicon name="filter-variant" width="25" height="26" class="d-none"></svgicon>
+      <div class="row mb-5">
+        <div class="col-12 d-flex">
+          <div class="content-project">
+            <card-project-content></card-project-content>
+          </div>
+          <div class="user-project">
+            <users-list :users="allUsers" :filter="searchFilter">
+              <template slot="users-list-header">
+                <div class="users-list__header">
+                  <div class="users-list__header__left-container d-none">
+                    <svgicon name="menu" width="23" height="23"></svgicon>
                   </div>
-                </transition>
-                <transition name="fade">
-                  <div class="users-list__header__invitation" v-if="displaySendInvit">
-                    <input type="text" v-model="mailInvitation" placeholder="Email adress">
-                    <div class="rights-select">
-                      <svgicon name="chevron-down" width="20" height="18" class="arrow-down"></svgicon>
-                      <span @click="toggleRightsInvitation" class="ellipsis">{{ rightChoosed.text }}</span>
-                      <div class="base-button-option__menu" v-if="displayRightsInvitation" v-on-clickaway="away">
-                        <ul>
-                          <li v-for="(right, index) in rights" :key="index">
-                            <base-input-radio
-                              :option="right"
-                              name="invitation-rights"
-                              @input="setInvitationRight"
-                            ></base-input-radio>
-                          </li>
-                        </ul>
+                  <transition name="fade">
+                    <div class="users-list__header__right-container" v-if="!displaySendInvit && !displaySearchUser">
+                      <span class="base-button-option__tool" :class="{clicked: clicked}">
+                        <svgicon name="account-plus" width="22" height="22" @click.native="openSendInvite" class="account-plus"></svgicon>
+                      </span>
+                      <svgicon name="magnify" height="21" width="21" @click.native="openSearchUser"></svgicon>
+                      <svgicon name="filter-variant" width="25" height="26" class="d-none"></svgicon>
+                    </div>
+                  </transition>
+                  <transition name="fade">
+                    <div class="users-list__header__invitation" v-if="displaySendInvit">
+                      <input type="text" v-model="mailInvitation" placeholder="Email adress">
+                      <div class="rights-select">
+                        <svgicon name="chevron-down" width="20" height="18" class="arrow-down"></svgicon>
+                        <span @click="toggleRightsInvitation" class="ellipsis">{{ rightChoosed.text }}</span>
+                        <div class="base-button-option__menu" v-if="displayRightsInvitation" v-on-clickaway="away">
+                          <ul>
+                            <li v-for="(right, index) in rights" :key="index">
+                              <base-input-radio
+                                :option="right"
+                                name="invitation-rights"
+                                @input="setInvitationRight"
+                              ></base-input-radio>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="users-list__header__invitation__actions">
+                        <span class="check" @click="sendInvitation">
+                          <svgicon name="check" height="22" width="24"></svgicon>
+                        </span>
+                        <span class="check-cross" @click="displaySendInvit = false">
+                          <svgicon name="close" height="21" width="21"></svgicon>
+                        </span>
                       </div>
                     </div>
-                    <div class="users-list__header__invitation__actions">
-                      <span class="check" @click="sendInvitation">
-                        <svgicon name="check" height="22" width="24"></svgicon>
-                      </span>
-                      <span class="check-cross" @click="displaySendInvit = false">
-                        <svgicon name="close" height="21" width="21"></svgicon>
-                      </span>
+                  </transition>
+                  <transition name="fade">
+                    <div class="users-list__header__search" v-if="displaySearchUser">
+                      <input type="text" placeholder="Search user" v-model="searchFilter">
+                      <div class="users-list__header__invitation__actions">
+                        <span class="check-cross" @click="resetSearchUser">
+                          <svgicon name="close" height="21" width="21"></svgicon>
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                </transition>
-                <transition name="fade">
-                  <div class="users-list__header__search" v-if="displaySearchUser">
-                    <input type="text" placeholder="Search user" v-model="searchFilter">
-                    <div class="users-list__header__invitation__actions">
-                      <span class="check-cross" @click="resetSearchUser">
-                        <svgicon name="close" height="21" width="21"></svgicon>
-                      </span>
-                    </div>
-                  </div>
-                </transition>
-              </div>
-            </template>
-          </users-list>
+                  </transition>
+                </div>
+              </template>
+            </users-list>
+          </div>
         </div>
       </div>
       <div class="row">
@@ -185,10 +187,23 @@ export default {
   },
   methods: {
     ...mapActions({
-      fetchProjectUsers: 'project/fetchProjectUsers'
+      fetchProjectUsers: 'project/fetchProjectUsers',
+      projectInvite: 'project/projectInvite',
+      deleteUser: 'project/deleteProjectUser'
     }),
-    sendInvitation () {
-      // Call to send invitation
+    async sendInvitation () {
+      if (this.mailInvitation && this.rightChoosed.value) {
+        await this.projectInvite({
+          project: this.project,
+          invite: {
+            email: this.mailInvitation,
+            role: this.rightChoosed.value,
+            redirect_uri: `${process.env.BD_APP_URL}/cloud/${this.$route.params.cloudId}/${this.$route.params.projectId}`
+          }
+        })
+
+        this.displaySendInvit = false
+      }
     },
     closeUploadIfc () {
       this.displayUpload = false
@@ -213,7 +228,7 @@ export default {
         this.loadedProject = true
       })
     },
-    openSendInvit () {
+    openSendInvite () {
       this.clicked = false
       this.clicked = true
       setTimeout(() => {
