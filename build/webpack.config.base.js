@@ -81,7 +81,10 @@ module.exports = {
   },
 
   plugins: [
-    new Dotenv({systemvars: true}),
+    new Dotenv({
+      systemvars: true,
+      path: './.env.old'
+    }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html',

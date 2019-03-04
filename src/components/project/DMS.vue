@@ -3,29 +3,30 @@
         <dms-breadcrumb @change-folder="changeFolder"></dms-breadcrumb>
         <div class="dms-container">
             <div class="dms__toolbox-selected" v-show="displaySelectedToolbox">
-              <div class="toolbox-selected__content">
-                  <div class="dms__delete-button" @click="deleteElements">
-                      <svgicon name="delete" width="22" height="22"></svgicon>
-                      {{ $t('project.delete') }}
-                  </div>
-                  <div class="dms__move-button">
-                      <span class="container-button-move-top" @click="displayMoveTo">
-                          <svgicon name="move" width="22" height="22"></svgicon>
-                          {{ $t('project.move_to') }}
-                      </span>
-                      <base-tree-select v-if="displayTreeSelect"
-                                        v-on-clickaway="closeMoveTo"
-                                        @close="closeMoveTo"
-                                        @chooseItem="moveItems"
-                                        :tree="folderTree"
-                                        :selected="selected"
-                                        :initial-parent-node="getCurrentFolderId">
-                      </base-tree-select>
-                  </div>
-                  <div class="dms__selected-display" @click="deselectAll">
-                      {{ $t('project.unselect_all') }} <span class="item-counter">{{ nbSelectedItems }}</span>
-                  </div>
-              </div>
+                <div class="toolbox-selected__content">
+                    <div class="dms__delete-button" @click="deleteElements">
+                        <svgicon name="delete" width="22" height="22"></svgicon>
+                        {{ $t('project.delete') }}
+                    </div>
+                    <div class="dms__move-button">
+                        <span class="container-button-move-top" @click="displayMoveTo">
+                            <svgicon name="move" width="22" height="22"></svgicon>
+                            {{ $t('project.move_to') }}
+                        </span>
+                        <base-tree-select
+                          v-if="displayTreeSelect"
+                          v-on-clickaway="closeMoveTo"
+                          @close="closeMoveTo"
+                          @chooseItem="moveItems"
+                          :tree="folderTree"
+                          :selected="selected"
+                          :initial-parent-node="getCurrentFolderId"
+                        ></base-tree-select>
+                    </div>
+                    <div class="dms__selected-display" @click="deselectAll">
+                        {{ $t('project.unselect_all') }} <span class="item-counter">{{ nbSelectedItems }}</span>
+                    </div>
+                </div>
             </div>
             <div class="dms__toolbox" v-show="!displaySelectedToolbox">
                 <base-button-tool iconName="tree"
@@ -39,7 +40,14 @@
                             {{ $t('project.create_folder') }}
                         </div>
                         <div class="base-input-text-material">
-                            <input type="text" ref="createFolderInput" :placeholder="$t('project.folder_name')" required v-model="newFolderName" @keyup.enter="saveFolder">
+                            <input
+                              ref="createFolderInput"
+                              @keyup.enter="saveFolder"
+                              v-model="newFolderName"
+                              :placeholder="$t('project.folder_name')"
+                              type="text"
+                              required
+                            >
                             <span class="highlight"></span>
                             <span class="bar"></span>
                         </div>
@@ -60,16 +68,23 @@
                     <dms-tree-view @close="closeTreeView"></dms-tree-view>
                 </div>
                 <div ref="listFiles" class="dms__list-files">
-                    <b-table :items="filteredList"
+                    <b-table
+                        :items="filteredList"
                         :filter="filter"
                         class="bd-table"
-                        :fields="fields">
+                        :fields="fields"
+                    >
                         <template slot="HEAD_selected" slot-scope="data">
-                            <label for="select-all"
-                                  @click="selectAllItems"
-                                  class="base-checkbox">
-                                <input id="select-all"
-                                      type="checkbox" v-model="selectAll">
+                            <label
+                                for="select-all"
+                                 @click="selectAllItems"
+                                 class="base-checkbox"
+                            >
+                                <input
+                                    v-model="selectAll"
+                                    id="select-all"
+                                    type="checkbox"
+                                >
                                 <span></span>
                             </label>
                         </template>
@@ -80,7 +95,12 @@
                             {{ $t('project.type') }}
                         </template>
                         <template slot="HEAD_creator" slot-scope="data">
-                            <list-choice :label="$t('project.creator')" :list="listCreatorUniq" :nameInput="data.label" @selected-list-choice="setCreatorsList"></list-choice>
+                            <list-choice
+                                @selected-list-choice="setCreatorsList"
+                                :label="$t('project.creator')"
+                                :list="listCreatorUniq"
+                                :nameInput="data.label"
+                            ></list-choice>
                         </template>
                         <template slot="HEAD_date" slot-scope="data">
                             {{ $t('project.updated_at') }}
@@ -89,20 +109,26 @@
                             {{ $t('project.size') }}
                         </template>
                         <template slot="selected" slot-scope="data">
-                                <label :for="'checkbox-'+ data.item.id"
-                                      class="base-checkbox">
-                                    <input type="checkbox"
-                                          :id="'checkbox-'+ data.item.id"
-                                          :value="{type: data.item.idPrefix, id: data.item.id}"
-                                          v-model="selected">
-                                    <span></span>
-                                </label>
+                            <label
+                              :for="'checkbox-'+ data.item.id"
+                              class="base-checkbox"
+                            >
+                                <input
+                                  type="checkbox"
+                                  :id="'checkbox-'+ data.item.id"
+                                  :value="{type: data.item.idPrefix, id: data.item.id}"
+                                  v-model="selected"
+                                >
+                                <span></span>
+                            </label>
                         </template>
                         <template slot="name" slot-scope="data">
                             <span @click="clickedFile({type: data.item.type, id: data.item.id})">
                                 <template v-if="data.item.icon !== 'folder2.svg'">
-                                <img width="20"
-                                    :src="'/static/img/files-icons/' + data.item.icon" />
+                                <img
+                                    :src="'/static/img/files-icons/' + data.item.icon"
+                                    width="20"
+                                />
                                     {{ data.item.name }}
                                 </template>
                                 <template v-else>
@@ -114,7 +140,7 @@
                             </span>
                         </template>
                         <template slot="creator" slot-scope="data">
-                          {{ data.value }}
+                            {{ data.value }}
                         </template>
                         <template slot="date" slot-scope="data">
                             {{ data.item.date|formatDate }}
@@ -141,12 +167,12 @@
                                             </div>
                                             <div class="base-input-text-material">
                                                 <input
-                                                  type="text"
-                                                  autofocus
-                                                  :placeholder="$t('project.folder_name')"
-                                                  required
-                                                  v-model="renameFolder"
-                                                  @:keyup.enter="saveRename(documentAction)"
+                                                    type="text"
+                                                    autofocus
+                                                    :placeholder="$t('project.folder_name')"
+                                                    required
+                                                    v-model="renameFolder"
+                                                    @keyup.enter="saveRename(documentAction)"
                                                 >
                                                 <span class="highlight"></span>
                                                 <span class="bar"></span>
@@ -157,12 +183,16 @@
                                             </div>
                                         </div>
                                     </li>
-                                    <li @click.stop.self="displayRemoveActions" class="base-button-option__menu__remove" :class="{'actif': showRemoveActions}">
-                                      <svgicon name="delete" width="13" height="13"></svgicon>
-                                      {{ $t('project.delete') }}
-                                      <transition name="slide-fade">
-                                        <base-valid-delete v-if="showRemoveActions" @on-valid-action="remove(documentAction)" @on-cancel-action="showRemoveActions = false"></base-valid-delete>
-                                      </transition>
+                                    <li
+                                        @click.stop.self="displayRemoveActions"
+                                        class="base-button-option__menu__remove"
+                                        :class="{'actif': showRemoveActions}"
+                                    >
+                                        <svgicon name="delete" width="13" height="13"></svgicon>
+                                        {{ $t('project.delete') }}
+                                        <transition name="slide-fade">
+                                            <base-valid-delete v-if="showRemoveActions" @on-valid-action="remove(documentAction)" @on-cancel-action="showRemoveActions = false"></base-valid-delete>
+                                        </transition>
                                     </li>
                                 </ul>
                             </base-button-option>
@@ -420,29 +450,27 @@ export default {
       return this.selected.length
     },
     currentItems () {
-      let currentItems = []
-      let currentChildren = this.currentElement.children
-      for (let item of currentChildren) {
-        let result = this.selected.some((element) => {
-          let type = (this.type(item.file_name) === 'Folder') ? 'folder' : 'file'
-          return element.id === item.id && element.type === type
-        })
+      return this.currentElement.children.map(
+        item => {
+          const result = this.selected.some((element) => {
+            let type = (this.type(item.file_name) === 'Folder') ? 'folder' : 'file'
+            return element.id === item.id && element.type === type
+          })
 
-        currentItems.push({
-          id: item.id,
-          name: item.name,
-          date: item.created_at,
-          type: this.type(item.file_name),
-          idPrefix: (this.type(item.file_name) === 'Folder') ? 'folder' : 'file',
-          icon: (item.file_name !== undefined) ? this.type(item.file_name).toLowerCase() + '.svg' : 'folder2.svg',
-          creator: item.created_by,
-          size: item.size,
-          file: item.file,
-          _rowVariant: result ? 'selected-row' : ''
-        })
-      }
-
-      return currentItems
+          return {
+            id: item.id,
+            name: item.name,
+            date: item.created_at,
+            type: this.type(item.file_name),
+            idPrefix: (this.type(item.file_name) === 'Folder') ? 'folder' : 'file',
+            icon: (item.file_name !== undefined) ? this.type(item.file_name).toLowerCase() + '.svg' : 'folder2.svg',
+            creator: item.created_by,
+            size: item.size,
+            file: item.file,
+            _rowVariant: result ? 'selected-row' : ''
+          }
+        }
+      )
     },
     listCreatorUniq () {
       let hasEmptyCreator = this.currentItems.some(item => !item.creator)
@@ -493,9 +521,8 @@ export default {
       return elements
     }
   },
-  created () {
-    this.$store.dispatch('project/getPath').then((result) => {
-    })
+  async created () {
+    await this.$store.dispatch('project/getPath')
   }
 }
 </script>

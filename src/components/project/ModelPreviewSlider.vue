@@ -19,7 +19,9 @@
       <div v-if="showViewerButton" class="model-control-button">
         <base-button-action @click="viewModel(panoramas[activePanIndex].id)" icon-name="eye">{{ $t('ifc.open') }}</base-button-action>
       </div>
-      <div class="model-preview-counter"><b class="text-primary">{{ currentCounter }}</b>/{{ panoramas.length }}</div>
+      <div class="model-preview-counter">
+        <b class="text-primary">{{ currentCounter }}</b>/{{ panoramas.length }}
+      </div>
     </div>
   </div>
 </template>

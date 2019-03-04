@@ -20,8 +20,9 @@
                   v-if="folder.name && folder.name.length > 10"
                   v-b-tooltip.hover
                   :title="folder.name"
-                  class="dms__line-tree-view-content__name">
-                  {{ folder.name | middle-truncate(10) }}
+                  class="dms__line-tree-view-content__name"
+                >
+                    {{ folder.name | middle-truncate(10) }}
                 </span>
                 <span @click.stop="changeFolder(folder.id)" class="dms__line-tree-view-content__name" v-else>
                   {{ folder.name }}

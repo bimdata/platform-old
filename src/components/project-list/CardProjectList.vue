@@ -56,11 +56,13 @@
                                 <span v-else>{{ project.name }}</span>
                             </div>
                             <div class="card-bd__text-container" v-show="editMode">
-                                <input ref="updateInput"
-                                      type="text"
-                                      v-model="newName"
-                                      @keyup.enter="submitUpdate"
-                                      :placeholder="project.name" />
+                                <input
+                                    ref="updateInput"
+                                    type="text"
+                                    v-model="newName"
+                                    @keyup.enter="submitUpdate"
+                                    :placeholder="project.name"
+                                />
                             </div>
                         </div>
                     </div>

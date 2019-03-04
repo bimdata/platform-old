@@ -143,9 +143,8 @@ export default {
         deletedCalls.push(this.ProjectRepositoryRequest.deleteFolder(idCloud, idProject, id))
       }
     }
-    Promise.all(deletedCalls).then(() => {
-      dispatch('getTree', state.selectedProject)
-    })
+    await Promise.all(deletedCalls)
+    await dispatch('getTree', state.selectedProject)
   },
   async createFolder ({commit, state, dispatch}, name) {
     let idCloud = state.selectedProject.cloud.id

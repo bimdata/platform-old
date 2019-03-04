@@ -20,7 +20,10 @@ export default {
       type: String,
       default: ''
     },
-    displayLink: Boolean
+    displayLink: {
+      type: Boolean,
+      default: false
+    }
   }
 }
 </script>
