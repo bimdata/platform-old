@@ -238,6 +238,7 @@ export default {
         })
 
         this.displaySendInvit = false
+        console.log(response)
       }
     },
     setInvitationRight (value) {

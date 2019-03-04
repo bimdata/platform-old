@@ -50,4 +50,8 @@ export class CloudRepository {
       console.log(e.statusCode)
     }
   }
+
+  inviteUser (cloudId, invite) {
+    return this.cloudApiClient.cloudInvite(cloudId, invite)
+  }
 }
