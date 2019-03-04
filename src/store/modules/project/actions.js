@@ -222,13 +222,13 @@ export default {
       .projectInvite(project.cloud.id, project.id, invite)
   },
 
-  deleteProjectUser (store, {cloudId, projectId, userId}) {
-    console.log(cloudId, projectId, userId)
+  updateProjectUserRole (store, {cloudId, projectId, userId, role}) {
     return this.ProjectRepositoryRequest
-      .deleteUser({
-        cloudId,
-        userId,
-        projectId
-      })
+      .updateUserRights(cloudId, userId, projectId, { role })
+  },
+
+  deleteProjectUser (store, {cloudId, projectId, userId}) {
+    return this.ProjectRepositoryRequest
+      .deleteUser({ cloudId, userId, projectId })
   }
 }

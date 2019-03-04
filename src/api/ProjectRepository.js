@@ -117,18 +117,27 @@ export class ProjectRepository {
     }
   }
 
-  async projectInvite (cloudId, projectId, invite) {
+  projectInvite (cloudId, projectId, invite) {
     try {
-      return await this.projectApiClient.projectInvite(cloudId, projectId, invite)
+      return this.projectApiClient.projectInvite(cloudId, projectId, invite)
     } catch (e) {
       console.log(e)
     }
   }
 
-  async deleteUser (params) {
+  deleteUser (params) {
     try {
-      return await this.projectApiClient
+      return this.projectApiClient
         .deleteProjectUser(params.cloudId, params.userId, params.projectId)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  updateUserRights (cloudPk, id, projectPk, userProjectUpdate) {
+    try {
+      return this.projectApiClient
+        .updateProjectUser(cloudPk, id, projectPk, userProjectUpdate)
     } catch (e) {
       console.log(e)
     }

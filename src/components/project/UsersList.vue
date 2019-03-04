@@ -97,7 +97,7 @@
                           :key="`radio-${rightIndex}`" :id="user.id"
                           :option="right"
                           name="rights"
-                          @input="radioSelected"
+                          @input="radioSelected(user, right)"
                           :selected="user.project_role"
                         ></base-input-radio>
                       </div>
@@ -175,7 +175,8 @@ export default {
     ...mapActions({
       fetchProjectUsers: 'project/fetchProjectUsers',
       projectInvite: 'project/projectInvite',
-      deleteUser: 'project/deleteProjectUser'
+      deleteUser: 'project/deleteProjectUser',
+      updateProjectUserRole: 'project/updateProjectUserRole'
     }),
     toggleRights () {
       this.displayRights = !this.displayRights
@@ -187,8 +188,23 @@ export default {
         this.displayRights = false
       }
     },
-    radioSelected (object) {
-      console.log('object', object)
+    async radioSelected (user, right) {
+      const cloudId = this.$route.params.cloudId
+      const projectId = this.$route.params.projectId
+
+      console.log({
+        cloudId,
+        projectId,
+        userId: user.id,
+        role: right.value
+      })
+
+      await this.updateProjectUserRole({
+        cloudId,
+        projectId,
+        userId: user.id,
+        role: right.value
+      })
       // Call ajax
     },
     async removeUser (userId) {
