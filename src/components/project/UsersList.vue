@@ -12,7 +12,7 @@
           <transition name="fade">
             <div class="users-list__header__right-container" v-if="!displaySendInvit && !displaySearchUser">
                   <span class="base-button-option__tool" :class="{clicked: clicked}">
-                    <svgicon name="account-plus" width="22" height="22" @click.native="openSendInvit"
+                    <svgicon name="account-plus" width="22" height="22" @click.native="openSendInvite"
                              class="account-plus"></svgicon>
                   </span>
               <svgicon name="magnify" height="21" width="21" @click.native="openSearchUser"></svgicon>
@@ -174,7 +174,8 @@ export default {
   methods: {
     ...mapActions({
       fetchProjectUsers: 'project/fetchProjectUsers',
-      projectInvite: 'project/projectInvite'
+      projectInvite: 'project/projectInvite',
+      deleteUser: 'project/deleteProjectUser'
     }),
     toggleRights () {
       this.displayRights = !this.displayRights
@@ -190,9 +191,16 @@ export default {
       console.log('object', object)
       // Call ajax
     },
-    removeUser (userId) {
-      console.log(userId)
-      // Call to remove user
+    async removeUser (userId) {
+      const cloudId = this.$route.params.cloudId
+      const projectId = this.$route.params.projectId
+
+      console.log(cloudId, projectId, userId)
+      const response = await this.deleteUser(cloudId, projectId, userId)
+
+      console.log(response)
+
+      this.fetchProjectUsers(this.project)
     },
     isAdmin (userRole) {
       if (userRole) {
@@ -207,7 +215,7 @@ export default {
 
       return false
     },
-    openSendInvit () {
+    openSendInvite () {
       this.clicked = false
       this.clicked = true
       setTimeout(() => {

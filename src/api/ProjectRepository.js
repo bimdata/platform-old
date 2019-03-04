@@ -124,4 +124,12 @@ export class ProjectRepository {
       console.log(e)
     }
   }
+
+  async deleteUser (params) {
+    try {
+      return await this.projectApiClient.deleteProjectUser(params)
+    } catch (e) {
+      console.log(e)
+    }
+  }
 }

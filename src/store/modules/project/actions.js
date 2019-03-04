@@ -217,10 +217,17 @@ export default {
     commit('SET_PROJECT_USERS', users)
   },
 
-  async projectInvite (store, {project, invite}) {
-    const response = await this.ProjectRepositoryRequest
+  projectInvite (store, {project, invite}) {
+    return this.ProjectRepositoryRequest
       .projectInvite(project.cloud.id, project.id, invite)
+  },
 
-    console.log(response)
+  deleteProjectUser (store, {cloudId, projectId, userId}) {
+    return this.ProjectRepositoryRequest
+      .deleteUser({
+        cloud_pk: cloudId,
+        id: userId,
+        project_pk: projectId
+      })
   }
 }
