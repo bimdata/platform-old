@@ -127,7 +127,8 @@ export class ProjectRepository {
 
   async deleteUser (params) {
     try {
-      return await this.projectApiClient.deleteProjectUser(params)
+      return await this.projectApiClient
+        .deleteProjectUser(params.cloudId, params.userId, params.projectId)
     } catch (e) {
       console.log(e)
     }

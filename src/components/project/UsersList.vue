@@ -195,10 +195,7 @@ export default {
       const cloudId = this.$route.params.cloudId
       const projectId = this.$route.params.projectId
 
-      console.log(cloudId, projectId, userId)
-      const response = await this.deleteUser(cloudId, projectId, userId)
-
-      console.log(response)
+      await this.deleteUser({ cloudId, projectId, userId })
 
       this.fetchProjectUsers(this.project)
     },

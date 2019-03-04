@@ -223,11 +223,12 @@ export default {
   },
 
   deleteProjectUser (store, {cloudId, projectId, userId}) {
+    console.log(cloudId, projectId, userId)
     return this.ProjectRepositoryRequest
       .deleteUser({
-        cloud_pk: cloudId,
-        id: userId,
-        project_pk: projectId
+        cloudId,
+        userId,
+        projectId
       })
   }
 }
