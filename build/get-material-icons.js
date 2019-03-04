@@ -4,6 +4,7 @@ const destPath = 'src/assets/images/icons';
 
 const svgIcons = [
   'account.svg',
+  'account-plus.svg',
   'alert-circle.svg',
   'application.svg',
   'check-circle.svg',
@@ -18,11 +19,13 @@ const svgIcons = [
   'cloud.svg',
   'delete.svg',
   'eye.svg',
+  'filter-variant.svg',
   'folder-outline.svg',
   'image-plus.svg',
   'keyboard_arrow_down',
   'keyboard_arrow_up',
   'magnify.svg',
+  'menu.svg',
   'pencil.svg',
   'play.svg',
   'plus.svg'

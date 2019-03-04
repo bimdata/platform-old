@@ -13,6 +13,7 @@
       </div>
       <div class="search-container mt-2 mt-sm-0">
         <base-search-bar @on-search="toSearch" class="m-auto"></base-search-bar>
+        <base-button-icon iconName="account-plus" height="16" width="16" @on-click-action="showModal = !showModal" class="ml-2"></base-button-icon>
       </div>
     </div>
     <transition-group name="card-item" tag="div" class="project_list row">
@@ -60,6 +61,62 @@
         :key="project.id"
       ></card-project-list>
     </transition-group>
+
+    <b-modal v-model="showModal" centered hide-header hide-footer class="users-list-modal">
+      <button type="button" class="close" @click="showModal = false">
+        <svgicon name="close" height="20" width="20"></svgicon>
+      </button>
+      <transition name="slide-fade">
+        <template v-if="!showModalUsersList">
+          <users-list :displayMenu="false" :users="usersAdminCloud">
+            <template slot="header-title">
+              {{ $t('users.manage_admin') }}
+            </template>
+            <template slot="users-list-header">
+              <div class="users-list__header users-list__header--large users-list__header__admin">
+                <svgicon name="account-plus" height="20" width="20" class="account-plus"></svgicon>
+                <input type="email" v-model="emailInvit" placeholder="Email invitation" class="users-list-modal__input-mail" />
+                <transition name="slide-fade">
+                  <base-valid-delete v-if="emailInvitValid" @on-valid-action="sendInvitation" @on-cancel-action="resetEmailInvit"></base-valid-delete>
+                </transition>
+                <button type="button" class="btn base-button-action" @click="showModalUsersList = true">
+                  <svgicon name="account" height="12" width="12"></svgicon>
+                  {{ $t('users.users') }}
+                </button>
+              </div>
+            </template>
+          </users-list>
+        </template>
+        <template v-else>
+          <users-list :displayMenu="false" :users="usersNotAdminCloud" :filter="searchUserFilter">
+            <template slot="header-title">
+              {{ $t('users.users_list') }}
+            </template>
+            <template slot="users-list-header">
+              <div class="users-list__header">
+                <div class="users-list__header__left-container">
+                  <svgicon name="arrow-back" width="23" height="23" @click="showModalUsersList = false"></svgicon>
+                </div>
+                <div class="users-list__header__right-container" v-if="!displaySearchUser">
+                    <svgicon name="magnify" height="21" width="21" @click.native="displaySearchUser = true"></svgicon>
+                    <svgicon name="filter-variant" width="25" height="26" class="d-none"></svgicon>
+                </div>
+                <transition name="fade">
+                  <div class="users-list__header__search" v-if="displaySearchUser">
+                    <input type="text" placeholder="Search user" v-model="searchUserFilter">
+                    <div class="users-list__header__invitation__actions">
+                      <span class="check-cross" @click="resetSearchUser">
+                        <svgicon name="close" height="21" width="21"></svgicon>
+                      </span>
+                    </div>
+                  </div>
+                </transition>
+              </div>
+            </template>
+          </users-list>
+        </template>
+      </transition>
+    </b-modal>
   </div>
 </template>
 <script>
@@ -67,7 +124,11 @@ import { mapGetters } from 'vuex'
 import BaseChoiceList from '@/components/base-components/BaseChoiceList'
 import BaseSearchBar from '@/components/base-components/BaseSearchBar'
 import CardProjectList from '@/components/project-list/CardProjectList'
+import BaseCard from '@/components/base-components/BaseCard'
 import BaseButtonAction from '@/components/base-components/BaseButtonAction'
+import BaseButtonIcon from '@/components/base-components/BaseButtonIcon'
+import BaseValidDelete from '@/components/base-components/BaseValidDelete'
+import UsersList from '@/components/project/UsersList'
 import _ from 'lodash'
 
 export default {
@@ -76,16 +137,90 @@ export default {
       selectedCloud: {},
       optionsCloud: [],
       displayNewForm: false,
+      displaySearchUser: false,
       newProjectName: '',
+      emailInvit: '',
       cloud: null,
-      searchFilter: ''
+      searchFilter: '',
+      searchUserFilter: '',
+      showModal: false,
+      showSubmitInvit: false,
+      showModalUsersList: false,
+      users: [
+        {
+          id: 1,
+          firstname: 'Gabriel',
+          lastname: 'Cambreling',
+          job: 'Architecte',
+          company: 'Cabinet Marsouin',
+          photo: 'https://mir-s3-cdn-cf.behance.net/user/276/df2bfd2271051.59b8e8f49b466.jpg',
+          project_role: 100
+        },
+        {
+          id: 2,
+          name: 'Lorem ipsum',
+          job: '',
+          company: '',
+          photo: '',
+          project_role: 25
+        },
+        {
+          id: 3,
+          firstname: 'Gabriel',
+          lastname: 'Cambreling',
+          job: 'Architecte',
+          company: '',
+          photo: '',
+          project_role: 50
+        },
+        {
+          id: 4,
+          firstname: 'François',
+          lastname: 'Thierry',
+          job: '',
+          company: '',
+          photo: 'https://d2cxspbh1aoie1.cloudfront.net/avatars/local/0b08b2d76dd021b129244840525ce6f469a07ccf9d8b6a7463712a051d686d2e/160',
+          project_role: 25
+        },
+        {
+          id: 5,
+          firstname: 'Gabriel',
+          lastname: 'Cambreling',
+          job: 'Chauffagiste',
+          company: 'mon entreprise',
+          photo: '',
+          project_role: 50
+        },
+        {
+          id: 6,
+          firstname: 'François',
+          lastname: 'Thierry',
+          job: 'Plombier',
+          company: 'Cabinet Marsouin',
+          photo: 'https://d2cxspbh1aoie1.cloudfront.net/avatars/local/0b08b2d76dd021b129244840525ce6f469a07ccf9d8b6a7463712a051d686d2e/160',
+          project_role: 25
+        },
+        {
+          id: 7,
+          firstname: 'François',
+          lastname: 'Thierry',
+          job: 'Architecte',
+          company: 'Cabinet Marsouin',
+          photo: 'https://d2cxspbh1aoie1.cloudfront.net/avatars/local/0b08b2d76dd021b129244840525ce6f469a07ccf9d8b6a7463712a051d686d2e/160',
+          project_role: 100
+        }
+      ]
     }
   },
   components: {
     BaseButtonAction,
     BaseChoiceList,
     CardProjectList,
-    BaseSearchBar
+    BaseSearchBar,
+    BaseButtonIcon,
+    BaseCard,
+    UsersList,
+    BaseValidDelete
   },
   computed: {
     ...mapGetters({
@@ -102,11 +237,36 @@ export default {
         return project.name.toLowerCase().includes(this.searchFilter.toLowerCase())
       })
       return filteredprojects
+    },
+    emailInvitValid () {
+      let regex = new RegExp(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)
+
+      if (regex.test(this.emailInvit)) {
+        return true
+      }
+
+      return false
+    },
+    usersAdminCloud () {
+      let usersAdmin = _.filter(this.users, {project_role: 100})
+      return [
+        ...usersAdmin.map(user => ({...user, hasAccepted: true}))
+      ]
+    },
+    usersNotAdminCloud () {
+      let usersNotAdmin = _.filter(this.users, function (u) { return u.project_role !== 100 })
+      return [
+        ...usersNotAdmin.map(user => ({...user, hasAccepted: true}))
+      ]
     }
   },
   methods: {
     toSearch (value) {
       this.searchFilter = value
+    },
+    resetSearchUser () {
+      this.displaySearchUser = false
+      this.searchUserFilter = ''
     },
     selectCloud ({ value: cloudId }) {
       this.$router.push({name: 'project-list', params: {cloudId}})
@@ -121,6 +281,12 @@ export default {
         this.newProjectName = ''
         this.displayNewForm = false
       })
+    },
+    sendInvitation () {
+      // TODO call to send invitation to this.emailInvit
+    },
+    resetEmailInvit () {
+      this.emailInvit = ''
     }
   },
   created () {

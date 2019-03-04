@@ -2,9 +2,14 @@ $font-family-base: 'Roboto';
 $body-bg: #e8e8e8;
 $body-color: #94979A;
 $primary: #2F374A;
+$secondary: $body-color;
+$success: #28a745;
+$danger: #dc3545;
 $bim-cyan: #00B5A6;
 $black: #000000;
 $white: #ffffff;
+$bim-positive: #00AF50;
+$bim-negative: #FF0000;
 $grid-gutter-width: 15px;
 $font-size-base: 0.875rem;
 
@@ -68,3 +73,15 @@ $breadcrumb-border-radius: $border-radius;
 $tooltip-font-size: 0.857rem;
 $tooltip-bg: $primary;
 $tooltip-border-radius: 7px;
+
+// Badge
+$badge-padding-y: 4px;
+$badge-padding-x: 0.7em;
+$badge-font-size: 0.643rem;
+$badge-font-weight: normal;
+$badge-border-radius: 3px;
+
+// Modal
+$modal-inner-padding: 0;
+$modal-md: 507px;
+$modal-content-border-width: 0;
