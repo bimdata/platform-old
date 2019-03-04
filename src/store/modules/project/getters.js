@@ -57,5 +57,6 @@ export default {
       .map(folder => setFoldersTree(folder, folders))
 
     return foldersTree
-  }
+  },
+  users: state => state.users
 }

@@ -62,21 +62,21 @@
     width: 100%;
 
     @include media-breakpoint-up(lg) {
-      width: calc(100%/3 * 2 - 30px);
-      margin-right: 30px;
+      width: calc(100%/3 * 2 - 20px);
+      margin-right: 20px;
     }
 
     .model-preview-slider {
       height: 338px;
-      background: #E6E6E6;
+      background: $bg-preview;
     }
   }
   .user-project {
     width: 100%;
 
     @include media-breakpoint-up(lg) {
-      width: calc(100%/3 - 30px);
-      margin-left: 30px;
+      width: calc(100%/3 - 20px);
+      margin-left: 20px;
     }
   }
 

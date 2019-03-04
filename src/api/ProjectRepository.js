@@ -107,4 +107,39 @@ export class ProjectRepository {
       console.log(e.statusCode)
     }
   }
+
+  async getProjectUsers (cloudPk, projectPk) {
+    try {
+      const response = await this.projectApiClient.getProjectUsers(cloudPk, projectPk)
+      return response
+    } catch (e) {
+      console.log(e.statusCode)
+    }
+  }
+
+  projectInvite (cloudId, projectId, invite) {
+    try {
+      return this.projectApiClient.projectInvite(cloudId, projectId, invite)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  deleteUser (params) {
+    try {
+      return this.projectApiClient
+        .deleteProjectUser(params.cloudId, params.userId, params.projectId)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  updateUserRights (cloudPk, id, projectPk, userProjectUpdate) {
+    try {
+      return this.projectApiClient
+        .updateProjectUser(cloudPk, id, projectPk, userProjectUpdate)
+    } catch (e) {
+      console.log(e)
+    }
+  }
 }

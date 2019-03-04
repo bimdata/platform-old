@@ -47,5 +47,17 @@
     },
     "ifc": {
       "open": "Open"
+    },
+    "users": {
+      "users": "Users",
+      "user": "User",
+      "administrator": "Admin",
+      "remove": "Delete user",
+      "modify_rights": "Edit user rights",
+      "resend_invitation": "Resend invitation ?",
+      "guest": "Guest",
+      "without_answer": "without answer",
+      "manage_admin": "Manage administrators",
+      "users_list": "Users list"
     }
 }

@@ -34,5 +34,8 @@ export default {
     } else {
       state.openedFolderIds.push(folderId)
     }
+  },
+  SET_PROJECT_USERS: (state, users) => {
+    state.users = users
   }
 }
