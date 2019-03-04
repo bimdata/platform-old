@@ -168,82 +168,13 @@ export default {
           text: 'Invité',
           value: 25
         }
-      ],
-      guests: [
-        {
-          id: 7,
-          name: 'Sarah Croche',
-          role: 50
-        },
-        {
-          id: 8,
-          name: 'Sarah Pelle',
-          role: 100
-        }
-      ],
-      users: [
-        {
-          id: 1,
-          name: 'Gabriel Cambreling',
-          job: 'Architecte',
-          company: 'Cabinet Marsouin',
-          photo: 'https://mir-s3-cdn-cf.behance.net/user/276/df2bfd2271051.59b8e8f49b466.jpg',
-          role: 100
-        },
-        {
-          id: 2,
-          name: 'Lorem ipsum',
-          job: '',
-          company: '',
-          photo: '',
-          role: 25
-        },
-        {
-          id: 3,
-          name: 'Gabriel Cambreling',
-          job: 'Architecte',
-          company: '',
-          photo: '',
-          role: 50
-        },
-        {
-          id: 4,
-          name: 'François Thierry',
-          job: '',
-          company: '',
-          photo: 'https://d2cxspbh1aoie1.cloudfront.net/avatars/local/0b08b2d76dd021b129244840525ce6f469a07ccf9d8b6a7463712a051d686d2e/160',
-          role: 25
-        },
-        {
-          id: 5,
-          name: 'Gabriel Cambreling',
-          job: 'Chauffagiste',
-          company: 'mon entreprise',
-          photo: '',
-          role: 50
-        },
-        {
-          id: 6,
-          name: 'François Thierry',
-          job: 'Plombier',
-          company: 'Cabinet Marsouin',
-          photo: 'https://d2cxspbh1aoie1.cloudfront.net/avatars/local/0b08b2d76dd021b129244840525ce6f469a07ccf9d8b6a7463712a051d686d2e/160',
-          role: 25
-        },
-        {
-          id: 7,
-          name: 'François Thierry',
-          job: 'Architecte',
-          company: 'Cabinet Marsouin',
-          photo: 'https://d2cxspbh1aoie1.cloudfront.net/avatars/local/0b08b2d76dd021b129244840525ce6f469a07ccf9d8b6a7463712a051d686d2e/160',
-          role: 100
-        }
       ]
     }
   },
   methods: {
     ...mapActions({
-      fetchProjectUsers: 'project/fetchProjectUsers'
+      fetchProjectUsers: 'project/fetchProjectUsers',
+      projectInvite: 'project/projectInvite'
     }),
     toggleRights () {
       this.displayRights = !this.displayRights
@@ -295,8 +226,19 @@ export default {
     away () {
       this.displayRightsInvitation = false
     },
-    sendInvitation () {
-      // Call to send invitation
+    async sendInvitation () {
+      if (this.mailInvitation && this.rightChoosed.value) {
+        const response = await this.projectInvite({
+          project: this.project,
+          invite: {
+            email: this.mailInvitation,
+            role: this.rightChoosed.value,
+            redirect_uri: `${process.env.BD_APP_URL}/cloud/${this.$route.params.cloudId}/${this.$route.params.projectId}`
+          }
+        })
+
+        this.displaySendInvit = false
+      }
     },
     setInvitationRight (value) {
       this.rightChoosed = value
@@ -306,20 +248,6 @@ export default {
       this.displaySearchUser = false
       this.searchFilter = ''
     }
-  },
-  created () {
-    this.users.map(user => {
-      user.hasAccepted = true
-    })
-    this.guests.map(guest => this.users.push({
-      id: guest.id,
-      name: guest.name,
-      job: '',
-      company: '',
-      photo: '',
-      hasAccepted: false,
-      role: guest.role
-    }))
   },
   mounted () {
     this.fetchProjectUsers(this.project)

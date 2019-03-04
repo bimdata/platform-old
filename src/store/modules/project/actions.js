@@ -215,5 +215,12 @@ export default {
       .getProjectUsers(project.cloud.id, project.id)
 
     commit('SET_PROJECT_USERS', users)
+  },
+
+  async projectInvite (store, {project, invite}) {
+    const response = await this.ProjectRepositoryRequest
+      .projectInvite(project.cloud.id, project.id, invite)
+
+    console.log(response)
   }
 }

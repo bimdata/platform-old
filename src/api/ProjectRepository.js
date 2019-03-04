@@ -116,4 +116,12 @@ export class ProjectRepository {
       console.log(e.statusCode)
     }
   }
+
+  async projectInvite (cloudPk, projectPk, invite) {
+    try {
+      return await this.projectApiClient.projectInvite(cloudPk, projectPk, invite)
+    } catch (e) {
+      console.log(e)
+    }
+  }
 }
