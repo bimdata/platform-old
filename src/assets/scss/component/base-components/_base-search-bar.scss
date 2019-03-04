@@ -50,21 +50,12 @@ $search-lg-size-input: $search-lg-size-container - $search-btn-size;
     }
   }
 
-  &__icon-container {
-    width: $search-btn-size;
-    height: $search-btn-size;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: $white;
+  .base-button-icon {
     border-left: 1px solid $search-border-color;
-    margin-left: auto;
-    cursor: pointer;
 
     .svg-icon {
       fill: $primary;
-      transition: all linear 0.35s;
-
+      
       &.is-close {
         fill: $body-color;
       }

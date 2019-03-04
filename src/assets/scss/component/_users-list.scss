@@ -13,13 +13,45 @@
     align-items: center;
     height: 32px;
 
+    &--large {
+      height: 50px;
+    }
+
+    .base-valid-delete {
+      position: relative;
+      box-shadow: none;
+      right: unset;
+      bottom: unset;
+      transform: none;
+    }
+
     .svg-icon {
       cursor: pointer;
     }
 
+    &__admin {
+      padding: 9px 14px;
+      padding-left: 26px;
+
+      .account-plus {
+        color: $primary;
+        cursor: default;
+      }
+
+      .btn {
+        margin-left: auto;
+        max-width: 98px;
+        min-width: 98px;
+        font-weight: 100;
+
+        .svg-icon {
+          margin-right: 6px;
+        }
+      }
+    }
+
     &__right-container {
       margin-left: auto;
-      width: 14%; // TODO : Passer cette variable à 24 quand on rajoutera le troisième picto (filtre)
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -140,6 +172,7 @@
     padding: 0;
     margin: 0;
     max-height: 397px;
+    min-height: 397px;
   }
   &__user {
     display: flex;
@@ -190,6 +223,8 @@
     }
     &__actions {
       margin-left: auto;
+      position: relative;
+      cursor: pointer;
 
       &__menu {
         .base-button-option__menu {
@@ -270,6 +305,24 @@
       &--outline {
         background: $bim-negative;
       }
+    }
+  }
+
+  &-modal {
+    .close {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      z-index: 1;
+    }
+
+    &__input-mail {
+      width: 100%;
+      max-width: 253px;
+      height: 32px;
+      padding: 10px;
+      border: 1px solid $border-color;
+      margin-left: 14px;
     }
   }
 }

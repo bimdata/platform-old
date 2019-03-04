@@ -21,6 +21,11 @@ export default {
       return Promise.reject(e)
     }
   },
+  async fetchProjectUsers ({ commit }, project) {
+    const users = await this.ProjectRepositoryRequest.getProjectUsers(project.cloud.id, project.id)
+
+    commit('SET_PROJECT_USERS', users)
+  },
   async fetchProjectIfc ({ commit }, project) {
     try {
       let params = {
@@ -208,13 +213,6 @@ export default {
     } catch (e) {
       console.log(e)
     }
-  },
-
-  async fetchProjectUsers ({ commit, state }, project) {
-    const users = await this.ProjectRepositoryRequest
-      .getProjectUsers(project.cloud.id, project.id)
-
-    commit('SET_PROJECT_USERS', users)
   },
 
   projectInvite (store, {project, invite}) {
