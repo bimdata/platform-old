@@ -15,6 +15,10 @@
         </div>
         <div class="search-container mt-2 mt-sm-0">
           <base-search-bar @on-search="toSearch" class="mr-3"></base-search-bar>
+          <button type="button" class="btn btn-secondary base-button-action top-toolbar__button-new-file ml-auto" :class="{'active': openCreationCloud}" @click="toggleOpenCreationCloud">
+            <svgicon name="plus" height="20" width="20"></svgicon>
+            Create cloud
+          </button>
         </div>
       </div>
       <transition-group
