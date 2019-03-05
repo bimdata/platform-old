@@ -41,9 +41,9 @@
                   <transition name="fade">
                     <div class="users-list__header__invitation" v-if="displaySendInvit">
                       <input type="text" v-model="mailInvitation" placeholder="Email adress">
-                      <div class="rights-select">
+                      <div class="rights-select" @click="toggleRightsInvitation">
                         <svgicon name="chevron-down" width="20" height="18" class="arrow-down"></svgicon>
-                        <span @click="toggleRightsInvitation" class="ellipsis">{{ rightChoosed.text }}</span>
+                        <span class="ellipsis">{{ rightChoosed.text }}</span>
                         <div class="base-button-option__menu" v-if="displayRightsInvitation" v-on-clickaway="away">
                           <ul>
                             <li v-for="(right, index) in rights" :key="index">
