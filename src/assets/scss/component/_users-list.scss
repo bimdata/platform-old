@@ -12,6 +12,7 @@
     display: flex;
     align-items: center;
     height: 32px;
+    transition: height ease 0.25s;
 
     &--large {
       height: 50px;
@@ -23,6 +24,7 @@
       right: unset;
       bottom: unset;
       transform: none;
+      height: auto;
     }
 
     .svg-icon {
@@ -87,11 +89,10 @@
 
       input {
         min-width: auto;
-        width: 50%;
+        width: 100%;
         max-width: 204px;
         border: 1px solid #F3F3F3;
-        padding: 4px;
-        max-height: 22px;
+        padding: 7px 12px;
 
         &:focus {
           outline: none;
@@ -105,14 +106,9 @@
         display: flex;
         align-items: center;
 
-        .check {
-          .svg-icon {
-            fill: #28a745;
-          }
-        }
         .check-cross {
           .svg-icon {
-            fill: #dc3545;
+            fill: $danger;
           }
         }
       }
@@ -120,15 +116,14 @@
       .rights-select {
         position: relative;
         max-width: 125px;
-        width: 30%;
-        height: 22px;
+        width: 100%;
         border: 1px solid #F3F3F3;
         color: $primary;
         cursor: pointer;
         margin-left: 11px;
         display: flex;
         align-items: center;
-        padding: 4px;
+        padding: 6px;
         padding-right: 15px;
 
         .arrow-down {
