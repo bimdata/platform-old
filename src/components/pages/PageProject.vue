@@ -254,16 +254,17 @@ export default {
   computed: {
     ...mapGetters({
       getCloudById: 'getCloudById',
-      getProjectById: 'getProjectById',
-      projectUsers: 'project/users'
+      getProjectById: 'getProjectById'
     }),
     project () {
       return this.getProjectById(this.$route.params.projectId)
     },
     users () {
-      return [
-        ...this.projectUsers.map(user => ({...user, hasAccepted: true}))
-      ]
+      let list = this.$store.state.project.users
+      list.map(user => {
+        user.hasAccepted = true
+      })
+      return list
     },
     allUsers () {
       return this.users.concat(this.guests).reverse()

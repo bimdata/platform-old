@@ -59,7 +59,7 @@
     </div>
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import BaseValidDelete from '@/components/base-components/BaseValidDelete'
 import BaseButtonOption from '@/components/base-components/BaseButtonOption'
 import BaseInputRadio from '@/components/base-components/BaseInputRadio'
@@ -106,6 +106,14 @@ export default {
       default: true
     }
   },
+  computed: {
+    ...mapGetters({
+      getProjectById: 'getProjectById'
+    }),
+    project () {
+      return this.getProjectById(this.$route.params.projectId)
+    }
+  },
   methods: {
     ...mapActions({
       fetchProjectUsers: 'project/fetchProjectUsers',
@@ -115,18 +123,14 @@ export default {
     async radioSelected (user, right) {
       const cloudId = this.$route.params.cloudId
       const projectId = this.$route.params.projectId
-      console.log({
-        cloudId,
-        projectId,
-        userId: user.id,
-        role: right.value
-      })
       await this.updateProjectUserRole({
         cloudId,
         projectId,
         userId: user.id,
         role: right.value
       })
+      this.fetchProjectUsers(this.project)
+      this.displayRights = false
     },
     toggleRights () {
       this.displayRights = !this.displayRights
