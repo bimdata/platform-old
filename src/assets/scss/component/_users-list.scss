@@ -26,6 +26,7 @@
     }
 
     .svg-icon {
+      color: $primary;
       cursor: pointer;
     }
 
@@ -34,7 +35,6 @@
       padding-left: 26px;
 
       .account-plus {
-        color: $primary;
         cursor: default;
       }
 
@@ -46,6 +46,7 @@
 
         .svg-icon {
           margin-right: 6px;
+          color: $white;
         }
       }
     }
@@ -55,6 +56,10 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+
+      & > span {
+        margin-left: 10px;
+      }
     }
 
     &__search {
