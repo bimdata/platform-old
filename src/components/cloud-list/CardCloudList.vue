@@ -1,6 +1,6 @@
 <template>
   <div class="card-container">
-    <div class="base-card card-item card-bd">
+    <div class="base-card card-item card-bd noselect">
       <div class="card-bd__header">
         <base-button-option @option-toggled="toggleMenu" v-if="isAdmin">
           <ul>

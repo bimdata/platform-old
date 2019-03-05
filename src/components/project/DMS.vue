@@ -28,7 +28,7 @@
                     </div>
                 </div>
             </div>
-            <div class="dms__toolbox" v-show="!displaySelectedToolbox">
+            <div class="dms__toolbox noselect" v-show="!displaySelectedToolbox">
                 <base-button-tool iconName="tree"
                                   :class="{'is-active': isVisibleTreeView}"
                                   @click="displayTreeView">

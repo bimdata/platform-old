@@ -1,6 +1,6 @@
 <template>
     <div class="card-container">
-        <div class="base-card card-item card-bd card-project">
+        <div class="base-card card-item card-bd card-project noselect">
             <div class="card-bd__header">
                 <svgicon name="eye" height="18" width="54" @click.native="viewModel" v-if="displayEye" class="icon-eye"></svgicon>
                 <base-button-option @option-toggled="toggleMenu" v-if="isAdmin">

@@ -1,5 +1,5 @@
 <template>
-    <div class="base-card" :style="style">
+    <div class="base-card noselect" :style="style">
         <div class="base-card__header">
             <div class="base-card__title-container">
                 <slot name="header-title">Titre par défaut</slot>
