@@ -35,11 +35,9 @@
                   </div>
                   <transition name="fade">
                     <div class="users-list__header__right-container" v-if="!displaySendInvit && !displaySearchUser">
-                      <span class="base-button-option__tool" :class="{clicked: clicked}">
-                        <svgicon name="account-plus" width="22" height="22" @click.native="openSendInvite" class="account-plus"></svgicon>
-                      </span>
-                      <svgicon name="magnify" height="21" width="21" @click.native="openSearchUser"></svgicon>
-                      <svgicon name="filter-variant" width="25" height="26" class="d-none"></svgicon>
+                      <base-clicked-tool @on-clicked-tool="openSendInvite" iconName="account-plus" iconWidth="22" iconHeight="22"></base-clicked-tool>
+                      <base-clicked-tool @on-clicked-tool="openSearchUser" iconName="magnify" iconWidth="21" iconHeight="21"></base-clicked-tool>
+                      <base-clicked-tool iconName="filter-variant" iconWidth="25" iconHeight="26" class="d-none"></base-clicked-tool>
                     </div>
                   </transition>
                   <transition name="fade">
@@ -117,6 +115,7 @@ import ChoiceListCloud from '@/components/project/ChoiceListCloud'
 import ButtonUploadNewFile from '@/components/project/ButtonUploadNewFile'
 import CardProjectContent from '@/components/project/CardProjectContent'
 import BaseCard from '@/components/base-components/BaseCard'
+import BaseClickedTool from '@/components/base-components/BaseClickedTool'
 import TableIfc from '@/components/project/TableIfc'
 import UsersList from '@/components/project/UsersList'
 import UploadIfc from '@/components/project/UploadIfc'
@@ -132,6 +131,7 @@ export default {
     ChoiceListProject,
     ButtonUploadNewFile,
     CardProjectContent,
+    BaseClickedTool,
     TableIfc,
     BaseCard,
     UsersList,
@@ -165,7 +165,6 @@ export default {
       displaySendInvit: false,
       displaySearchUser: false,
       displayRightsInvitation: false,
-      clicked: false,
       mailInvitation: '',
       guests: [
         {
@@ -229,17 +228,16 @@ export default {
       })
     },
     openSendInvite () {
-      this.clicked = false
-      this.clicked = true
       setTimeout(() => {
-        this.clicked = false
         this.displaySearchUser = false
         this.displaySendInvit = true
       }, 500)
     },
     openSearchUser () {
-      this.displaySendInvit = false
-      this.displaySearchUser = true
+      setTimeout(() => {
+        this.displaySendInvit = false
+        this.displaySearchUser = true
+      }, 500)
     },
     toggleRightsInvitation () {
       this.displayRightsInvitation = !this.displayRightsInvitation

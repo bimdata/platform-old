@@ -98,8 +98,8 @@
                   <svgicon name="arrow-back" width="23" height="23" @click="showModalUsersList = false"></svgicon>
                 </div>
                 <div class="users-list__header__right-container" v-if="!displaySearchUser">
-                    <svgicon name="magnify" height="21" width="21" @click.native="displaySearchUser = true"></svgicon>
-                    <svgicon name="filter-variant" width="25" height="26" class="d-none"></svgicon>
+                  <base-clicked-tool @on-clicked-tool="openSearchUser" iconName="magnify" iconWidth="21" iconHeight="21"></base-clicked-tool>
+                  <base-clicked-tool iconName="filter-variant" iconWidth="25" iconHeight="26" class="d-none"></base-clicked-tool>
                 </div>
                 <transition name="fade">
                   <div class="users-list__header__search" v-if="displaySearchUser">
@@ -128,6 +128,7 @@ import BaseCard from '@/components/base-components/BaseCard'
 import BaseButtonAction from '@/components/base-components/BaseButtonAction'
 import BaseButtonIcon from '@/components/base-components/BaseButtonIcon'
 import BaseValidDelete from '@/components/base-components/BaseValidDelete'
+import BaseClickedTool from '@/components/base-components/BaseClickedTool'
 import UsersList from '@/components/project/UsersList'
 import _ from 'lodash'
 
@@ -218,6 +219,7 @@ export default {
     CardProjectList,
     BaseSearchBar,
     BaseButtonIcon,
+    BaseClickedTool,
     BaseCard,
     UsersList,
     BaseValidDelete
@@ -281,6 +283,11 @@ export default {
         this.newProjectName = ''
         this.displayNewForm = false
       })
+    },
+    openSearchUser () {
+      setTimeout(() => {
+        this.displaySearchUser = true
+      }, 500)
     },
     sendInvitation () {
       // TODO call to send invitation to this.emailInvit
