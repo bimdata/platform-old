@@ -66,7 +66,7 @@
       <button type="button" class="close" @click="showModal = false">
         <svgicon name="close" height="20" width="20"></svgicon>
       </button>
-      <transition name="slide-fade">
+      <transition name="fade">
         <template v-if="!showModalUsersList">
           <users-list :displayMenu="false" :users="usersAdminCloud">
             <template slot="header-title">
