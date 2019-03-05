@@ -29,17 +29,15 @@
           <div class="user-project">
             <users-list :users="allUsers" :filter="searchFilter">
               <template slot="users-list-header">
-                <div class="users-list__header">
+                <div class="users-list__header" :class="{'users-list__header--large': displaySendInvit}">
                   <div class="users-list__header__left-container d-none">
                     <svgicon name="menu" width="23" height="23"></svgicon>
                   </div>
-                  <transition name="fade">
-                    <div class="users-list__header__right-container" v-if="!displaySendInvit && !displaySearchUser">
-                      <base-clicked-tool @on-clicked-tool="openSendInvite" iconName="account-plus" iconWidth="22" iconHeight="22"></base-clicked-tool>
-                      <base-clicked-tool @on-clicked-tool="openSearchUser" iconName="magnify" iconWidth="21" iconHeight="21"></base-clicked-tool>
-                      <base-clicked-tool iconName="filter-variant" iconWidth="25" iconHeight="26" class="d-none"></base-clicked-tool>
-                    </div>
-                  </transition>
+                  <div class="users-list__header__right-container" v-if="!displaySendInvit && !displaySearchUser">
+                    <base-clicked-tool @on-clicked-tool="openSendInvite" iconName="account-plus" iconWidth="22" iconHeight="22"></base-clicked-tool>
+                    <base-clicked-tool @on-clicked-tool="openSearchUser" iconName="magnify" iconWidth="21" iconHeight="21"></base-clicked-tool>
+                    <base-clicked-tool iconName="filter-variant" iconWidth="25" iconHeight="26" class="d-none"></base-clicked-tool>
+                  </div>
                   <transition name="fade">
                     <div class="users-list__header__invitation" v-if="displaySendInvit">
                       <input type="text" v-model="mailInvitation" placeholder="Email adress">
@@ -58,14 +56,7 @@
                           </ul>
                         </div>
                       </div>
-                      <div class="users-list__header__invitation__actions">
-                        <span class="check" @click="sendInvitation">
-                          <svgicon name="check" height="22" width="24"></svgicon>
-                        </span>
-                        <span class="check-cross" @click="displaySendInvit = false">
-                          <svgicon name="close" height="21" width="21"></svgicon>
-                        </span>
-                      </div>
+                      <base-valid-delete @on-valid-action="sendInvitation" @on-cancel-action="displaySendInvit = false"></base-valid-delete>
                     </div>
                   </transition>
                   <transition name="fade">
@@ -111,6 +102,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import ChoiceListProject from '@/components/project/ChoiceListProject'
+import BaseValidDelete from '@/components/base-components/BaseValidDelete'
 import ChoiceListCloud from '@/components/project/ChoiceListCloud'
 import ButtonUploadNewFile from '@/components/project/ButtonUploadNewFile'
 import CardProjectContent from '@/components/project/CardProjectContent'
@@ -136,6 +128,7 @@ export default {
     BaseCard,
     UsersList,
     BaseInputRadio,
+    BaseValidDelete,
     'dms': DMS
   },
   data () {
