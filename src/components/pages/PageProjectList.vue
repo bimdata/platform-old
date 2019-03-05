@@ -146,71 +146,7 @@ export default {
       searchUserFilter: '',
       showModal: false,
       showSubmitInvit: false,
-      showModalUsersList: false,
-      users: [
-        {
-          id: 1,
-          firstname: 'Gabriel',
-          lastname: 'Cambreling',
-          job: 'Architecte',
-          company: 'Cabinet Marsouin',
-          photo: 'https://mir-s3-cdn-cf.behance.net/user/276/df2bfd2271051.59b8e8f49b466.jpg',
-          project_role: 100
-        },
-        {
-          id: 2,
-          name: 'Lorem ipsum',
-          job: '',
-          company: '',
-          photo: '',
-          project_role: 25
-        },
-        {
-          id: 3,
-          firstname: 'Gabriel',
-          lastname: 'Cambreling',
-          job: 'Architecte',
-          company: '',
-          photo: '',
-          project_role: 50
-        },
-        {
-          id: 4,
-          firstname: 'François',
-          lastname: 'Thierry',
-          job: '',
-          company: '',
-          photo: 'https://d2cxspbh1aoie1.cloudfront.net/avatars/local/0b08b2d76dd021b129244840525ce6f469a07ccf9d8b6a7463712a051d686d2e/160',
-          project_role: 25
-        },
-        {
-          id: 5,
-          firstname: 'Gabriel',
-          lastname: 'Cambreling',
-          job: 'Chauffagiste',
-          company: 'mon entreprise',
-          photo: '',
-          project_role: 50
-        },
-        {
-          id: 6,
-          firstname: 'François',
-          lastname: 'Thierry',
-          job: 'Plombier',
-          company: 'Cabinet Marsouin',
-          photo: 'https://d2cxspbh1aoie1.cloudfront.net/avatars/local/0b08b2d76dd021b129244840525ce6f469a07ccf9d8b6a7463712a051d686d2e/160',
-          project_role: 25
-        },
-        {
-          id: 7,
-          firstname: 'François',
-          lastname: 'Thierry',
-          job: 'Architecte',
-          company: 'Cabinet Marsouin',
-          photo: 'https://d2cxspbh1aoie1.cloudfront.net/avatars/local/0b08b2d76dd021b129244840525ce6f469a07ccf9d8b6a7463712a051d686d2e/160',
-          project_role: 100
-        }
-      ]
+      showModalUsersList: false
     }
   },
   components: {
@@ -231,6 +167,14 @@ export default {
       getProjectsByCloudId: 'getProjectsByCloudId',
       getCloudsDetails: 'getCloudsDetails'
     }),
+    users () {
+      // let list = this.$store.state.currentCloud.users
+      let list = []
+      list.map(user => {
+        user.hasAccepted = true
+      })
+      return list
+    },
     cloudProjects () {
       let cloudId = this.$store.state.currentCloud.id
       let cloudProjects = _.find(this.$store.state.clouds, ['id', cloudId]).projects

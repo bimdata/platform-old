@@ -52,9 +52,12 @@ export default {
       clouds.forEach((cloud) => {
         const role = _.find(state.currentUser.clouds, ['cloud', cloud.id])
         cloud.role = role ? role.role : null
+        // var self = this
         let nbUserRetrieve = async function () {
-          let nbUsers = await dispatch('getCloudUsers', cloud.id)
-          cloud.nbUsers = nbUsers
+          // let users = await self.CloudRepositoryRequest.getCloudUsers(cloud.id)
+          let users = await dispatch('getCloudUsers', cloud.id)
+          cloud.users = users
+          cloud.nbUsers = users.length
         }
         let projectsRetrieve = async function () {
           let projects = await dispatch('getProjects', cloud.id)
