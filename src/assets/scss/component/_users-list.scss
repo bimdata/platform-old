@@ -225,7 +225,7 @@
     }
     &__name {
       color: $primary;
-      font-size: 0.714rem;
+      font-size: 0.8rem;
     }
     &__actions {
       margin-left: auto;
@@ -235,7 +235,7 @@
       &__menu {
         .base-button-option__menu {
           width: 134px;
-          font-size: 0.714rem;
+          font-size: 0.8rem;
 
           @include media-breakpoint-up(sm) {
             width: 184px;
