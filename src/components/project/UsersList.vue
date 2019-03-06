@@ -8,7 +8,13 @@
           <slot name="users-list-header"></slot>
           <div class="users-list__body">
             <ul class="users-list__users">
-              <users-list-item v-for="user in filteredUsers" :key="`user-${user.id}`" :user="user" :displayMenu="displayMenu"></users-list-item>
+              <users-list-item
+                v-for="user in filteredUsers"
+                :key="`user-${user.id}`"
+                :user="user"
+                :displayMenu="displayMenu"
+                @on-remove-user="removeUser"
+                @on-update-user="updateUser"></users-list-item>
             </ul>
           </div>
         </div>
@@ -43,6 +49,14 @@ export default {
     filter: {
       type: String,
       default: ''
+    }
+  },
+  methods: {
+    removeUser (userId) {
+      this.$emit('on-remove-user', userId)
+    },
+    updateUser (user, right) {
+      this.$emit('on-update-user', user, right)
     }
   },
   computed: {

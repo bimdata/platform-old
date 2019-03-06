@@ -68,7 +68,7 @@
       </button>
       <transition name="fade">
         <template v-if="!showModalUsersList">
-          <users-list :displayMenu="false" :users="usersAdminCloud">
+          <users-list :displayMenu="false" :users="usersAdminCloud" @on-remove-user="removeUser">
             <template slot="header-title">
               {{ $t('users.manage_admin') }}
             </template>
@@ -88,7 +88,7 @@
           </users-list>
         </template>
         <template v-else>
-          <users-list :displayMenu="false" :users="usersNotAdminCloud" :filter="searchUserFilter">
+          <users-list :displayMenu="false" :users="usersNotAdminCloud" :filter="searchUserFilter" @on-remove-user="removeUser">
             <template slot="header-title">
               {{ $t('users.users_list') }}
             </template>
@@ -120,7 +120,7 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import BaseChoiceList from '@/components/base-components/BaseChoiceList'
 import BaseSearchBar from '@/components/base-components/BaseSearchBar'
 import CardProjectList from '@/components/project-list/CardProjectList'
@@ -168,8 +168,7 @@ export default {
       getCloudsDetails: 'getCloudsDetails'
     }),
     users () {
-      // let list = this.$store.state.currentCloud.users
-      let list = []
+      let list = this.$store.state.currentCloud.users
       list.map(user => {
         user.hasAccepted = true
       })
@@ -194,19 +193,25 @@ export default {
       return false
     },
     usersAdminCloud () {
-      let usersAdmin = _.filter(this.users, {project_role: 100})
-      return [
-        ...usersAdmin.map(user => ({...user, hasAccepted: true}))
-      ]
+      let usersAdmin = _.filter(this.users, {cloud_role: 100})
+      usersAdmin.map(user => {
+        user.role = user.cloud_role
+      })
+      return usersAdmin
     },
     usersNotAdminCloud () {
-      let usersNotAdmin = _.filter(this.users, function (u) { return u.project_role !== 100 })
-      return [
-        ...usersNotAdmin.map(user => ({...user, hasAccepted: true}))
-      ]
+      let usersNotAdmin = _.filter(this.users, function (u) { return u.cloud_role !== 100 })
+      usersNotAdmin.map(user => {
+        user.role = user.cloud_role
+      })
+      return usersNotAdmin
     }
   },
   methods: {
+    ...mapActions({
+      deleteUser: 'deleteCloudUser',
+      fetchUserCloudsDetails: 'fetchUserCloudsDetails'
+    }),
     toSearch (value) {
       this.searchFilter = value
     },
@@ -238,6 +243,12 @@ export default {
     },
     resetEmailInvit () {
       this.emailInvit = ''
+    },
+    async removeUser (userId) {
+      const cloudId = this.$store.state.currentCloud.id
+
+      await this.deleteUser({ cloudId, userId })
+      this.fetchUserCloudsDetails()
     }
   },
   created () {

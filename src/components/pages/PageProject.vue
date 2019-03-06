@@ -27,7 +27,7 @@
             <card-project-content></card-project-content>
           </div>
           <div class="user-project">
-            <users-list :users="allUsers" :filter="searchFilter">
+            <users-list :users="allUsers" :filter="searchFilter" @on-remove-user="removeUser" @on-update-user="updateUser">
               <template slot="users-list-header">
                 <div class="users-list__header" :class="{'users-list__header--large': displaySendInvit}">
                   <div class="users-list__header__left-container d-none">
@@ -56,7 +56,7 @@
                           </ul>
                         </div>
                       </div>
-                      <base-valid-delete @on-valid-action="sendInvitation" @on-cancel-action="displaySendInvit = false"></base-valid-delete>
+                      <base-valid-delete @on-valid-action="sendInvitation" @on-cancel-action="displaySendInvit = false" class="ml-auto"></base-valid-delete>
                     </div>
                   </transition>
                   <transition name="fade">
@@ -181,6 +181,7 @@ export default {
     ...mapActions({
       fetchProjectUsers: 'project/fetchProjectUsers',
       projectInvite: 'project/projectInvite',
+      updateProjectUserRole: 'project/updateProjectUserRole',
       deleteUser: 'project/deleteProjectUser'
     }),
     async sendInvitation () {
@@ -242,6 +243,24 @@ export default {
     resetSearchUser () {
       this.displaySearchUser = false
       this.searchFilter = ''
+    },
+    async removeUser (userId) {
+      const cloudId = this.$route.params.cloudId
+      const projectId = this.$route.params.projectId
+
+      await this.deleteUser({ cloudId, projectId, userId })
+      this.fetchProjectUsers(this.project)
+    },
+    async updateUser (user, right) {
+      const cloudId = this.$route.params.cloudId
+      const projectId = this.$route.params.projectId
+      await this.updateProjectUserRole({
+        cloudId,
+        projectId,
+        userId: user.id,
+        role: right.value
+      })
+      this.fetchProjectUsers(this.project)
     }
   },
   mounted () {
@@ -263,6 +282,7 @@ export default {
       let list = this.$store.state.project.users
       list.map(user => {
         user.hasAccepted = true
+        user.role = user.project_role
       })
       return list
     },

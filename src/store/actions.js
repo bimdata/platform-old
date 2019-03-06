@@ -52,12 +52,9 @@ export default {
       clouds.forEach((cloud) => {
         const role = _.find(state.currentUser.clouds, ['cloud', cloud.id])
         cloud.role = role ? role.role : null
-        // var self = this
         let nbUserRetrieve = async function () {
-          // let users = await self.CloudRepositoryRequest.getCloudUsers(cloud.id)
           let users = await dispatch('getCloudUsers', cloud.id)
           cloud.users = users
-          cloud.nbUsers = users.length
         }
         let projectsRetrieve = async function () {
           let projects = await dispatch('getProjects', cloud.id)
@@ -112,7 +109,7 @@ export default {
   },
   async removeCloud (context, cloudId) {
     try {
-      await this.CloudRepositoryRequest.deleteCloud(cloudId, context.state.currentUser.id)
+      await this.CloudRepositoryRequest.deleteCloud(cloudId)
       await this.dispatch('fetchUserData')
       await this.dispatch('fetchUserCloudsDetails')
       return true
@@ -142,7 +139,7 @@ export default {
   async getCloudUsers (context, idCloud) {
     try {
       let result = await this.CloudRepositoryRequest.getCloudUsers(idCloud)
-      return result ? result.length : 0
+      return result
     } catch (e) {
       console.log(e)
     }
@@ -166,5 +163,9 @@ export default {
     } catch (e) {
       console.log(e)
     }
+  },
+  deleteCloudUser (store, {cloudId, userId}) {
+    return this.CloudRepositoryRequest
+      .deleteCloudUser(cloudId, userId)
   }
 }

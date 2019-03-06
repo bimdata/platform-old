@@ -69,7 +69,7 @@
               +{{ cloud.projects.length }}
             </span>
             <span class="card-bd__infos-cloud__users" v-if="isAdmin">
-              +{{ cloud.nbUsers }}
+              +{{ cloud.users.length }}
               <svgicon name="account" height="30" width="30"></svgicon>
             </span>
           </div>
