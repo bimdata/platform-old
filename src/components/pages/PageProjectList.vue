@@ -203,7 +203,8 @@ export default {
   methods: {
     ...mapActions({
       deleteUser: 'deleteCloudUser',
-      fetchUserCloudsDetails: 'fetchUserCloudsDetails'
+      fetchUserCloudsDetails: 'fetchUserCloudsDetails',
+      sendCloudInvitation: 'inviteCloudUser'
     }),
     toSearch (value) {
       this.searchFilter = value
