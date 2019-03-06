@@ -57,4 +57,8 @@ export class CloudRepository {
   deleteUser (cloudId, userId) {
     return this.cloudApiClient.deleteCloudUser(cloudId, userId)
   }
+
+  updateUser ({ cloudId, userId, data }) {
+    return this.cloudApiClient.updateCloudUser(cloudId, userId, data)
+  }
 }

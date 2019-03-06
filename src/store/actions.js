@@ -181,9 +181,9 @@ export default {
   },
   updateCloudUser (context, params) {
     try {
-
+      return this.CloudRepositoryRequest.updateUser(params)
     } catch (e) {
-
+      console.log(e)
     }
   },
   deleteCloudUser (context, {cloudId, userId}) {

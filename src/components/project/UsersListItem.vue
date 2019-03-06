@@ -127,18 +127,32 @@ export default {
       fetchProjectUsers: 'project/fetchProjectUsers',
       deleteProjectUser: 'project/deleteProjectUser',
       updateProjectUserRole: 'project/updateProjectUserRole',
-      deleteCloudUser: 'deleteCloudUser'
+      deleteCloudUser: 'deleteCloudUser',
+      updateCloudUser: 'updateCloudUser'
     }),
     async radioSelected (user, right) {
       const cloudId = this.$route.params.cloudId
       const projectId = this.$route.params.projectId
-      await this.updateProjectUserRole({
-        cloudId,
-        projectId,
-        userId: user.id,
-        role: right.value
-      })
-      this.fetchProjectUsers(this.project)
+
+      if (this.type === 'cloud') {
+        this.updateCloudUser({
+          cloudId,
+          userId: user.id,
+          data: {
+            role: right.value
+          }
+        })
+        this.$emit('deleteComplete')
+      } else {
+        await this.updateProjectUserRole({
+          cloudId,
+          projectId,
+          userId: user.id,
+          role: right.value
+        })
+        this.fetchProjectUsers(this.project)
+      }
+
       this.displayRights = false
     },
     toggleRights () {
