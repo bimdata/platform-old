@@ -164,8 +164,7 @@ export default {
     ...mapGetters({
       currentCloud: 'getCurrentCloud',
       getCloudById: 'getCloudById',
-      getProjectsByCloudId: 'getProjectsByCloudId',
-      getCloudsDetails: 'getCloudsDetails'
+      getProjectsByCloudId: 'getProjectsByCloudId'
     }),
     users () {
       let list = this.$store.state.currentCloud.users
@@ -254,7 +253,7 @@ export default {
   created () {
     this.$store.commit('SET_LOADER_PAGE', true)
     this.$store.dispatch('project/init')
-    const clouds = this.getCloudsDetails
+    const clouds = this.$store.state.clouds
     const cloud = clouds.find(cloud => parseInt(cloud.id) === parseInt(this.$route.params.cloudId))
     this.$store.commit('SET_CURRENT_CLOUD', cloud)
     this.cloud = cloud

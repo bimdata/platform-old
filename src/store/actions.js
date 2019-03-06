@@ -164,8 +164,14 @@ export default {
       console.log(e)
     }
   },
-  deleteCloudUser (store, {cloudId, userId}) {
-    return this.CloudRepositoryRequest
-      .deleteCloudUser(cloudId, userId)
+  async deleteCloudUser (store, {cloudId, userId}) {
+    try {
+      await this.CloudRepositoryRequest.deleteCloudUser(cloudId, userId)
+      await this.dispatch('fetchUserData')
+      await this.dispatch('fetchUserCloudsDetails')
+      return true
+    } catch (e) {
+      console.log(e)
+    }
   }
 }
