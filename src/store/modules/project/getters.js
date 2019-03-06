@@ -58,5 +58,6 @@ export default {
 
     return foldersTree
   },
-  users: state => state.users
+  users: state => state.users,
+  guests: state => state.guests
 }

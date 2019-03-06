@@ -42,10 +42,9 @@ export class CloudRepository {
     }
   }
 
-  async getCloudUsers (idCloud) {
+  getCloudUsers (idCloud) {
     try {
-      const response = await this.cloudApiClient.getCloudUsers(idCloud)
-      return response
+      return this.cloudApiClient.getCloudUsers(idCloud)
     } catch (e) {
       console.log(e.statusCode)
     }
@@ -53,5 +52,13 @@ export class CloudRepository {
 
   inviteUser (cloudId, invite) {
     return this.cloudApiClient.cloudInvite(cloudId, invite)
+  }
+
+  deleteUser (cloudId, userId) {
+    return this.cloudApiClient.deleteCloudUser(cloudId, userId)
+  }
+
+  updateUser ({ cloudId, userId, data }) {
+    return this.cloudApiClient.updateCloudUser(cloudId, userId, data)
   }
 }

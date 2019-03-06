@@ -190,7 +190,7 @@ export default {
           invite: {
             email: this.mailInvitation,
             role: this.rightChoosed.value,
-            redirect_uri: `${process.env.BD_APP_URL}/cloud/${this.$route.params.cloudId}/${this.$route.params.projectId}`
+            redirect_uri: `${process.env.BD_APP_URL}/cloud/${this.$route.params.cloudId}/project/${this.$route.params.projectId}`
           }
         })
 
@@ -254,17 +254,17 @@ export default {
   computed: {
     ...mapGetters({
       getCloudById: 'getCloudById',
-      getProjectById: 'getProjectById'
+      getProjectById: 'getProjectById',
+      projectUsers: 'project/users'
     }),
     project () {
       return this.getProjectById(this.$route.params.projectId)
     },
     users () {
-      let list = this.$store.state.project.users
-      list.map(user => {
+      return this.projectUsers.map(user => {
         user.hasAccepted = true
+        return user
       })
-      return list
     },
     allUsers () {
       return this.users.concat(this.guests).reverse()

@@ -8,7 +8,15 @@
           <slot name="users-list-header"></slot>
           <div class="users-list__body">
             <ul class="users-list__users">
-              <users-list-item v-for="user in filteredUsers" :key="`user-${user.id}`" :user="user" :displayMenu="displayMenu"></users-list-item>
+              <users-list-item
+                v-for="user in filteredUsers"
+                :key="`user-${user.id}`"
+                :user="user"
+                :role="(type === 'project') ? user.project_role : user.cloud_role"
+                :type="type"
+                :displayMenu="displayMenu"
+                @deleteComplete="deleteComplete"
+              ></users-list-item>
             </ul>
           </div>
         </div>
@@ -29,6 +37,10 @@ export default {
     UsersListItem
   },
   props: {
+    type: {
+      type: String,
+      default: 'project'
+    },
     displayMenu: {
       type: Boolean,
       default: true
@@ -58,6 +70,11 @@ export default {
         (user.company ? user.company.toLowerCase().includes(this.searchFilter.toLowerCase()) : false) ||
         (user.job ? user.job.toLowerCase().includes(this.searchFilter.toLowerCase()) : false)
       })
+    }
+  },
+  methods: {
+    deleteComplete () {
+      this.$emit('deleteUser')
     }
   }
 }
