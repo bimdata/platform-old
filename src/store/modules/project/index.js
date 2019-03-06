@@ -13,7 +13,8 @@ export default {
     elements: null,
     currentPath: [],
     openedFolderIds: [],
-    users: []
+    users: [],
+    guests: []
   },
   actions,
   mutations,

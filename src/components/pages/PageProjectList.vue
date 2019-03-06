@@ -68,7 +68,7 @@
       </button>
       <transition name="fade">
         <template v-if="!showModalUsersList">
-          <users-list :displayMenu="false" :users="usersAdminCloud">
+          <users-list :displayMenu="false" :users="adminUsers">
             <template slot="header-title">
               {{ $t('users.manage_admin') }}
             </template>
@@ -88,7 +88,7 @@
           </users-list>
         </template>
         <template v-else>
-          <users-list :displayMenu="false" :users="usersNotAdminCloud" :filter="searchUserFilter">
+          <users-list :displayMenu="false" :users="nonAdminUsers" :filter="searchUserFilter">
             <template slot="header-title">
               {{ $t('users.users_list') }}
             </template>
@@ -120,7 +120,7 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import BaseChoiceList from '@/components/base-components/BaseChoiceList'
 import BaseSearchBar from '@/components/base-components/BaseSearchBar'
 import CardProjectList from '@/components/project-list/CardProjectList'
@@ -229,7 +229,8 @@ export default {
       currentCloud: 'getCurrentCloud',
       getCloudById: 'getCloudById',
       getProjectsByCloudId: 'getProjectsByCloudId',
-      getCloudsDetails: 'getCloudsDetails'
+      getCloudsDetails: 'getCloudsDetails',
+      cloudUsers: 'currentCloudUsers'
     }),
     cloudProjects () {
       let cloudId = this.$store.state.currentCloud.id
@@ -249,20 +250,24 @@ export default {
 
       return false
     },
-    usersAdminCloud () {
-      let usersAdmin = _.filter(this.users, {project_role: 100})
-      return [
-        ...usersAdmin.map(user => ({...user, hasAccepted: true}))
-      ]
+    adminUsers () {
+      return this.cloudUsers
+        .filter(user => user.cloud_role === 100)
+        .map(user => ({ ...user, hasAccepted: true }))
     },
-    usersNotAdminCloud () {
-      let usersNotAdmin = _.filter(this.users, function (u) { return u.project_role !== 100 })
-      return [
-        ...usersNotAdmin.map(user => ({...user, hasAccepted: true}))
-      ]
+    nonAdminUsers () {
+      return this.cloudUsers
+        .filter(user => user.cloud_role !== 100)
+        .map(user => ({ ...user, hasAccepted: true }))
     }
   },
+  mounted () {
+    this.getCurrentCloudUsers(this.$route.params.cloudId)
+  },
   methods: {
+    ...mapActions({
+      getCurrentCloudUsers: 'getCurrentCloudUsers'
+    }),
     toSearch (value) {
       this.searchFilter = value
     },

@@ -150,15 +150,17 @@ export default {
       }
     },
     getBadge (role) {
-      let roleText = _.find(this.rights, function (r) {
-        return r.value === role
-      }).text
-      if (role === 100) {
-        return '<span class="badge badge-primary">' + roleText + '</span>'
-      } else if (role === 50) {
-        return '<span class="badge badge-success">' + roleText + '</span>'
-      } else {
-        return '<span class="badge badge-secondary text-white">' + roleText + '</span>'
+      if (role) {
+        let roleText = _.find(this.rights, function (r) {
+          return r.value === role
+        }).text || ''
+        if (role === 100) {
+          return '<span class="badge badge-primary">' + roleText + '</span>'
+        } else if (role === 50) {
+          return '<span class="badge badge-success">' + roleText + '</span>'
+        } else {
+          return '<span class="badge badge-secondary text-white">' + roleText + '</span>'
+        }
       }
     },
     isAdmin () {

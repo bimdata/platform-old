@@ -144,6 +144,14 @@ export default {
       console.log(e)
     }
   },
+  async getCurrentCloudUsers ({commit}, idCloud) {
+    try {
+      const result = await this.CloudRepositoryRequest.getCloudUsers(idCloud)
+      commit('SET_CURRENT_CLOUD_USERS', result)
+    } catch (e) {
+      console.log(e)
+    }
+  },
   async getProjects (context, idCloud) {
     try {
       let result = await this.ProjectRepositoryRequest.getProjects(idCloud)
