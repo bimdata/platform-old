@@ -37,7 +37,7 @@
                     :option="right"
                     name="rights"
                     @input="radioSelected(user, right)"
-                    :selected="user.project_role"
+                    :selected="role"
                   ></base-input-radio>
                 </div>
             </li>
@@ -97,13 +97,16 @@ export default {
     user: {
       type: Object,
       required: true,
-      default: () => {
-        return {}
-      }
+      default: () => ({})
     },
     displayMenu: {
       type: Boolean,
       default: true
+    },
+    role: {
+      type: Number,
+      required: true,
+      default: 0
     }
   },
   computed: {
@@ -117,8 +120,10 @@ export default {
   methods: {
     ...mapActions({
       fetchProjectUsers: 'project/fetchProjectUsers',
-      deleteUser: 'project/deleteProjectUser',
-      updateProjectUserRole: 'project/updateProjectUserRole'
+      deleteProjectUser: 'project/deleteProjectUser',
+      updateProjectUserRole: 'project/updateProjectUserRole',
+      deleteCloudUser: 'deleteCloudUser',
+      updateCloudUser: 'updateCloudUser'
     }),
     async radioSelected (user, right) {
       this.$emit('on-update-user', user, right)
@@ -138,15 +143,17 @@ export default {
       }
     },
     getBadge (role) {
-      let roleText = _.find(this.rights, function (r) {
-        return r.value === role
-      }).text
-      if (role === 100) {
-        return '<span class="badge badge-primary">' + roleText + '</span>'
-      } else if (role === 50) {
-        return '<span class="badge badge-success">' + roleText + '</span>'
-      } else {
-        return '<span class="badge badge-secondary text-white">' + roleText + '</span>'
+      if (role) {
+        let roleText = _.find(this.rights, function (r) {
+          return r.value === role
+        }).text || ''
+        if (role === 100) {
+          return '<span class="badge badge-primary">' + roleText + '</span>'
+        } else if (role === 50) {
+          return '<span class="badge badge-success">' + roleText + '</span>'
+        } else {
+          return '<span class="badge badge-secondary text-white">' + roleText + '</span>'
+        }
       }
     },
     isAdmin () {

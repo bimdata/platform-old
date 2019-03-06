@@ -144,6 +144,14 @@ export default {
       console.log(e)
     }
   },
+  async getCurrentCloudUsers ({commit}, idCloud) {
+    try {
+      const result = await this.CloudRepositoryRequest.getCloudUsers(idCloud)
+      commit('SET_CURRENT_CLOUD_USERS', result)
+    } catch (e) {
+      console.log(e)
+    }
+  },
   async getProjects (context, idCloud) {
     try {
       let result = await this.ProjectRepositoryRequest.getProjects(idCloud)
@@ -169,6 +177,22 @@ export default {
       await this.CloudRepositoryRequest.deleteCloudUser(cloudId, userId)
       await this.dispatch('fetchUserData')
       await this.dispatch('fetchUserCloudsDetails')
+      return true
+    } catch (e) {
+      console.log(e)
+    }
+  },
+  inviteCloudUser (context, params) {
+    try {
+      return this.CloudRepositoryRequest.inviteUser(params.cloudId, params.invite)
+    } catch (e) {
+      console.log(e)
+    }
+  },
+  async updateCloudUser (context, params) {
+    try {
+      await this.CloudRepositoryRequest.updateUser(params)
+      await await this.dispatch('fetchUserCloudsDetails')
       return true
     } catch (e) {
       console.log(e)

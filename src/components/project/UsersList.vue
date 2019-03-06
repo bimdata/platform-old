@@ -13,6 +13,7 @@
                 :key="`user-${user.id}`"
                 :user="user"
                 :displayMenu="displayMenu"
+                :role="user.role"
                 @on-remove-user="removeUser"
                 @on-update-user="updateUser"></users-list-item>
             </ul>
