@@ -107,6 +107,11 @@ export default {
       type: Number,
       required: true,
       default: 0
+    },
+    type: {
+      type: String,
+      required: true,
+      default: 'project'
     }
   },
   computed: {
@@ -120,8 +125,9 @@ export default {
   methods: {
     ...mapActions({
       fetchProjectUsers: 'project/fetchProjectUsers',
-      deleteUser: 'project/deleteProjectUser',
-      updateProjectUserRole: 'project/updateProjectUserRole'
+      deleteProjectUser: 'project/deleteProjectUser',
+      updateProjectUserRole: 'project/updateProjectUserRole',
+      deleteCloudUser: 'deleteCloudUser'
     }),
     async radioSelected (user, right) {
       const cloudId = this.$route.params.cloudId
@@ -143,8 +149,14 @@ export default {
       const cloudId = this.$route.params.cloudId
       const projectId = this.$route.params.projectId
 
-      await this.deleteUser({ cloudId, projectId, userId })
-      this.fetchProjectUsers(this.project)
+      if (this.type === 'cloud') {
+        await this.deleteCloudUser({ cloudId, userId })
+        this.$emit('deleteComplete')
+      } else {
+        await this.deleteProjectUser({ cloudId, projectId, userId })
+        this.fetchProjectUsers(this.project)
+        this.$emit('deleteComplete')
+      }
     },
     toggleMenu (isOpened) {
       if (!isOpened) {

@@ -178,5 +178,19 @@ export default {
     } catch (e) {
       console.log(e)
     }
+  },
+  updateCloudUser (context, params) {
+    try {
+
+    } catch (e) {
+
+    }
+  },
+  deleteCloudUser (context, {cloudId, userId}) {
+    try {
+      return this.CloudRepositoryRequest.deleteUser(cloudId, userId)
+    } catch (e) {
+      console.log(e)
+    }
   }
 }

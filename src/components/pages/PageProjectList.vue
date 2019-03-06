@@ -68,7 +68,12 @@
       </button>
       <transition name="fade">
         <template v-if="!showModalUsersList">
-          <users-list :displayMenu="false" :users="adminUsers" type="cloud">
+          <users-list
+            @deleteUser="deleteUser"
+            :displayMenu="false"
+            :users="adminUsers"
+            type="cloud"
+          >
             <template slot="header-title">
               {{ $t('users.manage_admin') }}
             </template>
@@ -88,7 +93,13 @@
           </users-list>
         </template>
         <template v-else>
-          <users-list :displayMenu="false" :users="nonAdminUsers" :filter="searchUserFilter" type="cloud">
+          <users-list
+            @deleteUser="deleteUser"
+            :displayMenu="false"
+            :users="nonAdminUsers"
+            :filter="searchUserFilter"
+            type="cloud"
+          >
             <template slot="header-title">
               {{ $t('users.users_list') }}
             </template>
@@ -261,7 +272,8 @@ export default {
   methods: {
     ...mapActions({
       getCurrentCloudUsers: 'getCurrentCloudUsers',
-      sendCloudInvitation: 'inviteCloudUser'
+      sendCloudInvitation: 'inviteCloudUser',
+      deleteCloudUser: 'deleteCloudUser'
     }),
     toSearch (value) {
       this.searchFilter = value
@@ -301,6 +313,9 @@ export default {
     },
     resetEmailInvite () {
       this.emailInvite = ''
+    },
+    deleteUser () {
+      this.getCurrentCloudUsers(this.$route.params.cloudId)
     }
   },
   created () {
