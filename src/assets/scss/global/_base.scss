@@ -1,39 +1,31 @@
-html {
-  font-size: 14px;
-}
-
-body {
+body{
   height: 100vh;
 }
 
-.row + .row {
+.row + .row{
   margin-top: $grid-gutter-width;
 }
 
-.shadowed-content {
+.shadowed-content{
   box-shadow: $bd-box-shadow;
 }
 
-.no-borders {
+.no-borders{
   border: none;
 }
 
-.ellipsis {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
+.ellipsis{
   width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.noselect {
+.noselect{
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
   -khtml-user-select: none; /* Konqueror HTML */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
-}
-
-:focus {
-  outline: none;
 }

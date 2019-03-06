@@ -1,8 +1,6 @@
 .base-button-icon{
   box-shadow: $bd-box-shadow;
   .svg-icon{
-    &.is-close{
-      fill: $color-text;
-    }
+    &.is-close{ fill: $color-text; }
   }
 }

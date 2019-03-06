@@ -1,74 +1,70 @@
-$arrow-color: #94979A;
+$arrow-color: #95989A;
 
-.model-preview {
+.model-preview{
+  display: block;
   position: relative;
   overflow: hidden;
-  display: block;
-  .model-image-wrapper {
-    display: block;
-    overflow: hidden;
-    position: relative;
+  .model-image-wrapper{
     margin: 0 auto;
+    display: block;
+    position: relative;
+    overflow: hidden;
   }
-  .model-image-holder {
-    position: absolute;
-    height: 100%;
+  .model-image-holder{
     width: auto;
+    height: 100%;
+    position: absolute;
     left: 0;
     top: 0;
-    img {
-      height: 100%;
+    img{
       width: auto;
+      height: 100%;
     }
   }
-  &-counter {
+  &-counter{
     position: absolute;
     top: 19px;
     right: 16px;
-    font-size: 15px;
-    color: #95989A;
+    color: $arrow-color;
+    @include font-size(15px);
   }
 }
 
-.model-preview-controls {
-  .model-control {
+.model-preview-controls{
+  .model-control{
+    width: 29px;
+    height: 29px;
     position: absolute;
     bottom: -45px;
-    height: 29px;
-    width: 29px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     border-radius: 100%;
     cursor: pointer;
-    transition: all 0.25s ease;
-
-    &:hover {
-      background: #F6F6F6;
-      color: $primary;
+    @include flexbox;
+    @include align-items(center);
+    @include justify-content(center);
+    @include transition(all .25s ease);
+    &:hover{
+      background: $color-background;
+      color: $color-primary;
     }
-
-    &__left {
+    &__left{
       right: 48px;
     }
-    &__right {
+    &__right{
       right: 11px;
     }
   }
-  .model-control-button {
-    z-index: 1;
-    text-align: center;
-    position: absolute;
-    top: 13px;
-    left: 11px;
+  .model-control-button{
     width: 100%;
-
-    .btn {
+    position: absolute;
+    left: 11px;
+    top: 13px;
+    text-align: center;
+    z-index: 1;
+    .btn{
       min-width: 85px;
     }
   }
 }
-
-.model-preview-slider {
+.model-preview-slider{
   position: relative;
 }

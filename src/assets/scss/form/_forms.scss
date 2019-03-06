@@ -1,25 +1,21 @@
-form button {
+form button{
   border-radius: 3px;
 }
-
-input[type=text] {
-  @include media-breakpoint-up(sm) {
+input[type=text]{
+  @include media-breakpoint-up(sm){
     min-width: 370px;
   }
 }
-
-.form-control {
-  font-size: 0.8571rem;
+.form-control{
   border: 1px solid $border-color;
-  color: $primary;
+  color: $color-primary;
+  @include font-size(12px);
 }
-
-.login__submit {
+.login__submit{
   padding-top: 0.7857rem * 0.8;
   padding-bottom: 0.7857rem * 0.7;
   border-radius: 3px;
 }
-
-.form__button--large {
+.form__button--large{
   width: 100%;
 }

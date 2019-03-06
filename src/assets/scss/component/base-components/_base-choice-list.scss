@@ -1,88 +1,68 @@
-
-.choice-list {
-  position: relative;
-  color: $primary;
+.choice-list{
   width: 211px;
+  position: relative;
+  color: $color-primary;
   font-weight: normal;
   text-align: left;
-  &__field-selected {
-    background-color: $white;
+  &__field-selected{
+    padding: 1rem;
+    background-color: $color-white;
     box-shadow: $bd-box-shadow;
     font-size: $font-size-base;
     line-height: 1rem;
-    padding: 1rem;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-
-    &__text-selected {
-      flex: 1 auto;
+    @include flexbox;
+    @include align-items(flex-start);
+    @include justify-content(center);
+    &__text-selected{
       padding-left: 1rem;
+      flex: 1 auto;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
-
-    &__display-icon {
+    &__display-icon{
       svg {
-        color: $primary;
-        transition: .1s linear all;
+        color: $color-primary;
+        @include transition(.1s linear all);
       }
     }
-
-    &:hover {
+    &:hover{
       cursor: pointer;
     }
   }
-
-  &__list-options {
-    box-shadow: $bd-box-shadow;
+  &__list-options{
+    padding: 0;
+    width: 100%;
     position: absolute;
     top: 48px;
     left: 0;
-    z-index: 5000;
-    width: 100%;
+    background-color: $color-white;
+    box-shadow: $bd-box-shadow;
     list-style-type: none;
-    padding: 0;
-    background-color: $white;
-    .items-container {
+    z-index: 5000;
+    .items-container{
       max-height: 322px;
       overflow-y: auto;
-
-      &::-webkit-scrollbar
-      {
-        width: 8px;
-      }
-
-      &::-webkit-scrollbar-thumb
-      {
-        background-color: $primary;
-      }
+      &::-webkit-scrollbar{ width: 8px; }
+      &::-webkit-scrollbar-thumb{ background-color: $color-primary; }
     }
-    .items-container li {
+    .items-container li{
       padding: 1rem 4px 1rem 1rem;
       cursor: pointer;
-      transition: .16s linear all;
-      &:hover, &.active {
-        background-color: #eeeeee;
-      }
+      @include transition(.16s linear all);
+      &:hover, &.active{ background-color: $gray1; }
     }
   }
-
-  &__search-item {
+  &__search-item{
     padding: 4px;
-    &:hover, &.active {
-      background-color: inherit;
-    }
+    &:hover, &.active{ background-color: inherit; }
   }
-
-  .highlight-option {
+  .highlight-option{
     background-color: #E0E6FF;
   }
-
-  &__search-input {
-    min-width: 0 !important;
+  &__search-input{
     padding: 5px;
-    font-size: .8571rem;
+    min-width: 0 !important;
+    @include font-size(12px);
   }
 }

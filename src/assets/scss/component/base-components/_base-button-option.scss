@@ -1,75 +1,65 @@
 $base-button-option: 'base-button-option';
 
-.#{base-button-option} {
-  &__tool {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.#{base-button-option}{
+  &__tool{
     margin-left: auto;
     width: 27px;
     height: 27px;
-    
-    &:hover {
-      cursor: pointer;
-    }
+    position: relative;
+    @include flexbox;
+    @include align-items(center);
+    @include justify-content(center);
+    &:hover{ cursor: pointer; }
 
-    &.clicked {
-      &:after {
+    &.clicked{
+      &:after{
         animation-name: circle;
         animation-duration: .5s;
       }
     }
-
-    &:after {
-      transition: .15s linear all;
-      display: inline-block;
-      content: '';
+    &:after{
       width: 27px;
       height: 27px;
-      border-radius: 50%;
-      background-color: $primary;
+      display: inline-block;
       position: absolute;
       left: 0;
       top: 0;
+      content: '';
+      border-radius: 50%;
+      background-color: $color-primary;
       transform: scale(0);
+      @include transform(scale(0));
+      @include transition(.15s linear all);
     }
   }
-
-  &__menu {
-    color: $body-color;
+  &__menu{
+    padding: 8px 0;
+    width: 114px;
     position: absolute;
     top: 25px;
     right: 7px;
-    background: $white;
+    color: $color-text;
+    background: $color-white;
+    border: 1px solid $border-color;
     border-radius: 3px;
     box-shadow: $bd-box-shadow;
-    padding: 8px 0;
-    border: 1px solid $border-color;
     text-align: left;
     z-index: 250;
-    width: 114px;
-    ul {
-      list-style-type: none;
+    ul{
       margin: 0;
       padding: 0;
+      list-style-type: none;
       z-index: 1500;
-      li {
+      li{
         padding: 7px 12px;
+        color: $color-primary;
         line-height: 1em;
-        color: #2F374A;
-        display: flex;
-        align-items: center;
-
+        @include flexbox;
+        @include align-items(center);
         &:hover,
-        &.actif {
-          background: #F2F2F2;
-        }
+        &.actif{ background: $gray3; }
       }
     }
-
-    &__remove {
-      position: relative;
-    }
+    &__remove{ position: relative; }
   }
 }

@@ -2,44 +2,42 @@ $base-card-name: 'base-card';
 $card-header-color: #F8F8F9;
 $toolbox-background: #E6E6E6;
 
-.#{$base-card-name} {
-  position: relative;
-  background-color: $white;
-  max-width: 100%;
-  box-shadow: $bd-box-shadow;
+.#{$base-card-name}{
   padding: 0;
+  max-width: 100%;
+  position: relative;
+  background-color: $color-white;
+  box-shadow: $bd-box-shadow;
   font-weight: normal;
   text-align: left;
 }
 
-.#{$base-card-name}__header {
-  background-color: $card-header-color;
+.#{$base-card-name}__header{
   height: 40px;
-  display: flex;
+  background-color: $card-header-color;
+  @include flexbox;
 }
 
-.#{$base-card-name}__title-container {
+.#{$base-card-name}__title-container{
   padding: 15px;
-  font-size: 0.9286rem;
-  line-height: 1em;
-  color: $primary;
+  color: $color-primary;
   flex: 1 auto;
+  line-height: 1em;
+  @include font-size(13px);
 }
 
-.#{$base-card-name}__expand {
+.#{$base-card-name}__expand{
   padding: 10px;
-  cursor: pointer;
   background-color: $toolbox-background;
+  cursor: pointer;
 }
 
 .#{$base-card-name}__content {
   padding: 1rem;
 }
 
-.#{$base-card-name}__link {
+.#{$base-card-name}__link{
   &:hover {
     text-decoration: none;
   }
 }
-
-

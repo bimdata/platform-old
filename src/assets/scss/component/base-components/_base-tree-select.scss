@@ -1,6 +1,6 @@
 $base-tree-select: 'base-tree-select';
 
-.#{$base-tree-select} {
+.#{$base-tree-select}{
   color: $body-color;
   z-index: 500;
   width: 200px;
@@ -10,93 +10,81 @@ $base-tree-select: 'base-tree-select';
   box-shadow: $bd-box-shadow;
   font-size: 0.714rem;
   border-radius: 4px;
-
-  &__header {
+  &__header{
     padding: 0 $grid-gutter-width - 1px;
     padding-left: $grid-gutter-width - 3px;
     height: 38px;
-    display: flex;
-    align-items: center;
-    background-color: #F2F2F2;
-
-    svg {
-      &:hover {
+    background-color: $gray3;
+    @include flexbox;
+    @include align-items(center);
+    svg{
+      &:hover{
         cursor: pointer;
       }
     }
   }
-
-  &__previous {
+  &__previous{
     margin-right: 11px;
   }
-  &__close {
+  &__close{
     margin-left: auto;
   }
-
-  ul {
-    height: calc(100% - 38px - 38px);
-    overflow: auto;
+  ul{
     margin: 0;
     padding: 0;
+    height: calc(100% - 38px - 38px);
     list-style-type: none;
-    li {
+    overflow: auto;
+    li{
       padding: 5.5px $grid-gutter-width - 1px 5.5px $grid-gutter-width - 1px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: .1s linear all;
-
-      &:hover {
+      @include flexbox;
+      @include align-items(center);
+      @include justify-content(space-between);
+      @include transition(.1s linear all);
+      &:hover{
+        background: $color-primary;
+        color: $color-white;
         cursor: pointer;
-        background: $primary;
-        color: white;
-        svg {
-          color: white;
+        svg{
+          color: $color-white;
         }
       }
-
-      &.selected {
-        background: $primary;
-        color: white;
-        svg {
-          color: white;
+      &.selected{
+        background: $color-primary;
+        color: $color-white;
+        svg{
+          color: $color-white;
         }
       }
     }
   }
-
-  &__item-line {
+  &__item-line{
     flex: 2 auto;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-
-    svg {
-      color: $primary;
+    @include flexbox;
+    @include align-items(center);
+    @include justify-content(flex-start);
+    svg{
       margin-right: 11px;
+      color: $color-primary;
     }
   }
-
-  &__select-node {
-    display: flex;
-    align-items: center;
+  &__select-node{
+    @include flexbox;
+    @include align-items(center);
   }
-
   &__footer {
-    display: flex;
-    box-shadow: $bd-box-shadow;
-    justify-content: center;
-    align-items: center;
     height: 38px;
     padding: $grid-gutter-width / 2 $grid-gutter-width - 3px;
-
-    .base-button-action {
+    box-shadow: $bd-box-shadow;
+    @include flexbox;
+    @include align-items(center);
+    @include justify-content(center);
+    .base-button-action{
       width: 100%;
       height: auto;
       text-transform: uppercase;
     }
-
-    .text-destination {
+    .text-destination{
       padding: 0.375rem 0;
     }
   }

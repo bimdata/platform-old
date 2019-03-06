@@ -15,16 +15,13 @@ $base-upload-area: 'upload-area';
     min-height: 200px !important; //Override uppy.min.css file
     background: $body-bg !important; //Override uppy.min.css file
   }
-  .uppy-Dashboard-innerWrap {
+  .uppy-Dashboard-innerWrap{
     min-height: auto !important;
   }
-  .uppy-Dashboard-files {
+  .uppy-Dashboard-files{
     padding: 0 !important;
   }
-
-  &.#{$base-upload-area}-ifc {
-    background-color: transparent !important;
-    width: 100% !important;
+  &.#{$base-upload-area}-ifc{
     margin-top: $grid-gutter-width;
 
     .uppy-Dashboard-filesContainer {
@@ -47,38 +44,33 @@ $base-upload-area: 'upload-area';
     span {
       position: relative;
       display: block;
-
-      &:before {
+      &:before{
+        margin: 0 auto;
+        width: 50px;
+        height: 50px;
         content: '';
         display: block;
         background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iIzJGMzc0QSIgZD0iTTE0LDEzVjE3SDEwVjEzSDdMMTIsOEwxNywxM00xOS4zNSwxMC4wM0MxOC42Nyw2LjU5IDE1LjY0LDQgMTIsNEM5LjExLDQgNi42LDUuNjQgNS4zNSw4LjAzQzIuMzQsOC4zNiAwLDEwLjkgMCwxNEMwLDE3LjMxIDIuNjksMjAgNiwyMEgxOUMyMS43NiwyMCAyNCwxNy43NiAyNCwxNUMyNCwxMi4zNiAyMS45NSwxMC4yMiAxOS4zNSwxMC4wM1oiIC8+PC9zdmc+);
         background-size: 50px 50px;
-        height: 50px;
-        width: 50px;
-        margin: 0 auto;
       }
     }
   }
-
-  .uppy-Dashboard-browse {
-    color: #959595 !important;
+  .uppy-Dashboard-browse{
+    color: $gray4 !important;
     text-decoration: underline;
   }
-
-  .uppy-c-btn-primary {
-    background-color: $primary !important;
+  .uppy-c-btn-primary{
+    background-color: $color-primary !important;
   }
-
-  .uppy-DashboardItem-remove {
-    svg {
-      path:first-child {
-        fill: $primary;
+  .uppy-DashboardItem-remove{
+    svg{
+      path:first-child{
+        fill: $color-primary;
       }
     }
   }
-
 }
-.uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose>.uppy-Dashboard-inner {
+.uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose>.uppy-Dashboard-inner{
   min-width: auto !important;
   min-height: auto !important;
 }

@@ -1,7 +1,7 @@
 .viewer {
-  .main {
+  .main{
     padding: 0;
-    flex: 1 0 auto;
     height: calc(100vh - #{$header-height});
+    flex: 1 0 auto;
   }
 }

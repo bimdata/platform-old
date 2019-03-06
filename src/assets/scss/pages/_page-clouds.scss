@@ -1,15 +1,14 @@
-.page-clouds {
-  .card-new-cloud {
-    transition: all 600ms ease-in-out 50ms;
+.page-clouds{
+  .card-new-cloud{
     position: absolute;
     left: -267px;
-    z-index: 0;
     opacity: 0;
-
-    &.display-card {
+    z-index: 0;
+    @include transition(all 600ms ease-in-out 50ms);
+    &.display-card{
       position: relative;
-      opacity: 1;
       left: 0;
+      opacity: 1;
     }
   }
 }

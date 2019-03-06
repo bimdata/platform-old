@@ -1,31 +1,30 @@
-.base-dropdown {
-  .b-dropdown {
-    &.show {
-      .dropdown-toggle {
+.base-dropdown{
+  .b-dropdown{
+    &.show{
+      .dropdown-toggle{
+        background: $color-white;
+        color: $color-primary;
         @include caretCustom(up);
-        background: $white;
-        color: $primary;
       }
     }
   }
-  .dropdown-toggle {
-    @include caretCustom(down);
-    background-color: $white;
-    color: $primary;
-    border: none;
+  .dropdown-toggle{
     height: 100%;
-    display: flex;
-    align-items: center;
-    font-size: 0.857rem;
-
-    &:active {
-      background-color: $white !important;  //override btn bootstrap style
-      color: $primary !important; //override btn bootstrap style
+    background-color: $color-white;
+    border: none;
+    color: $color-primary;
+    @include caretCustom(down);
+    @include flexbox;
+    @include align-items(center);
+    @include font-size(12px);
+    &:active{
+      background-color: $color-white !important;  //override btn bootstrap style
+      color: $color-primary !important; //override btn bootstrap style
     }
-    &:after {
-      border: none;
-      height: auto;
+    &:after{
       width: auto;
+      height: auto;
+      border: none;
     }
   }
 }

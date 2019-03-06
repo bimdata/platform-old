@@ -1,5 +1,5 @@
 /* recommended css code for vue-svgicon */
-.svg-icon {
+.svg-icon{
   display: inline-block;
   width: 16px;
   height: 16px;
@@ -9,24 +9,23 @@
   stroke: currentColor;
 }
 
-.svg-fill {
+.svg-fill{
   fill: currentColor;
   stroke: none;
 }
 
-.svg-up {
-  /* default */
-  transform: rotate(0deg);
+.svg-up{
+  @include transform(rotate(0deg));
 }
 
-.svg-right {
-  transform: rotate(90deg);
+.svg-right{
+  @include transform(rotate(90deg));
 }
 
-.svg-down {
-  transform: rotate(180deg);
+.svg-down{
+  @include transform(rotate(180deg));
 }
 
-.svg-left {
-  transform: rotate(-90deg);
+.svg-left{
+  @include transform(rotate(-90deg));
 }

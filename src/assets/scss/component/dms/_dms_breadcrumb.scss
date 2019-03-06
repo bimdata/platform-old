@@ -1,27 +1,24 @@
-.dms {
-  .breadcrumb {
-    font-size: 0.92857143rem;
-    color: $primary;
-    font-weight: 500;
-    box-shadow: $bd-box-shadow;
+.dms{
+  .breadcrumb{
     margin: 0;
-    ul {
+    color: $color-primary;
+    box-shadow: $bd-box-shadow;
+    font-family: $font-primary_medium;
+    @include font-size(13px);
+    ul{
       margin: 0;
       padding: 0;
-      display: flex;
-      li {
+      @include flexbox;
+      li{
         padding: 0 $grid-gutter-width * 2 0 0;
-        list-style-type: none;
         position: relative;
-
-        a {
+        list-style-type: none;
+        a{
           cursor: pointer;
-
-          &:hover {
+          &:hover{
             text-decoration: underline;
           }
-
-          &:after {
+          &:after{
             position: absolute;
             right: 9px;
             content: '>';

@@ -1,179 +1,163 @@
 $width-tree: 272px;
 $width-lg-tree: 350px;
 
-.dms {
-  font-size: 0.92857143rem;
+.dms{
   position: relative;
-  .dms_title {
-    color: $primary;
-    text-align: left;
+  @include font-size(13px);
+  .dms_title{
     padding: $grid-gutter-width;
+    color: $color-primary;
+    text-align: left;
   }
 }
 
-.dms-container {
+.dms-container{
   padding: 10px;
 }
-.dms__toolbox-selected {
-  display: flex;
-  .toolbox-selected__content {
-    justify-content: center;
-    align-items: center;
-    display: flex;
+.dms__toolbox-selected{
+  @include flexbox;
+  .toolbox-selected__content{
     height: 32px;
-    text-align: left;
-    background-color: white;
+    background-color: $color-white;
     box-shadow: $bd-box-shadow;
-    font-size: 0.7143rem;
-    & > div {
+    text-align: left;
+    @include flexbox;
+    @include align-items(center);
+    @include justify-content(center);
+    @include font-size(11px);
+    & > div{
       padding-left: $grid-gutter-width;
       padding-right: $grid-gutter-width;
-
-      &:hover {
+      &:hover{
         cursor: pointer;
       }
     }
-
-    .dms__delete-button {
+    .dms__delete-button{
       color: #DD0243;
     }
-
-    .dms__move-button {
+    .dms__move-button{
       color: #FF8B03;
-
-      .container-button-move-top {
+      .container-button-move-top{
         height: 32px;
         display: inline-block;
         line-height: 32px;
       }
     }
-
-    .dms__download-button {
-      color: $primary;
+    .dms__download-button{
+      color: $color-primary;
     }
-
-    .dms__selected-display {
-      color: $primary;
-
-      .item-counter {
-        display: inline-block;
+    .dms__selected-display{
+      color: $color-primary;
+      .item-counter{
+        margin-left: $grid-gutter-width / 2;
         height: 15px;
         width: 15px;
+        display: inline-block;
+        color: $color-white;
+        border-radius: 3px;
+        background-color: $color-primary;
         line-height: 16px;
         text-align: center;
-        color: white;
-        border-radius: 3px;
-        background-color: $primary;
-        margin-left: $grid-gutter-width / 2;
       }
     }
   }
 }
 
-.dms__toolbox {
-  display: flex;
-
-  .base-button-tool__container {
+.dms__toolbox{
+  @include flexbox;
+  .base-button-tool__container{
     position: relative;
   }
-
-  .base-button-tool__container ~ .base-button-tool__container {
+  .base-button-tool__container ~ .base-button-tool__container{
     margin-left: $grid-gutter-width / 2;
   }
-
-  .dms__search {
-    position: relative;
+  .dms__search{
     margin-left: $grid-gutter-width / 2;
-    box-shadow: $bd-box-shadow;
-    display: flex;
-    background-color: white;
     padding-left: $grid-gutter-width;
+    position: relative;
+    background-color: $color-white;
+    box-shadow: $bd-box-shadow;
+    @include flexbox;
   }
-  input {
+  input{
+    width: 324px;
     height: 32px;
     min-width: 0;
-    width: 324px;
     border: none;
     box-sizing: border-box;
     box-shadow: none;
   }
 }
 
-.dms__content {
+.dms__content{
   padding-top: $grid-gutter-width;
-  transition: .2s ease all;
-  position: relative;
   height: 420px;
-
-  .dms__tree-view {
-    transition: .2s ease all;
-    position: absolute;
-    left: -500px;
+  position: relative;
+  @include transition(.2s ease all);
+  .dms__tree-view{
     width: $width-tree;
     height: calc(100% - #{$grid-gutter-width});
+    position: absolute;
+    left: -500px;
     overflow: auto;
+    @include transition(.2s ease all);
 
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(lg){
       width: $width-lg-tree;
     }
   }
-
-  .dms__list-files {
-    transition: .2s ease all;
+  .dms__list-files{
     height: 100%;
     overflow: auto;
+    @include transition(.2s ease all);
   }
 
-  &.shrinked {
-    transform: translateX($width-tree);
-    width: calc(100% - #{$width-tree});
+  &.shrinked{
     padding-left: $grid-gutter-width;
+    width: calc(100% - #{$width-tree});
+    transform: translateX($width-tree);
 
-    @include media-breakpoint-up(lg) {
-      transform: translateX($width-lg-tree);
+    @include media-breakpoint-up(lg){
       width: calc(100% - #{$width-lg-tree});
+      @include transform(translateX($width-lg-tree));
     }
-
-    .dms__tree-view {
+    .dms__tree-view{
       left: -$width-tree;
-
-      @include media-breakpoint-up(lg) {
+      @include media-breakpoint-up(lg){
         left: -$width-lg-tree;
       }
     }
   }
 
-  .dms__tree-view {
+  .dms__tree-view{
     width: $width-tree;
     min-width: $width-tree;
 
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(lg){
       width: $width-lg-tree;
       min-width: $width-lg-tree;
     }
   }
 
-  .bd-table {
+  .bd-table{
     width: 100%;
     min-width: 0;
-    transition: .2s ease all;
+    @include transition(.2s ease all);
 
-    & > thead {
-      & > tr {
-        & > th {
-          outline: none;
+    & > thead{
+      & > tr{
+        & > th{
           line-height: 1em;
-
-          &.sorting {
-            &:before,
-            &:after {
+          outline: none;
+          &.sorting{
+            &:before, &:after{
               display: none;
             }
           }
         }
       }
     }
-    td {
+    td{
       vertical-align: middle;
       line-height: 1em;
       word-break: break-all;
@@ -182,237 +166,212 @@ $width-lg-tree: 350px;
       }
     }
 
-    .table-name {
+    .table-name{
       width: 47%;
       min-width: 47%;
-
-      &__name {
+      &__name{
         cursor: pointer;
       }
     }
-    .table-type {
+    .table-type{
       width: 10%;
       min-width: 10%;
     }
-    .table-creator {
+    .table-creator{
+      padding-bottom: 0;
+      padding-top: 0;
       width: 9%;
       min-width: 9%;
-      padding-top: 0;
-      padding-bottom: 0;
     }
-    .table-date {
+    .table-date{
       width: 14%;
       min-width: 14%;
     }
-    .table-size {
+    .table-size{
       width: 9%;
       min-width: 9%;
     }
   }
 
-  .base-button-option__menu {
+  .base-button-option__menu{
     width: 157px;
-
-    ul {
-      li {
+    ul{
+      li{
         padding: 6px 12px;
-
-        .svg-icon {
+        .svg-icon{
           margin-right: 10px;
         }
       }
     }
 
-    &__remove {
-      .base-valid-delete {
-        .svg-icon {
+    &__remove{
+      .delete__actions{
+        .svg-icon{
           margin-right: 0;
         }
       }
     }
   }
-
-  .base-checkbox {
+  .base-checkbox{
     margin: 0;
     line-height: unset;
   }
 }
 
-.dms__tree-view {
+.dms__tree-view{
   margin-right: $grid-gutter-width;
-
-  .dms__tree-view-content {
-    background-color: $white;
-    box-shadow: $bd-box-shadow;
-    font-size: 0.7143rem;
+  .dms__tree-view-content{
     height: 100%;
-    overflow: auto;
     min-height: 100%;
+    background-color: $color-white;
+    box-shadow: $bd-box-shadow;
+    overflow: auto;
+    @include font-size(10px);
   }
-
-  .dms__tree-view-header {
-    display: flex;
-    justify-content: flex-end;
+  .dms__tree-view-header{
     padding: $grid-gutter-width / 2;
-
-    .svg-icon {
+    @include flexbox;
+    @include justify-content(flex-end);
+    .svg-icon{
       cursor: pointer;
     }
   }
-
-  ul {
+  ul{
     margin: 0;
     padding: 0;
   }
-  .dms__tree-folder-list {
+  .dms__tree-folder-list{
     list-style-type: none;
     text-align: left;
-    li {
+    li{
       position: relative;
       list-style-type: none;
-      svg {
-        color: $primary;
-        transition: .15s linear all;
+      svg{
+        color: $color-primary;
+        @include transition(.15s linear all);
       }
-      .dms__line-tree-view {
-        transition: .15s linear all;
+      .dms__line-tree-view{
         padding-left: $grid-gutter-width * 1.5;
         padding-top: 5px;
         padding-bottom: 5px;
-
-        &:hover {
-          background-color: #F2F2F2;
+        @include transition(.15s linear all);
+        &:hover{
+          background-color: $gray3;
         }
       }
-
-      .collapse-tree {
-        transition: all 0.3s ease-in-out;
-        will-change: height;
+      .collapse-tree{
         overflow: hidden;
+        will-change: height;
+        @include transition(all 0.3s ease-in-out);
       }
-
-      .dms__line-tree-view-content {
+      .dms__line-tree-view-content{
         position: relative;
-        .folder-carret {
-          transition: transform 0.3s ease-in-out;
+        .folder-carret{
+          width: 0px;
+          height: 0px;
           position: absolute;
-          display: inline-block;
+          top: 4px;
+          left: -10px;
           content: '';
+          display: inline-block;
           border-top: 4px solid transparent;
           border-bottom: 4px solid transparent;
           border-left: 4px solid grey;
-          width: 0px;
-          height: 0px;
-          top: 4px;
-          left: -10px;
+          @include transition(transform 0.3s ease-in-out);
         }
-
-        &__name {
-          display: inline-block;
-          vertical-align: middle;
-          width: 87%;
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
+        &__name{
           margin-left: 3px;
+          width: 87%;
+          display: inline-block;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          vertical-align: middle;
+          white-space: nowrap;
         }
       }
-
-      &:hover {
+      &:hover{
         cursor: pointer;
       }
     }
-
-    li.is-current-folder > .dms__line-tree-view {
-      background-color: $primary;
-      color: white;
-
-      svg {
-        color: white;
+    li.is-current-folder > .dms__line-tree-view{
+      background-color: $color-primary;
+      color: $color-white;
+      svg{
+        color: $color-white;
       }
     }
-
-    li.is-current-path > .dms__line-tree-view > .dms__line-tree-view-content {
-      transition: .3s ease all;
+    li.is-current-path > .dms__line-tree-view > .dms__line-tree-view-content{
+      @include transition(.3s ease all);
     }
-
-    .is-folder-opened > .dms__line-tree-view > .dms__line-tree-view-content .folder-carret {
-      transform: rotate(90deg);
+    .is-folder-opened > .dms__line-tree-view > .dms__line-tree-view-content .folder-carret{
+      @include transform(rotate(90deg));
     }
   }
 }
 
-.new_folder_box {
-  transition: .15s ease all;
+.new_folder_box{
+  padding: 11px;
   position: absolute;
   top: 37px;
   left: 0;
-  background-color: white;
+  background-color: $color-white;
+  color: $color-primary;
   box-shadow: $bd-box-shadow;
-  z-index: 100;
   text-align: left;
-  padding: 11px;
-  color: $primary;
-  font-size: 0.786rem;
   z-index: 2;
-
-  &.rename {
+  @include font-size(11px);
+  @include transition(.15s ease all);
+  &.rename{
     left: -120%;
     top: 60px;
 
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up(md){
       left: -110%;
     }
-    @include media-breakpoint-up(xl) {
+    @include media-breakpoint-up(xl){
       left: -100%;
     }
   }
-
-  &__overlay {
+  &__overlay{
+    width: 100%;
+    height: 100%;
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
-    height: 100%;
-    width: 100%;
     z-index: 1;
   }
-
-  .base-input-text-material {
-    padding: 10px 0 26px 0;
+  .base-input-text-material{
     margin: 0;
-    input {
+    padding: 10px 0 26px 0;
+    input{
       padding: 0;
-      font-size: 0.786rem;
-      color: #94979A;
+      color: $color-text;
+      @include font-size(11px);
     }
   }
-
-  .new_folder_box__button-validation {
+  .new_folder_box__button-validation{
     flex: 1 auto;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-
-    span {
+    @include flexbox;
+    @include align-items(center);
+    @include justify-content(flex-end);
+    span{
       padding-left: $grid-gutter-width;
       text-transform: uppercase;
-      &:hover {
+      &:hover{
+        color: darken($color-primary, 10);
         cursor: pointer;
-        color: darken($primary, 10);
       }
     }
   }
-
-  &.show {
+  &.show{
     opacity: 1;
   }
 }
-
-.dms__move-button {
+.dms__move-button{
   position: relative;
-  .base-tree-select {
+  .base-tree-select{
     position: absolute;
     top: 27px;
   }
