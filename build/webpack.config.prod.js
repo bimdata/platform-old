@@ -6,6 +6,12 @@ const MiniCssExtractPlugin  = require('mini-css-extract-plugin')
 
 module.exports = merge(baseConfig, {
   mode: 'production',
+  output: {
+    publicPath: '/',
+    chunkFilename: "[name].[chunkhash].js",
+    filename: '[name].[chunkhash].js',
+  },
+
   optimization: {
     splitChunks: {
       cacheGroups: {
@@ -22,14 +28,14 @@ module.exports = merge(baseConfig, {
       {
         test: /\.css?$/,
         use: [
-          MiniCssExtractPlugin.loader, 
+          MiniCssExtractPlugin.loader,
           'css-loader'
         ]
       }, {
         test: /\.scss?$/,
         use: [
-          MiniCssExtractPlugin.loader, 
-          'css-loader', 
+          MiniCssExtractPlugin.loader,
+          'css-loader',
           'sass-loader'
         ]
       }
@@ -37,7 +43,7 @@ module.exports = merge(baseConfig, {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'main.css'
+      filename: '[name].[contenthash].css',
     })
   ]
 })
