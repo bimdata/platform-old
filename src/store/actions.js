@@ -171,5 +171,12 @@ export default {
     } catch (e) {
       console.log(e)
     }
+  },
+  inviteCloudUser (context, params) {
+    try {
+      return this.CloudRepositoryRequest.inviteUser(params.cloudId, params.invite)
+    } catch (e) {
+      console.log(e)
+    }
   }
 }

@@ -68,16 +68,16 @@
       </button>
       <transition name="fade">
         <template v-if="!showModalUsersList">
-          <users-list :displayMenu="false" :users="adminUsers">
+          <users-list :displayMenu="false" :users="adminUsers" type="cloud">
             <template slot="header-title">
               {{ $t('users.manage_admin') }}
             </template>
             <template slot="users-list-header">
               <div class="users-list__header users-list__header--large users-list__header__admin">
                 <svgicon name="account-plus" height="20" width="20" class="account-plus"></svgicon>
-                <input type="email" v-model="emailInvit" placeholder="Email invitation" class="users-list-modal__input-mail" />
+                <input type="email" v-model="emailInvite" placeholder="Email invitation" class="users-list-modal__input-mail" />
                 <transition name="slide-fade">
-                  <base-valid-delete v-if="emailInvitValid" @on-valid-action="sendInvitation" @on-cancel-action="resetEmailInvit"></base-valid-delete>
+                  <base-valid-delete v-if="emailInviteValid" @on-valid-action="sendInvitation" @on-cancel-action="resetEmailInvite"></base-valid-delete>
                 </transition>
                 <button type="button" class="btn base-button-action" @click="showModalUsersList = true">
                   <svgicon name="account" height="12" width="12"></svgicon>
@@ -88,7 +88,7 @@
           </users-list>
         </template>
         <template v-else>
-          <users-list :displayMenu="false" :users="nonAdminUsers" :filter="searchUserFilter">
+          <users-list :displayMenu="false" :users="nonAdminUsers" :filter="searchUserFilter" type="cloud">
             <template slot="header-title">
               {{ $t('users.users_list') }}
             </template>
@@ -140,7 +140,7 @@ export default {
       displayNewForm: false,
       displaySearchUser: false,
       newProjectName: '',
-      emailInvit: '',
+      emailInvite: '',
       cloud: null,
       searchFilter: '',
       searchUserFilter: '',
@@ -241,14 +241,8 @@ export default {
       })
       return filteredprojects
     },
-    emailInvitValid () {
-      let regex = new RegExp(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)
-
-      if (regex.test(this.emailInvit)) {
-        return true
-      }
-
-      return false
+    emailInviteValid () {
+      return /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(this.emailInvite)
     },
     adminUsers () {
       return this.cloudUsers
@@ -266,7 +260,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      getCurrentCloudUsers: 'getCurrentCloudUsers'
+      getCurrentCloudUsers: 'getCurrentCloudUsers',
+      sendCloudInvitation: 'inviteCloudUser'
     }),
     toSearch (value) {
       this.searchFilter = value
@@ -294,11 +289,18 @@ export default {
         this.displaySearchUser = true
       }, 500)
     },
-    sendInvitation () {
-      // TODO call to send invitation to this.emailInvit
+    async sendInvitation () {
+      await this.sendCloudInvitation({
+        cloudId: this.$route.params.cloudId,
+        invite: {
+          email: this.emailInvite,
+          redirect_uri: `${process.env.BD_APP_URL}/cloud/${this.$route.params.cloudId}`
+        }
+      })
+      this.resetEmailInvite()
     },
-    resetEmailInvit () {
-      this.emailInvit = ''
+    resetEmailInvite () {
+      this.emailInvite = ''
     }
   },
   created () {

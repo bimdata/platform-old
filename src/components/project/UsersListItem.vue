@@ -21,7 +21,7 @@
           <span class="users-list__user__name">{{ user.firstname }} {{ user.lastname }}</span>
           <span>{{ $t('users.guest') }} - {{ $t('users.without_answer') }}. <a href="">{{ $t('users.resend_invitation') }}</a></span>
         </p>
-        <span v-if="user.hasAccepted" v-html="getBadge(user.project_role)"></span>
+        <span v-if="user.hasAccepted" v-html="getBadge(role)"></span>
       </div>
       <div class="users-list__user__actions" v-if="user.hasAccepted && isAdmin()">
         <base-button-option @option-toggled="toggleMenu" class="users-list__user__actions__menu" v-if="displayMenu">
@@ -37,7 +37,7 @@
                     :option="right"
                     name="rights"
                     @input="radioSelected(user, right)"
-                    :selected="user.project_role"
+                    :selected="role"
                   ></base-input-radio>
                 </div>
             </li>
@@ -97,13 +97,16 @@ export default {
     user: {
       type: Object,
       required: true,
-      default: () => {
-        return {}
-      }
+      default: () => ({})
     },
     displayMenu: {
       type: Boolean,
       default: true
+    },
+    role: {
+      type: Number,
+      required: true,
+      default: 0
     }
   },
   computed: {
