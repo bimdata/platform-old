@@ -144,14 +144,6 @@ export default {
       console.log(e)
     }
   },
-  async getCurrentCloudUsers ({commit}, idCloud) {
-    try {
-      const result = await this.CloudRepositoryRequest.getCloudUsers(idCloud)
-      commit('SET_CURRENT_CLOUD_USERS', result)
-    } catch (e) {
-      console.log(e)
-    }
-  },
   async getProjects (context, idCloud) {
     try {
       let result = await this.ProjectRepositoryRequest.getProjects(idCloud)
@@ -175,7 +167,6 @@ export default {
   async deleteCloudUser (store, {cloudId, userId}) {
     try {
       await this.CloudRepositoryRequest.deleteCloudUser(cloudId, userId)
-      await this.dispatch('fetchUserData')
       await this.dispatch('fetchUserCloudsDetails')
       return true
     } catch (e) {
@@ -192,7 +183,7 @@ export default {
   async updateCloudUser (context, params) {
     try {
       await this.CloudRepositoryRequest.updateUser(params)
-      await await this.dispatch('fetchUserCloudsDetails')
+      await this.dispatch('fetchUserCloudsDetails')
       return true
     } catch (e) {
       console.log(e)

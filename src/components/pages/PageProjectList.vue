@@ -56,7 +56,7 @@
       </div>
       <card-project-list
         v-for="(project) in cloudProjects"
-        :cloudId="currentCloud.id"
+        :cloudId="$store.state.currentCloud.id"
         :project="project"
         :key="project.id"
       ></card-project-list>
@@ -162,7 +162,6 @@ export default {
   },
   computed: {
     ...mapGetters({
-      currentCloud: 'getCurrentCloud',
       getCloudById: 'getCloudById',
       getProjectsByCloudId: 'getProjectsByCloudId'
     }),
@@ -170,6 +169,7 @@ export default {
       let list = this.$store.state.currentCloud.users
       list.map(user => {
         user.hasAccepted = true
+        user.role = user.cloud_role
       })
       return list
     },
@@ -187,23 +187,16 @@ export default {
     },
     usersAdminCloud () {
       let usersAdmin = _.filter(this.users, {cloud_role: 100})
-      usersAdmin.map(user => {
-        user.role = user.cloud_role
-      })
       return usersAdmin
     },
     usersNotAdminCloud () {
       let usersNotAdmin = _.filter(this.users, function (u) { return u.cloud_role !== 100 })
-      usersNotAdmin.map(user => {
-        user.role = user.cloud_role
-      })
       return usersNotAdmin
     }
   },
   methods: {
     ...mapActions({
       deleteUser: 'deleteCloudUser',
-      fetchUserCloudsDetails: 'fetchUserCloudsDetails',
       sendCloudInvitation: 'inviteCloudUser'
     }),
     toSearch (value) {
@@ -252,17 +245,22 @@ export default {
       const cloudId = this.$store.state.currentCloud.id
 
       await this.deleteUser({ cloudId, userId })
-      this.fetchUserCloudsDetails()
+
+      const clouds = this.$store.state.clouds
+      const cloud = clouds.find(cloud => parseInt(cloud.id) === parseInt(cloudId))
+      this.$store.commit('SET_CURRENT_CLOUD', cloud)
     }
   },
   created () {
     this.$store.commit('SET_LOADER_PAGE', true)
     this.$store.dispatch('project/init')
+
     const clouds = this.$store.state.clouds
     const cloud = clouds.find(cloud => parseInt(cloud.id) === parseInt(this.$route.params.cloudId))
     this.$store.commit('SET_CURRENT_CLOUD', cloud)
+
     this.cloud = cloud
-    const currentCloud = this.$store.getters['getCurrentCloud']
+    const currentCloud = this.$store.state.currentCloud
 
     for (let {id, name} of clouds) {
       let listItem = {value: id, text: name}
