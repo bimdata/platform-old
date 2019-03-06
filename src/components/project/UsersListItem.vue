@@ -21,7 +21,7 @@
           <span class="users-list__user__name">{{ user.firstname }} {{ user.lastname }}</span>
           <span>{{ $t('users.guest') }} - {{ $t('users.without_answer') }}. <a href="">{{ $t('users.resend_invitation') }}</a></span>
         </p>
-        <span v-if="user.hasAccepted" v-html="getBadge(role)"></span>
+        <span v-if="user.hasAccepted" v-html="getBadge(user.role)"></span>
       </div>
       <div class="users-list__user__actions" v-if="user.hasAccepted && isAdmin()">
         <base-button-option @option-toggled="toggleMenu" class="users-list__user__actions__menu" v-if="displayMenu">
@@ -107,11 +107,6 @@ export default {
       type: Number,
       required: true,
       default: 0
-    },
-    type: {
-      type: String,
-      required: true,
-      default: 'project'
     }
   },
   computed: {
@@ -131,28 +126,7 @@ export default {
       updateCloudUser: 'updateCloudUser'
     }),
     async radioSelected (user, right) {
-      const cloudId = this.$route.params.cloudId
-      const projectId = this.$route.params.projectId
-
-      if (this.type === 'cloud') {
-        this.updateCloudUser({
-          cloudId,
-          userId: user.id,
-          data: {
-            role: right.value
-          }
-        })
-        this.$emit('deleteComplete')
-      } else {
-        await this.updateProjectUserRole({
-          cloudId,
-          projectId,
-          userId: user.id,
-          role: right.value
-        })
-        this.fetchProjectUsers(this.project)
-      }
-
+      this.$emit('on-update-user', user, right)
       this.displayRights = false
     },
     toggleRights () {
@@ -160,17 +134,7 @@ export default {
       this.showRemoveActions = false
     },
     async removeUser (userId) {
-      const cloudId = this.$route.params.cloudId
-      const projectId = this.$route.params.projectId
-
-      if (this.type === 'cloud') {
-        await this.deleteCloudUser({ cloudId, userId })
-        this.$emit('deleteComplete')
-      } else {
-        await this.deleteProjectUser({ cloudId, projectId, userId })
-        this.fetchProjectUsers(this.project)
-        this.$emit('deleteComplete')
-      }
+      this.$emit('on-remove-user', userId)
     },
     toggleMenu (isOpened) {
       if (!isOpened) {

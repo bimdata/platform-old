@@ -53,8 +53,8 @@ export default {
         const role = _.find(state.currentUser.clouds, ['cloud', cloud.id])
         cloud.role = role ? role.role : null
         let nbUserRetrieve = async function () {
-          let nbUsers = await dispatch('getCloudUsers', cloud.id)
-          cloud.nbUsers = nbUsers
+          let users = await dispatch('getCloudUsers', cloud.id)
+          cloud.users = users
         }
         let projectsRetrieve = async function () {
           let projects = await dispatch('getProjects', cloud.id)
@@ -109,7 +109,7 @@ export default {
   },
   async removeCloud (context, cloudId) {
     try {
-      await this.CloudRepositoryRequest.deleteCloud(cloudId, context.state.currentUser.id)
+      await this.CloudRepositoryRequest.deleteCloud(cloudId)
       await this.dispatch('fetchUserData')
       await this.dispatch('fetchUserCloudsDetails')
       return true
@@ -139,15 +139,7 @@ export default {
   async getCloudUsers (context, idCloud) {
     try {
       let result = await this.CloudRepositoryRequest.getCloudUsers(idCloud)
-      return result ? result.length : 0
-    } catch (e) {
-      console.log(e)
-    }
-  },
-  async getCurrentCloudUsers ({commit}, idCloud) {
-    try {
-      const result = await this.CloudRepositoryRequest.getCloudUsers(idCloud)
-      commit('SET_CURRENT_CLOUD_USERS', result)
+      return result
     } catch (e) {
       console.log(e)
     }
@@ -172,6 +164,17 @@ export default {
       console.log(e)
     }
   },
+  async deleteCloudUser ({state, commit}, {cloudId, userId}) {
+    try {
+      await this.CloudRepositoryRequest.deleteCloudUser(cloudId, userId)
+      await this.dispatch('fetchUserCloudsDetails')
+      let cloud = state.clouds.find(cloud => parseInt(cloud.id) === parseInt(cloudId))
+      commit('SET_CURRENT_CLOUD', cloud)
+      return true
+    } catch (e) {
+      console.log(e)
+    }
+  },
   inviteCloudUser (context, params) {
     try {
       return this.CloudRepositoryRequest.inviteUser(params.cloudId, params.invite)
@@ -179,16 +182,11 @@ export default {
       console.log(e)
     }
   },
-  updateCloudUser (context, params) {
+  async updateCloudUser (context, params) {
     try {
-      return this.CloudRepositoryRequest.updateUser(params)
-    } catch (e) {
-      console.log(e)
-    }
-  },
-  deleteCloudUser (context, {cloudId, userId}) {
-    try {
-      return this.CloudRepositoryRequest.deleteUser(cloudId, userId)
+      await this.CloudRepositoryRequest.updateUser(params)
+      await this.dispatch('fetchUserCloudsDetails')
+      return true
     } catch (e) {
       console.log(e)
     }

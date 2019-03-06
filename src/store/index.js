@@ -20,7 +20,6 @@ const store = new Vuex.Store({
       projects: [],
       guests: []
     },
-    currentCloudUsers: [],
     clouds: []
   },
   modules: {

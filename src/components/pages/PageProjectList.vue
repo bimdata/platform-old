@@ -56,7 +56,7 @@
       </div>
       <card-project-list
         v-for="(project) in cloudProjects"
-        :cloudId="currentCloud.id"
+        :cloudId="$store.state.currentCloud.id"
         :project="project"
         :key="project.id"
       ></card-project-list>
@@ -68,12 +68,7 @@
       </button>
       <transition name="fade">
         <template v-if="!showModalUsersList">
-          <users-list
-            @deleteUser="deleteUser"
-            :displayMenu="false"
-            :users="adminUsers"
-            type="cloud"
-          >
+          <users-list :displayMenu="false" :users="usersAdminCloud" @on-remove-user="removeUser">
             <template slot="header-title">
               {{ $t('users.manage_admin') }}
             </template>
@@ -93,13 +88,7 @@
           </users-list>
         </template>
         <template v-else>
-          <users-list
-            @deleteUser="deleteUser"
-            :displayMenu="false"
-            :users="nonAdminUsers"
-            :filter="searchUserFilter"
-            type="cloud"
-          >
+          <users-list :displayMenu="false" :users="usersNotAdminCloud" :filter="searchUserFilter" @on-remove-user="removeUser">
             <template slot="header-title">
               {{ $t('users.users_list') }}
             </template>
@@ -157,71 +146,7 @@ export default {
       searchUserFilter: '',
       showModal: false,
       showSubmitInvit: false,
-      showModalUsersList: false,
-      users: [
-        {
-          id: 1,
-          firstname: 'Gabriel',
-          lastname: 'Cambreling',
-          job: 'Architecte',
-          company: 'Cabinet Marsouin',
-          photo: 'https://mir-s3-cdn-cf.behance.net/user/276/df2bfd2271051.59b8e8f49b466.jpg',
-          project_role: 100
-        },
-        {
-          id: 2,
-          name: 'Lorem ipsum',
-          job: '',
-          company: '',
-          photo: '',
-          project_role: 25
-        },
-        {
-          id: 3,
-          firstname: 'Gabriel',
-          lastname: 'Cambreling',
-          job: 'Architecte',
-          company: '',
-          photo: '',
-          project_role: 50
-        },
-        {
-          id: 4,
-          firstname: 'François',
-          lastname: 'Thierry',
-          job: '',
-          company: '',
-          photo: 'https://d2cxspbh1aoie1.cloudfront.net/avatars/local/0b08b2d76dd021b129244840525ce6f469a07ccf9d8b6a7463712a051d686d2e/160',
-          project_role: 25
-        },
-        {
-          id: 5,
-          firstname: 'Gabriel',
-          lastname: 'Cambreling',
-          job: 'Chauffagiste',
-          company: 'mon entreprise',
-          photo: '',
-          project_role: 50
-        },
-        {
-          id: 6,
-          firstname: 'François',
-          lastname: 'Thierry',
-          job: 'Plombier',
-          company: 'Cabinet Marsouin',
-          photo: 'https://d2cxspbh1aoie1.cloudfront.net/avatars/local/0b08b2d76dd021b129244840525ce6f469a07ccf9d8b6a7463712a051d686d2e/160',
-          project_role: 25
-        },
-        {
-          id: 7,
-          firstname: 'François',
-          lastname: 'Thierry',
-          job: 'Architecte',
-          company: 'Cabinet Marsouin',
-          photo: 'https://d2cxspbh1aoie1.cloudfront.net/avatars/local/0b08b2d76dd021b129244840525ce6f469a07ccf9d8b6a7463712a051d686d2e/160',
-          project_role: 100
-        }
-      ]
+      showModalUsersList: false
     }
   },
   components: {
@@ -237,12 +162,17 @@ export default {
   },
   computed: {
     ...mapGetters({
-      currentCloud: 'getCurrentCloud',
       getCloudById: 'getCloudById',
-      getProjectsByCloudId: 'getProjectsByCloudId',
-      getCloudsDetails: 'getCloudsDetails',
-      cloudUsers: 'currentCloudUsers'
+      getProjectsByCloudId: 'getProjectsByCloudId'
     }),
+    users () {
+      let list = this.$store.state.currentCloud.users
+      list.map(user => {
+        user.hasAccepted = true
+        user.role = user.cloud_role
+      })
+      return list
+    },
     cloudProjects () {
       let cloudId = this.$store.state.currentCloud.id
       let cloudProjects = _.find(this.$store.state.clouds, ['id', cloudId]).projects
@@ -255,25 +185,19 @@ export default {
     emailInviteValid () {
       return /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(this.emailInvite)
     },
-    adminUsers () {
-      return this.cloudUsers
-        .filter(user => user.cloud_role === 100)
-        .map(user => ({ ...user, hasAccepted: true }))
+    usersAdminCloud () {
+      let usersAdmin = _.filter(this.users, {cloud_role: 100})
+      return usersAdmin
     },
-    nonAdminUsers () {
-      return this.cloudUsers
-        .filter(user => user.cloud_role !== 100)
-        .map(user => ({ ...user, hasAccepted: true }))
+    usersNotAdminCloud () {
+      let usersNotAdmin = _.filter(this.users, function (u) { return u.cloud_role !== 100 })
+      return usersNotAdmin
     }
-  },
-  mounted () {
-    this.getCurrentCloudUsers(this.$route.params.cloudId)
   },
   methods: {
     ...mapActions({
-      getCurrentCloudUsers: 'getCurrentCloudUsers',
-      sendCloudInvitation: 'inviteCloudUser',
-      deleteCloudUser: 'deleteCloudUser'
+      deleteUser: 'deleteCloudUser',
+      sendCloudInvitation: 'inviteCloudUser'
     }),
     toSearch (value) {
       this.searchFilter = value
@@ -314,18 +238,22 @@ export default {
     resetEmailInvite () {
       this.emailInvite = ''
     },
-    deleteUser () {
-      this.getCurrentCloudUsers(this.$route.params.cloudId)
+    resetEmailInvit () {
+      this.emailInvit = ''
+    },
+    async removeUser (userId) {
+      const cloudId = this.$store.state.currentCloud.id
+      await this.deleteUser({ cloudId, userId })
     }
   },
   created () {
     this.$store.commit('SET_LOADER_PAGE', true)
     this.$store.dispatch('project/init')
-    const clouds = this.getCloudsDetails
+    const clouds = this.$store.state.clouds
     const cloud = clouds.find(cloud => parseInt(cloud.id) === parseInt(this.$route.params.cloudId))
     this.$store.commit('SET_CURRENT_CLOUD', cloud)
     this.cloud = cloud
-    const currentCloud = this.$store.getters['getCurrentCloud']
+    const currentCloud = this.$store.state.currentCloud
 
     for (let {id, name} of clouds) {
       let listItem = {value: id, text: name}

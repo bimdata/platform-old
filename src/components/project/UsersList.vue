@@ -12,11 +12,10 @@
                 v-for="user in filteredUsers"
                 :key="`user-${user.id}`"
                 :user="user"
-                :role="(type === 'project') ? user.project_role : user.cloud_role"
-                :type="type"
                 :displayMenu="displayMenu"
-                @deleteComplete="deleteComplete"
-              ></users-list-item>
+                :role="user.role"
+                @on-remove-user="removeUser"
+                @on-update-user="updateUser"></users-list-item>
             </ul>
           </div>
         </div>
@@ -37,10 +36,6 @@ export default {
     UsersListItem
   },
   props: {
-    type: {
-      type: String,
-      default: 'project'
-    },
     displayMenu: {
       type: Boolean,
       default: true
@@ -57,6 +52,14 @@ export default {
       default: ''
     }
   },
+  methods: {
+    removeUser (userId) {
+      this.$emit('on-remove-user', userId)
+    },
+    updateUser (user, right) {
+      this.$emit('on-update-user', user, right)
+    }
+  },
   computed: {
     searchFilter: {
       get () {
@@ -70,11 +73,6 @@ export default {
         (user.company ? user.company.toLowerCase().includes(this.searchFilter.toLowerCase()) : false) ||
         (user.job ? user.job.toLowerCase().includes(this.searchFilter.toLowerCase()) : false)
       })
-    }
-  },
-  methods: {
-    deleteComplete () {
-      this.$emit('deleteUser')
     }
   }
 }

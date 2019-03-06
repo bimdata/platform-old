@@ -24,9 +24,9 @@ export class CloudRepository {
     }
   }
 
-  async deleteCloud (idCloud, userId) {
+  async deleteCloud (idCloud) {
     try {
-      const response = await this.cloudApiClient.deleteCloudUser(idCloud, userId)
+      const response = await this.cloudApiClient.deleteCloud(idCloud)
       return response
     } catch (e) {
       console.log(e.statusCode)
@@ -54,8 +54,13 @@ export class CloudRepository {
     return this.cloudApiClient.cloudInvite(cloudId, invite)
   }
 
-  deleteUser (cloudId, userId) {
-    return this.cloudApiClient.deleteCloudUser(cloudId, userId)
+  async deleteCloudUser (cloudPk, id) {
+    try {
+      const response = await this.cloudApiClient.deleteCloudUser(cloudPk, id)
+      return response
+    } catch (e) {
+      console.log(e.statusCode)
+    }
   }
 
   updateUser ({ cloudId, userId, data }) {
