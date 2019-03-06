@@ -164,10 +164,12 @@ export default {
       console.log(e)
     }
   },
-  async deleteCloudUser (store, {cloudId, userId}) {
+  async deleteCloudUser ({state, commit}, {cloudId, userId}) {
     try {
       await this.CloudRepositoryRequest.deleteCloudUser(cloudId, userId)
       await this.dispatch('fetchUserCloudsDetails')
+      let cloud = state.clouds.find(cloud => parseInt(cloud.id) === parseInt(cloudId))
+      commit('SET_CURRENT_CLOUD', cloud)
       return true
     } catch (e) {
       console.log(e)

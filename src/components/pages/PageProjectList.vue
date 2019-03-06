@@ -243,22 +243,15 @@ export default {
     },
     async removeUser (userId) {
       const cloudId = this.$store.state.currentCloud.id
-
       await this.deleteUser({ cloudId, userId })
-
-      const clouds = this.$store.state.clouds
-      const cloud = clouds.find(cloud => parseInt(cloud.id) === parseInt(cloudId))
-      this.$store.commit('SET_CURRENT_CLOUD', cloud)
     }
   },
   created () {
     this.$store.commit('SET_LOADER_PAGE', true)
     this.$store.dispatch('project/init')
-
     const clouds = this.$store.state.clouds
     const cloud = clouds.find(cloud => parseInt(cloud.id) === parseInt(this.$route.params.cloudId))
     this.$store.commit('SET_CURRENT_CLOUD', cloud)
-
     this.cloud = cloud
     const currentCloud = this.$store.state.currentCloud
 
