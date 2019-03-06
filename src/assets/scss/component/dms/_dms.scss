@@ -113,7 +113,7 @@ $width-lg-tree: 350px;
     height: calc(100% - #{$grid-gutter-width});
     overflow: auto;
 
-    @include media-breakpoint-up(lg) { 
+    @include media-breakpoint-up(lg) {
       width: $width-lg-tree;
     }
   }
@@ -129,7 +129,7 @@ $width-lg-tree: 350px;
     width: calc(100% - #{$width-tree});
     padding-left: $grid-gutter-width;
 
-    @include media-breakpoint-up(lg) { 
+    @include media-breakpoint-up(lg) {
       transform: translateX($width-lg-tree);
       width: calc(100% - #{$width-lg-tree});
     }
@@ -137,7 +137,7 @@ $width-lg-tree: 350px;
     .dms__tree-view {
       left: -$width-tree;
 
-      @include media-breakpoint-up(lg) { 
+      @include media-breakpoint-up(lg) {
         left: -$width-lg-tree;
       }
     }
@@ -147,7 +147,7 @@ $width-lg-tree: 350px;
     width: $width-tree;
     min-width: $width-tree;
 
-    @include media-breakpoint-up(lg) { 
+    @include media-breakpoint-up(lg) {
       width: $width-lg-tree;
       min-width: $width-lg-tree;
     }
@@ -177,6 +177,9 @@ $width-lg-tree: 350px;
       vertical-align: middle;
       line-height: 1em;
       word-break: break-all;
+      &:nth-child(even), &:nth-child(odd){
+        background: none;
+      }
     }
 
     .table-name {
