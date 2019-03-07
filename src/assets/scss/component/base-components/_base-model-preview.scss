@@ -1,5 +1,3 @@
-$arrow-color: #95989A;
-
 .model-preview{
   display: block;
   position: relative;
@@ -18,14 +16,14 @@ $arrow-color: #95989A;
     top: 0;
     img{
       width: auto;
-      height: 100%;
+      height: 100%; 
     }
   }
   &-counter{
     position: absolute;
     top: 19px;
     right: 16px;
-    color: $arrow-color;
+    color: $color-text;
     @include font-size(15px);
   }
 }
