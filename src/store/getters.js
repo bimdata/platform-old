@@ -58,3 +58,5 @@ export const getCloudByProjectId = state => projectId => {
   }
   return cloudResult
 }
+
+export const currentCloudGuests = state => state.currentCloud.guests

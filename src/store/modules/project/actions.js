@@ -1,10 +1,13 @@
+import { ProjectRepository } from '@/api/ProjectRepository'
 import { IFCRepository } from '@/api/IFCRepository'
 import { generateClient } from '@/api/initClient'
+
 export default {
   init ({rootState}) {
     let token = rootState.oidc.access_token
     let defaultClient = generateClient(token)
     this.IFCRepositoryRequest = new IFCRepository(defaultClient)
+    this.ProjectRepositoryRequest = new ProjectRepository(defaultClient)
   },
   async getProjectIfcImage (store, params) {
     try {
@@ -17,6 +20,11 @@ export default {
     } catch (e) {
       return Promise.reject(e)
     }
+  },
+  async fetchProjectUsers ({ commit }, project) {
+    const users = await this.ProjectRepositoryRequest.getProjectUsers(project.cloud.id, project.id)
+
+    commit('SET_PROJECT_USERS', users)
   },
   async fetchProjectIfc ({ commit }, project) {
     try {
@@ -135,9 +143,8 @@ export default {
         deletedCalls.push(this.ProjectRepositoryRequest.deleteFolder(idCloud, idProject, id))
       }
     }
-    Promise.all(deletedCalls).then(() => {
-      dispatch('getTree', state.selectedProject)
-    })
+    await Promise.all(deletedCalls)
+    await dispatch('getTree', state.selectedProject)
   },
   async createFolder ({commit, state, dispatch}, name) {
     let idCloud = state.selectedProject.cloud.id
@@ -205,5 +212,20 @@ export default {
     } catch (e) {
       console.log(e)
     }
+  },
+
+  projectInvite (store, {project, invite}) {
+    return this.ProjectRepositoryRequest
+      .projectInvite(project.cloud.id, project.id, invite)
+  },
+
+  updateProjectUserRole (store, {cloudId, projectId, userId, role}) {
+    return this.ProjectRepositoryRequest
+      .updateUserRights(cloudId, userId, projectId, { role })
+  },
+
+  deleteProjectUser (store, {cloudId, projectId, userId}) {
+    return this.ProjectRepositoryRequest
+      .deleteUser({ cloudId, userId, projectId })
   }
 }

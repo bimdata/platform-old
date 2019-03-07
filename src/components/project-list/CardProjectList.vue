@@ -1,21 +1,14 @@
 <template>
     <div class="card-container">
-        <div class="base-card card-item card-bd card-project">
+        <div class="base-card card-item card-bd card-project noselect">
             <div class="card-bd__header">
-                <svgicon name="eye" height="18" width="54" @click.native="viewModel" v-if="displayEye"></svgicon>
+                <svgicon name="eye" height="18" width="54" @click.native="viewModel" v-if="displayEye" class="icon-eye"></svgicon>
                 <base-button-option @option-toggled="toggleMenu" v-if="isAdmin">
                     <ul>
                         <li @click.stop.self="showRemoveActions = true" class="base-button-option__menu__remove">
                           {{ $t('project_list.remove') }}
                           <transition name="slide-fade">
-                            <div class="delete__actions" v-if="showRemoveActions">
-                              <span class="check" @click="remove">
-                                <svgicon name="check" height="15" width="18"></svgicon>
-                              </span>
-                              <span class="check-cross" @click="showRemoveActions = false">
-                                <svgicon name="close"  height="13" width="13"></svgicon>
-                              </span>
-                            </div>
+                            <base-valid-delete v-if="showRemoveActions" @on-valid-action="remove" @on-cancel-action="showRemoveActions = false"></base-valid-delete>
                           </transition>
                         </li>
                         <li @click.stop.self="toggleRename()" :class="{'actif': displayRename}">
@@ -32,7 +25,7 @@
                                       :placeholder="project.name"
                                       required
                                       v-model="renameProject"
-                                      v-on:keyup.enter="saveRename"
+                                      @keyup.enter="saveRename"
                                     >
                                     <span class="highlight"></span>
                                     <span class="bar"></span>
@@ -63,11 +56,13 @@
                                 <span v-else>{{ project.name }}</span>
                             </div>
                             <div class="card-bd__text-container" v-show="editMode">
-                                <input ref="updateInput"
-                                      type="text"
-                                      v-model="newName"
-                                      @keyup.enter="submitUpdate"
-                                      :placeholder="project.name"/>
+                                <input
+                                    ref="updateInput"
+                                    type="text"
+                                    v-model="newName"
+                                    @keyup.enter="submitUpdate"
+                                    :placeholder="project.name"
+                                />
                             </div>
                         </div>
                     </div>
@@ -83,6 +78,7 @@
 import _ from 'lodash'
 import { mixin as clickaway } from 'vue-clickaway'
 import BaseButtonOption from '@/components/base-components/BaseButtonOption'
+import BaseValidDelete from '@/components/base-components/BaseValidDelete'
 import ProjectPreview from '../project/ProjectPreview'
 
 export default {
@@ -102,7 +98,8 @@ export default {
   },
   components: {
     ProjectPreview,
-    BaseButtonOption
+    BaseButtonOption,
+    BaseValidDelete
   },
   mixins: [ clickaway ],
   props: {

@@ -13,12 +13,20 @@ export class CloudRepository {
     }
   }
 
-  async createNewCloud (idCloud, name) {
+  async createNewCloud (name) {
     try {
       let cloud = new this.defaultClient.Cloud()
-      // project.
       cloud.name = name
       const response = await this.cloudApiClient.createCloud(cloud)
+      return response
+    } catch (e) {
+      console.log(e.statusCode)
+    }
+  }
+
+  async deleteCloud (idCloud) {
+    try {
+      const response = await this.cloudApiClient.deleteCloud(idCloud)
       return response
     } catch (e) {
       console.log(e.statusCode)
@@ -34,12 +42,28 @@ export class CloudRepository {
     }
   }
 
-  async getCloudUsers (idCloud) {
+  getCloudUsers (idCloud) {
     try {
-      const response = await this.cloudApiClient.getCloudUsers(idCloud)
+      return this.cloudApiClient.getCloudUsers(idCloud)
+    } catch (e) {
+      console.log(e.statusCode)
+    }
+  }
+
+  inviteUser (cloudId, invite) {
+    return this.cloudApiClient.cloudInvite(cloudId, invite)
+  }
+
+  async deleteCloudUser (cloudPk, id) {
+    try {
+      const response = await this.cloudApiClient.deleteCloudUser(cloudPk, id)
       return response
     } catch (e) {
       console.log(e.statusCode)
     }
+  }
+
+  updateUser ({ cloudId, userId, data }) {
+    return this.cloudApiClient.updateCloudUser(cloudId, userId, data)
   }
 }

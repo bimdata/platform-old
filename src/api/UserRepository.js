@@ -20,4 +20,13 @@ export class UserRepository {
       console.log(e.statusCode)
     }
   }
+
+  async signoutPopup () {
+    try {
+      const response = await this.userApiClient.signoutPopup()
+      return response
+    } catch (e) {
+      console.log(e)
+    }
+  }
 }

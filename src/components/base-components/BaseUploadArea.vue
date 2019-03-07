@@ -11,9 +11,16 @@ import XHRUpload from '@uppy/xhr-upload'
 
 export default {
   props: {
-    projectId: Number,
-    cloudId: Number,
+    projectId: {
+      type: Number,
+      default: null
+    },
+    cloudId: {
+      type: Number,
+      default: null
+    },
     target: {
+      type: String,
       default: '.DashboardContainer'
     }
   },
@@ -30,7 +37,7 @@ export default {
         maxFileSize: 1000000000, // 1 Go
         maxNumberOfFiles: null,
         minNumberOfFiles: 1,
-        allowedFileTypes: ['.ifc']
+        allowedFileTypes: ['.ifc', '.ifczip']
       }
     })
       .use(Dashboard, {

@@ -1,6 +1,6 @@
 <template>
   <div id="app" :class="this.$route.name">
-    <router-view/>
+    <router-view />
   </div>
 </template>
 

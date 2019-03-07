@@ -23,6 +23,7 @@ export default {
   methods: {
     onUploadComplete (result) {
       this.$store.dispatch('project/fetchProjectIfc', this.project)
+      this.$store.dispatch('project/getTree', this.project)
       this.$emit('upload-complete', result)
     }
   }

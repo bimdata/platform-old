@@ -20,7 +20,7 @@
   margin: 0;
   width: 48px;
   height: 48px;
-  background-color: white;
+  background-color: $white;
   outline: none;
   opacity: 0;
   transform: scale(1);
@@ -30,7 +30,7 @@
 }
 
 .base-checkbox > input:checked {
-  background-color: white;
+  background-color: $white;
 }
 
 .base-checkbox:active > input {

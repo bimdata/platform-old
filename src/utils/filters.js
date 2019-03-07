@@ -38,3 +38,12 @@ Vue.filter('getFormattedSize', function (bytes, decimals) {
 
   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i]
 })
+
+Vue.filter('initialsFormat', function (value) {
+  if (value) {
+    let separate = value.split(' ')
+    let firstname = separate[0]
+    let lastname = separate[1]
+    return firstname[0] + lastname[0]
+  }
+})

@@ -6,28 +6,12 @@ references:
       - image: circleci/node:10
     working_directory: /home/circleci/repo
 
-  restore_repo: &restore_repo
-    restore_cache:
-      keys:
-        - repo-{{ .Branch }}-{{ .Revision }}
-
 
 jobs:
-  checkout_code:
-    <<: *container_config
-    steps:
-      - *restore_repo
-      - checkout
-      - save_cache:
-          key: repo-{{ .Branch }}-{{ .Revision }}
-          paths:
-            - .
-
   test:
     <<: *container_config
-
     steps:
-      - *restore_repo
+      - checkout
       - restore_cache: #Download and cache dependencies
           keys:
             - v3-dependencies-npm-{{ checksum "package-lock.json" }}
@@ -47,31 +31,40 @@ jobs:
   deploy:
     <<: *container_config
     steps:
-      - *restore_repo
       - setup_remote_docker
+      - checkout
       - run:
           name: push to docker hub
           command: |
             docker login -u $DOCKER_USER -p $DOCKER_PASS
-            docker build -t bimdata/platform:latest .
+            docker pull bimdata/deployment:latest
+
+            # We can't mount volumes in docker in circleci (https://discuss.circleci.com/t/why-circleci-2-0-does-not-support-mounting-folders/11605/14)
+            # so we create a container, copy files in it then start it
+            docker create --name deployment -v /var/run/docker.sock:/var/run/docker.sock bimdata/deployment:latest
+            docker cp /home/circleci/repo deployment:/var/repo
+            docker start deployment
+
+            docker exec -it deployment ansible-playbook build.yml -i inventories/staging --tags=platform --extra-vars='{"context_dir":"/var/repo","ansible_ssh_private_key_file":"./files/deploy_rsa"}' --user=deploy
             docker push bimdata/platform:latest
 
+            docker exec -it deployment ansible-playbook build.yml -i inventories/next --tags=platform --extra-vars='{"context_dir":"/var/repo","ansible_ssh_private_key_file":"./files/deploy_rsa"}' --user=deploy
+            docker push bimdata/platform:staging
+
+            docker exec -it deployment ansible-playbook build.yml -i inventories/prod --tags=platform --extra-vars='{"context_dir":"/var/repo","ansible_ssh_private_key_file":"./files/deploy_rsa"}' --user=deploy
+            docker push bimdata/platform:next
+
             # deploy master branch
-            docker pull bimdata/deployment:latest
-            docker run -it bimdata/deployment:latest ansible-playbook -i inventories/staging deploy.yml --tags=platform --extra-vars "ansible_ssh_private_key_file=./files/deploy_rsa" --user=deploy
+            docker exec -it deployment ansible-playbook deploy.yml -i inventories/staging --tags=platform --extra-vars "ansible_ssh_private_key_file=./files/deploy_rsa" --user=deploy
 
 
 workflows:
   version: 2
   test_and_deploy:
     jobs:
-      - checkout_code
-      - test:
-          requires:
-            - checkout_code
+      - test
       - deploy:
           requires:
-            - checkout_code
             - test
           filters:
             branches:

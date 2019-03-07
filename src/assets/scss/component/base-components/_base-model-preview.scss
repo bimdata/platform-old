@@ -4,7 +4,6 @@ $arrow-color: #94979A;
   position: relative;
   overflow: hidden;
   display: block;
-  user-select: none;
   .model-image-wrapper {
     display: block;
     overflow: hidden;
@@ -66,7 +65,6 @@ $arrow-color: #94979A;
 
     .btn {
       min-width: 85px;
-      border-radius: 7px;
     }
   }
 }

@@ -12,7 +12,9 @@ export default {
     currentElement: null,
     elements: null,
     currentPath: [],
-    openedFolderIds: []
+    openedFolderIds: [],
+    users: [],
+    guests: []
   },
   actions,
   mutations,

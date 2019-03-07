@@ -1,7 +1,7 @@
 <template>
   <div
     ref="modelPreview"
-    class="model-preview"
+    class="model-preview noselect"
     v-if="imgURL"
   >
     <div

@@ -8,8 +8,8 @@
                 <div class="user-menu__u-info--details">
                     <p class="user-menu__u-fullname">{{ `${getCurrentUserFirstname} ${getCurrentUserLastname}` }}</p>
                     <p class="user-menu__u-email">{{ getCurrentUserEmail }}</p>
-                    <base-button-action @click="openProfile" size="small">
-                      {{ $t('dashboard.profile_btn')  }}
+                    <base-button-action @click="openProfile" size="small" iconName="">
+                      {{ $t('dashboard.profile_btn') }}
                     </base-button-action>
                 </div>
             </div>
@@ -22,7 +22,7 @@
     </div>
 </template>
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 import BaseButtonAction from '@/components/base-components/BaseButtonAction'
 import BaseDropdown from '@/components/base-components/BaseDropdown'
@@ -33,16 +33,18 @@ export default {
     BaseDropdown
   },
   methods: {
-    ...mapActions('authentication', [
-      'logoutUser'
-    ]),
+    ...mapActions({
+      signout: 'signout'
+    }),
     openProfile () {
       window.open(`${process.env.BD_OIDC_IP}/profile`)
     },
     logout () {
-      this.logoutUser().then(resolve => {
-        this.$router.push({name: 'login'})
-      })
+      this.signout()
+        .then(() => {
+          this.$router.push({ name: 'signin-required' })
+          window.location.reload()
+        })
     }
   },
   computed: {

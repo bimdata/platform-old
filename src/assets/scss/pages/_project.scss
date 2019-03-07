@@ -43,7 +43,7 @@
       }
     }
     .card-bd__header {
-      .svg-icon {
+      .icon-eye {
         cursor: pointer;
         transition: all ease 0.5s;
 
@@ -62,21 +62,21 @@
     width: 100%;
 
     @include media-breakpoint-up(lg) {
-      width: calc(100%/3 * 2 - 30px);
-      margin-right: 30px;
+      width: calc(100%/3 * 2 - 20px);
+      margin-right: 20px;
     }
 
     .model-preview-slider {
       height: 338px;
-      background: #E6E6E6;
+      background: $bg-preview;
     }
   }
   .user-project {
     width: 100%;
 
     @include media-breakpoint-up(lg) {
-      width: calc(100%/3 - 30px);
-      margin-left: 30px;
+      width: calc(100%/3 - 20px);
+      margin-left: 20px;
     }
   }
 
@@ -183,13 +183,5 @@
     &__detail-content {
       width: 50%;
     }
-  }
-
-  .top-toolbar__button-new-file svg {
-    transition: .2s ease-in-out all;
-  }
-
-  .top-toolbar__button-new-file.active svg {
-    transform: rotate(135deg);
   }
 }

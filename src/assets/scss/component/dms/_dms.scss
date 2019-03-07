@@ -72,10 +72,6 @@ $width-lg-tree: 350px;
 
 .dms__toolbox {
   display: flex;
-  -moz-user-select: none; /* Firefox */
-  -webkit-user-select: none; /* Chrome, Safari, Opéra depuis la version 15 */
-  -ms-user-select: none; /* Internet explorer depuis la version 10 et Edge */
-  user-select: none; /* Propriété standard */
 
   .base-button-tool__container {
     position: relative;
@@ -130,12 +126,12 @@ $width-lg-tree: 350px;
 
   &.shrinked {
     transform: translateX($width-tree);
-    width: calc(100% - $width-tree);
+    width: calc(100% - #{$width-tree});
     padding-left: $grid-gutter-width;
 
     @include media-breakpoint-up(lg) { 
       transform: translateX($width-lg-tree);
-      width: calc(100% - $width-lg-tree);
+      width: calc(100% - #{$width-lg-tree});
     }
 
     .dms__tree-view {
@@ -225,7 +221,7 @@ $width-lg-tree: 350px;
     }
 
     &__remove {
-      .delete__actions {
+      .base-valid-delete {
         .svg-icon {
           margin-right: 0;
         }

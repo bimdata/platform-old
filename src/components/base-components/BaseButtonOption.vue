@@ -9,7 +9,7 @@
                  color="transparent #95989A"
                  class="m-0">
         </svgicon>
-        <div class="base-button-option__menu" v-show="displayMenu">
+        <div class="base-button-option__menu noselect" v-show="displayMenu">
             <slot>
                 <ul>
                     <li>default</li>

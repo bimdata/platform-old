@@ -1,30 +1,27 @@
-# bim
-
-> A Vue.js project
-
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
+# Bimdata Platform
+Bimdata Platform application.
+## Up & running
+1. Install dependencies:
 ```
+npm i
+```
+2. Configure environment
+```
+cp .env.example .env
+```
+3. Change in .env any custom configuration
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+4. Starting dev server:
+```
+npm run dev
+```
+5. Building for production:
+```
+npm run build
+```
+6. Running tests (unit, e2e, all):
+```
+npm run unit
+npm run e2e
+npm run test
+```

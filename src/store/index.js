@@ -17,7 +17,8 @@ const store = new Vuex.Store({
     lang: 'fr',
     currentUser: {},
     currentCloud: {
-      projects: []
+      projects: [],
+      guests: []
     },
     clouds: []
   },

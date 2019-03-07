@@ -31,5 +31,8 @@ export default {
   },
   SET_LOADER_PAGE: (state, value) => {
     state.loaderPage = value
+  },
+  SET_CURRENT_CLOUD_GUESTS: (state, guests) => {
+    state.currentCloud.guests = guests
   }
 }

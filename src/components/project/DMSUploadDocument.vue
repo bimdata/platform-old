@@ -10,10 +10,12 @@ import Uppy from '@uppy/core'
 import Dashboard from '@uppy/dashboard'
 import XHRUpload from '@uppy/xhr-upload'
 import BaseButtonTool from '@/components/base-components/BaseButtonTool'
+import { mapState } from 'vuex'
 
 export default {
   props: {
     target: {
+      type: String,
       default: '.DMSDashboardContainer'
     }
   },
@@ -26,11 +28,14 @@ export default {
     BaseButtonTool
   },
   computed: {
+    ...mapState('project', {
+      project: 'selectedProject'
+    }),
     projectId () {
-      return this.$store.state.project.selectedProject.id
+      return this.project.id
     },
     cloudId () {
-      return this.$store.state.project.selectedProject.cloud.id
+      return this.project.cloud.id
     },
     currentFolderId () {
       return this.$store.state.project.currentFolderId
@@ -50,7 +55,7 @@ export default {
     let target = this.target
 
     this.uppy = Uppy({
-      debug: true,
+      debug: false,
       autoProceed: false,
       restrictions: {
         maxFileSize: 1000000000, // 1 Go
@@ -81,6 +86,7 @@ export default {
     })
     this.uppy.on('complete', result => {
       this.$store.dispatch('project/getTree', this.$store.state.project.selectedProject)
+      this.$store.dispatch('project/fetchProjectIfc', this.project)
       this.$emit('upload-complete', result)
 
       if (result.successful) {
