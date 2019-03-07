@@ -16,7 +16,7 @@
               <div v-if="!isSubmitting">
                 <svgicon name="map-marker" height="47" width="47"></svgicon>
                 <div class="base-input-text-material">
-                  <input type="text" required="required" v-model="ifcPostalAddress">
+                  <input type="text" required="required" v-model="ifcPostalAddress" @keyup.enter="submitAddress">
                   <span class="highlight"></span>
                   <span class="bar"></span>
                   <label>IfcPostalAddress</label>
@@ -94,11 +94,28 @@ export default {
     },
     submitAddress () {
       this.isSubmitting = true
-      // transform this.ifcPostalAddress in lat/lg
+      let urlAddress = this.ifcPostalAddress.replace(/ /g, '+')
 
-      setTimeout(() => {
+      var xmlhttp = new XMLHttpRequest()
+      xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState === XMLHttpRequest.DONE) {
+          if (xmlhttp.status === 200) {
+            console.log('latitude', JSON.parse(xmlhttp.response)[0].lat)
+            this.lat = JSON.parse(xmlhttp.response)[0].lat
+            this.lon = JSON.parse(xmlhttp.response)[0].lon
+          }
+        }
+      }
+
+      xmlhttp.open('GET', 'https://nominatim.openstreetmap.org/search?q=' + urlAddress + '&format=json&polygon=1&addressdetails=1', true)
+      xmlhttp.send()
+
+      console.log('lat', this.lat)
+      console.log('lon', this.lon)
+
+      /* setTimeout(() => {
         this.valid = true
-      }, 500)
+      }, 500) */
     }
   },
   created () {

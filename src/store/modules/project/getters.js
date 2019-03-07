@@ -31,7 +31,7 @@ export default {
     })
   },
   getSortedIfc: (state) => {
-    return _.sortBy(state.ifcs, ['updated_at']).reverse()
+    return _.sortBy(state.ifcs, ['updated_at'])
   },
   getMainIfc: (state) => {
     if (state.ifcs === null) {
@@ -39,7 +39,7 @@ export default {
     }
 
     let completedIfc = state.ifcs.filter(ifc => ifc.status === 'C')
-    return _.sortBy(completedIfc, ['created_at'])[0]
+    return _.sortBy(completedIfc, ['updated_at']).reverse()[0]
   },
   getCurrentChildren: state => {
     return (state.currentElement !== null) ? state.currentElement.children : null
