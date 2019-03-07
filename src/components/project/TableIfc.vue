@@ -57,6 +57,8 @@
 <script>
 import BaseTableSpaced from '@/components/base-components/BaseTableSpaced'
 import BaseButtonAction from '@/components/base-components/BaseButtonAction'
+import _ from 'lodash'
+
 export default {
   data () {
     return {
@@ -76,7 +78,7 @@ export default {
   computed: {
     ifcs () {
       let ifcs = []
-      for (let ifc of this.$store.getters['project/getSortedIfc']) {
+      for (let ifc of _.sortBy(this.$store.state.project.ifcs, ['updated_at']).reverse()) {
         ifcs.push(
           [
             { name: ifc.name },
