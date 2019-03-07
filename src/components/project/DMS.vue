@@ -325,11 +325,12 @@ export default {
       this.toggleMenuAction(false)
       document.body.click()
     },
-    remove (documentAction) {
+    async remove (documentAction) {
       let type = documentAction.item.type
       let id = documentAction.item.id
 
-      this.$store.dispatch('project/remove', {type, id})
+      await this.$store.dispatch('project/remove', {type, id})
+      await this.$store.dispatch('project/fetchProjectIfc', this.project)
 
       this.toggleMenuAction(false)
       document.body.click()
@@ -433,7 +434,8 @@ export default {
   },
   computed: {
     ...mapState('project', {
-      currentElement: 'currentElement'
+      currentElement: 'currentElement',
+      project: 'selectedProject'
     }),
     getCurrentFolderId () {
       return this.$store.state.project.currentFolderId
