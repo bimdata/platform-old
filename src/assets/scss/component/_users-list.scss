@@ -76,8 +76,6 @@
       @include align-items(center);
       input{
         padding: 4px;
-        max-height: 22px;
-
         &:focus{
           outline: none;
         }
@@ -113,10 +111,9 @@
       }
 
       .rights-select{
-        padding: 4px 15px 4px 4px;
+        padding: 6px;
         margin-left: 11px;
         width: 30%;
-        height: 22px;
         max-width: 125px;
         position: relative;
         border: 1px solid $gray3;
