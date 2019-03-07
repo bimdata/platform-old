@@ -42,6 +42,7 @@
   }
   .base-button-action{
     height: 100%;
+    @include font-size(12px);
   }
 }
 

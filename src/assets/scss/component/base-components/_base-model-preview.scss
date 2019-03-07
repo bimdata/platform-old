@@ -60,6 +60,7 @@
     z-index: 1;
     .btn{
       min-width: 85px;
+      @include font-size(12px);
     }
   }
 }
