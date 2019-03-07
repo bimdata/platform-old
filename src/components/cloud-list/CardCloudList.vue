@@ -45,24 +45,7 @@
             </div>
             <img src="https://mir-s3-cdn-cf.behance.net/user/276/df2bfd2271051.59b8e8f49b466.jpg" alt="" class="d-none">
           </div>
-          <div
-            v-on-clickaway="closeUpdate"
-            class="card-bd__title"
-            :class="{'card-bd__title--edit-mode': editMode && isAdmin}"
-          >
-            <div v-show="!editMode" @click="switchToEditMode">
-              {{ cloud.name }}
-            </div>
-            <div class="card-bd__text-container" v-show="editMode && isAdmin">
-              <input
-                ref="updateInput"
-                type="text"
-                v-model="newName"
-                @keyup.enter="submitUpdate"
-                :placeholder="cloud.name"
-              />
-            </div>
-          </div>
+          <div class="card-bd__title">{{ cloud.name }}</div>
           <div class="card-bd__infos-cloud">
             <span class="card-bd__infos-cloud__projects" v-if="isAdmin">
               <svgicon name="application" height="30" width="30"></svgicon>
@@ -92,7 +75,6 @@ export default {
     return {
       clicked: false,
       displayMenu: false,
-      editMode: false,
       newName: '',
       showRemoveActions: false,
       displayRename: false,
@@ -139,14 +121,6 @@ export default {
       this.$store.commit('SET_CURRENT_CLOUD', this.cloud)
       this.$router.push({name: 'project-list', params: {cloudId: this.cloud.id}})
     },
-    switchToEditMode () {
-      if (this.isAdmin) {
-        this.editMode = true
-        this.$nextTick(function () {
-          this.$refs.updateInput.focus()
-        })
-      }
-    },
     remove () {
       this.displayLoader = true
       this.$store.dispatch('removeCloud', this.cloud.id).then(() => {
@@ -162,17 +136,12 @@ export default {
     closeTool () {
       this.displayMenu = false
     },
-    closeUpdate () {
-      this.editMode = false
-    },
     submitUpdate () {
       if (this.newName === '' || this.newName === this.cloud.name) {
         this.newName = ''
-        this.editMode = false
       } else {
         this.update(this.newName).then(() => {
           this.newName = ''
-          this.editMode = false
         })
       }
     },
