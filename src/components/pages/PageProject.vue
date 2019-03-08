@@ -27,9 +27,9 @@
             <card-project-content></card-project-content>
           </div>
           <div class="user-project">
-            <users-list :users="allUsers" :filter="searchFilter" @on-remove-user="removeUser" @on-update-user="updateUser">
+            <users-list :users="allUsers" :filter="searchFilter" @on-remove-user="removeUser" @on-update-user="updateUser" :class="{'users-list--large': displaySendInvit}">
               <template slot="users-list-header">
-                <div class="users-list__header" :class="{'users-list__header--large': displaySendInvit}">
+                <div class="users-list__header">
                   <div class="users-list__header__left-container d-none">
                     <svgicon name="menu" width="23" height="23"></svgicon>
                   </div>
