@@ -60,13 +60,16 @@ export default {
       default: () => {}
     }
   },
+  watch: {
+    panorama: {
+      immediate: true,
+      handler () {
+        this.setMapElements()
+      }
+    }
+  },
   components: {
     BaseMap
-  },
-  watch: {
-    panorama () {
-      this.setMapElements()
-    }
   },
   methods: {
     setMapElements () {
@@ -101,7 +104,7 @@ export default {
       if (latitude && longitude) {
         // GPS coordinates converted to the decimal system used by OpenStreetMap
         this.lat = this.coordToDD(latitude)
-        this.long = this.coordToDD(longitude)
+        this.lon = this.coordToDD(longitude)
         this.valid = true
       } else {
         this.valid = false
