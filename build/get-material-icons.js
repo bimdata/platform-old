@@ -25,6 +25,7 @@ const svgIcons = [
   'keyboard_arrow_down',
   'keyboard_arrow_up',
   'magnify.svg',
+  'map-marker.svg',
   'menu.svg',
   'pencil.svg',
   'play.svg',

@@ -25,7 +25,10 @@
         "error_conversion": "Error in conversion",
         "rename": "Rename",
         "rename_folder": "Rename folder",
-        "rename_file": "Rename file"
+        "rename_file": "Rename file",
+        "advice": "Advice",
+        "missing": "missing",
+        "save": "Save"
     },
     "cloud_list": {
       "clouds_list": "Clouds list",

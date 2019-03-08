@@ -26,12 +26,14 @@ function flattenFolders (list, acc = []) {
 
 export default {
   getIfcElements: state => idIfc => {
-    return state.elements.find(element => {
-      return parseInt(idIfc) === element.ifc
-    })
+    if (state.elements) {
+      return state.elements.find(element => {
+        return parseInt(idIfc) === element.ifc
+      })
+    }
   },
   getSortedIfc: (state) => {
-    return _.sortBy(state.ifcs, ['updated_at']).reverse()
+    return _.sortBy(state.ifcs, ['updated_at'])
   },
   getMainIfc: (state) => {
     if (state.ifcs === null) {
@@ -39,7 +41,7 @@ export default {
     }
 
     let completedIfc = state.ifcs.filter(ifc => ifc.status === 'C')
-    return _.sortBy(completedIfc, ['created_at'])[0]
+    return _.sortBy(completedIfc, ['updated_at']).reverse()[0]
   },
   getCurrentChildren: state => {
     return (state.currentElement !== null) ? state.currentElement.children : null

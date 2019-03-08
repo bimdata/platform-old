@@ -11,7 +11,7 @@
                           v-if="panoramas.length"
                           :panoramas="panoramas"
                           :show-viewer-button="true"
-                          @current-panorama-name="setCurrentPanoramaName"
+                          @current-panorama="setCurrentPanorama"
                         ></model-preview-slider>
                     </div>
                     <div class="main-ifc__navigation-project">
@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="main-ifc__map">
-                    <map-project>
+                    <map-project :panorama="currentPanorama">
                     </map-project>
                 </div>
             </div>
@@ -43,7 +43,8 @@ export default {
   },
   data () {
     return {
-      currentNamePanorama: ''
+      currentNamePanorama: '',
+      panorama: null
     }
   },
   computed: {
@@ -56,11 +57,15 @@ export default {
     },
     projectName () {
       return this.$store.state.project.selectedProject.name
+    },
+    currentPanorama () {
+      return this.panorama
     }
   },
   methods: {
-    setCurrentPanoramaName (name) {
-      this.currentNamePanorama = name
+    setCurrentPanorama (panorama) {
+      this.currentNamePanorama = panorama.name
+      this.panorama = panorama
     }
   }
 }
