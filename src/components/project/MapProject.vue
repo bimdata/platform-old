@@ -50,7 +50,7 @@ export default {
       secondStepActive: false,
       isSubmitting: false,
       ifcPostalAddress: '',
-      long: '',
+      lon: '',
       lat: ''
     }
   },
@@ -70,9 +70,13 @@ export default {
   },
   methods: {
     setMapElements () {
-      let site = this.getIfcElements(this.panorama.id)
+      let site = ''
       let latitude = ''
       let longitude = ''
+
+      if (this.panorama) {
+        site = this.getIfcElements(this.panorama.id)
+      }
 
       if (site) {
         if (site.attributes) {
@@ -101,6 +105,8 @@ export default {
         this.valid = true
       } else {
         this.valid = false
+        this.ifcPostalAddress = ''
+        this.secondStepActive = false
       }
     },
     DMStoDD (degrees, minutes, seconds) {
@@ -131,6 +137,7 @@ export default {
 
       setTimeout(() => {
         this.valid = true
+        this.ifcPostalAddress = ''
       }, 500)
     }
   },
@@ -158,10 +165,10 @@ export default {
       return this.$store.state.project.selectedProject.name
     },
     latitude () {
-      return parseInt(this.lat)
+      return parseFloat(this.lat)
     },
     longitude () {
-      return parseInt(this.lon)
+      return parseFloat(this.lon)
     }
   }
 }
