@@ -50,7 +50,8 @@ export default {
       secondStepActive: false,
       isSubmitting: false,
       ifcPostalAddress: '',
-      long: ''
+      long: '',
+      lat: ''
     }
   },
   props: {
