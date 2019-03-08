@@ -1,4 +1,16 @@
 .users-list {
+  height: calc(399px + 1rem*2); //same size that .main-ifc
+  overflow: hidden;
+
+  &--large {
+    .users-list__header {
+      height: 50px;
+    }
+    .users-list__body {
+      height: calc(100% - 50px);
+    }
+  }
+
   &__card {
     height: 100%;
 
@@ -13,10 +25,6 @@
     align-items: center;
     height: 32px;
     transition: height ease 0.25s;
-
-    &--large {
-      height: 50px;
-    }
 
     .base-valid-delete {
       position: relative;
