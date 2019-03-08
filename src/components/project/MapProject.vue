@@ -1,7 +1,7 @@
 <template>
     <div class="map-wrapper">
-        <base-map :lat="lat"
-                  :lng="long"
+        <base-map :lat="latitude"
+                  :lng="longitude"
                   v-if="loaded && valid"
                   :text="textProject">
         </base-map>
@@ -50,38 +50,56 @@ export default {
       secondStepActive: false,
       isSubmitting: false,
       ifcPostalAddress: '',
-      lat: '',
       long: ''
+    }
+  },
+  props: {
+    panorama: {
+      type: Object,
+      default: () => {}
     }
   },
   components: {
     BaseMap
   },
+  watch: {
+    panorama () {
+      this.setMapElements()
+    }
+  },
   methods: {
     setMapElements () {
-      const mainIfc = this.$store.getters['project/getMainIfc']
-      let site = this.getIfcElements(mainIfc.id)
-      // Fetch the DMS (Degrees, Minutes, Seconds) GPS coordinates from the IfcSite's  attributes
-      let latitude = site
-        .attributes
-        .properties
-        .find(
-          p => p.definition.name === 'RefLatitude')
-        .value
+      let site = this.getIfcElements(this.panorama.id)
+      let latitude = ''
+      let longitude = ''
 
-      let longitude = site
-        .attributes
-        .properties
-        .find(
-          p => p.definition.name === 'RefLongitude'
-        )
-        .value
+      if (site) {
+        if (site.attributes) {
+          // Fetch the DMS (Degrees, Minutes, Seconds) GPS coordinates from the IfcSite's  attributes
+          latitude = site
+            .attributes
+            .properties
+            .find(
+              p => p.definition.name === 'RefLatitude')
+            .value
+
+          longitude = site
+            .attributes
+            .properties
+            .find(
+              p => p.definition.name === 'RefLongitude'
+            )
+            .value
+        }
+      }
 
       if (latitude && longitude) {
         // GPS coordinates converted to the decimal system used by OpenStreetMap
         this.lat = this.coordToDD(latitude)
         this.long = this.coordToDD(longitude)
         this.valid = true
+      } else {
+        this.valid = false
       }
     },
     DMStoDD (degrees, minutes, seconds) {
@@ -96,13 +114,13 @@ export default {
       this.isSubmitting = true
       let urlAddress = this.ifcPostalAddress.replace(/ /g, '+')
 
-      var xmlhttp = new XMLHttpRequest()
+      let self = this
+      let xmlhttp = new XMLHttpRequest()
       xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState === XMLHttpRequest.DONE) {
           if (xmlhttp.status === 200) {
-            console.log('latitude', JSON.parse(xmlhttp.response)[0].lat)
-            this.lat = JSON.parse(xmlhttp.response)[0].lat
-            this.lon = JSON.parse(xmlhttp.response)[0].lon
+            self.lat = JSON.parse(xmlhttp.response)[0].lat
+            self.lon = JSON.parse(xmlhttp.response)[0].lon
           }
         }
       }
@@ -110,12 +128,9 @@ export default {
       xmlhttp.open('GET', 'https://nominatim.openstreetmap.org/search?q=' + urlAddress + '&format=json&polygon=1&addressdetails=1', true)
       xmlhttp.send()
 
-      console.log('lat', this.lat)
-      console.log('lon', this.lon)
-
-      /* setTimeout(() => {
+      setTimeout(() => {
         this.valid = true
-      }, 500) */
+      }, 500)
     }
   },
   created () {
@@ -140,6 +155,12 @@ export default {
     ]),
     textProject () {
       return this.$store.state.project.selectedProject.name
+    },
+    latitude () {
+      return parseInt(this.lat)
+    },
+    longitude () {
+      return parseInt(this.lon)
     }
   }
 }

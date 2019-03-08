@@ -70,15 +70,15 @@ export default {
     },
     nextPan () {
       this.activePanIndex++
-      this.$emit('current-panorama-name', this.panoramas[this.activePanIndex].name)
+      this.$emit('current-panorama', this.panoramas[this.activePanIndex])
     },
     prevPan () {
       this.activePanIndex--
-      this.$emit('current-panorama-name', this.panoramas[this.activePanIndex].name)
+      this.$emit('current-panorama', this.panoramas[this.activePanIndex])
     }
   },
   created () {
-    this.$emit('current-panorama-name', this.panoramas[this.activePanIndex].name)
+    this.$emit('current-panorama', this.panoramas[this.activePanIndex])
   }
 }
 </script>

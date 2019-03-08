@@ -26,9 +26,11 @@ function flattenFolders (list, acc = []) {
 
 export default {
   getIfcElements: state => idIfc => {
-    return state.elements.find(element => {
-      return parseInt(idIfc) === element.ifc
-    })
+    if (state.elements) {
+      return state.elements.find(element => {
+        return parseInt(idIfc) === element.ifc
+      })
+    }
   },
   getSortedIfc: (state) => {
     return _.sortBy(state.ifcs, ['updated_at'])
