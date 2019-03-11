@@ -58,6 +58,7 @@
       "remove": "Delete user",
       "modify_rights": "Edit user rights",
       "resend_invitation": "Resend invitation ?",
+      "invite": "Invite",
       "guest": "Guest",
       "without_answer": "without answer",
       "manage_admin": "Manage administrators",

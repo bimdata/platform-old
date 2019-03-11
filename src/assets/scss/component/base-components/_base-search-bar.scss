@@ -9,7 +9,7 @@ $search-lg-size-input: $search-lg-size-container - $search-btn-size;
 
 .search-component {
   position: relative;
-  box-shadow: 0 2px 10px 0 rgba(0,0,0,0.08);
+  box-shadow: $bd-box-shadow;
   max-width: $search-size-container;
   display: flex;
 
