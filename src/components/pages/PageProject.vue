@@ -40,7 +40,7 @@
                   </div>
                   <transition name="fade">
                     <div class="users-list__header__invitation" v-if="displaySendInvit">
-                      <input type="text" v-model="mailInvitation" placeholder="Email adress">
+                      <input type="text" v-model="mailInvitation" @keyup.enter="sendInvitation" placeholder="Email adress">
                       <div class="rights-select" @click="toggleRightsInvitation">
                         <svgicon name="chevron-down" width="20" height="18" class="arrow-down"></svgicon>
                         <span class="ellipsis">{{ rightChoosed.text }}</span>
@@ -113,6 +113,7 @@ import UsersList from '@/components/project/UsersList'
 import UploadIfc from '@/components/project/UploadIfc'
 import BaseInputRadio from '@/components/base-components/BaseInputRadio'
 import DMS from '@/components/project/DMS'
+import Isemail from 'isemail'
 import { mixin as clickaway } from 'vue-clickaway'
 
 export default {
@@ -184,18 +185,23 @@ export default {
       updateProjectUserRole: 'project/updateProjectUserRole',
       deleteUser: 'project/deleteProjectUser'
     }),
+    emailInviteValid () {
+      return Isemail.validate(this.mailInvitation)
+    },
     async sendInvitation () {
-      if (this.mailInvitation && this.rightChoosed.value) {
-        await this.projectInvite({
-          project: this.project,
-          invite: {
-            email: this.mailInvitation,
-            role: this.rightChoosed.value,
-            redirect_uri: `${process.env.BD_APP_URL}/cloud/${this.$route.params.cloudId}/project/${this.$route.params.projectId}`
-          }
-        })
+      if (this.emailInviteValid()) {
+        if (this.rightChoosed.value) {
+          await this.projectInvite({
+            project: this.project,
+            invite: {
+              email: this.mailInvitation,
+              role: this.rightChoosed.value,
+              redirect_uri: `${process.env.BD_APP_URL}/cloud/${this.$route.params.cloudId}/project/${this.$route.params.projectId}`
+            }
+          })
 
-        this.displaySendInvit = false
+          this.displaySendInvit = false
+        }
       }
     },
     closeUploadIfc () {
@@ -238,7 +244,7 @@ export default {
     },
     setInvitationRight (value) {
       this.rightChoosed = value
-      this.displayRightsInvitation = false
+      this.toggleRightsInvitation()
     },
     resetSearchUser () {
       this.displaySearchUser = false

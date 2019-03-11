@@ -74,10 +74,10 @@
             </template>
             <template slot="users-list-header">
               <div class="users-list__header users-list__header--large users-list__header__admin">
-                <input type="email" v-model="emailInvite" placeholder="Email invitation" class="users-list-modal__input-mail" />
-                <button type="button" class="btn base-button-action" @click="sendInvitation">
+                <input type="email" v-model="emailInvite" placeholder="Email invitation" @keyup.enter="sendInvitation" class="users-list-modal__input-mail" />
+                <a href="#" role="button" class="btn btn-primary base-button-action" @click="sendInvitation" :class="{'disabled': !emailInviteValid()}">
                   {{ $t('users.invite') }}
-                </button>
+                </a>
                 <base-button-icon id="users-list-tooltip" iconName="account" height="16" width="16" @on-click-action="showModalUsersList = true"></base-button-icon>
                 <b-tooltip target="users-list-tooltip" placement="bottom" :title="$t('users.users_list')"></b-tooltip>
               </div>
@@ -128,6 +128,7 @@ import BaseValidDelete from '@/components/base-components/BaseValidDelete'
 import BaseClickedTool from '@/components/base-components/BaseClickedTool'
 import UsersList from '@/components/project/UsersList'
 import _ from 'lodash'
+import Isemail from 'isemail'
 
 export default {
   data () {
@@ -179,9 +180,6 @@ export default {
       })
       return filteredprojects
     },
-    emailInviteValid () {
-      return /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(this.emailInvite)
-    },
     usersAdminCloud () {
       let usersAdmin = _.filter(this.users, {cloud_role: 100})
       return usersAdmin
@@ -217,19 +215,24 @@ export default {
         this.displayNewForm = false
       })
     },
+    emailInviteValid () {
+      return Isemail.validate(this.emailInvite)
+    },
     openSearchUser () {
       setTimeout(() => {
         this.displaySearchUser = true
       }, 500)
     },
     async sendInvitation () {
-      await this.sendCloudInvitation({
-        cloudId: this.$route.params.cloudId,
-        invite: {
-          email: this.emailInvite,
-          redirect_uri: `${process.env.BD_APP_URL}/cloud/${this.$route.params.cloudId}`
-        }
-      })
+      if (this.emailInviteValid()) {
+        await this.sendCloudInvitation({
+          cloudId: this.$route.params.cloudId,
+          invite: {
+            email: this.emailInvite,
+            redirect_uri: `${process.env.BD_APP_URL}/cloud/${this.$route.params.cloudId}`
+          }
+        })
+      }
     },
     async removeUser (userId) {
       const cloudId = this.$store.state.currentCloud.id
