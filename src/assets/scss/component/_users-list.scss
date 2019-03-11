@@ -26,6 +26,10 @@
     height: 32px;
     transition: height ease 0.25s;
 
+    &--large {
+      height: 50px;
+    }
+
     .base-valid-delete {
       position: relative;
       box-shadow: none;
@@ -44,20 +48,16 @@
       padding: 9px 14px;
       padding-left: 26px;
 
-      .account-plus {
-        cursor: default;
-      }
-
       .btn {
-        margin-left: auto;
-        max-width: 98px;
-        min-width: 98px;
+        margin-left: 8px;
+        max-width: 115px;
+        min-width: 115px;
         font-weight: 100;
-
-        .svg-icon {
-          margin-right: 6px;
-          color: $white;
-        }
+      }
+      .base-button-icon {
+        max-height: 32px;
+        max-width: 32px;
+        margin-left: 8px;
       }
     }
 
@@ -327,11 +327,10 @@
 
     &__input-mail {
       width: 100%;
-      max-width: 253px;
+      max-width: 302px;
       height: 32px;
       padding: 10px;
       border: 1px solid $border-color;
-      margin-left: 14px;
     }
   }
 }

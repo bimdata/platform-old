@@ -74,15 +74,12 @@
             </template>
             <template slot="users-list-header">
               <div class="users-list__header users-list__header--large users-list__header__admin">
-                <svgicon name="account-plus" height="20" width="20" class="account-plus"></svgicon>
                 <input type="email" v-model="emailInvite" placeholder="Email invitation" class="users-list-modal__input-mail" />
-                <transition name="slide-fade">
-                  <base-valid-delete v-if="emailInviteValid" @on-valid-action="sendInvitation" @on-cancel-action="resetEmailInvite"></base-valid-delete>
-                </transition>
-                <button type="button" class="btn base-button-action" @click="showModalUsersList = true">
-                  <svgicon name="account" height="12" width="12"></svgicon>
-                  {{ $t('users.users') }}
+                <button type="button" class="btn base-button-action" @click="sendInvitation">
+                  {{ $t('users.invite') }}
                 </button>
+                <base-button-icon id="users-list-tooltip" iconName="account" height="16" width="16" @on-click-action="showModalUsersList = true"></base-button-icon>
+                <b-tooltip target="users-list-tooltip" placement="bottom" :title="$t('users.users_list')"></b-tooltip>
               </div>
             </template>
           </users-list>
@@ -233,13 +230,6 @@ export default {
           redirect_uri: `${process.env.BD_APP_URL}/cloud/${this.$route.params.cloudId}`
         }
       })
-      this.resetEmailInvite()
-    },
-    resetEmailInvite () {
-      this.emailInvite = ''
-    },
-    resetEmailInvit () {
-      this.emailInvit = ''
     },
     async removeUser (userId) {
       const cloudId = this.$store.state.currentCloud.id
