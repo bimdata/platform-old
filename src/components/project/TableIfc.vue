@@ -24,7 +24,8 @@
         </template>
         <template slot="state" slot-scope="data">
             <svgicon height="22" width="22" v-if="getState(data.item.state) === 'ko'"
-                     name="close-circle" color="#F40C0C"></svgicon>
+                     name="close-circle" class="close-circle" color="#F40C0C" id="error-tooltip"></svgicon>
+            <b-tooltip target="error-tooltip" :title="$t('project.error_conversion')" />
             <svgicon height="22" width="22" v-if="getState(data.item.state) === 'ok'"
                      name="check-circle" color="#219434"></svgicon>
             <template v-if="getState(data.item.state) === 'loading'">
@@ -49,33 +50,97 @@
             </template>
         </template>
         <template slot="actions" slot-scope="data">
-            <span v-if="getState(data.item.actions.status) === 'ko'" class="error-message">{{ $t('project.error_conversion') }}</span>
-            <base-button-action v-if="data.item.actions.status === 'C'" size="small" @click="viewIfc(data.item.actions)" icon-position="right" icon-name="play">{{ $t('project.view') }}</base-button-action>
+            <!--<span v-if="getState(data.item.actions.status) === 'ko'" class="error-message">{{ $t('project.error_conversion') }}</span>
+            <base-button-action v-if="data.item.actions.status === 'C'" size="small" @click="viewIfc(data.item.actions)" icon-position="right" icon-name="play">{{ $t('project.view') }}</base-button-action>-->
+
+            <base-button-option @option-toggled="toggleMenuAction">
+              <ul>
+                  <li @click="viewIfc(data.item.actions)">
+                      <svgicon name="play" width="13" height="13"></svgicon>
+                      {{ $t('project.view') }}
+                  </li>
+                  <li @click="downloadFile(data.item.actions.documentAction)">
+                      <svgicon name="download" width="13" height="13"></svgicon>
+                      {{ $t('project.download') }}
+                  </li>
+                  <li @click.stop.self="toggleRename(data.item.actions.documentAction)" :class="{'actif': displayRename}">
+                      <svgicon name="pencil" width="13" height="13"></svgicon>
+                      {{ $t('project.rename') }}
+
+                      <div class="new_folder_box rename" v-if="displayRename">
+                          <div class="new_folder_box__title">
+                              {{ $t('project.rename_file') }}
+                          </div>
+                          <div class="base-input-text-material">
+                              <input
+                                  type="text"
+                                  autofocus
+                                  :placeholder="$t('project.file_name')"
+                                  required
+                                  v-model="renameFolder"
+                                  @keyup.enter="saveRename(data.item.actions.documentAction)"
+                              >
+                              <span class="highlight"></span>
+                              <span class="bar"></span>
+                          </div>
+                          <div class="new_folder_box__button-validation">
+                              <span @click="cancelRename">{{ $t('project.cancel') }}</span>
+                              <span @click="saveRename(data.item.actions.documentAction)">{{ $t('project.validate') }}</span>
+                          </div>
+                      </div>
+                  </li>
+                  <li
+                      @click.stop.self="displayRemoveActions"
+                      class="base-button-option__menu__remove"
+                      :class="{'actif': showRemoveActions}"
+                  >
+                      <svgicon name="delete" width="13" height="13"></svgicon>
+                      {{ $t('project.delete') }}
+                      <transition name="slide-fade">
+                          <base-valid-delete v-if="showRemoveActions" @on-valid-action="remove(data.item.actions.documentAction)" @on-cancel-action="showRemoveActions = false"></base-valid-delete>
+                      </transition>
+                  </li>
+              </ul>
+            </base-button-option>
         </template>
     </base-table-spaced>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import BaseTableSpaced from '@/components/base-components/BaseTableSpaced'
 import BaseButtonAction from '@/components/base-components/BaseButtonAction'
+import BaseButtonOption from '@/components/base-components/BaseButtonOption'
+import BaseValidDelete from '@/components/base-components/BaseValidDelete'
 import _ from 'lodash'
 
 export default {
   data () {
     return {
+      renameFolder: '',
+      displayRename: false,
+      showRemoveActions: false,
       fields: [
-        {key: 'name', label: 'Nom', width: '37%'},
+        {key: 'name', label: 'Nom', width: '47%'},
         {key: 'author', label: 'Créateur', width: '20%'},
         {key: 'last_modify', label: 'Modifié le', width: '13%'},
         {key: 'state', label: 'Etat', width: '10%'},
-        {key: 'actions', label: '', width: '20%'}
+        {key: 'actions', label: '', width: '10%'}
       ]
     }
   },
   components: {
     BaseTableSpaced,
-    BaseButtonAction
+    BaseButtonAction,
+    BaseButtonOption,
+    BaseValidDelete
   },
   computed: {
+    ...mapGetters({
+      getProjectById: 'getProjectById'
+    }),
+    project () {
+      return this.getProjectById(this.$route.params.projectId)
+    },
     ifcs () {
       let ifcs = []
       for (let ifc of _.sortBy(this.$store.state.project.ifcs, ['updated_at']).reverse()) {
@@ -89,7 +154,8 @@ export default {
               cloudId: this.$store.state.project.selectedCloud.id,
               projectId: this.$store.state.project.selectedProject.id,
               ifcId: ifc.id,
-              status: ifc.status
+              status: ifc.status,
+              documentAction: ifc.document
             }
             }
           ]
@@ -113,6 +179,52 @@ export default {
         default:
           return 'loading'
       }
+    },
+    toggleMenuAction (isOpened) {
+      if (!isOpened) {
+        this.showRemoveActions = isOpened
+        this.displayRename = isOpened
+      }
+    },
+    downloadFile (documentAction) {
+      window.open(documentAction.file)
+    },
+    toggleRename (documentAction) {
+      this.displayRename = !this.displayRename
+      this.showRemoveActions = false
+      this.renameFolder = documentAction.name
+    },
+    async saveRename (documentAction) {
+      let type = 'IFC'
+      let id = documentAction.id
+      let name = this.renameFolder
+
+      await this.$store.dispatch('project/updateName', {type, id, name})
+
+      this.toggleMenuAction(false)
+      document.body.click()
+
+      await this.$store.dispatch('project/fetchProjectIfc', this.project)
+      await this.$store.dispatch('project/getTree', this.project)
+    },
+    async remove (documentAction) {
+      let type = 'IFC'
+      let id = documentAction.id
+
+      await this.$store.dispatch('project/remove', {type, id})
+
+      this.toggleMenuAction(false)
+      document.body.click()
+
+      await this.$store.dispatch('project/fetchProjectIfc', this.project)
+      await this.$store.dispatch('project/getTree', this.project)
+    },
+    displayRemoveActions () {
+      this.showRemoveActions = !this.showRemoveActions
+      this.displayRename = false
+    },
+    cancelRename () {
+      this.displayRename = false
     }
   }
 }

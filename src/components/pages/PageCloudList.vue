@@ -13,12 +13,16 @@
             </div>
           </div>
         </div>
-        <div class="search-container mt-2 mt-sm-0">
-          <base-search-bar @on-search="toSearch" class="mr-3"></base-search-bar>
-          <button type="button" class="btn btn-secondary base-button-action top-toolbar__button-new-file ml-auto" :class="{'active': openCreationCloud}" @click="toggleOpenCreationCloud">
-            <svgicon name="plus" height="20" width="20"></svgicon>
-            Create cloud
-          </button>
+        <div class="search-container">
+          <base-search-bar @on-search="toSearch"></base-search-bar>
+        </div>
+        <div class="card-container">
+          <div class="top-toolbar__choice-list-items">
+            <button type="button" class="btn btn-secondary base-button-action top-toolbar__button-new-file" :class="{'active': openCreationCloud}" @click="toggleOpenCreationCloud">
+              <svgicon name="plus" height="20" width="20"></svgicon>
+              Create cloud
+            </button>
+          </div>
         </div>
       </div>
       <transition-group

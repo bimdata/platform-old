@@ -1,5 +1,5 @@
 <template>
-  <div class="page-project">
+  <div class="page-projects">
     <div class="toolbar-page row justify-content-center justify-content-sm-between">
       <div class="card-container">
         <base-choice-list
@@ -11,9 +11,13 @@
           v-model="selectedCloud"
         ></base-choice-list>
       </div>
-      <div class="search-container mt-2 mt-sm-0">
-        <base-search-bar @on-search="toSearch" class="m-auto"></base-search-bar>
-        <base-button-icon iconName="account-plus" height="16" width="16" @on-click-action="showModal = !showModal" class="ml-2"></base-button-icon>
+      <div class="search-container">
+        <base-search-bar @on-search="toSearch"></base-search-bar>
+      </div>
+      <div class="card-container">
+          <div class="top-toolbar__choice-list-items">
+            <base-button-icon iconName="account-plus" height="16" width="16" @on-click-action="showModal = !showModal"></base-button-icon>
+          </div>
       </div>
     </div>
     <transition-group name="card-item" tag="div" class="project_list row">

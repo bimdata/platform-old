@@ -2,11 +2,18 @@ $base-upload-area: 'upload-area';
 
 .#{$base-upload-area} {
 
+  .uppy-StatusBar:not([aria-hidden=true]).is-waiting {
+    background: $white;
+  }
+  .uppy-DashboardTabs {
+    background: $white;
+  }
   .uppy-Dashboard-inner {
     border: 2px dashed $primary !important;
     border-radius: 8px !important;
     min-width: 100% !important; //Override uppy.min.css file
     min-height: 200px !important; //Override uppy.min.css file
+    background: $body-bg !important; //Override uppy.min.css file
   }
   .uppy-Dashboard-innerWrap {
     min-height: auto !important;
@@ -19,8 +26,21 @@ $base-upload-area: 'upload-area';
     background-color: transparent !important;
     width: 100% !important;
     margin-top: $grid-gutter-width;
+
+    .uppy-Dashboard-filesContainer {
+      background: $body-bg;
+    }
+    .uppy-DashboardTabs {
+      background: $body-bg;
+    }
+    .uppy-StatusBar:not([aria-hidden=true]).is-waiting {
+      background: $body-bg !important; //Override uppy.min.css file
+    }
   }
 
+  .uppy-Dashboard-filesContainer {
+    background: $white;
+  }
   .uppy-Dashboard-dropFilesTitle {
     color: #959595 !important;
     font-size: 1rem !important;

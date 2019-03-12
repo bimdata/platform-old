@@ -1,6 +1,6 @@
 <template>
-  <div class="base-button-icon">
-    <svgicon :name="iconName" :height="height" :width="width" :class="{'is-close': !isOpen}" @click.native="toggleButton"></svgicon>
+  <div class="base-button-icon" @click="toggleButton">
+    <svgicon :name="iconName" :height="height" :width="width" :class="{'is-close': !isOpen}"></svgicon>
   </div>
 </template>
 <script>

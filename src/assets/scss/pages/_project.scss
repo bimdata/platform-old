@@ -11,6 +11,26 @@
     }
   }
   .table-spaced {
+    .base-button-option {
+      &__tool {
+
+      }
+      &__menu {
+        ul li {
+          .svg-icon {
+            margin-right: 10px;
+          }
+          .base-valid-delete {
+            .svg-icon {
+              margin-right: 0;
+            }
+          }
+        }
+      }
+    }
+    .close-circle {
+      cursor: pointer;
+    }
     &__items--body--state, &__items--header--state {
       justify-content: center;
 
@@ -28,33 +48,6 @@
 
     &__items--body--name, &__items--header--name {
       padding-right: $grid-gutter-width;
-    }
-  }
-
-  .card-project {
-    padding: 0;
-
-    .card-bd__title {
-      padding: 0;
-
-
-      &:after {
-        display: none;
-      }
-    }
-    .card-bd__header {
-      .icon-eye {
-        cursor: pointer;
-        transition: all ease 0.5s;
-
-        &:hover {
-          fill: $primary;
-        }
-      }
-    }
-    .card-bd__body {
-      height: 61px;
-      padding: 22px 27px;
     }
   }
 

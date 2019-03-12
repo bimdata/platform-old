@@ -1,5 +1,5 @@
 <template>
-    <div v-on-clickaway="away" class="choice-list" @keyup="onKeyUp">
+    <div v-on-clickaway="away" class="choice-list noselect" @keyup="onKeyUp">
         <div class="choice-list__field-selected"
              v-bind="$attrs"
              @click="toggleListOptions"
