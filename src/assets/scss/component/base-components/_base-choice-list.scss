@@ -12,7 +12,7 @@
     font-size: $font-size-base;
     line-height: 1.2rem;
     @include flexbox;
-    @include align-items(flex-start);
+    @include align-items(center);
     @include justify-content(center);
     &__text-selected{
       padding-left: 1rem;
