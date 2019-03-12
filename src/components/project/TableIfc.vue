@@ -102,7 +102,6 @@
                   </li>
               </ul>
             </base-button-option>
-
         </template>
     </base-table-spaced>
 </template>
