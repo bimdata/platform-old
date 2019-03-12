@@ -1,0 +1,43 @@
+.page-projects {
+  padding-bottom: 50px - $grid-gutter-width;
+
+  .toolbar-page {
+    .search-container {
+      right: 83px;
+
+      @include media-breakpoint-up(md) {
+        right: 69px;
+      }
+      @include media-breakpoint-up(xxl) {
+        right: 83px;
+      }
+    }
+  }
+
+  .card-project {
+    padding: 0;
+
+    .card-bd__title {
+      padding: 0;
+
+
+      &:after {
+        display: none;
+      }
+    }
+    .card-bd__header {
+      .icon-eye {
+        cursor: pointer;
+        transition: all ease 0.5s;
+
+        &:hover {
+          fill: $primary;
+        }
+      }
+    }
+    .card-bd__body {
+      height: 61px;
+      padding: 22px 27px;
+    }
+  }
+}

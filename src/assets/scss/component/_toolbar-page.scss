@@ -1,4 +1,5 @@
 .toolbar-page {
+  position: relative;
   margin-bottom: 26px;
 
   .card-container {
@@ -10,8 +11,14 @@
       padding-right: $grid-gutter-width;
     }
 
-    &__button-new-file svg {
-      transition: .2s ease-in-out all;
+    &__button-new-file  {
+      svg {
+        transition: .2s ease-in-out all;
+      }
+
+      @include media-breakpoint-up(md) {
+        margin-left: auto;
+      }
     }
   
     &__button-new-file.active svg {
@@ -22,16 +29,23 @@
   .search-container {
     display: flex;
     align-items: center;
+    margin: 1rem 0;
+    width: 216px;
 
-    @include media-breakpoint-up(sm) { 
-      width: calc(100%/2);
-    }
-    @include media-breakpoint-up(md) { 
+    @include media-breakpoint-up(sm) {
+      margin-top: 0;
       width: auto;
-      margin-right: 1rem;
     }
-    @include media-breakpoint-up(xxl) { 
-      margin-right: 2rem;
+    @include media-breakpoint-up(md) {
+      position: absolute;
+      right: 174px;
+    }
+    @include media-breakpoint-up(xxl) {
+      right: 187px;
+    }
+
+    .search-component {
+      margin-left: auto;
     }
   }
   .base-button-action {
@@ -44,6 +58,9 @@
 .page-clouds {
   .top-toolbar {
     &__choice-list-items {
+      min-height: 44px;
+      max-height: 44px;
+      height: 100%;
       width: 216px;
       padding: 0;
       margin: 0 auto;

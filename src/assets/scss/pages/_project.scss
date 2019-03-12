@@ -51,33 +51,6 @@
     }
   }
 
-  .card-project {
-    padding: 0;
-
-    .card-bd__title {
-      padding: 0;
-
-
-      &:after {
-        display: none;
-      }
-    }
-    .card-bd__header {
-      .icon-eye {
-        cursor: pointer;
-        transition: all ease 0.5s;
-
-        &:hover {
-          fill: $primary;
-        }
-      }
-    }
-    .card-bd__body {
-      height: 61px;
-      padding: 22px 27px;
-    }
-  }
-
   .content-project {
     width: 100%;
 
