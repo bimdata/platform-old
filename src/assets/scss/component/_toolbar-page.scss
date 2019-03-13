@@ -38,9 +38,6 @@
     }
     @include media-breakpoint-up(md) {
       position: absolute;
-      right: 174px;
-    }
-    @include media-breakpoint-up(xxl) {
       right: 187px;
     }
 
