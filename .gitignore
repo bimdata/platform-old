@@ -12,8 +12,8 @@ selenium-server.log
 !cypress/videos/.gitkeep
 cypress/videos/**
 
+/src/assets/images/icons/compiled/*
 !/src/assets/images/icons/compiled/.gitkeep
-/src/assets/images/icons/compiled
 selenium-debug.log
 config/bim.env.js
 # Editor directories and files

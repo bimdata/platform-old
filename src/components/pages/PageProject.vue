@@ -84,7 +84,10 @@
         <div class="col-12">
           <base-card :fullscreen-available="false" class="ged-card">
             <template slot="header-title">Project's documents</template>
-            <template slot="content">
+            <template slot="content" v-if="!hasFiles">
+              <upload-file name="upload-file"></upload-file>
+            </template>
+            <template slot="content" v-else>
               <dms></dms>
             </template>
           </base-card>
@@ -113,6 +116,7 @@ import UsersList from '@/components/project/UsersList'
 import UploadIfc from '@/components/project/UploadIfc'
 import BaseInputRadio from '@/components/base-components/BaseInputRadio'
 import DMS from '@/components/project/DMS'
+import UploadFile from '@/components/project/UploadFile'
 import Isemail from 'isemail'
 import { mixin as clickaway } from 'vue-clickaway'
 
@@ -130,6 +134,7 @@ export default {
     UsersList,
     BaseInputRadio,
     BaseValidDelete,
+    UploadFile,
     'dms': DMS
   },
   data () {
@@ -294,6 +299,10 @@ export default {
     },
     allUsers () {
       return this.users.concat(this.guests).reverse()
+    },
+    hasFiles () {
+      let tree = this.$store.state.project.tree
+      return tree.children.length > 0
     }
   }
 }
