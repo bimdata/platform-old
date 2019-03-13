@@ -55,7 +55,6 @@ export default {
     let target = this.target
 
     this.uppy = new Uppy({
-      id: this._uid,
       debug: false,
       autoProceed: false,
       restrictions: {
