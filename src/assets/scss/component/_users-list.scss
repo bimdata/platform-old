@@ -20,12 +20,9 @@
   &__header{
     padding: 3px 3px 3px 9px;
     height: 32px;
-<<<<<<< HEAD
     box-shadow: 0 2px 10px 0 rgba($color-black, .07);
     @include flexbox;
     @include align-items(center);
-=======
->>>>>>> ajout des mixins & diverses variables
     @include transition(height ease .25s);
 
     &--large{
@@ -79,11 +76,6 @@
       @include align-items(center);
       input{
         padding: 4px;
-<<<<<<< HEAD
-=======
-        max-height: 22px;
-
->>>>>>> ajout des mixins & diverses variables
         &:focus{
           outline: none;
         }
@@ -119,22 +111,12 @@
       }
 
       .rights-select{
-<<<<<<< HEAD
         padding: 6px;
         margin-left: 11px;
         width: 30%;
         max-width: 125px;
         position: relative;
         border: 1px solid $gray3;
-=======
-        padding: 4px 15px 4px 4px;
-        margin-left: 11px;
-        width: 30%;
-        height: 22px;
-        max-width: 125px;
-        position: relative;
-        border: 1px solid $gre3;
->>>>>>> ajout des mixins & diverses variables
         color: $color-primary;
         cursor: pointer;
         
@@ -216,10 +198,6 @@
       margin-left: 24px;
       color: $color-text;
       line-height: 0.9rem;
-<<<<<<< HEAD
-=======
-      @include font-size(9px);
->>>>>>> ajout des mixins & diverses variables
       .badge {
         margin-left: 19px;
         text-transform: capitalize;
@@ -230,10 +208,7 @@
       }
       p{
         margin-bottom: 0;
-<<<<<<< HEAD
         @include font-size(9px);
-=======
->>>>>>> ajout des mixins & diverses variables
         & > *{
           display: block;
         }
@@ -244,11 +219,7 @@
     }
     &__name{
       color: $color-primary;
-<<<<<<< HEAD
       @include font-size(11px);
-=======
-      @include font-size(12px);
->>>>>>> ajout des mixins & diverses variables
     }
     &__actions{
       margin-left: auto;

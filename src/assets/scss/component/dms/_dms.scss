@@ -132,10 +132,6 @@ $width-lg-tree: 350px;
   .dms__tree-view{
     width: $width-tree;
     min-width: $width-tree;
-<<<<<<< HEAD
-=======
-
->>>>>>> ajout des mixins & diverses variables
     @include media-breakpoint-up(lg){
       width: $width-lg-tree;
       min-width: $width-lg-tree;

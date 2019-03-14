@@ -22,11 +22,7 @@ $toolbox-background: #E6E6E6;
   padding: 15px;
   color: $color-primary;
   flex: 1 auto;
-<<<<<<< HEAD
   line-height: 1rem;
-=======
-  line-height: 1em;
->>>>>>> ajout des mixins & diverses variables
   @include font-size(13px);
 }
 

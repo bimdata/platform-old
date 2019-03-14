@@ -6,7 +6,6 @@
   text-align: left;
   &__field-selected{
     padding: 1rem;
-<<<<<<< HEAD
     height: 44px;
     background-color: $color-white;
     box-shadow: $bd-box-shadow;
@@ -14,14 +13,6 @@
     line-height: 1.2rem;
     @include flexbox;
     @include align-items(center);
-=======
-    background-color: $color-white;
-    box-shadow: $bd-box-shadow;
-    font-size: $font-size-base;
-    line-height: 1rem;
-    @include flexbox;
-    @include align-items(flex-start);
->>>>>>> ajout des mixins & diverses variables
     @include justify-content(center);
     &__text-selected{
       padding-left: 1rem;

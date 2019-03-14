@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-=======
-$arrow-color: #95989A;
-
->>>>>>> ajout des mixins & diverses variables
 .model-preview{
   display: block;
   position: relative;
@@ -21,22 +16,14 @@ $arrow-color: #95989A;
     top: 0;
     img{
       width: auto;
-<<<<<<< HEAD
       height: 100%; 
-=======
-      height: 100%;
->>>>>>> ajout des mixins & diverses variables
     }
   }
   &-counter{
     position: absolute;
     top: 19px;
     right: 16px;
-<<<<<<< HEAD
     color: $color-text;
-=======
-    color: $arrow-color;
->>>>>>> ajout des mixins & diverses variables
     @include font-size(15px);
   }
 }
