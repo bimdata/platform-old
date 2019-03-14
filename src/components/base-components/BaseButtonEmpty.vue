@@ -1,7 +1,7 @@
 <template>
     <div class="base-button-empty__container">
         <div class="base-button-empty" v-on="listeners">
-            <button class="btn btn-primary">Téléversement</button>
+            <button class="btn btn-primary">{{ $t('project.upload') }}</button>
         </div>
         <slot></slot>
     </div>

@@ -29,7 +29,9 @@
         "rename_file": "Rename file",
         "advice": "Advice",
         "missing": "missing",
-        "save": "Save"
+        "save": "Save",
+        "upload": "Téléversement",
+        "upload_text": "Téléverser votre premier fichier"
     },
     "cloud_list": {
       "clouds_list": "Clouds list",

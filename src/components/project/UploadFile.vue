@@ -38,7 +38,7 @@ export default {
   data () {
     return {
       uppy: null,
-      message: 'Téléverser votre premier fichier'
+      message: this.$t('project.upload_text')
     }
   },
   components: {
