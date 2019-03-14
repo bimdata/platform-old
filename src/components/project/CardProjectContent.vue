@@ -49,7 +49,6 @@ export default {
   data () {
     return {
       currentNamePanorama: '',
-      loadedProject: false,
       panorama: null
     }
   },

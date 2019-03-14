@@ -8,20 +8,6 @@
 </template>
 <script>
 export default {
-  props: {
-    iconWidth: {
-      type: String,
-      default: '18'
-    },
-    iconHeight: {
-      type: String,
-      default: '15'
-    },
-    iconName: {
-      type: String,
-      default: ''
-    }
-  },
   computed: {
     listeners () {
       return {

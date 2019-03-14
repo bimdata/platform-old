@@ -6,10 +6,10 @@
                  color="#EFF0F3 #fff #E6E7EA #DDDDDD #30374B #fff #fff"
                  class="m-0">
         </svgicon>
-        <p class="my-4">{{ message }} {{ text }}</p>
-        <div class="upload-area upload-area-dms">
+        <p class="my-4">{{ $t('project.upload_text') }} {{ text }}</p>
+        <div class="upload-area upload-area-upload">
             <base-button-empty iconName="newfile" class="uppy modalOpener"></base-button-empty>
-            <div class="DMSDashboardContainer"></div>
+            <div class="UploadContainer"></div>
         </div>
     </div>
 </template>
@@ -24,7 +24,7 @@ export default {
   props: {
     target: {
       type: String,
-      default: '.DMSDashboardContainer'
+      default: '.UploadContainer'
     },
     name: {
       type: String,
@@ -37,8 +37,7 @@ export default {
   },
   data () {
     return {
-      uppy: null,
-      message: this.$t('project.upload_text')
+      uppy: null
     }
   },
   components: {
