@@ -30,8 +30,8 @@ export default {
     let token = this.$store.state.oidc.access_token
     let target = this.target
 
-    const uppy = Uppy({
-      debug: true,
+    const uppy = new Uppy({
+      debug: false,
       autoProceed: false,
       restrictions: {
         maxFileSize: 1000000000, // 1 Go

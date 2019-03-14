@@ -1,22 +1,38 @@
 <template>
-    <div class="upload-area upload-area-dms">
-        <base-button-tool iconName="newfile" class="uppy modalOpener">
-        </base-button-tool>
-        <div class="DMSDashboardContainer"></div>
+    <div class="text-center">
+        <svgicon :name="name"
+                 height="80"
+                 width="80"
+                 color="#EFF0F3 #fff #E6E7EA #DDDDDD #30374B #fff #fff"
+                 class="m-0">
+        </svgicon>
+        <p class="my-4">{{ $t('project.upload_text') }} {{ text }}</p>
+        <div class="upload-area upload-area-upload">
+            <base-button-empty iconName="newfile" class="uppy modalOpener"></base-button-empty>
+            <div class="UploadContainer"></div>
+        </div>
     </div>
 </template>
+
 <script>
 import Uppy from '@uppy/core'
 import Dashboard from '@uppy/dashboard'
 import XHRUpload from '@uppy/xhr-upload'
-import BaseButtonTool from '@/components/base-components/BaseButtonTool'
+import BaseButtonEmpty from '@/components/base-components/BaseButtonEmpty'
 import { mapState } from 'vuex'
-
 export default {
   props: {
     target: {
       type: String,
-      default: '.DMSDashboardContainer'
+      default: '.UploadContainer'
+    },
+    name: {
+      type: String,
+      default: null
+    },
+    text: {
+      type: String,
+      default: null
     }
   },
   data () {
@@ -25,7 +41,7 @@ export default {
     }
   },
   components: {
-    BaseButtonTool
+    BaseButtonEmpty
   },
   computed: {
     ...mapState('project', {
@@ -53,8 +69,7 @@ export default {
     let endpointUpload = baseApiUrl + '/cloud/' + this.cloudId + '/project/' + this.projectId + '/document'
     let token = this.$store.state.oidc.access_token
     let target = this.target
-
-    this.uppy = new Uppy({
+    let options = {
       debug: false,
       autoProceed: false,
       restrictions: {
@@ -62,7 +77,8 @@ export default {
         maxNumberOfFiles: null,
         minNumberOfFiles: 1
       }
-    })
+    }
+    this.uppy = new Uppy(options)
       .use(Dashboard, {
         trigger: '.modalOpener',
         inline: false,

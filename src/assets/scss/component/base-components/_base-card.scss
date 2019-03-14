@@ -34,6 +34,19 @@ $toolbox-background: #E6E6E6;
 
 .#{$base-card-name}__content{
   padding: 1rem;
+  min-height: 439px;
+  display: grid;
+  @include align-items(center);
+  p{
+    @include font-size(14px);
+  }
+  .base-button-empty__container{
+    .btn{
+      width: 121px;
+      height: 33px;
+      border-radius: 7px;
+    }
+  }
 }
 
 .#{$base-card-name}__link{
