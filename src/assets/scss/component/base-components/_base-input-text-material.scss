@@ -1,80 +1,63 @@
-.base-input-text-material {
+.base-input-text-material{
   position: relative;
   margin-bottom: 45px;
-  input {
-    font-size: 1.14285714rem;
-    padding: 10px 10px 10px 5px;
-    display: block;
+  input{
     width: 185px !important;
     min-width: 0 !important;
+    padding: 10px 10px 10px 5px;
+    display: block;
     border: none;
-    border-bottom: 1px solid #E1E1E2;
+    border-bottom: 1px solid $gray2;
+    @include font-size(16px);
   }
-  input:focus {
-    outline: none;
-  }
-
-  label {
-    color: #E1E1E2;
-    font-size: 1rem;
-    font-weight: normal;
+  input:focus{ outline: none; }
+  label{
     position: absolute;
-    pointer-events: none;
     left: 0;
     top: 15px;
-    transition: 0.2s ease all;
+    color: $gray2;
+    font-weight: normal;
+    pointer-events: none;
+    @include font-size(14px);
+    @include transition(.2s ease all);
   }
-
   /* active state */
-  input:focus ~ label, input:valid ~ label {
+  input:focus ~ label, input:valid ~ label{
     top: -20px;
-    font-size: 1rem;
-    color: $primary;
+    color: $color-primary;
+    @include font-size(14px);
   }
-
-  .bar {
+  .bar{
+    width: 100%;
     position: relative;
     display: block;
-    width: 100%;
+    &:before, &:after{
+      width: 0;
+      height: 1px;
+      position: absolute;
+      content: '';
+      bottom: 0;
+      background: $color-primary;
+      @include transition(.2s ease all);
+    }
+    &:before{
+      left: 50%;
+    }
+    &:after{
+      right: 50%;
+    }
   }
-  .bar:before, .bar:after {
-    content: '';
-    height: 1px;
-    width: 0;
-    bottom: 0;
-    position: absolute;
-    background: $primary;
-    transition: 0.2s ease all;
-  }
-  .bar:before {
-    left: 50%;
-  }
-  .bar:after {
-    right: 50%;
-  }
-
   ///* active state */
-  input:focus ~ .bar:before, input:focus ~ .bar:after {
+  input:focus ~ .bar:before, input:focus ~ .bar:after{
     width: 50%;
   }
-
-  .highlight {
-    position: absolute;
-    height: 60%;
+  .highlight{
     width: 100px;
+    height: 60%;
+    position: absolute;
     top: 25%;
     left: 0;
-    pointer-events: none;
     opacity: 0.5;
+    pointer-events: none;
   }
-
-  /* active state */
-  //input:focus ~ .highlight {
-  //  animation: inputHighlighter 0.3s ease;
-  //}
 }
-
-//@keyframes inputHighlighter {
-//  from { background: $primary; }
-//  to 	{ width:0; background:transparent; }
-//}

@@ -1,55 +1,46 @@
 $button-name: 'base-button-action';
 
-.#{$button-name} {
-  border-radius: 3px;
+.#{$button-name}{
   height: 32px;
-  background-color: $primary;
-  font-weight: normal;
-  font-size: $font-size-base;
-  line-height: 1rem;
   min-width: 148px;
-  letter-spacing: 0.3px;
+  background-color: $color-primary;
   background-position: center;
-  transition: background 0.8s;
-  outline: none;
-  cursor: pointer;
-  color: white;
   border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  .base-button-action__icon {
-    margin-right: $grid-gutter-width/3;
-  }
-  &:hover {
-    background: lighten($primary, 7%) radial-gradient(circle, transparent 1%, lighten($primary, 7%) 1%) center/15000%;
-  }
-
-  &:active {
-    background-color: $primary !important;
+  border-radius: 3px;
+  color: $color-white;
+  cursor: pointer;
+  line-height: 1rem;
+  letter-spacing: 0.3px;
+  font-weight: normal;
+  outline: none;
+  @include flexbox;
+  @include align-items(center);
+  @include justify-content(center);
+  @include font-size(14px);
+  @include transition(background .8s);
+  .base-button-action__icon{ margin-right: $grid-gutter-width/3; }
+  &:hover{ background: lighten($primary, 7%) radial-gradient(circle, transparent 1%, lighten($primary, 7%) 1%) center/15000%; }
+  &:active{
+    background-color: $color-primary !important;
     background-size: 100%;
-    transition: background 0s;
+    @include transition(background 0s);
   }
 }
 
-.#{$button-name}--small {
-  height: 27px;
-}
+.#{$button-name}--small{ height: 27px; }
 
-.#{$button-name}--icon-right {
+.#{$button-name}--icon-right{
   flex-direction: row-reverse;
-  .base-button-action__icon {
+  .base-button-action__icon{
     margin-left: $grid-gutter-width / 3;
     margin-right: 0;
   }
-  span {
-    flex: 1;
-  }
+  span{ flex: 1; }
 }
 
-.#{$button-name}--fullwidth {
+.#{$button-name}--fullwidth{
   width: 100%;
-  .base-button-action__icon {
+  .base-button-action__icon{
     width: 18px;
     height: 18px;
   }

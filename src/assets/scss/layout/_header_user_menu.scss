@@ -1,88 +1,79 @@
-.user-menu {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+.user-menu{
   height: 60px;
-
-  &__pic {
+  @include flexbox;
+  @include align-items(center);
+  @include justify-content(flex-end);
+  &__pic{
     $pic-size: 37px;
-    display: inline-block;
-    min-width: $pic-size;
     width: $pic-size;
     height: $pic-size;
-    line-height: $pic-size;
+    min-width: $pic-size;
+    display: inline-block;
     border-radius: 50%;
-    background-color: #30374B;
-    color: $white;
-    text-align: center;
-    font-weight: normal;
-    font-size: 1rem;
+    background-color: $color-primary;
+    color: $color-white;
+    line-height: $pic-size;
     letter-spacing: 1px;
+    font-weight: normal;
+    text-align: center;
     text-transform: uppercase;
-
-    &--big {
+    @include font-size(14px);
+    &--big{
       $pic-size: 50px;
-      min-width: $pic-size;
       width: $pic-size;
       height: $pic-size;
+      min-width: $pic-size;
       line-height: $pic-size;
     }
   }
-
-  &__u {
-    &-info {
+  &__u{
+    &-info{
       padding: 10px 8px;
-      display: flex;
-      align-items: center;
-
-      &--details {
+      @include flexbox;
+      @include align-items(center);
+      &--details{
         padding-left: 15px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
         width: 100%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
-    &-fullname {
+    &-fullname{
       margin-bottom: 0;
       color: $text-color;
-      font-size: 12px;
+      @include font-size(12px);
     }
-    &-email {
-      font-size: 10px;
-      color: #959595;
+    &-email{
       margin-bottom: 9px;
+      color: $gray4;
+      @include font-size(10px);
     }
   }
-
-  .dropdown-menu {
-    width: 200px;
-    border: none;
-    background-color: white;
+  .dropdown-menu{
     margin-top: 9px;
+    width: 200px;
+    background-color: $color-white;
+    border: none;
     @include bm-box-shadow;
-
-    &:after {
+    &:after{
       margin-left: 1.1em;
     }
-
-    .dropdown-item {
-      background-color: white;
+    .dropdown-item{
+      background-color: $color-white;
       outline: none;
     }
   }
-
-  .logout-item {
-    text-align: center;
-    cursor: pointer;
-    outline: none;
-    color: $text-color;
+  .logout-item{
     padding: 5px 0;
-    font-size: 10px;
+    cursor: pointer;
+    color: $text-color;
+    outline: none;
+    text-align: center;
+    @include font-size(10px);
   }
-
-  .dropdown-menu .btn {
-    min-width: auto;
+  .dropdown-menu .btn{
     width: 100%;
-    font-size: 9px;
+    min-width: auto;
+    @include font-size(9px);
   }
 }

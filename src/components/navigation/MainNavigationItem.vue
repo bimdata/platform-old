@@ -51,7 +51,7 @@ export default {
         color: $body-color;
 
         &.hovered {
-            color: $primary;
+            color: $color-primary;
         }
     }
 </style>

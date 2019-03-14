@@ -1,48 +1,48 @@
-@mixin caret-down {
+@mixin caret-down{
   content: "keyboard_arrow_down";
 }
 
-@mixin caret-up {
+@mixin caret-up{
   content: "keyboard_arrow_up";
 }
 
-@mixin caret-right {
+@mixin caret-right{
   content: "keyboard_arrow_right";
 }
 
-@mixin caret-left {
+@mixin caret-left{
   content: "keyboard_arrow_left";
 }
 
-@mixin caretCustom($direction: down) {
-  @if $enable-caret {
-    &::after {
-      font-family: 'Material Icons';
-      display: inline-block;
+@mixin caretCustom($direction: down){
+  @if $enable-caret{
+    &::after{
       margin-left: $caret-width * .85;
+      display: inline-block;
+      font-family: 'Material Icons';
       vertical-align: center;
-      @if $direction == down {
+      @if $direction == down{
         @include caret-down;
-      } @else if $direction == up {
+      } @else if $direction == up{
         @include caret-up;
-      } @else if $direction == right {
+      } @else if $direction == right{
         @include caret-right;
       }
     }
 
-    @if $direction == left {
-      &::after {
+    @if $direction == left{
+      &::after{
         display: none;
       }
 
-      &::before {
+      &::before{
         display: inline-block;
         content: "";
         @include caret-left;
       }
     }
 
-    &:empty::after {
+    &:empty::after{
       margin-left: 0;
     }
   }

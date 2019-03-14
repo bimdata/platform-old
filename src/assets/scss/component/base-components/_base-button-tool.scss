@@ -1,29 +1,19 @@
 $base-button-tool: 'base-button-tool';
 
-.#{$base-button-tool} {
+.#{$base-button-tool}{
   width: 32px;
   height: 32px;
-  background-color: white;
+  background-color: $color-white;
   box-shadow: $bd-box-shadow;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  svg {
-    transition: color .15s linear;
-  }
-
-  &:hover {
+  @include flexbox;
+  @include align-items(center);
+  @include justify-content(center);
+  svg{ @include transition(color .15s linear); }
+  &:hover{
     cursor: pointer;
-
-    svg {
-      color: $primary;
-    }
+    svg{ color: $color-primary; }
   }
-
-  &.is-active {
-    svg {
-      color: $primary;
-    }
+  &.is-active{
+    svg{ color: $color-primary; }
   }
 }

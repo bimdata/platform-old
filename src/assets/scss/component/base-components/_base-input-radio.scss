@@ -1,52 +1,44 @@
-$md-radio-checked-color: $primary;
-$md-radio-border-color: rgba(0, 0, 0, 0.42);
+$md-radio-checked-color: $color-primary;
+$md-radio-border-color: rgba($color-black, .42);
 $md-radio-size: 16px;
 $md-radio-checked-size: 8px;
 
-.base-input-radio {
+.base-input-radio{
   margin: 8px 0;
-
-  input[type=radio] {
+  input[type=radio]{
     display: none;
-
-    &:checked + label:before {
-        border-color: $md-radio-checked-color;
-    }
-    &:checked + label:after {
-        transform: scale(1);
-    }
+    &:checked + label:before{ border-color: $md-radio-checked-color; }
+    &:checked + label:after{ @include transform(scale(1)); }
   }
-
-  label {
-    display: flex;
-    align-items: center;
+  label{
+    margin-bottom: 0;
+    padding-left: $md-radio-size + 10px;
     height: $md-radio-size;
     position: relative;
-    padding-left: $md-radio-size + 10px;
-    margin-bottom: 0;
     cursor: pointer;
-
-    &:before, &:after {
-        position: absolute;            
-        content: '';  
-        border-radius: 50%;
-        transition: all .3s ease;
-        transition-property: transform, border-color;
+    @include flexbox;
+    @include align-items(center);
+    &:before, &:after{
+      position: absolute;
+      content: '';
+      border-radius: 50%;
+      transition-property: transform, border-color;
+      @include transition(all .3s ease);
     }
-    &:before {
-        left: 0;
-        top: 0;
-        width: $md-radio-size;
-        height: $md-radio-size;
-        border: 1px solid $md-radio-border-color;
+    &:before{
+      width: $md-radio-size;
+      height: $md-radio-size;
+      left: 0;
+      top: 0;
+      border: 1px solid $md-radio-border-color;
     }
-    &:after {
-        top: $md-radio-size / 2 - $md-radio-checked-size / 2;
-        left: $md-radio-size / 2 - $md-radio-checked-size / 2;
-        width:$md-radio-checked-size;
-        height:$md-radio-checked-size;
-        transform: scale(0);
-        background:$md-radio-checked-color;
+    &:after{
+      width:$md-radio-checked-size;
+      height:$md-radio-checked-size;
+      top: $md-radio-size / 2 - $md-radio-checked-size / 2;
+      left: $md-radio-size / 2 - $md-radio-checked-size / 2;
+      background:$md-radio-checked-color;
+      @include transform(scale(0));
     }
   }
 }

@@ -1,13 +1,13 @@
-@media all and (min-width: 600px) {
+@media all and (min-width: 600px){
   .aside { flex: 0 80px; }
 }
 
-@media all and (min-width: 800px) {
+@media all and (min-width: 800px){
   .main    { flex: 5 0px; }
   .nav-menu { order: 1; }
   .main    { order: 2; }
 }
 
-.main {
+.main{
   padding: 26px $grid-gutter-width * 2;
 }

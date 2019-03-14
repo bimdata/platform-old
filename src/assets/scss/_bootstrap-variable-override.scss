@@ -1,7 +1,7 @@
 $font-family-base: 'Roboto';
 $body-bg: #e8e8e8;
 $body-color: #94979A;
-$primary: #2F374A;
+$primary: $color-primary;
 $secondary: $body-color;
 $success: #28a745;
 $danger: #dc3545;
@@ -50,7 +50,7 @@ $input-padding-x: 1.571rem;
 $form-group-margin-bottom: $grid-gutter-width;
 
 $input-btn-focus-width: 0;
-$input-btn-focus-color: $primary;
+$input-btn-focus-color: $color-primary;
 $input-btn-focus-box-shadow: none;
 
 //divider
@@ -71,7 +71,7 @@ $breadcrumb-border-radius: $border-radius;
 
 // Tooltips
 $tooltip-font-size: 0.857rem;
-$tooltip-bg: $primary;
+$tooltip-bg: $color-primary;
 $tooltip-border-radius: 7px;
 
 // Badge
@@ -85,5 +85,5 @@ $badge-border-radius: 3px;
 $modal-inner-padding: 0;
 $modal-md: 507px;
 $modal-content-border-width: 0;
-$modal-backdrop-bg: $primary;
+$modal-backdrop-bg: $color-primary;
 $modal-backdrop-opacity: 0.81;

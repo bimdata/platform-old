@@ -1,21 +1,6 @@
-$search-btn-size: 44px;
-
-.base-button-icon {
-  width: $search-btn-size;
-  height: $search-btn-size;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: $white;
+.base-button-icon{
   box-shadow: $bd-box-shadow;
-  margin-left: auto;
-  cursor: pointer;
-
-  .svg-icon {
-    transition: all linear 0.35s;
-
-    &.is-close {
-      fill: $body-color;
-    }
+  .svg-icon{
+    &.is-close{ fill: $color-text; }
   }
 }

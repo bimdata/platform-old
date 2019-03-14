@@ -1,12 +1,10 @@
-.page-project {
+.page-project{
   padding-bottom: 50px - $grid-gutter-width;
-
-  .ged-card {
-    background: #F8F8F9;
+  .ged-card{
     max-height: 560px;
+    background: $color-background;
     overflow: hidden;
-
-    .base-card__content {
+    .base-card__content{
       padding: 0;
     }
   }
@@ -42,11 +40,10 @@
         }
       }
     }
-    &__items--header--actions {
+    &__items--header--actions{
       min-width: 209px;
     }
-
-    &__items--body--name, &__items--header--name {
+    &__items--body--name, &__items--header--name{
       padding-right: $grid-gutter-width;
     }
   }
@@ -54,73 +51,73 @@
   .content-project {
     width: 100%;
 
-    @include media-breakpoint-up(lg) {
-      width: calc(100%/3 * 2 - 20px);
+    @include media-breakpoint-up(lg){
       margin-right: 20px;
+      width: calc(100%/3 * 2 - 20px);
     }
 
-    .model-preview-slider {
+    .model-preview-slider{
       height: 338px;
       background: $bg-preview;
     }
   }
-  .user-project {
+  .user-project{
     width: 100%;
 
-    @include media-breakpoint-up(lg) {
-      width: calc(100%/3 - 20px);
+    @include media-breakpoint-up(lg){
       margin-left: 20px;
+      width: calc(100%/3 - 20px);
     }
   }
 
-  .main-ifc {
-    display: flex;
-    flex-direction: column;
+  .main-ifc{
+    @include flexbox;
+    @include flex-direction(column);
 
-    @include media-breakpoint-up(md) {
-      flex-direction: row;
+    @include media-breakpoint-up(md){
       height: 399px;
+      @include flex-direction(row);
     }
 
-    &__map-info-content {
-      width: 100%;
+    &__map-info-content{
       margin-bottom: 21px;
-      box-shadow: 0 2px 10px 0 rgba(0,0,0,0.07);
+      width: 100%;
+      box-shadow: 0 2px 10px 0 rgba($color-black,.07);
 
-      @include media-breakpoint-up(md) {
+      @include media-breakpoint-up(md){
+        margin: 0 21px 0 0;
         max-width: 327px;
-        margin-right: 21px;
-        margin-bottom: 0;
       }
     }
 
-    &__info-project {
-      width: 100%;
+    &__info-project{
       margin-right: 0;
+      width: 100%;
       height: 338px;
     }
-    &__navigation-project {
-      display: flex;
-      align-items: center;
-      height: 61px;
+    &__navigation-project{
       padding: 16px 11px;
-
-      &__title {
+      height: 61px;
+      @include flexbox;
+      @include align-items(center);
+      &__title{
         width: 75%;
       }
     }
 
-    &__map {
-      width: 100%;
+    &__map{
       margin: 0;
-      position: relative;
+      width: 100%;
       height: 379px;
+      position: relative;
 
-      @include media-breakpoint-up(md) {
+      @include media-breakpoint-up(md){
         height: 100%;
       }
 
-      .map-wrapper {
+      .map-wrapper{
+        width: 100%;
+        height: 100%;
         position: absolute;
         top: 0;
         left: 0;
@@ -165,15 +162,15 @@
           }
         }
       }
-      #base-map {
+      #base-map{
+        width: 100%;
         position: absolute;
         top: 0;
         left: 0;
-        width: 100%;
       }
     }
 
-    &__detail-content {
+    &__detail-content{
       width: 50%;
     }
   }
