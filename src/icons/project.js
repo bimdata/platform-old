@@ -3,7 +3,7 @@
 // @ts-ignore
 import icon from 'vue-svgicon'
 icon.register({
-  'projet': {
+  'project': {
     width: 16,
     height: 16,
     viewBox: '0 0 23 23',

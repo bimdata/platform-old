@@ -17,7 +17,7 @@
                 :key="index"
                 :class="{'selected': item.id === selectedNode}">
                 <div class="base-tree-select__item-line" @click="selectNode(item.id)">
-                    <svgicon name="folder2"></svgicon> {{ item.name| middle-truncate(25) }}
+                    <svgicon name="folder"></svgicon> {{ item.name| middle-truncate(25) }}
                 </div>
                 <div v-if="item.children.length > 0" class="base-tree-select__select-node" @click="changeCurrentNode(item.id)">
                     <svgicon name="chevron-right"></svgicon>

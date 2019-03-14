@@ -16,7 +16,7 @@
       </div>
       <div class="card-container">
           <div class="top-toolbar__choice-list-items">
-            <base-button-icon iconName="account-plus" height="16" width="16" @on-click-action="showModal = !showModal"></base-button-icon>
+            <base-button-icon iconName="add-account" height="16" width="16" @on-click-action="showModal = !showModal"></base-button-icon>
           </div>
       </div>
     </div>
@@ -29,7 +29,7 @@
             class="new-project-item__card-container"
           >
             <div class="new-project-item__picto-container">
-              <svgicon name="plus" height="45" width="45"></svgicon>
+              <svgicon name="add" height="45" width="45"></svgicon>
             </div>
             <div class="new-project-item__edit-container">
               <div class="new-project-item__edit-container__header">

@@ -2,7 +2,7 @@
   <div>
     <base-choice-list
       :options="projects"
-      icon="projet"
+      icon="project"
       :value="selectedProject"
       @input="choseProject"
     ></base-choice-list>
@@ -28,7 +28,7 @@ export default {
       }
 
       if (projectResult.length === 0) {
-        projectResult.push({value: null, text: 'Aucun projet disponible'})
+        projectResult.push({value: null, text: 'Aucun project disponible'})
       }
       return projectResult
     },
@@ -43,7 +43,7 @@ export default {
       }
 
       if (selected === undefined) {
-        return {value: null, text: 'Choisir un projet'}
+        return {value: null, text: 'Choisir un project'}
       }
 
       return selected

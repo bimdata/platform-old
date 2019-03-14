@@ -27,7 +27,7 @@
         <base-button-option @option-toggled="toggleMenu" class="users-list__user__actions__menu" v-if="displayMenu">
           <ul>
               <li @click.stop.self="toggleRights()" :class="{'actif': displayRights}" class="arrow-left">
-                {{ $t('users.modify_rights') }} <svgicon name="user-cadenas" width="12" height="12"></svgicon>
+                {{ $t('users.modify_rights') }} <svgicon name="user-lock" width="12" height="12"></svgicon>
 
                 <div class="new_folder_box" v-if="displayRights">
                   <base-input-radio
@@ -42,7 +42,7 @@
                 </div>
             </li>
             <li @click.stop.self="showRemoveActions = true" class="users-list__user__actions">
-                {{ $t('users.remove') }} <svgicon name="user-croix" width="12" height="12"></svgicon>
+                {{ $t('users.remove') }} <svgicon name="user-cross" width="12" height="12"></svgicon>
                 <transition name="slide-fade">
                   <base-valid-delete v-if="showRemoveActions" @on-valid-action="removeUser(user.id)" @on-cancel-action="showRemoveActions = false"></base-valid-delete>
                 </transition>

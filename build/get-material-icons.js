@@ -4,7 +4,7 @@ const destPath = 'src/assets/images/icons';
 
 const svgIcons = [
   'account.svg',
-  'account-plus.svg',
+  'add-account.svg',
   'alert-circle.svg',
   'application.svg',
   'check-circle.svg',
@@ -21,7 +21,7 @@ const svgIcons = [
   'eye.svg',
   'filter-variant.svg',
   'folder-outline.svg',
-  'image-plus.svg',
+  'img-more.svg',
   'keyboard_arrow_down',
   'keyboard_arrow_up',
   'magnify.svg',
@@ -29,7 +29,7 @@ const svgIcons = [
   'menu.svg',
   'pencil.svg',
   'play.svg',
-  'plus.svg'
+  'add.svg'
 ];
 
 fs.readdir(sourcePath, function(err, items) {
