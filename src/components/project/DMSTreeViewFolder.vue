@@ -14,7 +14,7 @@
             <span class="dms__line-tree-view-content">
                 <span class="folder-carret"></span>
                 <svgicon name="folder-outline" height="19" width="19" v-if="isCurrentPath"></svgicon>
-                <svgicon name="folder2" height="19" width="19" v-else></svgicon>
+                <svgicon name="folder" height="19" width="19" v-else></svgicon>
                 <span
                   @click.stop="changeFolder(folder.id)"
                   v-if="folder.name && folder.name.length > 10"

@@ -1,5 +1,5 @@
 <template>
-    <base-button-action icon-name="plus"
+    <base-button-action icon-name="add"
                         icon-width="20"
                         icon-height="20"
                         v-on="listeners">

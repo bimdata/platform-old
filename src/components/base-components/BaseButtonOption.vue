@@ -3,7 +3,7 @@
           @click="clickedTool"
           v-on-clickaway="closeTool"
           :class="{clicked: clicked}">
-        <svgicon name="more-vert"
+        <svgicon name="more-options"
                  height="17"
                  width="17"
                  color="transparent #95989A"

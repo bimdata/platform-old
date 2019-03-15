@@ -19,7 +19,7 @@
         <div class="card-container">
           <div class="top-toolbar__choice-list-items">
             <button type="button" class="btn btn-secondary base-button-action top-toolbar__button-new-file" :class="{'active': openCreationCloud}" @click="toggleOpenCreationCloud">
-              <svgicon name="plus" height="20" width="20"></svgicon>
+              <svgicon name="add" height="20" width="20"></svgicon>
               Create cloud
             </button>
           </div>
@@ -36,7 +36,7 @@
               class="active new-project-item__card-container"
             >
               <div class="new-project-item__picto-container">
-                <svgicon name="plus" height="45" width="45"></svgicon>
+                <svgicon name="add" height="45" width="45"></svgicon>
               </div>
               <div class="new-project-item__edit-container">
                 <div class="new-project-item__edit-container__header">

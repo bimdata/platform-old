@@ -3,7 +3,7 @@
 // @ts-ignore
 import icon from 'vue-svgicon'
 icon.register({
-  'image-plus': {
+  'img-more': {
     width: 24,
     height: 24,
     viewBox: '0 0 24 24',

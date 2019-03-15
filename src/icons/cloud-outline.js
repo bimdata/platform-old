@@ -3,7 +3,7 @@
 // @ts-ignore
 import icon from 'vue-svgicon'
 icon.register({
-  '_cloud': {
+  'cloud-outline': {
     width: 16,
     height: 16,
     viewBox: '0 0 23 16',

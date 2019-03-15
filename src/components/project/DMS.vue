@@ -124,7 +124,7 @@
                         </template>
                         <template slot="name" slot-scope="data">
                             <span @click="clickedFile({type: data.item.type, id: data.item.id})">
-                                <template v-if="data.item.icon !== 'folder2.svg'">
+                                <template v-if="data.item.icon !== 'folder.svg'">
                                 <img
                                     :src="'/static/img/files-icons/' + data.item.icon"
                                     width="20"
@@ -133,7 +133,7 @@
                                 </template>
                                 <template v-else>
                                     <span class="table-name__name">
-                                      <svgicon name="folder2" width="20" height="26"></svgicon>
+                                      <svgicon name="folder" width="20" height="26"></svgicon>
                                       {{ data.item.name }}
                                     </span>
                                 </template>
@@ -466,7 +466,7 @@ export default {
             date: item.created_at,
             type: this.type(item.file_name),
             idPrefix: (this.type(item.file_name) === 'Folder') ? 'folder' : 'file',
-            icon: (item.file_name !== undefined) ? this.type(item.file_name).toLowerCase() + '.svg' : 'folder2.svg',
+            icon: (item.file_name !== undefined) ? this.type(item.file_name).toLowerCase() + '.svg' : 'folder.svg',
             creator: item.created_by,
             size: item.size,
             file: item.file,

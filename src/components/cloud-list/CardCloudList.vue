@@ -41,7 +41,7 @@
         <div class="card-bd__body-container">
           <div class="card-bd__circle" @click.prevent="accessCloud">
             <div class="card-bd__picto-container">
-              <svgicon name="image-plus" height="26" width="26"></svgicon>
+              <svgicon name="img-more" height="26" width="26"></svgicon>
             </div>
             <img src="https://mir-s3-cdn-cf.behance.net/user/276/df2bfd2271051.59b8e8f49b466.jpg" alt="" class="d-none">
           </div>
