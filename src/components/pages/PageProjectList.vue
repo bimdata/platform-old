@@ -98,7 +98,7 @@
             <template slot="users-list-header">
               <div class="users-list__header users-list__header--large">
                 <div class="users-list__header__left-container" v-if="!displaySearchUser">
-                  <svgicon name="arrow-back" width="23" height="23" @click="showModalUsersList = false"></svgicon>
+                  <base-clicked-tool @on-clicked-tool="closeModalUsersList" iconName="arrow-back" iconWidth="23" iconHeight="23"></base-clicked-tool>
                 </div>
                 <div class="users-list__header__right-container" v-if="!displaySearchUser">
                   <base-clicked-tool @on-clicked-tool="openSearchUser" iconName="magnify" iconWidth="21" iconHeight="21"></base-clicked-tool>
@@ -107,7 +107,7 @@
                 <transition name="fade">
                   <div class="users-list__header__search" v-if="displaySearchUser">
                     <div class="users-list__header__left-container">
-                      <svgicon name="arrow-back" width="23" height="23" @click="resetSearchUser"></svgicon>
+                      <base-clicked-tool @on-clicked-tool="resetSearchUser" iconName="arrow-back" iconWidth="23" iconHeight="23"></base-clicked-tool>
                     </div>
                     <input type="text" placeholder="Search user" v-model="searchUserFilter">
                   </div>
@@ -202,8 +202,15 @@ export default {
       this.searchFilter = value
     },
     resetSearchUser () {
-      this.displaySearchUser = false
-      this.searchUserFilter = ''
+      setTimeout(() => {
+        this.displaySearchUser = false
+        this.searchUserFilter = ''
+      }, 500)
+    },
+    closeModalUsersList () {
+      setTimeout(() => {
+        this.showModalUsersList = false
+      }, 500)
     },
     selectCloud ({ value: cloudId }) {
       this.$router.push({name: 'project-list', params: {cloudId}})
