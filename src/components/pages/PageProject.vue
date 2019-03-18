@@ -27,7 +27,7 @@
             <card-project-content></card-project-content>
           </div>
           <div class="user-project">
-            <users-list :users="allUsers" :filter="searchFilter" @on-remove-user="removeUser" @on-update-user="updateUser" :class="{'users-list--large': displaySendInvit}">
+            <users-list :users="allUsers" :filter="searchFilter" @on-remove-user="removeUser" @on-update-user="updateUser" :class="{'users-list--large': displaySendInvit || displaySearchUser}">
               <template slot="users-list-header">
                 <div class="users-list__header">
                   <div class="users-list__header__left-container d-none">
@@ -56,17 +56,15 @@
                           </ul>
                         </div>
                       </div>
-                      <base-valid-delete @on-valid-action="sendInvitation" @on-cancel-action="displaySendInvit = false" class="ml-auto"></base-valid-delete>
+                      <base-valid-delete @on-valid-action="sendInvitation" @on-cancel-action="displaySendInvit = false"></base-valid-delete>
                     </div>
                   </transition>
                   <transition name="fade">
                     <div class="users-list__header__search" v-if="displaySearchUser">
-                      <input type="text" placeholder="Search user" v-model="searchFilter">
-                      <div class="users-list__header__invitation__actions">
-                        <span class="check-cross" @click="resetSearchUser">
-                          <svgicon name="close" height="21" width="21"></svgicon>
-                        </span>
+                      <div class="users-list__header__left-container">
+                        <svgicon name="arrow-back" width="23" height="23" @click="resetSearchUser"></svgicon>
                       </div>
+                      <input type="text" placeholder="Search user" v-model="searchFilter">
                     </div>
                   </transition>
                 </div>

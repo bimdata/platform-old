@@ -94,8 +94,8 @@
               {{ $t('users.users_list') }}
             </template>
             <template slot="users-list-header">
-              <div class="users-list__header">
-                <div class="users-list__header__left-container">
+              <div class="users-list__header users-list__header--large">
+                <div class="users-list__header__left-container" v-if="!displaySearchUser">
                   <svgicon name="arrow-back" width="23" height="23" @click="showModalUsersList = false"></svgicon>
                 </div>
                 <div class="users-list__header__right-container" v-if="!displaySearchUser">
@@ -104,12 +104,10 @@
                 </div>
                 <transition name="fade">
                   <div class="users-list__header__search" v-if="displaySearchUser">
-                    <input type="text" placeholder="Search user" v-model="searchUserFilter">
-                    <div class="users-list__header__invitation__actions">
-                      <span class="check-cross" @click="resetSearchUser">
-                        <svgicon name="close" height="21" width="21"></svgicon>
-                      </span>
+                    <div class="users-list__header__left-container">
+                      <svgicon name="arrow-back" width="23" height="23" @click="resetSearchUser"></svgicon>
                     </div>
+                    <input type="text" placeholder="Search user" v-model="searchUserFilter">
                   </div>
                 </transition>
               </div>

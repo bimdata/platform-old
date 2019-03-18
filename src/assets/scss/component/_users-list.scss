@@ -4,6 +4,7 @@
 
   &--large {
     .users-list__header {
+      padding: 8px 11px;
       height: 50px;
     }
     .users-list__body {
@@ -17,29 +18,29 @@
       padding: 0;
     }
   }
-  &__header{
+  &__header {
     padding: 3px 3px 3px 9px;
-    height: 32px;
+    min-height: 32px;
     box-shadow: 0 2px 10px 0 rgba($color-black, .07);
     @include flexbox;
     @include align-items(center);
     @include transition(height ease .25s);
 
-    &--large{
+    &--large {
+      padding: 8px 11px;
       height: 50px;
       box-shadow: $bd-box-shadow;
       @include flexbox;
       @include align-items(center);
     }
-    .base-valid-delete{
-      height: auto;
+    .base-valid-delete {
+      max-height: 32px;
       position: relative;
-      box-shadow: none;
       right: unset;
       bottom: unset;
       @include transform(none);
     }
-    .svg-icon{
+    .svg-icon {
       color: $color-primary;
       cursor: pointer;
     }
@@ -74,46 +75,41 @@
       width: 100%;
       @include flexbox;
       @include align-items(center);
+
       input{
         padding: 4px;
+
         &:focus{
           outline: none;
-        }
-      }
-    }
-    &__invitation{
-      input{
-        padding: 7px 12px;
-        width: 100%;
-        min-width: auto;
-        max-width: 204px;
-        border: 1px solid $gray3;
 
-        &:focus{
-          width: 50%;
-          min-width: auto;
-          max-width: 204px;
-          max-height: 22px;
-          border: 1px solid $gray3;
-        }
-      }
-      &__actions{
-        margin-left: auto;
-        max-width: 20%;
-        @include flexbox;
-        @include align-items(center);
-
-        .check-cross{
-          .svg-icon{
-            fill: $danger;
+          &::placeholder {
+            opacity: 0;
           }
         }
       }
+    }
+    &__search {
+      input {
+        margin-left: 18px;
+        width: 100%;
+        min-width: auto;
+      }
+    }
+    &__invitation {
+      input {
+        padding: 7px 12px;
+        width: calc(56% - 22px);
+        min-width: auto;
+        border: 1px solid $gray3;
 
+        @include media-breakpoint-up(xl) {
+          width: calc(60% - 11px);
+        }
+      }
       .rights-select{
         padding: 6px;
         margin-left: 11px;
-        width: 30%;
+        width: 24%;
         max-width: 125px;
         position: relative;
         border: 1px solid $gray3;
@@ -141,22 +137,39 @@
           }
         }
       }
-      .base-button-option__menu{
-        width: 167px;
-        top: 26px;
+      .base-valid-delete {
+        margin-left: 11px;
+        width: 20%;
+
+        @include media-breakpoint-up(xl) {
+          width: 16%;
+        }
+      }
+      .base-button-option__menu {
+        overflow: hidden;
+        top: 36px;
         left: 0;
+
+        @include media-breakpoint-up(xl) {
+          width: 167px;
+        }
+
         ul{
           li{
             padding: 5px 8px;
+            word-break: break-word;
           }
         }
-        .base-input-radio{
+        .base-input-radio {
           margin: 0;
           width: 100%;
         }
-        label{
+        label {
           padding-left: 0;
-          &:before, &:after{
+          height: auto;
+          line-height: 1rem;
+
+          &:before, &:after {
             display: none;
           }
         }
@@ -302,21 +315,25 @@
       }
     }
   }
-  &-modal{
-    .close{
+  &-modal {
+    .close {
       position: absolute;
       right: 10px;
       top: 10px;
       z-index: 1;
     }
-    &__input-mail{
-      margin-left: 14px;
+    &__input-mail {
       padding: 10px;
       width: 100%;
       height: 32px;
       max-width: 302px;
-      max-width: 253px;
       border: 1px solid $border-color;
+
+      &:focus {
+        &::placeholder {
+          opacity: 0;
+        }
+      }
     }
   }
 }
