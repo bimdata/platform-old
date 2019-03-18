@@ -56,10 +56,13 @@
         font-weight: 100;
         @include font-size(13px);
       }
-      .base-button-icon {
-        max-height: 32px;
-        max-width: 32px;
+      #users-list-tooltip {
+        height: 32px;
+        width: 32px;
         margin-left: 8px;
+        @include flexbox;
+        @include align-items(center);
+        @include justify-content(center);
       }
     }
     &__right-container{

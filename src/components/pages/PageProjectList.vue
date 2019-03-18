@@ -82,7 +82,9 @@
                 <a href="#" role="button" class="btn btn-primary base-button-action" @click="sendInvitation" :class="{'disabled': !emailInviteValid()}">
                   {{ $t('users.invite') }}
                 </a>
-                <base-button-icon id="users-list-tooltip" iconName="account" height="16" width="16" @on-click-action="showModalUsersList = true"></base-button-icon>
+                <span id="users-list-tooltip" @click="showModalUsersList = true">
+                  <svgicon name="account" width="16" height="16"></svgicon>
+                </span>
                 <b-tooltip target="users-list-tooltip" placement="bottom" :title="$t('users.users_list')"></b-tooltip>
               </div>
             </template>
