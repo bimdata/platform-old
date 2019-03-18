@@ -45,7 +45,10 @@
             </div>
             <img src="https://mir-s3-cdn-cf.behance.net/user/276/df2bfd2271051.59b8e8f49b466.jpg" alt="" class="d-none">
           </div>
-          <div class="card-bd__title">{{ cloud.name }}</div>
+          <div class="card-bd__title">
+            <span v-if="cloud.name && cloud.name.length > 25" v-b-tooltip.hover :title="cloud.name">{{ cloud.name | middle-truncate(25) }}</span>
+            <span v-else>{{ cloud.name }}</span>
+            </div>
           <div class="card-bd__infos-cloud">
             <span class="card-bd__infos-cloud__projects" v-if="isAdmin">
               <svgicon name="application" height="30" width="30"></svgicon>

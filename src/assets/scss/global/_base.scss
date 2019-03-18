@@ -6,6 +6,10 @@ body{
   margin-top: $grid-gutter-width;
 }
 
+.btn-submit {
+  max-width: 148px;
+}
+
 .shadowed-content{
   box-shadow: $bd-box-shadow;
 }

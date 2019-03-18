@@ -51,7 +51,7 @@
                 </div>
               </div>
               <div class="new-project-item__edit-container__edit-container__footer">
-                <base-button-action @click="createProject">{{ $t('project_list.submit') }}</base-button-action>
+                <button type="button" class="btn btn-primary btn-submit" @click="createProject">{{ $t('project_list.submit') }}</button>
               </div>
             </div>
           </div>
