@@ -210,7 +210,7 @@
     &__datas{
       margin-left: 24px;
       color: $color-text;
-      line-height: 0.9rem;
+      line-height: 1rem;
       .badge {
         margin-left: 19px;
         text-transform: capitalize;
@@ -221,7 +221,7 @@
       }
       p{
         margin-bottom: 0;
-        @include font-size(9px);
+        @include font-size(12px);
         & > *{
           display: block;
         }
@@ -232,7 +232,7 @@
     }
     &__name{
       color: $color-primary;
-      @include font-size(11px);
+      @include font-size(13px);
     }
     &__actions{
       margin-left: auto;
