@@ -1,7 +1,7 @@
-@import "../../../node_modules/@bimdata/utils/scss/common";
-
-@import "bootstrap-variable-override";
+@import "bootstrap-variable-override"; //TODO a terme ce fichier n'existera plus
 @import "~bootstrap/scss/bootstrap.scss";
+
+@import "../../../node_modules/@bimdata/utils/scss/common";
 
 @import "variables";
 @import "mixins";
