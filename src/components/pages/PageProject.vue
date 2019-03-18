@@ -62,7 +62,7 @@
                   <transition name="fade">
                     <div class="users-list__header__search" v-if="displaySearchUser">
                       <div class="users-list__header__left-container">
-                        <svgicon name="arrow-back" width="23" height="23" @click="resetSearchUser"></svgicon>
+                        <base-clicked-tool @on-clicked-tool="resetSearchUser" iconName="arrow-back" iconWidth="23" iconHeight="23"></base-clicked-tool>
                       </div>
                       <input type="text" placeholder="Search user" v-model="searchFilter">
                     </div>
@@ -250,8 +250,10 @@ export default {
       this.toggleRightsInvitation()
     },
     resetSearchUser () {
-      this.displaySearchUser = false
-      this.searchFilter = ''
+      setTimeout(() => {
+        this.displaySearchUser = false
+        this.searchFilter = ''
+      }, 500)
     },
     async removeUser (userId) {
       const cloudId = this.$route.params.cloudId

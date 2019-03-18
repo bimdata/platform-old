@@ -342,5 +342,10 @@
         }
       }
     }
+    .users-list {
+      &__body {
+        padding: 0 15px;
+      }
+    }
   }
 }
