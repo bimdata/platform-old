@@ -18,8 +18,10 @@
           <span>{{ user.company }}</span>
         </p>
         <p v-else>
-          <span class="users-list__user__name">{{ user.firstname }} {{ user.lastname }}</span>
-          <span>{{ $t('users.guest') }} - {{ $t('users.without_answer') }}. <a href="">{{ $t('users.resend_invitation') }}</a></span>
+          <span class="users-list__user__name">{{ user.email }}</span>
+          <span>
+            <span v-html="getRoleText(user.role)"></span> - {{ $t('users.without_answer') }}. <a href="" @click.prevent.stop="resendInvitation(user.email, user.role)">{{ $t('users.resend_invitation') }}</a>
+          </span>
         </p>
         <span v-if="user.hasAccepted" v-html="getBadge(user.role)"></span>
       </div>
@@ -121,6 +123,7 @@ export default {
     ...mapActions({
       fetchProjectUsers: 'project/fetchProjectUsers',
       deleteProjectUser: 'project/deleteProjectUser',
+      projectInvite: 'project/projectInvite',
       updateProjectUserRole: 'project/updateProjectUserRole',
       deleteCloudUser: 'deleteCloudUser',
       updateCloudUser: 'updateCloudUser'
@@ -142,14 +145,19 @@ export default {
         this.displayRights = false
       }
     },
-    getBadge (role) {
-      if (role) {
-        let roleText = _.find(this.rights, function (r) {
-          return r.value === role
+    getRoleText (value) {
+      if (value) {
+        return _.find(this.rights, function (r) {
+          return r.value === value
         }).text || ''
-        if (role === 100) {
+      }
+    },
+    getBadge (value) {
+      let roleText = this.getRoleText(value)
+      if (value) {
+        if (value === 100) {
           return '<span class="badge badge-primary">' + roleText + '</span>'
-        } else if (role === 50) {
+        } else if (value === 50) {
           return '<span class="badge badge-success">' + roleText + '</span>'
         } else {
           return '<span class="badge badge-secondary text-white">' + roleText + '</span>'
@@ -168,6 +176,16 @@ export default {
       }
 
       return false
+    },
+    async resendInvitation (email, role) {
+      await this.projectInvite({
+        project: this.project,
+        invite: {
+          email: email,
+          role: role,
+          redirect_uri: `${process.env.BD_APP_URL}/cloud/${this.$route.params.cloudId}/project/${this.$route.params.projectId}`
+        }
+      })
     }
   }
 }

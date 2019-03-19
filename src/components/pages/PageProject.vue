@@ -43,7 +43,7 @@
                       <input type="text" v-model="mailInvitation" @keyup.enter="sendInvitation" placeholder="Email adress">
                       <div class="rights-select" @click="toggleRightsInvitation">
                         <svgicon name="chevron-down" width="20" height="18" class="arrow-down"></svgicon>
-                        <span class="ellipsis">{{ rightChoosed.text }}</span>
+                        <span class="ellipsis">{{ chosenRight.text }}</span>
                         <div class="base-button-option__menu" v-if="displayRightsInvitation" v-on-clickaway="away">
                           <ul>
                             <li v-for="(right, index) in rights" :key="index">
@@ -137,7 +137,7 @@ export default {
   },
   data () {
     return {
-      rightChoosed: {
+      chosenRight: {
         value: null,
         text: 'Droits'
       },
@@ -162,23 +162,7 @@ export default {
       displaySendInvit: false,
       displaySearchUser: false,
       displayRightsInvitation: false,
-      mailInvitation: '',
-      guests: [
-        {
-          id: 7,
-          firstname: 'Sarah',
-          lastname: 'Croche',
-          project_role: 50,
-          hasAccepted: false
-        },
-        {
-          id: 8,
-          firstname: 'Sarah',
-          lastname: 'Pelle',
-          project_role: 100,
-          hasAccepted: false
-        }
-      ]
+      mailInvitation: ''
     }
   },
   methods: {
@@ -193,12 +177,12 @@ export default {
     },
     async sendInvitation () {
       if (this.emailInviteValid()) {
-        if (this.rightChoosed.value) {
+        if (this.chosenRight.value) {
           await this.projectInvite({
             project: this.project,
             invite: {
               email: this.mailInvitation,
-              role: this.rightChoosed.value,
+              role: this.chosenRight.value,
               redirect_uri: `${process.env.BD_APP_URL}/cloud/${this.$route.params.cloudId}/project/${this.$route.params.projectId}`
             }
           })
@@ -246,7 +230,7 @@ export default {
       this.displayRightsInvitation = !this.displayRightsInvitation
     },
     setInvitationRight (value) {
-      this.rightChoosed = value
+      this.chosenRight = value
       this.toggleRightsInvitation()
     },
     resetSearchUser () {
@@ -272,10 +256,31 @@ export default {
         role: right.value
       })
       this.fetchProjectUsers(this.project)
+    },
+    async getGuests () {
+      const cloudId = this.$route.params.cloudId
+      const projectId = this.$route.params.projectId
+      await this.$store.dispatch('project/getProjectGuests', { cloudId, projectId })
+    },
+    isAdmin () {
+      if (this.$store.state.project.selectedProject !== null) {
+        if (this.$store.state.project.selectedProject.role === 100) {
+          return true
+        }
+      } else {
+        if (this.$store.state.currentCloud.role === 100) {
+          return true
+        }
+      }
+
+      return false
     }
   },
   mounted () {
     this.fetchProjectUsers(this.project)
+    if (this.isAdmin()) {
+      this.getGuests()
+    }
   },
   created () {
     this.setCurrentCloud()
@@ -297,8 +302,19 @@ export default {
       })
       return list
     },
+    usersInvited () {
+      let list = this.$store.state.project.guests ? this.$store.state.project.guests : []
+      list.map(user => {
+        user.hasAccepted = false
+        user.job = ''
+        user.company = ''
+        user.firstname = ''
+        user.lastname = ''
+      })
+      return list
+    },
     allUsers () {
-      return this.users.concat(this.guests).reverse()
+      return this.users.concat(this.usersInvited).reverse()
     },
     hasFiles () {
       let tree = this.$store.state.project.tree

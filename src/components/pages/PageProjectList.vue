@@ -184,9 +184,22 @@ export default {
       })
       return filteredprojects
     },
+    usersAdminInvited () {
+      let list = this.$store.state.currentCloud.guests ? this.$store.state.currentCloud.guests : []
+      // TODO : filter la liste avec les role 100 puis faire le map. enlever le user.role = 100 du map
+      list.map(user => {
+        user.role = 100
+        user.hasAccepted = false
+        user.job = ''
+        user.company = ''
+        user.firstname = ''
+        user.lastname = ''
+      })
+      return list
+    },
     usersAdminCloud () {
       let usersAdmin = _.filter(this.users, {cloud_role: 100})
-      return usersAdmin
+      return usersAdmin.concat(this.usersAdminInvited).reverse()
     },
     usersNotAdminCloud () {
       let usersNotAdmin = _.filter(this.users, function (u) { return u.cloud_role !== 100 })
@@ -248,6 +261,22 @@ export default {
     async removeUser (userId) {
       const cloudId = this.$store.state.currentCloud.id
       await this.deleteUser({ cloudId, userId })
+    },
+    async getCloudGuests () {
+      const cloudId = this.$route.params.cloudId
+      await this.$store.dispatch('getCloudGuests', cloudId)
+    },
+    isAdmin () {
+      if (this.$store.state.currentCloud.role === 100) {
+        return true
+      }
+
+      return false
+    }
+  },
+  mounted () {
+    if (this.isAdmin()) {
+      this.getCloudGuests()
     }
   },
   created () {

@@ -51,7 +51,7 @@ export class CloudRepository {
   }
 
   inviteUser (cloudId, invite) {
-    return this.cloudApiClient.cloudInvite(cloudId, invite)
+    return this.cloudApiClient.inviteCloudUser(cloudId, invite)
   }
 
   async deleteCloudUser (cloudPk, id) {
@@ -65,5 +65,14 @@ export class CloudRepository {
 
   updateUser ({ cloudId, userId, data }) {
     return this.cloudApiClient.updateCloudUser(cloudId, userId, data)
+  }
+
+  async getCloudInvitations (cloudPk) {
+    try {
+      let response = this.cloudApiClient.getCloudInvitations(cloudPk)
+      return response
+    } catch (e) {
+      console.log(e.statusCode)
+    }
   }
 }

@@ -190,5 +190,14 @@ export default {
     } catch (e) {
       console.log(e)
     }
+  },
+  async getCloudGuests ({ commit }, cloudPk) {
+    try {
+      let guests = await this.CloudRepositoryRequest.getCloudInvitations(cloudPk)
+      commit('SET_CURRENT_CLOUD_GUESTS', guests)
+      return true
+    } catch (e) {
+      console.log(e)
+    }
   }
 }

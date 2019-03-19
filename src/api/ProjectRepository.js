@@ -119,7 +119,16 @@ export class ProjectRepository {
 
   projectInvite (cloudId, projectId, invite) {
     try {
-      return this.projectApiClient.projectInvite(cloudId, projectId, invite)
+      return this.projectApiClient.inviteProjectUser(cloudId, projectId, invite)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  async getProjectInvitations (cloudId, projectPk) {
+    try {
+      const response = await this.projectApiClient.getProjectInvitations(cloudId, projectPk)
+      return response
     } catch (e) {
       console.log(e)
     }
