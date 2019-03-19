@@ -36,6 +36,9 @@
       position: absolute;
       right: 187px;
     }
+    @media (min-width: 2000px) {
+      right: 197px;
+    }
     .search-component{
       margin-left: auto;
     }
