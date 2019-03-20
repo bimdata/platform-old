@@ -72,7 +72,7 @@
       </button>
       <transition name="fade">
         <template v-if="!showModalUsersList">
-          <users-list :displayMenu="false" :users="usersAdminCloud" @on-remove-user="removeUser">
+          <users-list :displayMenu="false" :users="usersAdminCloud" @on-remove-user="removeUser" class="users-list--large">
             <template slot="header-title">
               {{ $t('users.manage_admin') }}
             </template>
@@ -91,7 +91,7 @@
           </users-list>
         </template>
         <template v-else>
-          <users-list :displayMenu="false" :users="usersNotAdminCloud" :filter="searchUserFilter" @on-remove-user="removeUser">
+          <users-list :displayMenu="false" :users="usersNotAdminCloud" :filter="searchUserFilter" @on-remove-user="removeUser" class="users-list--large">
             <template slot="header-title">
               {{ $t('users.users_list') }}
             </template>
@@ -148,7 +148,8 @@ export default {
       searchUserFilter: '',
       showModal: false,
       showSubmitInvit: false,
-      showModalUsersList: false
+      showModalUsersList: false,
+      guests: []
     }
   },
   components: {
@@ -185,17 +186,15 @@ export default {
       return filteredprojects
     },
     usersAdminInvited () {
-      let list = this.$store.state.currentCloud.guests ? this.$store.state.currentCloud.guests : []
-      // TODO : filter la liste avec les role 100 puis faire le map. enlever le user.role = 100 du map
-      list.map(user => {
-        user.role = 100
+      let admin = _.filter(this.guests, {role: 100})
+      admin.map(user => {
         user.hasAccepted = false
         user.job = ''
         user.company = ''
         user.firstname = ''
         user.lastname = ''
       })
-      return list
+      return admin
     },
     usersAdminCloud () {
       let usersAdmin = _.filter(this.users, {cloud_role: 100})
@@ -256,6 +255,11 @@ export default {
             redirect_uri: `${process.env.BD_APP_URL}/cloud/${this.$route.params.cloudId}`
           }
         })
+
+        this.emailInvite = ''
+        if (this.isAdmin()) {
+          await this.getCloudGuests()
+        }
       }
     },
     async removeUser (userId) {
@@ -264,7 +268,7 @@ export default {
     },
     async getCloudGuests () {
       const cloudId = this.$route.params.cloudId
-      await this.$store.dispatch('getCloudGuests', cloudId)
+      this.guests = await this.$store.dispatch('getCloudGuests', cloudId)
     },
     isAdmin () {
       if (this.$store.state.currentCloud.role === 100) {
@@ -272,11 +276,6 @@ export default {
       }
 
       return false
-    }
-  },
-  mounted () {
-    if (this.isAdmin()) {
-      this.getCloudGuests()
     }
   },
   created () {
@@ -296,6 +295,9 @@ export default {
       this.optionsCloud.push(listItem)
     }
 
+    if (this.isAdmin()) {
+      this.getCloudGuests()
+    }
     this.$store.commit('SET_LOADER_PAGE', false)
   }
 }

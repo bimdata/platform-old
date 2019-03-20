@@ -67,14 +67,13 @@ export default {
       }
     },
     filteredUsers () {
-      /* return this.users.filter(user => {
+      return this.users.filter(user => {
         return (user.firstname ? user.firstname.toLowerCase().includes(this.searchFilter.toLowerCase()) : false) ||
         (user.lastname ? user.lastname.toLowerCase().includes(this.searchFilter.toLowerCase()) : false) ||
         (user.company ? user.company.toLowerCase().includes(this.searchFilter.toLowerCase()) : false) ||
         (user.job ? user.job.toLowerCase().includes(this.searchFilter.toLowerCase()) : false) ||
         (user.email ? user.email.toLowerCase().includes(this.searchFilter.toLowerCase()) : false)
-      }) */
-      return this.users
+      })
     }
   }
 }
