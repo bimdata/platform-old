@@ -215,8 +215,13 @@ export default {
   },
 
   projectInvite (store, {project, invite}) {
-    return this.ProjectRepositoryRequest
-      .projectInvite(project.cloud.id, project.id, invite)
+    return this.ProjectRepositoryRequest.projectInvite(project.cloud.id, project.id, invite)
+  },
+
+  async getProjectGuests ({ commit }, {cloudId, projectId}) {
+    const guests = await this.ProjectRepositoryRequest.getProjectInvitations(cloudId, projectId)
+    commit('SET_PROJECT_GUESTS', guests)
+    return guests
   },
 
   updateProjectUserRole (store, {cloudId, projectId, userId, role}) {

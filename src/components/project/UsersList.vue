@@ -9,8 +9,8 @@
           <div class="users-list__body">
             <ul class="users-list__users">
               <users-list-item
-                v-for="user in filteredUsers"
-                :key="`user-${user.id}`"
+                v-for="(user, index) in filteredUsers"
+                :key="`user-${index}`"
                 :user="user"
                 :displayMenu="displayMenu"
                 :role="user.role"
@@ -71,7 +71,8 @@ export default {
         return (user.firstname ? user.firstname.toLowerCase().includes(this.searchFilter.toLowerCase()) : false) ||
         (user.lastname ? user.lastname.toLowerCase().includes(this.searchFilter.toLowerCase()) : false) ||
         (user.company ? user.company.toLowerCase().includes(this.searchFilter.toLowerCase()) : false) ||
-        (user.job ? user.job.toLowerCase().includes(this.searchFilter.toLowerCase()) : false)
+        (user.job ? user.job.toLowerCase().includes(this.searchFilter.toLowerCase()) : false) ||
+        (user.email ? user.email.toLowerCase().includes(this.searchFilter.toLowerCase()) : false)
       })
     }
   }

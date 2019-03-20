@@ -37,5 +37,8 @@ export default {
   },
   SET_PROJECT_USERS: (state, users) => {
     state.users = users
+  },
+  SET_PROJECT_GUESTS: (state, guests) => {
+    state.guests = guests
   }
 }
