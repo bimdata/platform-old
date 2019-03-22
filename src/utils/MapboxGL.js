@@ -1,4 +1,4 @@
-export class LeafletMap {
+export class MapboxGL {
   constructor () {
     this.map = null
     this.points = []
