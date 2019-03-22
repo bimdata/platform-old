@@ -3,7 +3,7 @@
     </div>
 </template>
 <script>
-import { LeafletMap } from '@/utils/OSMBuildingsMap'
+import { MapboxGL } from '@/utils/MapboxGL'
 
 export default {
   props: {
@@ -22,7 +22,7 @@ export default {
   },
   mounted () {
     this.$nextTick(function () {
-      let contextmap = new LeafletMap()
+      let contextmap = new MapboxGL()
       contextmap.load('base-map', this.lat, this.lng)
     })
   }

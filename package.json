@@ -29,6 +29,7 @@
     "axios": "^0.18.0",
     "bootstrap-vue": "^2.0.0-rc.11",
     "isemail": "^3.2.0",
+    "mapbox-gl": "^0.53.1",
     "moment": "^2.24.0",
     "scriptjs": "^2.5.9",
     "uppy": "^0.26.0",

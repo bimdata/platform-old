@@ -176,7 +176,6 @@ export default {
       return Isemail.validate(this.mailInvitation)
     },
     async sendInvitation () {
-      console.log('valid', this.emailInviteValid())
       if (this.emailInviteValid()) {
         if (this.chosenRight.value) {
           await this.projectInvite({
