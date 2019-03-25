@@ -102,6 +102,9 @@
       @include align-items(center);
       &__title{
         width: 75%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
 
