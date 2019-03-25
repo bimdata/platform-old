@@ -4,8 +4,8 @@
           v-on-clickaway="closeTool"
           :class="{clicked: clicked}">
         <svgicon name="more-options"
-                 height="17"
-                 width="17"
+                 height="23"
+                 width="23"
                  color="transparent #95989A"
                  class="m-0">
         </svgicon>
