@@ -18,6 +18,15 @@ export class IFCRepository {
     }
   }
 
+  async getIfc (cloudPk, id, projectPk) {
+    try {
+      const response = await this.ifcApiClient.getIfc(cloudPk, id, projectPk)
+      return response
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   async getIFCElements ({cloudPk, projectPk, ifcPk}) {
     try {
       const response = await this.ifcApiClient.getElements(

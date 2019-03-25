@@ -199,5 +199,15 @@ export default {
     } catch (e) {
       console.log(e)
     }
+  },
+  async getIfcViewerFile ({ commit, state }, {cloudPk, projectPk, id}) {
+    let result = await this.IFCRepositoryRequest.getIfc(cloudPk, id, projectPk)
+    if (result.viewer_360_file) {
+      let ifcs = state.project.ifcs
+      let ifc = _.find(ifcs, {id: result.id})
+      ifc.viewer_360_file = result.viewer_360_file
+      commit('project/SET_IFCS', ifcs)
+      return result
+    }
   }
 }

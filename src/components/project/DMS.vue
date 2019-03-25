@@ -426,7 +426,6 @@ export default {
       }
     },
     downloadFile (documentAction) {
-      console.log('documentAction', documentAction)
       window.open(documentAction.item.file)
     },
     setCreatorsList (value) {
