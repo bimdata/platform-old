@@ -48,7 +48,7 @@
       &::-webkit-scrollbar-thumb{ background-color: $color-primary; }
     }
     .items-container li{
-      padding: 1rem 4px 1rem 1rem;
+      padding: 1rem;
       cursor: pointer;
       @include transition(.16s linear all);
       &:hover, &.active{ background-color: $gray1; }
