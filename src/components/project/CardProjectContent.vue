@@ -3,8 +3,13 @@
         <template slot="header-title">
             {{ projectName }}
         </template>
-        <template v-if="ifcs.length === 0" slot="content">
-          <upload-file name="upload-ifc" text="IFC"></upload-file>
+        <template v-if="panoramas.length === 0" slot="content">
+            <upload-file name="upload-ifc" text="IFC"></upload-file>
+        </template>
+        <template slot="content" v-else-if="isLoading">
+          <div class="loader loader-layout">
+            <div class="lds-dual-ring"></div>
+          </div>
         </template>
         <template v-else slot="content">
           <div class="main-ifc">
@@ -33,11 +38,11 @@
     </base-card>
 </template>
 <script>
-import { mapGetters } from 'vuex'
 import BaseCard from '@/components/base-components/BaseCard'
 import MapProject from '@/components/project/MapProject'
 import ModelPreviewSlider from '@/components/project/ModelPreviewSlider'
 import UploadFile from '@/components/project/UploadFile'
+import _ from 'lodash'
 
 export default {
   components: {
@@ -52,25 +57,47 @@ export default {
       panorama: null
     }
   },
+  watch: {
+    panoramas (newVal, oldVal) {
+      var vm = this
+      newVal.forEach(function (panorama) {
+        if (!panorama.viewer_360_file) {
+          vm.getIfc(panorama.id)
+        }
+      })
+    }
+  },
   computed: {
-    ...mapGetters({
-      ifcs: 'project/getSortedIfc'
-    }),
     panoramas () {
-      return this.ifcs
-        .filter(item => item.viewer_360_file)
+      return this.$store.state.project.ifcs ? _.filter(_.sortBy(this.$store.state.project.ifcs, ['updated_at']), function (o) { return o.status !== 'E' }) : []
     },
     projectName () {
       return this.$store.state.project.selectedProject.name
     },
     currentPanorama () {
       return this.panorama
+    },
+    isLoading () {
+      if (this.panoramas.length === 1 && this.panoramas[0].status === 'I') {
+        return true
+      }
+      return false
     }
   },
   methods: {
     setCurrentPanorama (panorama) {
       this.currentNamePanorama = panorama.name
       this.panorama = panorama
+    },
+    async getIfc (id) {
+      const idInterval = setInterval(async () => {
+        const ifcsPending = await this.$store.dispatch('getIfcViewerFile', {cloudPk: this.$store.state.project.selectedCloud.id, projectPk: this.$store.state.project.selectedProject.id, id: id})
+        Promise.all([ ifcsPending ]).then(async ([resultPending]) => {
+          if (ifcsPending) {
+            window.clearInterval(idInterval)
+          }
+        })
+      }, 2000)
     }
   }
 }

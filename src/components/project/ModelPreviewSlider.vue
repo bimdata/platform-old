@@ -1,6 +1,9 @@
 <template>
   <div v-if="isPanoramaExist" class="model-preview-slider">
-    <model-preview :imgURL="panoramas[activePanIndex].viewer_360_file"></model-preview>
+    <model-preview :imgURL="panoramas[activePanIndex].viewer_360_file" v-if="panoramas[activePanIndex].viewer_360_file"></model-preview>
+    <div class="no-preview" v-else>
+      <svgicon name="preview-icon" height="50" width="50"></svgicon>
+    </div>
     <div class="model-preview-controls">
       <div
         @click="prevPan"
@@ -36,6 +39,14 @@ export default {
   data () {
     return {
       activePanIndex: 0
+    }
+  },
+  watch: {
+    panoramas (newValue, oldValue) {
+      if (newValue.length < oldValue.length && this.activePanIndex > 0) {
+        this.activePanIndex--
+      }
+      this.$emit('current-panorama', this.panoramas[this.activePanIndex])
     }
   },
   computed: {
