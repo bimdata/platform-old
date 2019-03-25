@@ -169,7 +169,7 @@ export default {
       getProjectsByCloudId: 'getProjectsByCloudId'
     }),
     users () {
-      let list = this.$store.state.currentCloud.users
+      let list = this.$store.state.currentCloud.users ? this.$store.state.currentCloud.users : []
       list.map(user => {
         user.hasAccepted = true
         user.role = user.cloud_role
