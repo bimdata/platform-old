@@ -26,7 +26,7 @@
         <span v-if="user.hasAccepted" v-html="getBadge(user.role)"></span>
       </div>
       <div class="users-list__user__actions" v-if="user.hasAccepted && isAdmin()">
-        <base-button-option ref="test" @option-toggled="toggleMenu" class="users-list__user__actions__menu" v-if="displayMenu">
+        <base-button-option ref="menu" @option-toggled="toggleMenu" class="users-list__user__actions__menu" v-if="displayMenu">
           <ul>
               <li @click.stop.self="toggleRights()" :class="{'actif': displayRights}" class="arrow-left">
                 {{ $t('users.modify_rights') }} <svgicon name="user-lock" width="12" height="12"></svgicon>
@@ -148,7 +148,7 @@ export default {
     },
     changeUserRights () {
       this.$emit('on-update-user', this.user, this.selectedRight)
-      this.$refs.test.displayMenu = false
+      this.$refs.menu.displayMenu = false
       this.toggleMenu(false)
     },
     toggleRights () {
