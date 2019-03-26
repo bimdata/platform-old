@@ -27,7 +27,7 @@ export class IFCRepository {
     }
   }
 
-  async getIFCElements ({cloudPk, projectPk, ifcPk}) {
+  async getIfcSites ({cloudPk, projectPk, ifcPk}) {
     try {
       const response = await this.ifcApiClient.getElements(
         cloudPk,
@@ -40,5 +40,75 @@ export class IFCRepository {
     } catch (e) {
       console.log(e.statusCode)
     }
+  }
+
+  async createIfcSite ({cloudPk, projectPk, ifcPk, lat, long, postalAddress}) {
+    try {
+      const site = {
+        type: 'IfcSite',
+        attributes: {
+          type: 'Attributes',
+          properties: [
+            {
+              definition: {
+                name: 'RefLongitude'
+              },
+              value: long
+            },
+            {
+              definition: {
+                name: 'RefLatitude'
+              },
+              value: lat
+            },
+            {
+              definition: {
+                name: 'SiteAddress'
+              },
+              value: postalAddress
+            }
+          ]
+        }
+      }
+      const response = await this.ifcApiClient.createElement(
+        cloudPk,
+        ifcPk,
+        projectPk,
+        site
+      )
+      return response
+    } catch (e) {
+      console.log(e.statusCode)
+    }
+  }
+
+  async configureIfcSiteAdress ({site, cloudPk, projectPk, ifcPk, lat, long, postalAddress}) {
+    const elementUuid = site.uuid
+    const propertysetPk = site.attributes.id
+
+    const siteAddress = {
+      definition: {
+        name: 'SiteAddress'
+      },
+      value: postalAddress
+    }
+    const refLongitude = {
+      definition: {
+        name: 'RefLongitude'
+      },
+      value: long
+    }
+    const refLatitude = {
+      definition: {
+        name: 'RefLatitude'
+      },
+      value: lat
+    }
+    const calls = [
+      this.ifcApiClient.createElementPropertySetProperty(cloudPk, elementUuid, ifcPk, projectPk, propertysetPk, siteAddress),
+      this.ifcApiClient.createElementPropertySetProperty(cloudPk, elementUuid, ifcPk, projectPk, propertysetPk, refLongitude),
+      this.ifcApiClient.createElementPropertySetProperty(cloudPk, elementUuid, ifcPk, projectPk, propertysetPk, refLatitude)
+    ]
+    await Promise.all(calls)
   }
 }

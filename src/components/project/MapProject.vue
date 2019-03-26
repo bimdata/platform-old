@@ -78,7 +78,7 @@ export default {
       let longitude = ''
 
       if (this.panorama) {
-        site = this.getIfcElements(this.panorama.id)
+        site = this.getIfcSites(this.panorama.id)
       }
 
       if (site) {
@@ -116,43 +116,46 @@ export default {
       var dd = degrees + minutes / 60 + seconds / (60 * 60)
       return dd
     },
+    DDToDMS (val) {
+      val = Math.abs(val)
+      const valDeg = Math.floor(val)
+      const valMin = Math.floor((val - valDeg) * 60)
+      const valSec = Math.round((val - valDeg - valMin / 60) * 3600 * 1000) / 1000
+
+      return [valDeg, valMin, ...valSec.toString().split('.')]
+    },
     coordToDD (coord) {
       var e = coord.split(',')
       return this.DMStoDD(parseInt(e[0]), parseInt(e[1]), parseFloat(e[2] + '.' + e[3]))
     },
-    submitAddress () {
+    async submitAddress () {
       this.isSubmitting = true
-      let urlAddress = this.ifcPostalAddress.replace(/ /g, '+')
+      const urlAddress = this.ifcPostalAddress.replace(/ /g, '+')
 
-      let self = this
-      let xmlhttp = new XMLHttpRequest()
-      xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState === XMLHttpRequest.DONE) {
-          if (xmlhttp.status === 200) {
-            self.lat = JSON.parse(xmlhttp.response)[0].lat
-            self.lon = JSON.parse(xmlhttp.response)[0].lon
-          }
-        }
+      const response = await fetch('https://nominatim.openstreetmap.org/search?q=' + urlAddress + '&format=json&polygon=1&addressdetails=1')
+      const json = await response.json()
+      this.lat = json[0].lat
+      this.lon = json[0].lon
+
+      let site = this.getIfcSites(this.panorama.id)
+      const data = {
+        cloudPk: this.$store.state.currentCloud.id,
+        projectPk: this.$route.params.projectId,
+        ifcPk: this.panorama.id,
+        lat: this.lat,
+        long: this.lon,
+        postalAddress: this.ifcPostalAddress,
+        site: site
       }
-
-      xmlhttp.open('GET', 'https://nominatim.openstreetmap.org/search?q=' + urlAddress + '&format=json&polygon=1&addressdetails=1', true)
-      xmlhttp.send()
-
-      setTimeout(() => {
-        this.valid = true
-        this.ifcPostalAddress = ''
-      }, 500)
+      console.log(data)
+      if (!site) {
+        site = await this.$store.dispatch('project/createIfcSite', data)
+      } else {
+        await this.$store.dispatch('project/configureIfcSiteAdress', data)
+      }
+      this.valid = true
+      this.ifcPostalAddress = ''
     }
-  },
-  created () {
-    let osmbuildingsStyle = document.createElement('link')
-    osmbuildingsStyle.setAttribute('href', 'https://cdn.osmbuildings.org/4.0.1/OSMBuildings.css')
-    osmbuildingsStyle.setAttribute('rel', 'stylesheet')
-    document.head.appendChild(osmbuildingsStyle)
-    let osmbuildingsScript = document.createElement('script')
-    osmbuildingsScript.setAttribute('src', 'https://cdn.osmbuildings.org/4.0.1/OSMBuildings.js')
-    osmbuildingsScript.setAttribute('crossorigin', 'anonymous')
-    document.body.appendChild(osmbuildingsScript)
   },
   mounted () {
     this.$store.dispatch('project/fetchElements').then(() => {
@@ -162,7 +165,7 @@ export default {
   },
   computed: {
     ...mapGetters('project', [
-      'getIfcElements'
+      'getIfcSites'
     ]),
     textProject () {
       return this.$store.state.project.selectedProject.name

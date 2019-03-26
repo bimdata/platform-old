@@ -70,7 +70,7 @@ export default {
           projectPk: state.selectedProject.id,
           ifcPk: ifc.id
         }
-        const elementResult = await this.IFCRepositoryRequest.getIFCElements(params)
+        const elementResult = await this.IFCRepositoryRequest.getIfcSites(params)
         elements.push({...elementResult[0], ifc: ifc.id})
       }
       commit('SET_ELEMENTS', elements)
@@ -232,5 +232,12 @@ export default {
   deleteProjectUser (store, {cloudId, projectId, userId}) {
     return this.ProjectRepositoryRequest
       .deleteUser({ cloudId, userId, projectId })
+  },
+
+  async configureIfcSiteAdress (store, options) {
+    return this.IFCRepositoryRequest.configureIfcSiteAdress(options)
+  },
+  async createIfcSite (store, options) {
+    return this.IFCRepositoryRequest.configureIfcSiteAdress(options)
   }
 }
