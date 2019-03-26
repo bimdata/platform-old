@@ -31,7 +31,7 @@
               <li @click.stop.self="toggleRights()" :class="{'actif': displayRights}" class="arrow-left">
                 {{ $t('users.modify_rights') }} <svgicon name="user-lock" width="12" height="12"></svgicon>
 
-                <div class="new_folder_box" v-if="displayRights">
+                <div class="new_folder_box" v-if="displayRights" :class="{'bg-overlay': showRemoveRightsActions}">
                   <base-input-radio
                     v-for="(right, indexRight) in rights"
                     :key="indexRight"
