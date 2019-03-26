@@ -6,8 +6,8 @@
                  color="#EFF0F3 #fff #E6E7EA #DDDDDD #30374B #fff #fff"
                  class="m-0">
         </svgicon>
-        <p class="my-4">{{ $t('project.upload_text') }} {{ text }}</p>
-        <div class="upload-area upload-area-upload">
+        <p class="my-4" v-if="isUserRole">{{ $t('project.upload_text') }} {{ text }}</p>
+        <div v-if="isUserRole" class="upload-area upload-area-upload">
             <base-button-empty iconName="newfile" class="uppy modalOpener"></base-button-empty>
             <div class="UploadContainer"></div>
         </div>
@@ -20,6 +20,8 @@ import Dashboard from '@uppy/dashboard'
 import XHRUpload from '@uppy/xhr-upload'
 import BaseButtonEmpty from '@/components/base-components/BaseButtonEmpty'
 import { mapState } from 'vuex'
+import { hasUserRole } from '@/utils/manageRights'
+
 export default {
   props: {
     target: {
@@ -32,6 +34,10 @@ export default {
     },
     text: {
       type: String,
+      default: null
+    },
+    role: {
+      type: Number,
       default: null
     }
   },
@@ -55,7 +61,13 @@ export default {
     },
     currentFolderId () {
       return this.$store.state.project.currentFolderId
+    },
+    isUserRole () {
+      return this.hasUserRole(this.role)
     }
+  },
+  methods: {
+    hasUserRole
   },
   watch: {
     currentFolderId () {

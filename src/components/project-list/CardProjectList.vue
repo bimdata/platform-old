@@ -3,7 +3,7 @@
         <div class="base-card card-item card-bd card-project noselect">
             <div class="card-bd__header">
                 <svgicon name="eye" height="18" width="54" @click.native="viewModel" v-if="displayEye" class="icon-eye"></svgicon>
-                <base-button-option ref="menu" @option-toggled="toggleMenu" v-if="isAdmin">
+                <base-button-option ref="menu" @option-toggled="toggleMenu" v-if="hasAdminRole(project.role)">
                     <ul>
                         <li @click.stop.self="showRemoveActions = true" class="base-button-option__menu__remove">
                           {{ $t('project_list.remove') }}
@@ -77,6 +77,7 @@
 <script>
 import _ from 'lodash'
 import { mixin as clickaway } from 'vue-clickaway'
+import { hasAdminRole } from '@/utils/manageRights'
 import BaseButtonOption from '@/components/base-components/BaseButtonOption'
 import BaseValidDelete from '@/components/base-components/BaseValidDelete'
 import ProjectPreview from '../project/ProjectPreview'
@@ -113,6 +114,7 @@ export default {
     }
   },
   methods: {
+    hasAdminRole,
     toggleRename () {
       this.displayRename = !this.displayRename
       this.showRemoveActions = false
@@ -191,11 +193,6 @@ export default {
       setTimeout(() => {
         this.clicked = false
       }, 500)
-    }
-  },
-  computed: {
-    isAdmin () {
-      return this.project.role === 100
     }
   }
 }

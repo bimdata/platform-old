@@ -53,7 +53,7 @@
             <!--<span v-if="getState(data.item.actions.status) === 'ko'" class="error-message">{{ $t('project.error_conversion') }}</span>
             <base-button-action v-if="data.item.actions.status === 'C'" size="small" @click="viewIfc(data.item.actions)" icon-position="right" icon-name="play">{{ $t('project.view') }}</base-button-action>-->
 
-            <base-button-option @option-toggled="toggleMenuAction">
+            <base-button-option v-if="isUserRole" @option-toggled="toggleMenuAction">
               <ul>
                   <li @click="viewIfc(data.item.actions)">
                       <svgicon name="play" width="13" height="13"></svgicon>
@@ -107,6 +107,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import { hasUserRole } from '@/utils/manageRights'
 import BaseTableSpaced from '@/components/base-components/BaseTableSpaced'
 import BaseButtonAction from '@/components/base-components/BaseButtonAction'
 import BaseButtonOption from '@/components/base-components/BaseButtonOption'
@@ -126,6 +127,12 @@ export default {
         {key: 'state', label: 'Etat', width: '10%'},
         {key: 'actions', label: '', width: '10%'}
       ]
+    }
+  },
+  props: {
+    role: {
+      type: Number,
+      default: null
     }
   },
   components: {
@@ -163,9 +170,13 @@ export default {
       }
 
       return ifcs
+    },
+    isUserRole () {
+      return this.hasUserRole(this.role)
     }
   },
   methods: {
+    hasUserRole,
     viewIfc (ifcData) {
       this.$router.push({ name: 'viewer', params: ifcData })
     },
