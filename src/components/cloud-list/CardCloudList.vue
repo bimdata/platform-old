@@ -2,7 +2,7 @@
   <div class="card-container">
     <div class="base-card card-item card-bd noselect" @click.stop.self="accessCloud">
       <div class="card-bd__header">
-        <base-button-option @option-toggled="toggleMenu" v-if="isAdmin">
+        <base-button-option ref="menu" @option-toggled="toggleMenu" v-if="isAdmin">
           <ul>
             <li @click.stop.self="showRemoveActions = true" class="base-button-option__menu__remove">
               {{ $t('project_list.remove') }}
@@ -109,6 +109,7 @@ export default {
     },
     saveRename () {
       this.$store.dispatch('updateCloudName', {id: this.cloud.id, name: this.renameCloud})
+      this.$refs.menu.displayMenu = false
       this.toggleMenuAction(false)
     },
     toggleMenuAction (isOpened) {
