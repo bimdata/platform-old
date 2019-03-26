@@ -1,6 +1,6 @@
 <template>
   <div class="card-container">
-    <div class="base-card card-item card-bd noselect">
+    <div class="base-card card-item card-bd noselect" @click.stop.self="accessCloud">
       <div class="card-bd__header">
         <base-button-option @option-toggled="toggleMenu" v-if="isAdmin">
           <ul>
@@ -37,9 +37,9 @@
           </ul>
         </base-button-option>
       </div>
-      <div class="card-bd__body">
+      <div class="card-bd__body" @click.stop="accessCloud">
         <div class="card-bd__body-container">
-          <div class="card-bd__circle" @click.prevent="accessCloud">
+          <div class="card-bd__circle">
             <div class="card-bd__picto-container">
               <svgicon name="img-more" height="26" width="26"></svgicon>
             </div>
