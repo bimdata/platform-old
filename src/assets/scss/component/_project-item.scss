@@ -224,12 +224,11 @@
     @include flex-direction(column);
   }
   &__image{ padding: $grid-gutter-width; }
-  &__circle{
+  &__circle {
     width: 87px;
     height: 87px;
     border-radius: 100%;
     box-shadow: 0 0 10px 0 rgba($color-black,.07);
-    cursor: pointer;
     overflow: hidden;
     @include flexbox;
     @include align-items(center);
@@ -275,6 +274,10 @@
     color: $color-primary;
     text-align: center;
     @include font-size(14px);
+
+    &:hover {
+      text-decoration: underline;
+    }
     &:after{
       margin: 0 auto;
       width: 100%;

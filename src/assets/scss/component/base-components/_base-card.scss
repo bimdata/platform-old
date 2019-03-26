@@ -10,6 +10,13 @@ $toolbox-background: #E6E6E6;
   box-shadow: $bd-box-shadow;
   font-weight: normal;
   text-align: left;
+  cursor: pointer;
+  @include transition(all .25s ease);
+
+  &:hover {
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.3);
+  }
+
 }
 
 .#{$base-card-name}__header{
