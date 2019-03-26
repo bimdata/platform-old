@@ -234,10 +234,10 @@ export default {
       .deleteUser({ cloudId, userId, projectId })
   },
 
-  async configureIfcSiteAdress (store, options) {
-    return this.IFCRepositoryRequest.configureIfcSiteAdress(options)
+  async configureIfcSiteAddress (store, options) {
+    return this.IFCRepositoryRequest.configureIfcSiteAddress(options)
   },
   async createIfcSite (store, options) {
-    return this.IFCRepositoryRequest.configureIfcSiteAdress(options)
+    return this.IFCRepositoryRequest.createIfcSite(options)
   }
 }

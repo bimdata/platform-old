@@ -82,7 +82,7 @@ export class IFCRepository {
     }
   }
 
-  async configureIfcSiteAdress ({site, cloudPk, projectPk, ifcPk, lat, long, postalAddress}) {
+  async configureIfcSiteAddress ({site, cloudPk, projectPk, ifcPk, lat, long, postalAddress}) {
     const elementUuid = site.uuid
     const propertysetPk = site.attributes.id
 
