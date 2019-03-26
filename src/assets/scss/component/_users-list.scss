@@ -206,6 +206,13 @@
     border-bottom: 1px solid rgba($color-primary,.08);
     @include flexbox;
     @include align-items(center);
+
+    &:last-child,
+    &:nth-last-child(2) {
+      .base-button-option__menu {
+        top: -75px;
+      }
+    }
     &__picture{
       position: relative;
       overflow: hidden;
