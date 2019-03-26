@@ -1,5 +1,5 @@
 <template>
-    <div class="users-list__user">
+    <div class="users-list__user" :class="{'role-changed': roleChanged}">
       <div class="users-list__user__picture">
         <template v-if="user.hasAccepted">
           <img :src="user.photo" alt="" class="img-fluid circle" v-if="user.photo">
@@ -26,7 +26,7 @@
         <span v-if="user.hasAccepted" v-html="getBadge(user.role)"></span>
       </div>
       <div class="users-list__user__actions" v-if="user.hasAccepted && isAdmin()">
-        <base-button-option @option-toggled="toggleMenu" class="users-list__user__actions__menu" v-if="displayMenu">
+        <base-button-option ref="test" @option-toggled="toggleMenu" class="users-list__user__actions__menu" v-if="displayMenu">
           <ul>
               <li @click.stop.self="toggleRights()" :class="{'actif': displayRights}" class="arrow-left">
                 {{ $t('users.modify_rights') }} <svgicon name="user-lock" width="12" height="12"></svgicon>
@@ -38,9 +38,12 @@
                     :id="user.id"
                     :option="right"
                     name="rights"
-                    @input="radioSelected(user, right)"
+                    @input="radioSelected(right)"
                     :selected="role"
                   ></base-input-radio>
+                  <transition name="slide-fade">
+                    <base-valid-delete v-if="showRemoveRightsActions" @on-valid-action="changeUserRights" @on-cancel-action="showRemoveRightsActions = false"></base-valid-delete>
+                  </transition>
                 </div>
             </li>
             <li @click.stop.self="showRemoveActions = true" class="users-list__user__actions">
@@ -78,7 +81,10 @@ export default {
   data () {
     return {
       showRemoveActions: false,
+      showRemoveRightsActions: false,
       displayRights: false,
+      selectedRight: undefined,
+      roleChanged: false,
       rights: [
         {
           text: this.$t('users.administrator'),
@@ -93,6 +99,14 @@ export default {
           value: 25
         }
       ]
+    }
+  },
+  watch: {
+    role () {
+      this.roleChanged = true
+      setTimeout(() => {
+        this.roleChanged = false
+      }, 500)
     }
   },
   props: {
@@ -128,9 +142,14 @@ export default {
       deleteCloudUser: 'deleteCloudUser',
       updateCloudUser: 'updateCloudUser'
     }),
-    async radioSelected (user, right) {
-      this.$emit('on-update-user', user, right)
-      this.displayRights = false
+    async radioSelected (right) {
+      this.showRemoveRightsActions = true
+      this.selectedRight = right
+    },
+    changeUserRights () {
+      this.$emit('on-update-user', this.user, this.selectedRight)
+      this.$refs.test.displayMenu = false
+      this.toggleMenu(false)
     },
     toggleRights () {
       this.displayRights = !this.displayRights
@@ -142,6 +161,7 @@ export default {
     toggleMenu (isOpened) {
       if (!isOpened) {
         this.showRemoveActions = false
+        this.showRemoveRightsActions = false
         this.displayRights = false
       }
     },

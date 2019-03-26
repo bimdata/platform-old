@@ -213,6 +213,10 @@
         top: -75px;
       }
     }
+    &.role-changed {
+      animation: opacityblink 2s infinite;
+    }
+
     &__picture{
       position: relative;
       overflow: hidden;
@@ -299,6 +303,11 @@
               }
             }
           }
+          .base-valid-delete {
+            .svg-icon {
+              margin-left: 0;
+            }
+          }
         }
         .arrow-left{
           &:before{
@@ -357,5 +366,16 @@
         padding: 0 15px;
       }
     }
+  }
+}
+@keyframes opacityblink{
+  0%{
+    opacity: 0.4;
+  }
+  50%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0.4;
   }
 }
