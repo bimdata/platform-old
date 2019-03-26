@@ -295,6 +295,24 @@
               width: 140px;
               left: -141px;
             }
+
+            &.bg-overlay {
+              &:before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                display: block;
+                background: $modal-backdrop-bg;
+                opacity: $modal-backdrop-opacity;
+              }
+            }
+            .base-valid-delete {
+              right: 50%;
+              transform: translate(50%, 50%);
+            }
           }
           &__remove{
             .delete__actions{
