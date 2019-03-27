@@ -143,20 +143,6 @@ export default {
         value: null,
         text: 'Droits'
       },
-      rights: [
-        {
-          text: this.$t('users.administrator'),
-          value: 100
-        },
-        {
-          text: this.$t('users.user'),
-          value: 50
-        },
-        {
-          text: this.$t('users.guest'),
-          value: 25
-        }
-      ],
       searchFilter: '',
       loadedProject: false,
       loadedDMS: false,
@@ -334,6 +320,35 @@ export default {
         return this.$store.state.project.selectedProject.role
       } else {
         return this.$store.state.currentCloud.role
+      }
+    },
+    rights () {
+      if (this.isAdmin) {
+        return [
+          {
+            text: this.$t('users.administrator'),
+            value: 100
+          },
+          {
+            text: this.$t('users.user'),
+            value: 50
+          },
+          {
+            text: this.$t('users.guest'),
+            value: 25
+          }
+        ]
+      } else {
+        return [
+          {
+            text: this.$t('users.user'),
+            value: 50
+          },
+          {
+            text: this.$t('users.guest'),
+            value: 25
+          }
+        ]
       }
     }
   }
