@@ -168,6 +168,60 @@
             }
           }
         }
+        &__address-map {
+          position: relative;
+          height: 100%;
+          width: 100%;
+
+          &__input-container {
+            position: absolute;
+            bottom: 36px;
+            width: 80%;
+            left: 10%;
+            background: $white;
+            padding: 16px 20px;
+            display: flex;
+            align-items: flex-end;
+
+            .base-input-text-material {
+              margin: 0;
+              margin-right: 2px;
+              width: calc(100% - 77px) !important;
+              overflow: hidden;
+
+              input {
+                padding: 0;
+                padding-top: 5px;
+                @include font-size(12px);
+                margin-top: 14px;
+                width: 100% !important;
+
+                &:focus,
+                &:valid {
+                  & ~ label {
+                    top: 0;
+                  }
+                }
+              }
+              label {
+                @include font-size(12px);
+              }
+            }
+            .btn {
+              margin-left: 12px;
+              min-width: auto;
+              @include font-size(12px);
+              font-weight: lighter;
+              max-width: 65px;
+            }
+
+            &.two-btn {
+              .base-input-text-material {
+                width: calc(100% - 200px) !important;
+              }
+            }
+          }
+        }
       }
       #base-map{
         width: 100%;

@@ -5,35 +5,42 @@
                   v-if="loaded && valid"
                   :text="textProject">
         </base-map>
-        <div class="map-wrapper__container" v-else>
-          <div class="map-wrapper__container__step" v-if="!valid">
-            <div class="map-wrapper__container__step--first" v-if="!secondStepActive">
-              <svgicon name="map-marker" height="47" width="47"></svgicon>
-              <p>IfcPostalAddress {{ $t('project.missing') }}</p>
-              <button class="btn btn-primary base-button-action" @click="secondStepActive = true">{{ $t('project.advice') }}</button>
-            </div>
-            <div class="map-wrapper__container__step--second" v-else>
-              <div v-if="!isSubmitting">
+        <div class="h-100 w-100" v-else-if="!valid">
+          <div class="map-wrapper__container" v-if="!secondStepActive">
+            <div class="map-wrapper__container__step">
+              <div class="map-wrapper__container__step--first">
                 <svgicon name="map-marker" height="47" width="47"></svgicon>
+                <p>IfcPostalAddress {{ $t('project.missing') }}</p>
+                <button class="btn btn-primary base-button-action" @click="secondStepActive = true">{{ $t('project.advice') }}</button>
+              </div>
+            </div>
+          </div>
+          <div class="map-wrapper__address-map" v-else>
+            <base-map :lat="defLatitude"
+              :lng="defLongitude"
+              :text="textProject">
+            </base-map>
+            <div class="map-wrapper__address-map__input-container" :class="{'two-btn': submitStep}">
+              <template v-if="!submitStep">
                 <div class="base-input-text-material">
-                  <input type="text" required="required" v-model="ifcPostalAddress" @keyup.enter="submitAddress">
+                  <input type="text" required="required" v-model="ifcPostalAddress" @keyup.enter="testAddress">
                   <span class="highlight"></span>
                   <span class="bar"></span>
                   <label>IfcPostalAddress</label>
                 </div>
-                <button class="btn btn-primary base-button-action" @click="submitAddress">{{ $t('project.save') }}</button>
-              </div>
-              <div v-else>
-                <svgicon name="map-marker" height="47" width="47"></svgicon>
-                <div class="loader loader-layout">
-                  <div class="lds-dual-ring"></div>
+                <button class="btn btn-primary base-button-action" @click="testAddress">{{ $t('project.validate') }}</button>
+              </template>
+              <template v-else>
+                <div class="base-input-text-material">
+                  <input type="text" required="required" disabled v-model="ifcPostalAddress">
+                  <span class="highlight"></span>
+                  <span class="bar"></span>
+                  <label>IfcPostalAddress</label>
                 </div>
-              </div>
+                <button class="btn btn-shadow" @click="retestAddress">{{ $t('project.cancel') }}</button>
+                <button class="btn btn-primary base-button-action" @click="submitAddress">{{ $t('project.validate') }}</button>
+              </template>
             </div>
-          </div>
-          <div class="loader loader-layout" v-else>
-            <p class="loader-layout__text">Loading</p>
-            <div class="lds-dual-ring"></div>
           </div>
         </div>
     </div>
@@ -48,10 +55,12 @@ export default {
       loaded: false,
       valid: false,
       secondStepActive: false,
-      isSubmitting: false,
+      submitStep: false,
       ifcPostalAddress: '',
       lon: '',
-      lat: ''
+      lat: '',
+      defLatitude: 0,
+      defLongitude: 0
     }
   },
   props: {
@@ -160,12 +169,20 @@ export default {
         lon: json[0].lon
       }
     },
-    async submitAddress () {
-      this.isSubmitting = true
+    async testAddress () {
+      console.log('testAddress', this.ifcPostalAddress)
       const response = await this.getLatLongFromAddress()
-      this.lat = response.lat
-      this.lon = response.lon
-
+      console.log('response', response)
+      this.defLatitude = parseFloat(response.lat)
+      this.defLongitude = parseFloat(response.lon)
+      console.log('defLatitude', this.defLatitude)
+      console.log('defLongitude', this.defLongitude)
+      this.submitStep = true
+    },
+    retestAddress () {
+      this.submitStep = false
+    },
+    async submitAddress () {
       let site = this.getIfcSites(this.panorama.id)
       const data = {
         cloudPk: this.$store.state.currentCloud.id,
@@ -183,7 +200,6 @@ export default {
         await this.$store.dispatch('project/configureIfcSiteAddress', data)
       }
       this.valid = true
-      this.ifcPostalAddress = ''
     }
   },
   mounted () {
