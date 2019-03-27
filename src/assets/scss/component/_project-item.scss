@@ -43,6 +43,7 @@
   max-width: 216px;
   height: 275px;
   @include flex-direction(column);
+  @include transition(all .25s ease);
   &-move{ @include transition(all 600ms ease-in-out 50ms); }
   &-enter-active{ @include transition(all 600ms ease-out); }
   &-leave-active{
@@ -53,6 +54,10 @@
   }
   &-enter, &-leave-to{ opacity: 0 }
   &-enter{ @include transform(scale(0.9)); }
+
+  &:hover {
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.3);
+  }
 }
 
 .new-project-item{
