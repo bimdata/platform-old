@@ -114,9 +114,6 @@ export default {
         this.newCloudName = ''
         this.toggleOpenCreationCloud()
       })
-    },
-    openManageAdmin () {
-      console.log('TEST')
     }
   }
 }

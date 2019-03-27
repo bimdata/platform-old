@@ -11,6 +11,12 @@
       @include media-breakpoint-up(xxl) {
         right: 83px;
       }
+
+      &--only {
+        position: relative;
+        right: auto;
+        margin-bottom: 0;
+      }
     }
   }
 
