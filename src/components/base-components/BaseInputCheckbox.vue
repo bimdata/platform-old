@@ -36,10 +36,6 @@ export default {
         ...this.$listeners
       }
     }
-  },
-  created () {
-    console.log('----')
-    console.log(this.value)
   }
 }
 </script>
