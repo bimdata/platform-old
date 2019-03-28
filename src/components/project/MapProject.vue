@@ -2,38 +2,45 @@
     <div class="map-wrapper">
         <base-map :lat="latitude"
                   :lng="longitude"
-                  v-if="loaded && valid"
+                  v-if="valid"
                   :text="textProject">
         </base-map>
-        <div class="map-wrapper__container" v-else>
-          <div class="map-wrapper__container__step" v-if="!valid">
-            <div class="map-wrapper__container__step--first" v-if="!secondStepActive">
-              <svgicon name="map-marker" height="47" width="47"></svgicon>
-              <p>IfcPostalAddress {{ $t('project.missing') }}</p>
-              <button v-if="isUserRole" class="btn btn-primary base-button-action" @click="secondStepActive = true">{{ $t('project.advice') }}</button>
-            </div>
-            <div class="map-wrapper__container__step--second" v-else>
-              <div v-if="!isSubmitting">
+        <div class="h-100 w-100" v-else>
+          <div class="map-wrapper__container" v-if="!secondStepActive">
+            <div class="map-wrapper__container__step">
+              <div class="map-wrapper__container__step--first">
                 <svgicon name="map-marker" height="47" width="47"></svgicon>
+                <p>IfcPostalAddress {{ $t('project.missing') }}</p>
+                <button v-if="isUserRole" class="btn btn-primary base-button-action" @click="secondStepActive = true">{{ $t('project.advice') }}</button>
+              </div>
+            </div>
+          </div>
+          <div class="map-wrapper__address-map" v-else>
+            <base-map :lat="defLat"
+              :lng="defLon"
+              :text="textProject">
+            </base-map>
+            <div class="map-wrapper__address-map__input-container">
+              <template v-if="!submitStep">
                 <div class="base-input-text-material">
-                  <input type="text" required="required" v-model="ifcPostalAddress" @keyup.enter="submitAddress">
+                  <input type="text" required="required" v-model="ifcPostalAddress" @keyup.enter="testAddress">
                   <span class="highlight"></span>
                   <span class="bar"></span>
                   <label>IfcPostalAddress</label>
                 </div>
-                <button class="btn btn-primary base-button-action" @click="submitAddress">{{ $t('project.save') }}</button>
-              </div>
-              <div v-else>
-                <svgicon name="map-marker" height="47" width="47"></svgicon>
-                <div class="loader loader-layout">
-                  <div class="lds-dual-ring"></div>
+                <button class="btn btn-primary base-button-action" @click="testAddress">{{ $t('project.validate') }}</button>
+              </template>
+              <template v-else>
+                <div class="base-input-text-material">
+                  <input type="text" required="required" disabled v-model="ifcPostalAddress">
+                  <span class="highlight"></span>
+                  <span class="bar"></span>
+                  <label>IfcPostalAddress</label>
                 </div>
-              </div>
+                <button class="btn btn-shadow" @click="retestAddress">{{ $t('project.cancel') }}</button>
+                <button class="btn btn-primary base-button-action" @click="submitAddress">{{ $t('project.save') }}</button>
+              </template>
             </div>
-          </div>
-          <div class="loader loader-layout" v-else>
-            <p class="loader-layout__text">Loading</p>
-            <div class="lds-dual-ring"></div>
           </div>
         </div>
     </div>
@@ -46,13 +53,14 @@ import { hasUserRole } from '@/utils/manageRights'
 export default {
   data () {
     return {
-      loaded: false,
       valid: false,
       secondStepActive: false,
-      isSubmitting: false,
+      submitStep: false,
       ifcPostalAddress: '',
       lon: '',
-      lat: ''
+      lat: '',
+      defLatitude: 0,
+      defLongitude: 0
     }
   },
   props: {
@@ -82,28 +90,36 @@ export default {
       let site = ''
       let latitude = ''
       let longitude = ''
+      let address = ''
 
       if (this.panorama) {
-        site = this.getIfcElements(this.panorama.id)
+        site = this.getIfcSites(this.panorama.id)
       }
-
       if (site) {
         if (site.attributes) {
           // Fetch the DMS (Degrees, Minutes, Seconds) GPS coordinates from the IfcSite's  attributes
-          latitude = site
+          let refLatitude = site
             .attributes
             .properties
             .find(
               p => p.definition.name === 'RefLatitude')
-            .value
+          latitude = refLatitude && refLatitude.value
 
-          longitude = site
+          let refLongitude = site
             .attributes
             .properties
             .find(
               p => p.definition.name === 'RefLongitude'
             )
-            .value
+          longitude = refLongitude && refLongitude.value
+
+          let siteAddress = site
+            .attributes
+            .properties
+            .find(
+              p => p.definition.name === 'SiteAddress'
+            )
+          address = siteAddress && siteAddress.value
         }
       }
 
@@ -112,63 +128,90 @@ export default {
         this.lat = this.coordToDD(latitude)
         this.lon = this.coordToDD(longitude)
         this.valid = true
+      } else if (address) {
+        this.getLatLongFromAddress()
+          .then(response => {
+            const data = {
+              cloudPk: this.$store.state.currentCloud.id,
+              projectPk: this.$route.params.projectId,
+              ifcPk: this.panorama.id,
+              lat: this.DDToDMS(this.lat),
+              long: this.DDToDMS(this.lon),
+              postalAddress: address,
+              site: site
+            }
+            this.$store.dispatch('project/configureIfcSiteAdress', data)
+          })
       } else {
         this.valid = false
-        this.ifcPostalAddress = ''
-        this.secondStepActive = false
       }
     },
     DMStoDD (degrees, minutes, seconds) {
       var dd = degrees + minutes / 60 + seconds / (60 * 60)
       return dd
     },
+    DDToDMS (val) {
+      val = Math.abs(val)
+      const valDeg = Math.floor(val)
+      const valMin = Math.floor((val - valDeg) * 60)
+      const valSec = Math.round((val - valDeg - valMin / 60) * 3600 * 1000) / 1000
+      return [valDeg, valMin, ...valSec.toString().split('.')]
+    },
     coordToDD (coord) {
       var e = coord.split(',')
       return this.DMStoDD(parseInt(e[0]), parseInt(e[1]), parseFloat(e[2] + '.' + e[3]))
     },
-    submitAddress () {
-      this.isSubmitting = true
-      let urlAddress = this.ifcPostalAddress.replace(/ /g, '+')
-
-      let self = this
-      let xmlhttp = new XMLHttpRequest()
-      xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState === XMLHttpRequest.DONE) {
-          if (xmlhttp.status === 200) {
-            self.lat = JSON.parse(xmlhttp.response)[0].lat
-            self.lon = JSON.parse(xmlhttp.response)[0].lon
-          }
-        }
+    async getLatLongFromAddress () {
+      const urlAddress = this.ifcPostalAddress.replace(/ /g, '+')
+      const response = await fetch('https://nominatim.openstreetmap.org/search?q=' + urlAddress + '&format=json&polygon=1&addressdetails=1')
+      const json = await response.json()
+      return {
+        lat: json[0].lat,
+        lon: json[0].lon
       }
-
-      xmlhttp.open('GET', 'https://nominatim.openstreetmap.org/search?q=' + urlAddress + '&format=json&polygon=1&addressdetails=1', true)
-      xmlhttp.send()
-
-      setTimeout(() => {
-        this.valid = true
-        this.ifcPostalAddress = ''
-      }, 500)
+    },
+    async testAddress () {
+      const response = await this.getLatLongFromAddress()
+      this.defLatitude = parseFloat(response.lat)
+      this.defLongitude = parseFloat(response.lon)
+      this.submitStep = true
+    },
+    retestAddress () {
+      this.submitStep = false
+    },
+    async submitAddress () {
+      await this.$store.dispatch('project/fetchElements')
+      let site = this.getIfcSites(this.panorama.id)
+      const data = {
+        cloudPk: this.$store.state.currentCloud.id,
+        projectPk: this.$route.params.projectId,
+        ifcPk: this.panorama.id,
+        lat: this.DDToDMS(this.defLat),
+        long: this.DDToDMS(this.defLon),
+        postalAddress: this.ifcPostalAddress,
+        site: site
+      }
+      if (site && !site.id) {
+        site = await this.$store.dispatch('project/createIfcSite', data)
+      } else {
+        await this.$store.dispatch('project/configureIfcSiteAddress', data)
+      }
+      await this.$store.dispatch('project/fetchElements')
+      this.setMapElements()
+      this.submitStep = false
+      this.secondStepActive = false
+      this.ifcPostalAddress = ''
+      this.valid = true
     }
-  },
-  created () {
-    let osmbuildingsStyle = document.createElement('link')
-    osmbuildingsStyle.setAttribute('href', 'https://cdn.osmbuildings.org/4.0.1/OSMBuildings.css')
-    osmbuildingsStyle.setAttribute('rel', 'stylesheet')
-    document.head.appendChild(osmbuildingsStyle)
-    let osmbuildingsScript = document.createElement('script')
-    osmbuildingsScript.setAttribute('src', 'https://cdn.osmbuildings.org/4.0.1/OSMBuildings.js')
-    osmbuildingsScript.setAttribute('crossorigin', 'anonymous')
-    document.body.appendChild(osmbuildingsScript)
   },
   mounted () {
     this.$store.dispatch('project/fetchElements').then(() => {
-      this.loaded = true
       this.setMapElements()
     })
   },
   computed: {
     ...mapGetters('project', [
-      'getIfcElements'
+      'getIfcSites'
     ]),
     textProject () {
       return this.$store.state.project.selectedProject.name
@@ -178,6 +221,12 @@ export default {
     },
     longitude () {
       return parseFloat(this.lon)
+    },
+    defLat () {
+      return this.defLatitude
+    },
+    defLon () {
+      return this.defLongitude
     },
     isUserRole () {
       return this.hasUserRole(this.role)

@@ -25,7 +25,7 @@ function flattenFolders (list, acc = []) {
 }
 
 export default {
-  getIfcElements: state => idIfc => {
+  getIfcSites: state => idIfc => {
     if (state.elements) {
       return state.elements.find(element => {
         return parseInt(idIfc) === element.ifc

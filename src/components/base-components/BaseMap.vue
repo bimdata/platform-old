@@ -20,6 +20,20 @@ export default {
       required: true
     }
   },
+  watch: {
+    lat () {
+      this.reloadMap()
+    },
+    lng () {
+      this.reloadMap()
+    }
+  },
+  methods: {
+    reloadMap () {
+      let contextmap = new MapboxGL()
+      contextmap.load('base-map', this.lat, this.lng)
+    }
+  },
   mounted () {
     this.$nextTick(function () {
       let contextmap = new MapboxGL()
