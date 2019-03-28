@@ -11,7 +11,7 @@
               <div class="map-wrapper__container__step--first">
                 <svgicon name="map-marker" height="47" width="47"></svgicon>
                 <p>IfcPostalAddress {{ $t('project.missing') }}</p>
-                <button v-if="isUserRole" class="btn btn-primary base-button-action" @click="secondStepActive = true">{{ $t('project.advice') }}</button>
+                <button v-if="isAdminRole" class="btn btn-primary base-button-action" @click="secondStepActive = true">{{ $t('project.advice') }}</button>
               </div>
             </div>
           </div>
@@ -48,7 +48,7 @@
 <script>
 import BaseMap from '@/components/base-components/BaseMap'
 import { mapGetters } from 'vuex'
-import { hasUserRole } from '@/utils/manageRights'
+import { hasAdminRole } from '@/utils/manageRights'
 
 export default {
   data () {
@@ -85,7 +85,7 @@ export default {
     BaseMap
   },
   methods: {
-    hasUserRole,
+    hasAdminRole,
     setMapElements () {
       let site = ''
       let latitude = ''
@@ -228,8 +228,8 @@ export default {
     defLon () {
       return this.defLongitude
     },
-    isUserRole () {
-      return this.hasUserRole(this.role)
+    isAdminRole () {
+      return this.hasAdminRole(this.role)
     }
   }
 }
