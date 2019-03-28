@@ -197,10 +197,14 @@
                 width: 100% !important;
 
                 &:focus,
-                &:valid {
+                &:valid,
+                &:disabled {
                   & ~ label {
                     top: 0;
                   }
+                }
+                &:disabled {
+                  opacity: 0.5;
                 }
               }
               label {
@@ -213,12 +217,6 @@
               @include font-size(12px);
               font-weight: lighter;
               max-width: 65px;
-            }
-
-            &.two-btn {
-              .base-input-text-material {
-                width: calc(100% - 200px) !important;
-              }
             }
           }
         }

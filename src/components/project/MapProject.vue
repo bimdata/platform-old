@@ -2,10 +2,10 @@
     <div class="map-wrapper">
         <base-map :lat="latitude"
                   :lng="longitude"
-                  v-if="loaded && valid"
+                  v-if="valid"
                   :text="textProject">
         </base-map>
-        <div class="h-100 w-100" v-else-if="!valid">
+        <div class="h-100 w-100" v-else>
           <div class="map-wrapper__container" v-if="!secondStepActive">
             <div class="map-wrapper__container__step">
               <div class="map-wrapper__container__step--first">
@@ -16,11 +16,11 @@
             </div>
           </div>
           <div class="map-wrapper__address-map" v-else>
-            <base-map :lat="defLatitude"
-              :lng="defLongitude"
+            <base-map :lat="defLat"
+              :lng="defLon"
               :text="textProject">
             </base-map>
-            <div class="map-wrapper__address-map__input-container" :class="{'two-btn': submitStep}">
+            <div class="map-wrapper__address-map__input-container">
               <template v-if="!submitStep">
                 <div class="base-input-text-material">
                   <input type="text" required="required" v-model="ifcPostalAddress" @keyup.enter="testAddress">
@@ -38,7 +38,7 @@
                   <label>IfcPostalAddress</label>
                 </div>
                 <button class="btn btn-shadow" @click="retestAddress">{{ $t('project.cancel') }}</button>
-                <button class="btn btn-primary base-button-action" @click="submitAddress">{{ $t('project.validate') }}</button>
+                <button class="btn btn-primary base-button-action" @click="submitAddress">{{ $t('project.save') }}</button>
               </template>
             </div>
           </div>
@@ -52,7 +52,6 @@ import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      loaded: false,
       valid: false,
       secondStepActive: false,
       submitStep: false,
@@ -90,7 +89,6 @@ export default {
       if (this.panorama) {
         site = this.getIfcSites(this.panorama.id)
       }
-
       if (site) {
         if (site.attributes) {
           // Fetch the DMS (Degrees, Minutes, Seconds) GPS coordinates from the IfcSite's  attributes
@@ -140,8 +138,6 @@ export default {
           })
       } else {
         this.valid = false
-        this.ifcPostalAddress = ''
-        this.secondStepActive = false
       }
     },
     DMStoDD (degrees, minutes, seconds) {
@@ -153,7 +149,6 @@ export default {
       const valDeg = Math.floor(val)
       const valMin = Math.floor((val - valDeg) * 60)
       const valSec = Math.round((val - valDeg - valMin / 60) * 3600 * 1000) / 1000
-      console.log('DMS', [valDeg, valMin, ...valSec.toString().split('.')])
       return [valDeg, valMin, ...valSec.toString().split('.')]
     },
     coordToDD (coord) {
@@ -170,41 +165,41 @@ export default {
       }
     },
     async testAddress () {
-      console.log('testAddress', this.ifcPostalAddress)
       const response = await this.getLatLongFromAddress()
-      console.log('response', response)
       this.defLatitude = parseFloat(response.lat)
       this.defLongitude = parseFloat(response.lon)
-      console.log('defLatitude', this.defLatitude)
-      console.log('defLongitude', this.defLongitude)
       this.submitStep = true
     },
     retestAddress () {
       this.submitStep = false
     },
     async submitAddress () {
+      await this.$store.dispatch('project/fetchElements')
       let site = this.getIfcSites(this.panorama.id)
       const data = {
         cloudPk: this.$store.state.currentCloud.id,
         projectPk: this.$route.params.projectId,
         ifcPk: this.panorama.id,
-        lat: this.DDToDMS(this.lat),
-        long: this.DDToDMS(this.lon),
+        lat: this.DDToDMS(this.defLat),
+        long: this.DDToDMS(this.defLon),
         postalAddress: this.ifcPostalAddress,
         site: site
       }
-
-      if (!site.id) {
+      if (site && !site.id) {
         site = await this.$store.dispatch('project/createIfcSite', data)
       } else {
         await this.$store.dispatch('project/configureIfcSiteAddress', data)
       }
+      await this.$store.dispatch('project/fetchElements')
+      this.setMapElements()
+      this.submitStep = false
+      this.secondStepActive = false
+      this.ifcPostalAddress = ''
       this.valid = true
     }
   },
   mounted () {
     this.$store.dispatch('project/fetchElements').then(() => {
-      this.loaded = true
       this.setMapElements()
     })
   },
@@ -220,6 +215,12 @@ export default {
     },
     longitude () {
       return parseFloat(this.lon)
+    },
+    defLat () {
+      return this.defLatitude
+    },
+    defLon () {
+      return this.defLongitude
     }
   }
 }
