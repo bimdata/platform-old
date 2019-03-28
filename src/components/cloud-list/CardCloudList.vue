@@ -2,7 +2,7 @@
   <div class="card-container">
     <div class="base-card card-item card-bd noselect" @click.stop.self="accessCloud">
       <div class="card-bd__header">
-        <base-button-option ref="menu" @option-toggled="toggleMenu" v-if="isAdmin">
+        <base-button-option ref="menu" @option-toggled="toggleMenu" v-if="hasAdminRole(cloud.role)">
           <ul>
             <li @click.stop.self="showRemoveActions = true" class="base-button-option__menu__remove">
               {{ $t('project_list.remove') }}
@@ -50,11 +50,11 @@
             <span v-else>{{ cloud.name }}</span>
             </div>
           <div class="card-bd__infos-cloud">
-            <span class="card-bd__infos-cloud__projects" v-if="isAdmin">
+            <span class="card-bd__infos-cloud__projects" v-if="hasAdminRole(cloud.role)">
               <svgicon name="application" height="30" width="30"></svgicon>
               +{{ cloud.projects.length }}
             </span>
-            <span class="card-bd__infos-cloud__users" v-if="isAdmin">
+            <span class="card-bd__infos-cloud__users" v-if="hasAdminRole(cloud.role)">
               +{{ cloud.users.length }}
               <svgicon name="account" height="30" width="30"></svgicon>
             </span>
@@ -72,6 +72,7 @@ import _ from 'lodash'
 import { mixin as clickaway } from 'vue-clickaway'
 import BaseButtonOption from '@/components/base-components/BaseButtonOption'
 import BaseValidDelete from '@/components/base-components/BaseValidDelete'
+import { hasAdminRole } from '@/utils/manageRights'
 
 export default {
   data () {
@@ -96,12 +97,8 @@ export default {
       required: true
     }
   },
-  computed: {
-    isAdmin () {
-      return this.cloud.role === 100
-    }
-  },
   methods: {
+    hasAdminRole,
     toggleRename () {
       this.displayRename = !this.displayRename
       this.showRemoveActions = false

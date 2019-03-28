@@ -4,7 +4,7 @@
             {{ projectName }}
         </template>
         <template v-if="panoramas.length === 0" slot="content">
-            <upload-file name="upload-ifc" text="IFC"></upload-file>
+            <upload-file name="upload-ifc" text="IFC" :role="role"></upload-file>
         </template>
         <template slot="content" v-else-if="isLoading">
           <div class="loader loader-layout">
@@ -30,7 +30,7 @@
               </div>
             </div>
             <div class="main-ifc__map">
-              <map-project :panorama="currentPanorama">
+              <map-project :panorama="currentPanorama" :role="role">
               </map-project>
             </div>
           </div>
@@ -55,6 +55,12 @@ export default {
     return {
       currentNamePanorama: '',
       panorama: null
+    }
+  },
+  props: {
+    role: {
+      type: Number,
+      default: null
     }
   },
   watch: {

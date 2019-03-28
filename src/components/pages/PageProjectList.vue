@@ -11,10 +11,10 @@
           v-model="selectedCloud"
         ></base-choice-list>
       </div>
-      <div class="search-container">
+      <div class="search-container" :class="{'search-container--only': !isAdmin}">
         <base-search-bar @on-search="toSearch"></base-search-bar>
       </div>
-      <div class="card-container">
+      <div class="card-container" v-if="isAdmin">
           <div class="top-toolbar__choice-list-items">
             <base-button-icon iconName="add-account" height="16" width="16" @on-click-action="showModal = !showModal"></base-button-icon>
           </div>
@@ -122,6 +122,7 @@
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import { hasAdminRole } from '@/utils/manageRights'
 import BaseChoiceList from '@/components/base-components/BaseChoiceList'
 import BaseSearchBar from '@/components/base-components/BaseSearchBar'
 import CardProjectList from '@/components/project-list/CardProjectList'
@@ -203,9 +204,13 @@ export default {
     usersNotAdminCloud () {
       let usersNotAdmin = _.filter(this.users, function (u) { return u.cloud_role !== 100 })
       return usersNotAdmin
+    },
+    isAdmin () {
+      return this.hasAdminRole(this.$store.state.currentCloud.role)
     }
   },
   methods: {
+    hasAdminRole,
     ...mapActions({
       deleteUser: 'deleteCloudUser',
       sendCloudInvitation: 'inviteCloudUser'
@@ -257,7 +262,7 @@ export default {
         })
 
         this.emailInvite = ''
-        if (this.isAdmin()) {
+        if (this.isAdmin) {
           await this.getCloudGuests()
         }
       }
@@ -269,13 +274,6 @@ export default {
     async getCloudGuests () {
       const cloudId = this.$route.params.cloudId
       this.guests = await this.$store.dispatch('getCloudGuests', cloudId)
-    },
-    isAdmin () {
-      if (this.$store.state.currentCloud.role === 100) {
-        return true
-      }
-
-      return false
     }
   },
   created () {
@@ -295,7 +293,7 @@ export default {
       this.optionsCloud.push(listItem)
     }
 
-    if (this.isAdmin()) {
+    if (this.isAdmin) {
       this.getCloudGuests()
     }
     this.$store.commit('SET_LOADER_PAGE', false)

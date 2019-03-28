@@ -10,6 +10,7 @@
           class="top-toolbar__choice-list-items top-toolbar__choice-list-items--project"
         ></choice-list-project>
         <button-upload-new-file
+          v-if="isUserRole"
           class="top-toolbar__button-new-file ml-auto"
           :class="{'active': displayUpload}"
           @click="displayUpload = !displayUpload"
@@ -24,7 +25,7 @@
       <div class="row mb-5">
         <div class="col-12 d-flex">
           <div class="content-project">
-            <card-project-content></card-project-content>
+            <card-project-content :role="passRole"></card-project-content>
           </div>
           <div class="user-project">
             <users-list :users="allUsers" :filter="searchFilter" @on-remove-user="removeUser" @on-update-user="updateUser" :class="{'users-list--large': displaySendInvit || displaySearchUser}">
@@ -34,7 +35,7 @@
                     <svgicon name="menu" width="23" height="23"></svgicon>
                   </div>
                   <div class="users-list__header__right-container" v-if="!displaySendInvit && !displaySearchUser">
-                    <base-clicked-tool @on-clicked-tool="openSendInvite" iconName="add-account" iconWidth="22" iconHeight="22"></base-clicked-tool>
+                    <base-clicked-tool v-if="isUserRole" @on-clicked-tool="openSendInvite" iconName="add-account" iconWidth="22" iconHeight="22"></base-clicked-tool>
                     <base-clicked-tool @on-clicked-tool="openSearchUser" iconName="magnify" iconWidth="21" iconHeight="21"></base-clicked-tool>
                     <base-clicked-tool iconName="filter-variant" iconWidth="25" iconHeight="26" class="d-none"></base-clicked-tool>
                   </div>
@@ -75,7 +76,7 @@
       </div>
       <div class="row">
         <div class="col-12">
-          <table-ifc></table-ifc>
+          <table-ifc :role="passRole"></table-ifc>
         </div>
       </div>
       <div class="row">
@@ -86,7 +87,7 @@
               <upload-file name="upload-file"></upload-file>
             </template>
             <template slot="content" v-else>
-              <dms></dms>
+              <dms :role="passRole"></dms>
             </template>
           </base-card>
         </div>
@@ -102,6 +103,7 @@
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import { hasAdminRole, hasUserRole } from '@/utils/manageRights'
 import ChoiceListProject from '@/components/project/ChoiceListProject'
 import BaseValidDelete from '@/components/base-components/BaseValidDelete'
 import ChoiceListCloud from '@/components/project/ChoiceListCloud'
@@ -141,20 +143,6 @@ export default {
         value: null,
         text: 'Droits'
       },
-      rights: [
-        {
-          text: this.$t('users.administrator'),
-          value: 100
-        },
-        {
-          text: this.$t('users.user'),
-          value: 50
-        },
-        {
-          text: this.$t('users.guest'),
-          value: 25
-        }
-      ],
       searchFilter: '',
       loadedProject: false,
       loadedDMS: false,
@@ -166,6 +154,8 @@ export default {
     }
   },
   methods: {
+    hasUserRole,
+    hasAdminRole,
     ...mapActions({
       fetchProjectUsers: 'project/fetchProjectUsers',
       projectInvite: 'project/projectInvite',
@@ -265,24 +255,11 @@ export default {
       const cloudId = this.$route.params.cloudId
       const projectId = this.$route.params.projectId
       await this.$store.dispatch('project/getProjectGuests', { cloudId, projectId })
-    },
-    isAdmin () {
-      if (this.$store.state.project.selectedProject !== null) {
-        if (this.$store.state.project.selectedProject.role === 100) {
-          return true
-        }
-      } else {
-        if (this.$store.state.currentCloud.role === 100) {
-          return true
-        }
-      }
-
-      return false
     }
   },
   mounted () {
     this.fetchProjectUsers(this.project)
-    if (this.isAdmin()) {
+    if (this.isAdmin) {
       this.getGuests()
     }
   },
@@ -323,6 +300,56 @@ export default {
     hasFiles () {
       let tree = this.$store.state.project.tree
       return tree.children.length > 0
+    },
+    isAdmin () {
+      if (this.$store.state.project.selectedProject !== null) {
+        return this.hasAdminRole(this.$store.state.project.selectedProject.role)
+      } else {
+        return this.hasAdminRole(this.$store.state.currentCloud.role)
+      }
+    },
+    isUserRole () {
+      if (this.$store.state.project.selectedProject !== null) {
+        return this.hasUserRole(this.$store.state.project.selectedProject.role)
+      } else {
+        return this.hasUserRole(this.$store.state.currentCloud.role)
+      }
+    },
+    passRole () {
+      if (this.$store.state.project.selectedProject !== null) {
+        return this.$store.state.project.selectedProject.role
+      } else {
+        return this.$store.state.currentCloud.role
+      }
+    },
+    rights () {
+      if (this.isAdmin) {
+        return [
+          {
+            text: this.$t('users.administrator'),
+            value: 100
+          },
+          {
+            text: this.$t('users.user'),
+            value: 50
+          },
+          {
+            text: this.$t('users.guest'),
+            value: 25
+          }
+        ]
+      } else {
+        return [
+          {
+            text: this.$t('users.user'),
+            value: 50
+          },
+          {
+            text: this.$t('users.guest'),
+            value: 25
+          }
+        ]
+      }
     }
   }
 }

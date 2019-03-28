@@ -33,8 +33,8 @@
                                   :class="{'is-active': isVisibleTreeView}"
                                   @click="displayTreeView">
                 </base-button-tool>
-                <dms-upload-document class="base-button-tool__container"></dms-upload-document>
-                <base-button-tool iconName="add-folder" @click="toggleAddFolderMenu">
+                <dms-upload-document v-if="isUserRole" class="base-button-tool__container"></dms-upload-document>
+                <base-button-tool v-if="isUserRole" iconName="add-folder" @click="toggleAddFolderMenu">
                     <div class="new_folder_box" v-show="addFolder">
                         <div class="new_folder_box__title">
                             {{ $t('project.create_folder') }}
@@ -74,7 +74,7 @@
                         class="bd-table"
                         :fields="fields"
                     >
-                        <template slot="HEAD_selected" slot-scope="data">
+                        <template slot="HEAD_selected" slot-scope="data" v-if="isUserRole">
                             <label
                                 for="select-all"
                                  @click="selectAllItems"
@@ -108,7 +108,7 @@
                         <template slot="HEAD_size" slot-scope="data">
                             {{ $t('project.size') }}
                         </template>
-                        <template slot="selected" slot-scope="data">
+                        <template slot="selected" slot-scope="data" v-if="isUserRole">
                             <label
                               :for="'checkbox-'+ data.item.id"
                               class="base-checkbox"
@@ -151,7 +151,7 @@
                             </template>
                         </template>
                         <template slot="action" slot-scope="documentAction">
-                            <base-button-option @option-toggled="toggleMenuAction">
+                            <base-button-option @option-toggled="toggleMenuAction" v-if="isUserRole">
                                 <ul>
                                     <li @click="downloadFile(documentAction)">
                                         <svgicon name="download" width="13" height="13"></svgicon>
@@ -214,6 +214,7 @@ import BaseValidDelete from '@/components/base-components/BaseValidDelete'
 import ListChoice from '@/components/project/ListChoice'
 import BaseButtonOption from '@/components/base-components/BaseButtonOption'
 import { mixin as clickaway } from 'vue-clickaway'
+import { hasUserRole } from '@/utils/manageRights'
 import _ from 'lodash'
 import { mapState } from 'vuex'
 
@@ -290,7 +291,14 @@ export default {
       newFolderName: ''
     }
   },
+  props: {
+    role: {
+      type: Number,
+      default: null
+    }
+  },
   methods: {
+    hasUserRole,
     cancelRename () {
       this.displayRename = false
     },
@@ -521,6 +529,9 @@ export default {
         })
       }
       return elements
+    },
+    isUserRole () {
+      return this.hasUserRole(this.role)
     }
   },
   async created () {
