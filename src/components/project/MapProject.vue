@@ -38,7 +38,7 @@
                   <label>IfcPostalAddress</label>
                 </div>
                 <button class="btn btn-shadow" @click="retestAddress">{{ $t('project.cancel') }}</button>
-                <button class="btn btn-primary base-button-action" @click="submitAddress">{{ $t('project.save') }}</button>
+                <button class="btn btn-primary base-button-action" @click="submitAddress">{{ $t('project.confirm') }}</button>
               </template>
             </div>
           </div>
