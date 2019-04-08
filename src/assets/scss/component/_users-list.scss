@@ -207,8 +207,7 @@
     @include flexbox;
     @include align-items(center);
 
-    &:last-child,
-    &:nth-last-child(2) {
+    &.open-top {
       .base-button-option__menu {
         top: -75px;
       }

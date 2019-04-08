@@ -15,7 +15,8 @@
                 :displayMenu="displayMenu"
                 :role="user.role"
                 @on-remove-user="removeUser"
-                @on-update-user="updateUser"></users-list-item>
+                @on-update-user="updateUser"
+                :class="{'open-top': index > 5}"></users-list-item>
             </ul>
           </div>
         </div>
