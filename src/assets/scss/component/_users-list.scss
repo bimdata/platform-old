@@ -1,6 +1,7 @@
 .users-list {
   height: calc(399px + 1rem*2); //same size that .main-ifc
   overflow: hidden;
+  position: relative;
 
   &--large {
     .users-list__header {
@@ -354,6 +355,25 @@
       &--outline{
         background: $bim-negative;
       }
+    }
+  }
+  &__response-resend {
+    position: absolute;
+    top: 0;
+    background: $success;
+    color: $white;
+    text-align: center;
+    height: 33px;
+    font-size: 0.714rem;
+    padding: 10px 35px;
+    width: 100%;
+    z-index: 1;
+
+    &__close {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
     }
   }
   &-modal {

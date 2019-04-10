@@ -5,6 +5,14 @@
       </slot>
       <template slot="content">
         <div class="users-list">
+          <transition name="slide-bottom-fade">
+            <div class="users-list__response-resend" v-if="hasResendResponse">
+              Invitation sent to {{ resendEmail }}
+              <span class="users-list__response-resend__close" @click="hasResendResponse = false">
+                <svgicon name="close" height="18" width="18"></svgicon>
+              </span>
+            </div>
+          </transition>
           <slot name="users-list-header"></slot>
           <div class="users-list__body">
             <ul class="users-list__users">
@@ -16,6 +24,7 @@
                 :role="user.role"
                 @on-remove-user="removeUser"
                 @on-update-user="updateUser"
+                @email-resend="displayResponse"
                 :class="{'open-top': index > 5}"></users-list-item>
             </ul>
           </div>
@@ -35,6 +44,12 @@ export default {
     BaseButtonOption,
     BaseValidDelete,
     UsersListItem
+  },
+  data () {
+    return {
+      hasResendResponse: false,
+      resendEmail: ''
+    }
   },
   props: {
     displayMenu: {
@@ -59,6 +74,13 @@ export default {
     },
     updateUser (user, right) {
       this.$emit('on-update-user', user, right)
+    },
+    displayResponse (email) {
+      this.hasResendResponse = true
+      this.resendEmail = email
+      setTimeout(() => {
+        this.hasResendResponse = false
+      }, 3000)
     }
   },
   computed: {

@@ -206,6 +206,7 @@ export default {
           redirect_uri: `${process.env.BD_APP_URL}/cloud/${this.$route.params.cloudId}/project/${this.$route.params.projectId}`
         }
       })
+      this.$emit('email-resend', email)
     }
   }
 }
