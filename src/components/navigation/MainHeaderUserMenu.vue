@@ -22,8 +22,9 @@
     </div>
 </template>
 <script>
-import { mapGetters, mapActions } from 'vuex'
-
+import { vuexOidcCreateUserManager } from 'vuex-oidc'
+import { oidcSettings } from '@/config/OIDCSettings'
+import { mapGetters } from 'vuex'
 import BaseButtonAction from '@/components/base-components/BaseButtonAction'
 import BaseDropdown from '@/components/base-components/BaseDropdown'
 
@@ -33,18 +34,17 @@ export default {
     BaseDropdown
   },
   methods: {
-    ...mapActions({
-      signout: 'signout'
-    }),
     openProfile () {
       window.open(`${process.env.BD_OIDC_IP}/profile`)
     },
     logout () {
-      this.signout()
-        .then(() => {
-          this.$router.push({ name: 'signin-required' })
-          window.location.reload()
-        })
+      const oidcUserManager = vuexOidcCreateUserManager(oidcSettings)
+      oidcUserManager.signoutRedirect().then(() => {
+        sessionStorage.setItem('hasEverConnected', false)
+      }).catch(function (err) {
+        this.$store.commit('setOidcError', err)
+        console.log(err)
+      })
     }
   },
   computed: {

@@ -32,9 +32,6 @@ export default {
       resolve(hasAccess)
     })
   },
-  async signout () {
-    return this.UserRepositoryRequest.signoutPopup()
-  },
   async fetchUserData ({commit}) {
     try {
       const response = await this.UserRepositoryRequest.getSelfUserData()
