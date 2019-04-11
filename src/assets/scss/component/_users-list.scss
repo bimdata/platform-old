@@ -364,7 +364,7 @@
     color: $white;
     text-align: center;
     height: 33px;
-    font-size: 0.714rem;
+    font-size: 0.85714rem;
     padding: 10px 35px;
     width: 100%;
     z-index: 1;
@@ -374,6 +374,10 @@
       right: 12px;
       top: 50%;
       transform: translateY(-50%);
+    }
+
+    &--error {
+      background: $danger;
     }
   }
   &-modal {

@@ -13,6 +13,14 @@
               </span>
             </div>
           </transition>
+          <transition name="slide-bottom-fade">
+            <div class="users-list__response-resend users-list__response-resend--error" v-if="hasResendResponseError">
+              Too much invitation sent to {{ resendEmail }}
+              <span class="users-list__response-resend__close" @click="hasResendResponseError = false">
+                <svgicon name="close" height="18" width="18"></svgicon>
+              </span>
+            </div>
+          </transition>
           <slot name="users-list-header"></slot>
           <div class="users-list__body">
             <ul class="users-list__users">
@@ -48,7 +56,9 @@ export default {
   data () {
     return {
       hasResendResponse: false,
-      resendEmail: ''
+      hasResendResponseError: false,
+      resendEmail: '',
+      nbResend: 0
     }
   },
   props: {
@@ -75,11 +85,17 @@ export default {
     updateUser (user, right) {
       this.$emit('on-update-user', user, right)
     },
-    displayResponse (email) {
-      this.hasResendResponse = true
+    displayResponse (email, nbResend) {
+      this.nbResend = nbResend
       this.resendEmail = email
+      if (nbResend < 3) {
+        this.hasResendResponse = true
+      } else {
+        this.hasResendResponseError = true
+      }
       setTimeout(() => {
         this.hasResendResponse = false
+        this.hasResendResponseError = false
       }, 3000)
     }
   },
