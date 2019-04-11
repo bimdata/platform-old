@@ -172,6 +172,14 @@ export default {
       console.log(e)
     }
   },
+  async deleteCloudUserPending ({state, commit}, {cloudId, invitationId}) {
+    try {
+      await this.CloudRepositoryRequest.deleteCloudUserPending(cloudId, invitationId)
+      return true
+    } catch (e) {
+      console.log(e)
+    }
+  },
   inviteCloudUser (context, params) {
     try {
       return this.CloudRepositoryRequest.inviteUser(params.cloudId, params.invite)

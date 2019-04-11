@@ -234,6 +234,11 @@ export default {
       .deleteUser({ cloudId, userId, projectId })
   },
 
+  deleteUserPending (store, {cloudPk, projectPk, id}) {
+    return this.ProjectRepositoryRequest
+      .deleteUserPending({ cloudPk, projectPk, id })
+  },
+
   async configureIfcSiteAddress (store, options) {
     return this.IFCRepositoryRequest.configureIfcSiteAddress(options)
   },

@@ -61,6 +61,12 @@
           </transition>
         </template>
       </div>
+      <div class="users-list__user__actions" v-if="!user.hasAccepted && isAdmin()">
+        <svgicon name="delete" height="15" width="18" @click="showRemovePendingActions = true"></svgicon>
+        <transition name="slide-fade">
+          <base-valid-delete v-if="showRemovePendingActions" @on-valid-action="removeUserPending(user.id)" @on-cancel-action="showRemovePendingActions = false"></base-valid-delete>
+        </transition>
+      </div>
     </div>
 </template>
 <script>
@@ -82,6 +88,7 @@ export default {
     return {
       showRemoveActions: false,
       showRemoveRightsActions: false,
+      showRemovePendingActions: false,
       displayRights: false,
       selectedRight: undefined,
       roleChanged: false,
@@ -158,6 +165,10 @@ export default {
     },
     async removeUser (userId) {
       this.$emit('on-remove-user', userId)
+    },
+    async removeUserPending (invitationId) {
+      this.$emit('on-remove-user-pending', invitationId)
+      this.showRemovePendingActions = false
     },
     toggleMenu (isOpened) {
       if (!isOpened) {
