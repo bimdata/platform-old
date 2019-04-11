@@ -49,15 +49,16 @@
                   </div>
                 </div>
                 <div class="new-project-item__edit-container__body">
-                  <div class="base-input-text-material">
+                  <div class="base-input-text-material" :class="{'base-input-text-material--error': displayError}">
                     <input type="text" required v-model="newCloudName" @keyup.enter="createCloud" ref="inputToFocus">
                     <span class="highlight"></span>
                     <span class="bar"></span>
                     <label>{{ $t('cloud_list.cloud_name') }}</label>
+                    <span v-if="displayError" class="base-error-text">{{ emptyValue }}</span>
                   </div>
                 </div>
                 <div class="new-project-item__edit-container__edit-container__footer">
-                  <button type="button" class="btn btn-primary btn-submit" @click="createCloud">{{ $t('project_list.submit') }}</button>
+                  <button type="button" class="btn btn-primary btn-submit" :disabled="isCreatingCloud" @click="createCloud">{{ $t('project_list.submit') }}</button>
                 </div>
               </div>
             </div>
@@ -87,7 +88,11 @@ export default {
     return {
       searchFilter: '',
       newCloudName: '',
-      openCreationCloud: false
+      openCreationCloud: false,
+      isCreatingCloud: false,
+      displayError: false,
+      creationPending: 0,
+      emptyValue: 'This field may not be blank'
     }
   },
   computed: {
@@ -108,12 +113,31 @@ export default {
     toggleOpenCreationCloud () {
       this.openCreationCloud = !this.openCreationCloud
       this.$refs.inputToFocus.focus()
+      this.displayError = false
+    },
+    isValid () {
+      if (this.newCloudName.length > 0) {
+        return true
+      }
+      return false
     },
     createCloud () {
-      this.$store.dispatch('addCloud', this.newCloudName).then(() => {
-        this.newCloudName = ''
-        this.toggleOpenCreationCloud()
-      })
+      if (this.isValid()) {
+        this.creationPending++
+        this.displayError = false
+        this.isCreatingCloud = true
+
+        if (this.creationPending === 1) {
+          this.$store.dispatch('addCloud', this.newCloudName).then(() => {
+            this.newCloudName = ''
+            this.toggleOpenCreationCloud()
+            this.isCreatingCloud = false
+            this.creationPending = 0
+          })
+        }
+      } else {
+        this.displayError = true
+      }
     }
   }
 }
