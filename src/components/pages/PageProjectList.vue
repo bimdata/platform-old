@@ -25,7 +25,7 @@
         <div class="base-card card-item project-item new-project-item">
           <div
             :class="{active: displayNewForm}"
-            @click="displayNewForm = true; displayError = false; setFocus()"
+            @click="displayNewForm = true; setFocus()"
             class="new-project-item__card-container"
           >
             <div class="new-project-item__picto-container">
@@ -34,7 +34,7 @@
             <div class="new-project-item__edit-container">
               <div class="new-project-item__edit-container__header">
                 <span>{{ $t('project_list.new_project') }}</span>
-                <div @click.stop="displayNewForm = false">
+                <div @click.stop="displayNewForm = false; displayError = false;">
                   <svgicon name="close"
                            height="20"
                            width="20">
