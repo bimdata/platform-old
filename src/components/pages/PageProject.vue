@@ -243,8 +243,10 @@ export default {
     },
     async removeUserPending (invitationId) {
       const cloudPk = this.$route.params.cloudId
+      const projectPk = this.$route.params.projectId
+      const id = invitationId
 
-      await this.deleteUserPending({ cloudPk, invitationId })
+      await this.deleteUserPending({ cloudPk, projectPk, id })
       this.getGuests()
     },
     async updateUser (user, right) {

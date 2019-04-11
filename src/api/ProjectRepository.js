@@ -143,6 +143,15 @@ export class ProjectRepository {
     }
   }
 
+  deleteUserPending (params) {
+    try {
+      return this.projectApiClient
+        .cancelProjectUserInvitation(params.cloudPk, params.id, params.projectPk)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   updateUserRights (cloudPk, id, projectPk, userProjectUpdate) {
     try {
       return this.projectApiClient

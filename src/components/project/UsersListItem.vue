@@ -168,6 +168,7 @@ export default {
     },
     async removeUserPending (invitationId) {
       this.$emit('on-remove-user-pending', invitationId)
+      this.showRemovePendingActions = false
     },
     toggleMenu (isOpened) {
       if (!isOpened) {
