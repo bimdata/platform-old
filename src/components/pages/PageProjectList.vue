@@ -25,7 +25,7 @@
         <div class="base-card card-item project-item new-project-item">
           <div
             :class="{active: displayNewForm}"
-            @click="displayNewForm = true; setFocus()"
+            @click="displayNewForm = true; displayError = false; setFocus()"
             class="new-project-item__card-container"
           >
             <div class="new-project-item__picto-container">
@@ -42,16 +42,17 @@
                 </div>
               </div>
               <div class="new-project-item__edit-container__body">
-                <div class="base-input-text-material">
+                <div class="base-input-text-material" :class="{'base-input-text-material--error': displayError}">
                   <input type="text" required v-model="newProjectName" @keyup.enter="createProject"
                          ref="inputToFocus">
                   <span class="highlight"></span>
                   <span class="bar"></span>
                   <label>{{ $t('project_list.project_name') }}</label>
+                  <span v-if="displayError" class="base-error-text">{{ emptyValue }}</span>
                 </div>
               </div>
               <div class="new-project-item__edit-container__edit-container__footer">
-                <button type="button" class="btn btn-primary btn-submit" @click="createProject">{{ $t('project_list.submit') }}</button>
+                <button type="button" class="btn btn-primary btn-submit" :disabled="isCreatingProject" @click="createProject">{{ $t('project_list.submit') }}</button>
               </div>
             </div>
           </div>
@@ -150,7 +151,11 @@ export default {
       showModal: false,
       showSubmitInvit: false,
       showModalUsersList: false,
-      guests: []
+      guests: [],
+      displayError: false,
+      creationPending: 0,
+      isCreatingProject: false,
+      emptyValue: 'This field may not be blank'
     }
   },
   components: {
@@ -237,11 +242,30 @@ export default {
     setFocus () {
       this.$refs.inputToFocus.focus()
     },
+    isValid () {
+      if (this.newProjectName.length > 0) {
+        return true
+      }
+      return false
+    },
     createProject () {
-      this.$store.dispatch('addProject', this.newProjectName).then(() => {
-        this.newProjectName = ''
-        this.displayNewForm = false
-      })
+      if (this.isValid()) {
+        this.creationPending++
+        this.displayError = false
+        this.isCreatingProject = true
+
+        if (this.creationPending === 1) {
+          this.$store.dispatch('addProject', this.newProjectName).then(() => {
+            this.newProjectName = ''
+            this.displayNewForm = false
+            this.creationPending = 0
+            this.isCreatingProject = false
+            this.displayError = false
+          })
+        }
+      } else {
+        this.displayError = true
+      }
     },
     emailInviteValid () {
       return Isemail.validate(this.emailInvite)
