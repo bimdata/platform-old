@@ -22,7 +22,8 @@
     @include transition(.2s ease all);
   }
   /* active state */
-  input:focus ~ label, input:valid ~ label{
+  input:focus ~ label,
+  input:valid ~ label {
     top: -20px;
     color: $color-primary;
     @include font-size(14px);
@@ -60,4 +61,28 @@
     opacity: 0.5;
     pointer-events: none;
   }
+
+  &--error {
+    input {
+      color: $danger;
+      border-color: $danger;
+    }
+    label {
+      color: $danger !important; // override :valid, :focus
+    }
+    .bar {
+      &:before,
+      &:after {
+        background: $danger;
+      }
+    }
+  }
+}
+.base-error-text {
+  color: $danger;
+  font-size: 0.714rem;
+}
+.base-success-text {
+  color: $success;
+  font-size: 0.714rem;
 }
