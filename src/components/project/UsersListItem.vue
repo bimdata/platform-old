@@ -20,7 +20,7 @@
         <p v-else>
           <span class="users-list__user__name">{{ user.email }}</span>
           <span>
-            <span v-html="getRoleText(user.role)"></span> - {{ $t('users.without_answer') }}. <a href="" @click.prevent.stop="resendInvitation(user.email, user.role)">{{ $t('users.resend_invitation') }}</a>
+            <span v-html="getRoleText(user.role)"></span> - {{ $t('users.without_answer') }}. <a href="" v-if="nbResend < 3" @click.prevent.stop="resendInvitation(user.email, user.role)">{{ $t('users.resend_invitation') }}</a>
           </span>
         </p>
         <span v-if="user.hasAccepted" v-html="getBadge(user.role)"></span>
@@ -85,6 +85,7 @@ export default {
       displayRights: false,
       selectedRight: undefined,
       roleChanged: false,
+      nbResend: 0,
       rights: [
         {
           text: this.$t('users.administrator'),
@@ -198,6 +199,7 @@ export default {
       return false
     },
     async resendInvitation (email, role) {
+      this.nbResend++
       await this.projectInvite({
         project: this.project,
         invite: {
@@ -206,7 +208,7 @@ export default {
           redirect_uri: `${process.env.BD_APP_URL}/cloud/${this.$route.params.cloudId}/project/${this.$route.params.projectId}`
         }
       })
-      this.$emit('email-resend', email)
+      this.$emit('email-resend', email, this.nbResend)
     }
   }
 }
