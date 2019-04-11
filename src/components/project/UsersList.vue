@@ -32,6 +32,7 @@
                 :role="user.role"
                 @on-remove-user="removeUser"
                 @on-update-user="updateUser"
+                @on-remove-user-pending="removeUserPending"
                 @email-resend="displayResponse"
                 :class="{'open-top': index > 5}"></users-list-item>
             </ul>
@@ -81,6 +82,9 @@ export default {
   methods: {
     removeUser (userId) {
       this.$emit('on-remove-user', userId)
+    },
+    removeUserPending (invitationId) {
+      this.$emit('on-remove-user-pending', invitationId)
     },
     updateUser (user, right) {
       this.$emit('on-update-user', user, right)

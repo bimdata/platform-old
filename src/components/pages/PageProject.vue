@@ -28,7 +28,7 @@
             <card-project-content :role="passRole"></card-project-content>
           </div>
           <div class="user-project">
-            <users-list :users="allUsers" :filter="searchFilter" @on-remove-user="removeUser" @on-update-user="updateUser" :class="{'users-list--large': displaySendInvit || displaySearchUser}">
+            <users-list :users="allUsers" :filter="searchFilter" @on-remove-user="removeUser" @on-remove-user-pending="removeUserPending" @on-update-user="updateUser" :class="{'users-list--large': displaySendInvit || displaySearchUser}">
               <template slot="users-list-header">
                 <div class="users-list__header">
                   <div class="users-list__header__left-container d-none">
@@ -160,7 +160,8 @@ export default {
       fetchProjectUsers: 'project/fetchProjectUsers',
       projectInvite: 'project/projectInvite',
       updateProjectUserRole: 'project/updateProjectUserRole',
-      deleteUser: 'project/deleteProjectUser'
+      deleteUser: 'project/deleteProjectUser',
+      deleteUserPending: 'project/deleteUserPending'
     }),
     emailInviteValid () {
       return Isemail.validate(this.mailInvitation)
@@ -239,6 +240,12 @@ export default {
 
       await this.deleteUser({ cloudId, projectId, userId })
       this.fetchProjectUsers(this.project)
+    },
+    async removeUserPending (invitationId) {
+      const cloudPk = this.$route.params.cloudId
+
+      await this.deleteUserPending({ cloudPk, invitationId })
+      this.getGuests()
     },
     async updateUser (user, right) {
       const cloudId = this.$route.params.cloudId
