@@ -63,6 +63,15 @@ export class CloudRepository {
     }
   }
 
+  async deleteCloudUserPending (cloudPk, id) {
+    try {
+      const response = await this.cloudApiClient.cancelCloudUserInvitation(cloudPk, id)
+      return response
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   updateUser ({ cloudId, userId, data }) {
     return this.cloudApiClient.updateCloudUser(cloudId, userId, data)
   }

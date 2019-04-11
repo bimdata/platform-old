@@ -73,7 +73,7 @@
       </button>
       <transition name="fade">
         <template v-if="!showModalUsersList">
-          <users-list :displayMenu="false" :users="usersAdminCloud" @on-remove-user="removeUser" class="users-list--large">
+          <users-list :displayMenu="false" :users="usersAdminCloud" @on-remove-user="removeUser" @on-remove-user-pending="removeUserPending" class="users-list--large">
             <template slot="header-title">
               {{ $t('users.manage_admin') }}
             </template>
@@ -218,6 +218,7 @@ export default {
     hasAdminRole,
     ...mapActions({
       deleteUser: 'deleteCloudUser',
+      deleteUserPending: 'deleteCloudUserPending',
       sendCloudInvitation: 'inviteCloudUser'
     }),
     toSearch (value) {
@@ -294,6 +295,11 @@ export default {
     async removeUser (userId) {
       const cloudId = this.$store.state.currentCloud.id
       await this.deleteUser({ cloudId, userId })
+    },
+    async removeUserPending (invitationId) {
+      const cloudId = this.$store.state.currentCloud.id
+      await this.deleteUserPending({ cloudId, invitationId })
+      this.getCloudGuests()
     },
     async getCloudGuests () {
       const cloudId = this.$route.params.cloudId
