@@ -39,9 +39,7 @@ export default {
     },
     logout () {
       const oidcUserManager = vuexOidcCreateUserManager(oidcSettings)
-      oidcUserManager.signoutRedirect().then(() => {
-        sessionStorage.setItem('hasEverConnected', false)
-      }).catch(function (err) {
+      oidcUserManager.signoutRedirect().catch(function (err) {
         this.$store.commit('setOidcError', err)
         console.log(err)
       })
