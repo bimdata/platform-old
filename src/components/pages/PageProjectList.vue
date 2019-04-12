@@ -21,7 +21,7 @@
       </div>
     </div>
     <transition-group name="card-item" tag="div" class="project_list row">
-      <div class="card-container" key="new">
+      <div class="card-container" key="new" v-if="isAdmin">
         <div class="base-card card-item project-item new-project-item">
           <div
             :class="{active: displayNewForm}"
