@@ -15,11 +15,15 @@ cp .env.example .env
 ```
 npm run dev
 ```
-5. Building for production:
+5. compile svg icons:
+```
+npm run svg-process
+```
+6. Building for production:
 ```
 npm run build
 ```
-6. Running tests (unit, e2e, all):
+7. Running tests (unit, e2e, all):
 ```
 npm run unit
 npm run e2e

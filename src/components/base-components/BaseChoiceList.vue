@@ -1,46 +1,45 @@
 <template>
-    <div v-on-clickaway="away" class="choice-list noselect" @keyup="onKeyUp">
-        <div class="choice-list__field-selected"
-             v-bind="$attrs"
-             @click="toggleListOptions"
-             @="listeners">
-            <span class="choice-list__field-selected__icon">
-                <slot>
-                    <svgicon class="icon" :name="icon" width="20" height="15"></svgicon>
-                </slot>
-            </span>
-            <span class="choice-list__field-selected__text-selected">
-                {{ currentChoice.text|truncate(22) }}
-            </span>
-            <span class="choice-list__field-selected__display-icon">
-                <svgicon class="icon" name="chevron-right" width="20" :class="{'svg-right': displayListOptions}"></svgicon>
-            </span>
-        </div>
-        <ul class="choice-list__list-options" v-show="displayListOptions">
-            <li class="choice-list__search-item">
-                <b-form-input ref="searchInput"
-                              class="choice-list__search-input"
-                              type="text"
-                              v-model="searchRequest">
-                </b-form-input>
-            </li>
-            <transition-group name="list-complete"
-                              class="items-container"
-                              @:before-enter="beforeEnter"
-                              @:enter="enter"
-                              @:leave="leave"
-                              tag="div"
-            >
-                <li
-                        v-for="(option, index) in optionsFiltered"
-                        :key="`option-${index}`"
-                        :data-index="index"
-                        @click="choice(option)"
-                        v-html="option.text"
-                        :class="{active: option.value === selected.value}"></li>
-            </transition-group>
-        </ul>
+  <div v-on-clickaway="away" class="choice-list noselect" @keyup="onKeyUp">
+    <div class="choice-list__field-selected"
+         v-bind="$attrs"
+         @click="toggleListOptions"
+         @="listeners">
+      <span class="choice-list__field-selected__icon">
+        <slot>
+          <svgicon class="icon" :name="icon" width="20" height="15"></svgicon>
+        </slot>
+      </span>
+      <span class="choice-list__field-selected__text-selected">
+        {{ currentChoice.text|truncate(22) }}
+      </span>
+      <span class="choice-list__field-selected__display-icon">
+        <svgicon class="icon" name="chevron-right" width="20" :class="{'svg-right': displayListOptions}"></svgicon>
+      </span>
     </div>
+      <ul class="choice-list__list-options" v-show="displayListOptions">
+        <li class="choice-list__search-item">
+          <b-form-input ref="searchInput"
+                        class="choice-list__search-input"
+                        type="text"
+                        v-model="searchRequest">
+          </b-form-input>
+        </li>
+        <transition-group name="list-complete"
+                          class="items-container"
+                          @:before-enter="beforeEnter"
+                          @:enter="enter"
+                          @:leave="leave"
+                          tag="div"
+        >
+          <li v-for="(option, index) in optionsFiltered"
+              :key="`option-${index}`"
+              :data-index="index"
+              @click="choice(option)"
+              v-html="option.text"
+              :class="{active: option.value === selected.value}"></li>
+        </transition-group>
+      </ul>
+  </div>
 </template>
 <script>
 import { mixin as clickaway } from 'vue-clickaway'

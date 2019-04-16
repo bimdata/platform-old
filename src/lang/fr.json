@@ -1,7 +1,7 @@
 {
     "dashboard": {
         "logout": "Logout",
-        "profile_btn": "Compte BIMData"
+        "profile_btn": "Paramètres du compte"
     },
     "project": {
         "download": "Download",
