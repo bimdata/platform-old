@@ -1,6 +1,7 @@
 $button-name: 'base-button-action';
 
 .#{$button-name}{
+  width: auto;
   height: 32px;
   min-width: 148px;
   background-color: $color-primary;
@@ -19,7 +20,10 @@ $button-name: 'base-button-action';
   @include font-size(14px);
   @include transition(background .8s);
   .base-button-action__icon{ margin-right: $grid-gutter-width/3; }
-  &:hover{ background: lighten($primary, 7%) radial-gradient(circle, transparent 1%, lighten($primary, 7%) 1%) center/15000%; }
+  &:hover{
+    background: lighten($primary, 7%) radial-gradient(circle, transparent 1%, lighten($primary, 7%) 1%) center/15000%;
+    color: $color-white;
+  }
   &:active{
     background-color: $color-primary !important;
     background-size: 100%;

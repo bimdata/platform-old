@@ -90,10 +90,16 @@ module.exports = {
       inject: true
     }),
     new VueLoaderPlugin(),
-    new CopyWebpackPlugin([{
+    new CopyWebpackPlugin([
+    {
+      from: 'node_modules/@bimdata/utils/dist/fonts',
+      to: 'dist/fonts'
+    },
+    {
       from: utils.resolve('static/img'),
       to: utils.resolve('dist/static/img'),
       toType: 'dir'
-    }])
+    },
+  ])
   ]
 }
