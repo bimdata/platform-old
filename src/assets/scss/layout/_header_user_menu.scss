@@ -32,11 +32,11 @@
     &-fullname{
       margin-bottom: 0;
       color: $text-color;
-      @include font-size(12px);
+      @include font-size(14px);
     }
     &-email{
       color: $gray4;
-      @include font-size(10px);
+      @include font-size(13px);
     }
     &-picto{
       height: 24px;
@@ -75,7 +75,7 @@
     color: $text-color;
     background-color: $color-white;
     outline: none;
-    @include font-size(10px);
+    @include font-size(13px);
     span{
       margin-right: 18px;
     }
