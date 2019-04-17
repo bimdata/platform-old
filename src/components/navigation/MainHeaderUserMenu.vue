@@ -1,28 +1,28 @@
 <template>
-    <div class="user-menu">
-      <span class="user-menu__pic">{{ picName }}</span>
-      <div class="user-menu__action" @click="toggleMenuOptions" v-on-clickaway="away">
-        <div class="user-menu__u">
-          <p class="user-menu__u-fullname">{{ `${getCurrentUserFirstname} ${getCurrentUserLastname}` }}</p>
-          <p class="user-menu__u-email">{{ getCurrentUserEmail }}</p>
-        </div>
-        <span class="user-menu__u-picto">
-          <svgicon name="chevron-right" width="20" :class="{'svg-right': displayMenuOptions}"></svgicon>
-        </span>
+  <div class="user-menu">
+    <span class="user-menu__pic">{{ picName }}</span>
+    <div class="user-menu__action" @click="toggleMenuOptions" v-on-clickaway="away">
+      <div class="user-menu__u">
+        <p class="user-menu__u-fullname">{{ `${getCurrentUserFirstname} ${getCurrentUserLastname}` }}</p>
+        <p class="user-menu__u-email">{{ getCurrentUserEmail }}</p>
       </div>
-      <div class="user-menu__d" slot="base-dropdown-menu" v-show="displayMenuOptions">
-        <div class="user-menu__d-content">
-          <div @click="openProfile" size="small" iconName="" class="profile-item">
-            <span><svgicon name="account" width="16"></svgicon></span>
-            {{ $t('dashboard.profile_btn') }}
-          </div>
-          <div class="logout-item" @click="logout">
-            <span><svgicon name="bimdata_power-settings"></svgicon></span>
-            {{ $t('dashboard.logout') }}
-          </div>
+      <span class="user-menu__u-picto">
+        <svgicon name="chevron-right" width="20" :class="{'svg-right': displayMenuOptions}"></svgicon>
+      </span>
+    </div>
+    <div class="user-menu__d" slot="base-dropdown-menu" v-show="displayMenuOptions">
+      <div class="user-menu__d-content">
+        <div @click="openProfile" size="small" iconName="" class="profile-item">
+          <span><svgicon name="account" width="16"></svgicon></span>
+          {{ $t('dashboard.profile_btn') }}
+        </div>
+        <div class="logout-item" @click="logout">
+          <span><svgicon name="bimdata_power-settings"></svgicon></span>
+          {{ $t('dashboard.logout') }}
         </div>
       </div>
     </div>
+  </div>
 </template>
 <script>
 import { mixin as clickaway } from 'vue-clickaway'
@@ -52,9 +52,6 @@ export default {
     },
     toggleMenuOptions () {
       this.displayMenuOptions = !this.displayMenuOptions
-      if (this.displayMenuOptions) {
-        this.$nextTick(() => this.$refs.searchInput.focus())
-      }
     },
     logout () {
       const oidcUserManager = vuexOidcCreateUserManager(oidcSettings)
