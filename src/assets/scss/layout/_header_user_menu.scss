@@ -29,17 +29,6 @@
   }
   &__u{
     margin-left: 12px;
-    // &-info{
-    //   padding: 10px 8px;
-    //   @include flexbox;
-    //   @include align-items(center);
-    //   &--details{
-    //     padding-left: 15px;
-    //     width: 100%;
-    //     text-overflow: ellipsis;
-    //     white-space: nowrap;
-    //   }
-    // }
     &-fullname{
       margin-bottom: 0;
       color: $text-color;
@@ -55,7 +44,7 @@
       cursor: pointer;
     }
   }
-  .test{
+  &__d{
     width: -webkit-fill-available;
     position: absolute;
     top: 65px;
@@ -75,10 +64,10 @@
       box-shadow: 0 2px 10px 0 rgba($color-black,0.1);
       z-index: -1;
     }
-  }
-  &__d{
-    padding: 8px 0;
-    background-color: $color-white;
+    &-content{
+      padding: 8px 0;
+      background-color: $color-white;
+    }
   }
   .profile-item, .logout-item{
     padding: 7px 18px;

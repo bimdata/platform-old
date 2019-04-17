@@ -8,10 +8,10 @@
       <span class="user-menu__u-picto" @click="toggleMenuOptions" v-on-clickaway="away">
         <svgicon name="chevron-right" width="20" :class="{'svg-right': displayMenuOptions}"></svgicon>
       </span>
-      <div class="test" slot="base-dropdown-menu" v-show="displayMenuOptions">
-        <div class="user-menu__d">
+      <div class="user-menu__d" slot="base-dropdown-menu" v-show="displayMenuOptions">
+        <div class="user-menu__d-content">
           <div @click="openProfile" size="small" iconName="" class="profile-item">
-            <span><svgicon name="account" width="20"></svgicon></span>
+            <span><svgicon name="account" width="16"></svgicon></span>
             {{ $t('dashboard.profile_btn') }}
           </div>
           <div class="logout-item" @click="logout">
