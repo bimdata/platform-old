@@ -27,21 +27,25 @@
       line-height: $pic-size;
     }
   }
-  &__u{
-    margin-left: 12px;
-    &-fullname{
-      margin-bottom: 0;
-      color: $text-color;
-      @include font-size(14px);
-    }
-    &-email{
-      color: $gray4;
-      @include font-size(13px);
-    }
-    &-picto{
-      height: 24px;
-      margin-left: 20px;
-      cursor: pointer;
+  &__action{
+    cursor: pointer;
+    @include flexbox;
+    @include align-items(center);
+    .user-menu__u{
+      margin-left: 12px;
+      &-fullname{
+        margin-bottom: 0;
+        color: $text-color;
+        @include font-size(14px);
+      }
+      &-email{
+        color: $gray4;
+        @include font-size(13px);
+      }
+      &-picto{
+        height: 24px;
+        margin-left: 20px;
+      }
     }
   }
   &__d{

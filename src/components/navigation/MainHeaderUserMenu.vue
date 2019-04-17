@@ -1,13 +1,15 @@
 <template>
     <div class="user-menu">
       <span class="user-menu__pic">{{ picName }}</span>
-      <div class="user-menu__u">
-        <p class="user-menu__u-fullname">{{ `${getCurrentUserFirstname} ${getCurrentUserLastname}` }}</p>
-        <p class="user-menu__u-email">{{ getCurrentUserEmail }}</p>
+      <div class="user-menu__action" @click="toggleMenuOptions" v-on-clickaway="away">
+        <div class="user-menu__u">
+          <p class="user-menu__u-fullname">{{ `${getCurrentUserFirstname} ${getCurrentUserLastname}` }}</p>
+          <p class="user-menu__u-email">{{ getCurrentUserEmail }}</p>
+        </div>
+        <span class="user-menu__u-picto">
+          <svgicon name="chevron-right" width="20" :class="{'svg-right': displayMenuOptions}"></svgicon>
+        </span>
       </div>
-      <span class="user-menu__u-picto" @click="toggleMenuOptions" v-on-clickaway="away">
-        <svgicon name="chevron-right" width="20" :class="{'svg-right': displayMenuOptions}"></svgicon>
-      </span>
       <div class="user-menu__d" slot="base-dropdown-menu" v-show="displayMenuOptions">
         <div class="user-menu__d-content">
           <div @click="openProfile" size="small" iconName="" class="profile-item">
