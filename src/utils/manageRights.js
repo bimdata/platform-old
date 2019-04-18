@@ -1,13 +1,7 @@
 export function hasAdminRole (role) {
-  if (role === 100) {
-    return true
-  }
-  return false
+  return (role === 100)
 }
 
 export function hasUserRole (role) {
-  if (role >= 50) {
-    return true
-  }
-  return false
+  return (role >= 50)
 }
