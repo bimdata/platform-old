@@ -3,7 +3,7 @@
         <template slot="header-title">
             {{ projectName }}
         </template>
-        <template v-if="panoramas.length === 0 || isUserRole" slot="content">
+        <template v-if="panoramas.length === 0 && isUserRole" slot="content">
             <upload-file name="upload-ifc" text="IFC" :role="role"></upload-file>
         </template>
         <template slot="content" v-else-if="isLoading">
