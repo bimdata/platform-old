@@ -3,7 +3,7 @@
         <template slot="header-title">
             {{ projectName }}
         </template>
-        <template v-if="panoramas.length === 0" slot="content">
+        <template v-if="panoramas.length === 0 && isUserRole" slot="content">
             <upload-file name="upload-ifc" text="IFC" :role="role"></upload-file>
         </template>
         <template slot="content" v-else-if="isLoading">
@@ -43,6 +43,7 @@ import MapProject from '@/components/project/MapProject'
 import ModelPreviewSlider from '@/components/project/ModelPreviewSlider'
 import UploadFile from '@/components/project/UploadFile'
 import _ from 'lodash'
+import { hasUserRole } from '@/utils/manageRights'
 
 export default {
   components: {
@@ -88,6 +89,9 @@ export default {
         return true
       }
       return false
+    },
+    isUserRole () {
+      return this.hasUserRole(this.role)
     }
   },
   methods: {
@@ -95,6 +99,7 @@ export default {
       this.currentNamePanorama = panorama.name
       this.panorama = panorama
     },
+    hasUserRole,
     async getIfc (id) {
       const idInterval = setInterval(async () => {
         const ifcsPending = await this.$store.dispatch('getIfcViewerFile', {cloudPk: this.$store.state.project.selectedCloud.id, projectPk: this.$store.state.project.selectedProject.id, id: id})

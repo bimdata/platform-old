@@ -84,7 +84,7 @@
           <base-card :fullscreen-available="false" class="ged-card">
             <template slot="header-title">Project's documents</template>
             <template slot="content" v-if="!hasFiles">
-              <upload-file name="upload-file"></upload-file>
+              <upload-file name="upload-file" :role="passRole"></upload-file>
             </template>
             <template slot="content" v-else>
               <dms :role="passRole"></dms>
