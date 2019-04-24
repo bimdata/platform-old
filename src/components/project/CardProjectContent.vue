@@ -1,41 +1,41 @@
 <template>
-    <base-card :fullscreen-available="false">
-        <template slot="header-title">
-            {{ projectName }}
-        </template>
-        <template v-if="panoramas.length === 0 && isUserRole" slot="content">
-            <upload-file name="upload-ifc" text="IFC" :role="role"></upload-file>
-        </template>
-        <template slot="content" v-else-if="isLoading">
-          <div class="loader loader-layout">
-            <div class="lds-dual-ring"></div>
+  <base-card :fullscreen-available="false">
+    <template slot="header-title">
+      {{ projectName }}
+    </template>
+    <template v-if="panoramas.length === 0 && isUserRole" slot="content">
+      <upload-file name="upload-ifc" text="IFC" btn="IFC" :role="role"></upload-file>
+    </template>
+    <template slot="content" v-else-if="isLoading">
+      <div class="loader loader-layout">
+        <div class="lds-dual-ring"></div>
+      </div>
+    </template>
+    <template v-else slot="content">
+      <div class="main-ifc">
+        <div class="shadowed-content main-ifc__map-info-content">
+          <div class="main-ifc__info-project">
+            <model-preview-slider
+              v-if="panoramas.length"
+              :panoramas="panoramas"
+              :show-viewer-button="true"
+              @current-panorama="setCurrentPanorama"
+            ></model-preview-slider>
           </div>
-        </template>
-        <template v-else slot="content">
-          <div class="main-ifc">
-            <div class="shadowed-content main-ifc__map-info-content">
-              <div class="main-ifc__info-project">
-                  <model-preview-slider
-                    v-if="panoramas.length"
-                    :panoramas="panoramas"
-                    :show-viewer-button="true"
-                    @current-panorama="setCurrentPanorama"
-                  ></model-preview-slider>
-              </div>
-              <div class="main-ifc__navigation-project">
-                <div class="main-ifc__navigation-project__title">
-                  <span v-if="currentNamePanorama && currentNamePanorama.length > 30" v-b-tooltip.hover :title="currentNamePanorama">{{ currentNamePanorama|middle-truncate(30) }}</span>
-                  <span v-else>{{ currentNamePanorama }}</span>
-                </div>
-              </div>
-            </div>
-            <div class="main-ifc__map">
-              <map-project :panorama="currentPanorama" :role="role">
-              </map-project>
+          <div class="main-ifc__navigation-project">
+            <div class="main-ifc__navigation-project__title">
+              <span v-if="currentNamePanorama && currentNamePanorama.length > 30" v-b-tooltip.hover :title="currentNamePanorama">{{ currentNamePanorama|middle-truncate(30) }}</span>
+              <span v-else>{{ currentNamePanorama }}</span>
             </div>
           </div>
-        </template>
-    </base-card>
+        </div>
+        <div class="main-ifc__map">
+          <map-project :panorama="currentPanorama" :role="role">
+          </map-project>
+        </div>
+      </div>
+    </template>
+  </base-card>
 </template>
 <script>
 import BaseCard from '@/components/base-components/BaseCard'
