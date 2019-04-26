@@ -62,7 +62,7 @@ export default {
             )
           )
         )
-      ) - 1
+      ) - 2
 
       this.imageIndex = this.imageIndex ? this.imageIndex : 1
     }
