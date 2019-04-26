@@ -1,24 +1,28 @@
 <template>
-    <div class="text-center">
-        <svgicon :name="name"
-                 height="80"
-                 width="80"
-                 color="#EFF0F3 #fff #E6E7EA #DDDDDD #30374B #fff #fff"
-                 class="m-0">
-        </svgicon>
-        <p class="my-4" v-if="isUserRole">{{ $t('project.upload_text') }} {{ text }}</p>
-        <div v-if="isUserRole" class="upload-area upload-area-upload">
-            <base-button-empty iconName="newfile" class="uppy modalOpener"></base-button-empty>
-            <div class="UploadContainer"></div>
+  <div class="text-center">
+    <svgicon :name="name"
+              height="80"
+              width="80"
+              color="#EFF0F3 #fff #E6E7EA #DDDDDD #30374B #fff #fff"
+              class="m-0">
+    </svgicon>
+    <p class="my-4" v-if="isUserRole">{{ $t('project.upload_text') }} {{ text }}</p>
+    <div v-if="isUserRole" class="upload-area upload-area-upload">
+      <div iconName="newfile" class="base-button-empty__container uppy modalOpener">
+        <div class="base-button-empty" v-on="listeners">
+          <button class="btn btn-primary">{{ $t('project.upload') }} {{ btn }}</button>
         </div>
+        <slot></slot>
+      </div>
+      <div class="UploadContainer"></div>
     </div>
+  </div>
 </template>
 
 <script>
 import Uppy from '@uppy/core'
 import Dashboard from '@uppy/dashboard'
 import XHRUpload from '@uppy/xhr-upload'
-import BaseButtonEmpty from '@/components/base-components/BaseButtonEmpty'
 import { mapState } from 'vuex'
 import { hasUserRole } from '@/utils/manageRights'
 
@@ -36,6 +40,10 @@ export default {
       type: String,
       default: null
     },
+    btn: {
+      type: String,
+      default: null
+    },
     role: {
       type: Number,
       default: null
@@ -45,9 +53,6 @@ export default {
     return {
       uppy: null
     }
-  },
-  components: {
-    BaseButtonEmpty
   },
   computed: {
     ...mapState('project', {
@@ -64,6 +69,11 @@ export default {
     },
     isUserRole () {
       return this.hasUserRole(this.role)
+    },
+    listeners () {
+      return {
+        ...this.$listeners
+      }
     }
   },
   methods: {
