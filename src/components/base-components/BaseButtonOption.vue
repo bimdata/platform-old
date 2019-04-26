@@ -1,22 +1,22 @@
 <template>
-    <span class="base-button-option__tool"
-          @click="clickedTool"
-          v-on-clickaway="closeTool"
-          :class="{clicked: clicked}">
-        <svgicon name="more-options"
-                 height="23"
-                 width="23"
-                 color="transparent #95989A"
-                 class="m-0">
-        </svgicon>
-        <div class="base-button-option__menu noselect" v-show="displayMenu">
-            <slot>
-                <ul>
-                    <li>default</li>
-                </ul>
-            </slot>
-        </div>
-    </span>
+  <span class="base-button-option__tool"
+        @click="clickedTool"
+        v-on-clickaway="closeTool"
+        :class="{clicked: clicked}">
+    <svgicon name="more-options"
+             height="23"
+             width="23"
+             color="transparent #95989A"
+             class="m-0">
+    </svgicon>
+    <div class="base-button-option__menu noselect" v-show="displayMenu">
+      <slot>
+        <ul>
+          <li>default</li>
+        </ul>
+      </slot>
+    </div>
+  </span>
 </template>
 <script>
 import { mixin as clickaway } from 'vue-clickaway'
