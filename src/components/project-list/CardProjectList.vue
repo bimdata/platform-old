@@ -1,78 +1,78 @@
 <template>
-    <div class="card-container">
-        <div class="base-card card-item card-bd card-project noselect">
-            <div class="card-bd__header">
-                <svgicon name="eye" height="18" width="54" @click.native="viewModel" v-if="displayEye" class="icon-eye"></svgicon>
-                <base-button-option ref="menu" @option-toggled="toggleMenu" v-if="hasAdminRole(project.role)">
-                    <ul>
-                        <li @click.stop.self="showRemoveActions = true" class="base-button-option__menu__remove">
-                          {{ $t('project_list.remove') }}
-                          <transition name="slide-fade">
-                            <base-valid-delete v-if="showRemoveActions" @on-valid-action="remove" @on-cancel-action="showRemoveActions = false"></base-valid-delete>
-                          </transition>
-                        </li>
-                        <li @click.stop.self="toggleRename()" :class="{'actif': displayRename}">
-                            {{ $t('project.rename') }}
+  <div class="card-container">
+    <div class="base-card card-item card-bd card-project noselect">
+      <div class="card-bd__header">
+        <svgicon name="eye" height="18" width="54" @click.native="viewModel" v-if="displayEye" class="icon-eye"></svgicon>
+        <base-button-option ref="menu" @option-toggled="toggleMenu" v-if="hasAdminRole(project.role)">
+          <ul>
+            <li @click.stop.self="showRemoveActions = true" class="base-button-option__menu__remove">
+              {{ $t('project_list.remove') }}
+              <transition name="slide-fade">
+                <base-valid-delete v-if="showRemoveActions" @on-valid-action="remove" @on-cancel-action="showRemoveActions = false"></base-valid-delete>
+              </transition>
+            </li>
+            <li @click.stop.self="toggleRename()" :class="{'actif': displayRename}">
+              {{ $t('project.rename') }}
 
-                            <div class="new_folder_box rename" v-if="displayRename">
-                                <div class="new_folder_box__title">
-                                    {{ $t('project_list.rename_project') }}
-                                </div>
-                                <div class="base-input-text-material">
-                                    <input
-                                      type="text"
-                                      autofocus
-                                      :placeholder="project.name"
-                                      required
-                                      v-model="renameProject"
-                                      @keyup.enter="saveRename"
-                                    >
-                                    <span class="highlight"></span>
-                                    <span class="bar"></span>
-                                </div>
-                                <div class="new_folder_box__button-validation">
-                                    <span @click="cancelRename">{{ $t('project.cancel') }}</span>
-                                    <span @click="saveRename">{{ $t('project.validate') }}</span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </base-button-option>
-            </div>
-            <router-link :to="{name: 'project', params: {cloudId: cloudId, projectId: project.id}}" class="base-card__link">
-                <project-preview
-                  :cloudId="cloudId"
-                  :projectId="project.id"
-                  @has-image="displayPreviewFonctionnality"
-                ></project-preview>
-                <div class="card-bd__body">
-                    <div class="card-bd__body-container">
-                        <div v-on-clickaway="closeUpdate"
-                            class="card-bd__title"
-                            :class="{'card-bd__title--edit-mode': editMode}">
-                            <div v-show="!editMode"
-                                @click="switchToEditMode">
-                                <span v-if="project.name && project.name.length > 25" v-b-tooltip.hover :title="project.name">{{ project.name | middle-truncate(25) }}</span>
-                                <span v-else>{{ project.name }}</span>
-                            </div>
-                            <div class="card-bd__text-container" v-show="editMode">
-                                <input
-                                    ref="updateInput"
-                                    type="text"
-                                    v-model="newName"
-                                    @keyup.enter="submitUpdate"
-                                    :placeholder="project.name"
-                                />
-                            </div>
-                        </div>
-                    </div>
+              <div class="new_folder_box rename" v-if="displayRename">
+                <div class="new_folder_box__title">
+                  {{ $t('project_list.rename_project') }}
                 </div>
-            </router-link>
-            <div class="loader" v-show="displayLoader">
-              <div class="lds-dual-ring"></div>
+                <div class="base-input-text-material">
+                  <input
+                    type="text"
+                    autofocus
+                    :placeholder="project.name"
+                    required
+                    v-model="renameProject"
+                    @keyup.enter="saveRename"
+                  >
+                  <span class="highlight"></span>
+                  <span class="bar"></span>
+                </div>
+                <div class="new_folder_box__button-validation">
+                  <span @click="cancelRename">{{ $t('project.cancel') }}</span>
+                  <span @click="saveRename">{{ $t('project.validate') }}</span>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </base-button-option>
+      </div>
+      <router-link :to="{name: 'project', params: {cloudId: cloudId, projectId: project.id}}" class="base-card__link">
+        <project-preview
+          :cloudId="cloudId"
+          :projectId="project.id"
+          @has-image="displayPreviewFonctionnality"
+        ></project-preview>
+        <div class="card-bd__body">
+          <div class="card-bd__body-container">
+            <div v-on-clickaway="closeUpdate"
+              class="card-bd__title"
+              :class="{'card-bd__title--edit-mode': editMode}">
+              <div v-show="!editMode"
+                @click="switchToEditMode">
+                <span v-if="project.name && project.name.length > 25" v-b-tooltip.hover :title="project.name">{{ project.name | middle-truncate(25) }}</span>
+                <span v-else>{{ project.name }}</span>
+              </div>
+              <div class="card-bd__text-container" v-show="editMode">
+                <input
+                    ref="updateInput"
+                    type="text"
+                    v-model="newName"
+                    @keyup.enter="submitUpdate"
+                    :placeholder="project.name"
+                />
+              </div>
             </div>
+          </div>
         </div>
+      </router-link>
+      <div class="loader" v-show="displayLoader">
+        <div class="lds-dual-ring"></div>
+      </div>
     </div>
+  </div>
 </template>
 <script>
 import _ from 'lodash'
