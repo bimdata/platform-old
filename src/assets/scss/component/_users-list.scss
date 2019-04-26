@@ -165,7 +165,7 @@
 
         ul{
           li{
-            padding: 5px 8px;
+            padding: 0 8px;
             word-break: break-word;
           }
         }
@@ -174,8 +174,8 @@
           width: 100%;
         }
         label {
+          height: 24px;
           padding-left: 0;
-          height: auto;
           line-height: 1rem;
 
           &:before, &:after {
