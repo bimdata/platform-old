@@ -153,7 +153,7 @@
                 <template slot="action" slot-scope="documentAction">
                   <base-button-option @option-toggled="toggleMenuAction" v-if="isUserRole">
                     <ul>
-                      <li @click="viewIfc(documentAction.item.ifcId)" v-if="documentAction.item.type === 'IFC'">
+                      <li @click="viewIfc(documentAction.item.ifcId)" v-if="documentAction.item.ifcId">
                         <svgicon name="play" width="13" height="13"></svgicon>
                         {{ $t('project.view') }}
                       </li>
@@ -433,6 +433,7 @@ export default {
       this.displayRename = !this.displayRename
       this.showRemoveActions = false
       this.renameFolder = documentAction.item.name
+      this.isIfc = documentAction.item.ifc_id
     },
     type (fileName) {
       if (fileName === undefined) {
