@@ -214,10 +214,10 @@
             }
             .btn {
               margin-left: 12px;
+              width: 80px;
               min-width: auto;
               @include font-size(12px);
               font-weight: lighter;
-              max-width: 65px;
             }
           }
         }
