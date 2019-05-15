@@ -62,7 +62,9 @@
         </template>
       </div>
       <div class="users-list__user__actions" v-if="!user.hasAccepted && isAdmin()">
-        <svgicon name="delete" height="15" width="18" @click="showRemovePendingActions = true"></svgicon>
+        <span class="base-button-option__tool ">
+          <svgicon name="delete" height="15" width="18" @click="showRemovePendingActions = true"></svgicon>
+        </span>
         <transition name="slide-fade">
           <base-valid-delete v-if="showRemovePendingActions" @on-valid-action="removeUserPending(user.id)" @on-cancel-action="showRemovePendingActions = false"></base-valid-delete>
         </transition>

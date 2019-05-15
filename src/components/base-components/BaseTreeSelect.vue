@@ -26,7 +26,9 @@
         </ul>
         <div class="base-tree-select__footer">
             <base-button-action v-show="displayMoveHere" @click="chooseItem(currentParentNode)">{{ $t('dms.move_here') }}</base-button-action>
-            <base-button-action v-show="displayMoveToward" @click="chooseItem(selectedNode)">{{ $t('dms.move_to') }}</base-button-action>
+
+            <button class="btn btn-primary" v-show="displayMoveToward" @click="chooseItem(selectedNode)">{{ $t('dms.move_to') }}</button>
+
             <span v-show="displayTextMove" class="text-destination">{{ $t('dms.choose_destination') }}</span>
         </div>
     </div>
