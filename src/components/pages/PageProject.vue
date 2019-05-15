@@ -35,9 +35,9 @@
                     <svgicon name="menu" width="23" height="23"></svgicon>
                   </div>
                   <div class="users-list__header__right-container" v-if="!displaySendInvit && !displaySearchUser">
-                    <base-clicked-tool v-if="isUserRole" @on-clicked-tool="openSendInvite" iconName="add-account" iconWidth="22" iconHeight="22"></base-clicked-tool>
-                    <base-clicked-tool @on-clicked-tool="openSearchUser" iconName="magnify" iconWidth="21" iconHeight="21"></base-clicked-tool>
-                    <base-clicked-tool iconName="filter-variant" iconWidth="25" iconHeight="26" class="d-none"></base-clicked-tool>
+                    <base-clicked-tool v-if="isUserRole" @on-clicked-tool="openSendInvite" iconName="add-account" iconWidth="20" iconHeight="20"></base-clicked-tool>
+                    <base-clicked-tool @on-clicked-tool="openSearchUser" iconName="magnify" iconWidth="20" iconHeight="20"></base-clicked-tool>
+                    <base-clicked-tool iconName="filter-variant" iconWidth="20" iconHeight="20" class="d-none"></base-clicked-tool>
                   </div>
                   <transition name="fade">
                     <div class="users-list__header__invitation" v-if="displaySendInvit">

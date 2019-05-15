@@ -32,7 +32,8 @@
         "save": "Save",
         "confirm": "Confirm",
         "upload": "Téléversement",
-        "upload_text": "Téléverser votre premier fichier"
+        "upload_text": "Téléverser votre premier fichier",
+        "new": "Nouveau"
     },
     "cloud_list": {
       "clouds_list": "Clouds list",

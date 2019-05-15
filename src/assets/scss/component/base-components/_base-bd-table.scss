@@ -33,6 +33,13 @@ $base-cd-table: 'bd-table';
         color: $color-white;
         svg{ color: $color-white; }
       }
+      .table-action{
+        .base-button-option__tool{
+          &:hover{
+            background-color: rgba($color-text,.2);
+          }
+        }
+      }
     }
   }
 }

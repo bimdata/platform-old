@@ -32,7 +32,8 @@
         "save": "Save",
         "confirm": "Confirm",
         "upload": "Upload",
-        "upload_text": "Upload your first file"
+        "upload_text": "Upload your first file",
+        "new": "New"
     },
     "cloud_list": {
       "clouds_list": "Clouds list",

@@ -2,21 +2,18 @@
   padding-bottom: 50px - $grid-gutter-width;
 
   .toolbar-page {
+    padding: 0 1.8rem;
     .search-container {
-      right: 83px;
-
-      @include media-breakpoint-up(md) {
-        right: 69px;
-      }
-      @include media-breakpoint-up(xxl) {
-        right: 83px;
-      }
-
+      width: auto;
+      margin: 0 14px 0 0;
       &--only {
         position: relative;
         right: auto;
         margin-bottom: 0;
       }
+    }
+    .margin-content{
+      margin: 0 14px 0 0;
     }
   }
 
@@ -37,6 +34,11 @@
 
         &:hover {
           fill: $primary;
+        }
+      }
+      .base-button-option__tool{
+        &:hover{
+          background-color: rgba($color-text,.2);
         }
       }
     }

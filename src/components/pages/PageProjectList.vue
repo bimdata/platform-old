@@ -11,13 +11,15 @@
           v-model="selectedCloud"
         ></base-choice-list>
       </div>
-      <div class="search-container" :class="{'search-container--only': !isAdmin}">
-        <base-search-bar @on-search="toSearch"></base-search-bar>
-      </div>
-      <div class="card-container" v-if="isAdmin">
-          <div class="top-toolbar__choice-list-items">
-            <base-button-icon iconName="add-account" height="16" width="16" @on-click-action="showModal = !showModal"></base-button-icon>
-          </div>
+      <div class="class-test">
+        <div class="search-container" :class="{'search-container--only': !isAdmin}">
+          <base-search-bar @on-search="toSearch"></base-search-bar>
+        </div>
+        <div class="card-container" v-if="isAdmin">
+            <div class="top-toolbar__choice-list-items">
+              <base-button-icon iconName="add-account" height="16" width="16" @on-click-action="showModal = !showModal"></base-button-icon>
+            </div>
+        </div>
       </div>
     </div>
     <transition-group name="card-item" tag="div" class="project_list row">

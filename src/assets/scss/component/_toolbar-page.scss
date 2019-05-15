@@ -3,6 +3,13 @@
   position: relative;
   .card-container{
     margin: 0;
+    width: auto;
+  }
+  .class-test{
+    width: 50%;
+    height: 44px;
+    display: flex;
+    justify-content: flex-end;
   }
   .top-toolbar{
     &__choice-list-items{
@@ -23,7 +30,7 @@
     }
   }
   .search-container{
-    margin: 1rem 0;
+    margin: 0 14px 0 0;
     width: 216px;
     @include flexbox;
     @include align-items(center);
@@ -31,10 +38,6 @@
     @include media-breakpoint-up(sm){
       margin-top: 0;
       width: auto;
-    }
-    @include media-breakpoint-up(md){
-      position: absolute;
-      right: 187px;
     }
     @media (min-width: 2000px) {
       right: 197px;
@@ -56,7 +59,7 @@
     &__choice-list-items {
       margin: 0 auto;
       padding: 0;
-      width: 216px;
+      // width: 216px;
       height: 100%;
       min-height: 44px;
       max-height: 44px;

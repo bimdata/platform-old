@@ -6,6 +6,8 @@ $base-button-option: 'base-button-option';
     width: 27px;
     height: 27px;
     position: relative;
+    border-radius: 50%;
+    transition: all .2s cubic-bezier(.35,0,.25,1);
     @include flexbox;
     @include align-items(center);
     @include justify-content(center);
@@ -30,6 +32,10 @@ $base-button-option: 'base-button-option';
       transform: scale(0);
       @include transform(scale(0));
       @include transition(.15s linear all);
+    }
+    &:hover{
+      background-color: $color-background;
+      transition: all .2s cubic-bezier(.35,0,.25,1);
     }
   }
   &__menu{
