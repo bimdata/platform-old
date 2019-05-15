@@ -81,7 +81,6 @@ $base-tree-select: 'base-tree-select';
     @include justify-content(center);
     .base-button-action{
       width: 100%;
-      height: auto;
       text-transform: uppercase;
     }
     .text-destination{
