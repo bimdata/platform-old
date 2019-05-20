@@ -4,11 +4,12 @@ export const oidcSettings = {
   redirect_uri: process.env.BD_APP_URL + '/oidc-callback',
   post_logout_redirect_uri: process.env.BD_APP_URL,
   response_type: 'code id_token token',
-  scope: 'openid profile email'
+  scope: 'openid profile email',
+  automaticSilentRenew: true,
+  silent_redirect_uri: process.env.BD_APP_URL + '/oidc-callback',
+  revokeAccessTokenOnSignout: true
   // popup_redirect_uri: 'http://localhost:5000/identityserver-sample-popup-signin.html',
   // popup_post_logout_redirect_uri: 'http://localhost:5000/identityserver-sample-popup-signout.html',
-  // silent_redirect_uri: 'http://localhost:5000/identityserver-sample-silent.html',
-  // automaticSilentRenew: true,
   // filterProtocolClaims: true,
   // loadUserInfo: true
 }
