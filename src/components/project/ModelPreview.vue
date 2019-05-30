@@ -30,7 +30,7 @@ export default {
       imageHeight: 1024,
       viewerWidth: 0,
       viewerHeight: 0,
-      imageIndex: 0,
+      imageIndex: 1,
       nbSlices: 15
     }
   },
@@ -45,7 +45,7 @@ export default {
   },
   computed: {
     left () {
-      return `-${((this.imageWidth / this.nbSlices) * this.imageIndex) * (this.viewerHeight / this.imageHeight)}px`
+      return `-${((this.imageWidth / this.nbSlices) * (this.imageIndex - 1)) * (this.viewerHeight / this.imageHeight)}px`
     }
   },
   methods: {
@@ -53,18 +53,7 @@ export default {
       if (!this.$refs.modelWrapper) return
 
       const rect = this.$refs.modelWrapper.getBoundingClientRect()
-      this.imageIndex = Math.abs(
-        Math.ceil(
-          this.nbSlices * (
-            1 - (
-              ($event.clientX - rect.left) /
-              rect.width
-            )
-          )
-        )
-      ) - 2
-
-      this.imageIndex = this.imageIndex ? this.imageIndex : 1
+      this.imageIndex = Math.abs(Math.ceil(this.nbSlices * (1 - (($event.clientX - rect.left) / rect.width))))
     }
   }
 }
