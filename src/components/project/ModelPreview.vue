@@ -53,7 +53,7 @@ export default {
       if (!this.$refs.modelWrapper) return
 
       const rect = this.$refs.modelWrapper.getBoundingClientRect()
-      this.imageIndex = Math.abs(Math.ceil(this.nbSlices * (1 - (($event.clientX - rect.left) / rect.width))))
+      this.imageIndex = Math.min(Math.abs(Math.ceil(this.nbSlices * (1 - (($event.clientX - rect.left) / rect.width)))), this.nbSlices)
     }
   }
 }
