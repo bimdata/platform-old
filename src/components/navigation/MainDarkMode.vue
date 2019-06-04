@@ -1,16 +1,11 @@
 <template>
-  <div id="app" :class="this.$route.name">
-    <div :class="{ 'theme-dark' : nightMode }">
-      <router-view />
-    </div>
+  <div id="page">
+    <input type="checkbox" id="theme-toggle" v-model="nightMode">
+    <label for="theme-toggle"><span></span></label>
   </div>
 </template>
-
 <script>
-import '@/icons'
-
 export default {
-  name: 'App',
   watch: {
     nightMode: function () {
       localStorage.setItem('nightMode', JSON.stringify(this.nightMode))
@@ -24,7 +19,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-  @import './assets/scss/app.scss';
-</style>

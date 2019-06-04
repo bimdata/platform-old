@@ -1,5 +1,5 @@
 <template>
-    <div class="logo-container">
+    <div class="logo-container col-1">
         <router-link :to="{name: 'home'}">
           <img
             class="logo-container__logo"

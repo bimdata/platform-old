@@ -51,7 +51,7 @@
       padding: 1rem;
       cursor: pointer;
       @include transition(.16s linear all);
-      &:hover, &.active{ background-color: $gray1; }
+      &:hover, &.active{ background-color: rgba($color-text, .1); }
     }
   }
   &__search-item{

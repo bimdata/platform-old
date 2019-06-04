@@ -7,7 +7,7 @@
     padding: 10px 10px 10px 5px;
     display: block;
     border: none;
-    border-bottom: 1px solid $gray2;
+    border-bottom: 1px solid $color-text-l30;
     @include font-size(16px);
   }
   input:focus{ outline: none; }
@@ -15,7 +15,7 @@
     position: absolute;
     left: 0;
     top: 15px;
-    color: $gray2;
+    color: $color-text-l30;
     font-weight: normal;
     pointer-events: none;
     @include font-size(14px);

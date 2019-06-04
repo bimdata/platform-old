@@ -22,8 +22,8 @@
     </div>
 
     <template v-if="loadedProject && loadedDMS">
-      <div class="row mb-5">
-        <div class="col-12 d-flex">
+      <div class="row mb-5 px-4">
+        <div class="col-12 d-flex px-1">
           <div class="content-project">
             <card-project-content :role="passRole"></card-project-content>
           </div>
@@ -74,13 +74,13 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-12">
+      <div class="row px-4">
+        <div class="col-12 px-1">
           <table-ifc :role="passRole"></table-ifc>
         </div>
       </div>
-      <div class="row">
-        <div class="col-12">
+      <div class="row px-4">
+        <div class="col-12 px-1">
           <base-card :fullscreen-available="false" class="ged-card">
             <template slot="header-title">Project's documents</template>
             <template slot="content" v-if="!hasFiles">

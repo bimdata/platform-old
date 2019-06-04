@@ -21,7 +21,7 @@ $button-name: 'base-button-action';
   @include transition(background .8s);
   .base-button-action__icon{ margin-right: $grid-gutter-width/3; }
   &:hover{
-    background: lighten($primary, 7%) radial-gradient(circle, transparent 1%, lighten($primary, 7%) 1%) center/15000%;
+    background: $color-dark-primary;
     color: $color-white;
   }
   &:active{

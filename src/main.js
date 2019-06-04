@@ -7,8 +7,12 @@ import router from './router'
 import BootstrapVue from 'bootstrap-vue'
 import { i18n } from './setup/i18n-setup'
 import store from './store'
+// import darkMode from '../node_modules/@bimdata/utils/dist/js/main.js'
 import { VueSelect } from 'vue-select'
 import '@/utils/filters'
+import VueDarkMode from 'vuedarkmode'
+
+Vue.use(VueDarkMode)
 
 Vue.component('v-select', VueSelect)
 
@@ -25,6 +29,7 @@ const AppRoot = new Vue({
   i18n,
   router,
   store,
+  // darkMode,
   strict: true,
   components: { App },
   template: '<App/>'

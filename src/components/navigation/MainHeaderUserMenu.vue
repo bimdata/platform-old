@@ -1,5 +1,5 @@
 <template>
-  <div class="user-menu">
+  <div class="user-menu col-2">
     <span class="user-menu__pic">{{ picName }}</span>
     <div class="user-menu__action" @click="toggleMenuOptions" v-on-clickaway="away">
       <div class="user-menu__u">

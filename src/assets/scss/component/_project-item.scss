@@ -128,7 +128,6 @@
   }
   &__edit-container{
     padding: 20px;
-    padding-right: 15px;
     width: 100%;
     height: 100%;
     position: absolute;
@@ -247,7 +246,7 @@
   &__picto-container{
     width: 56px;
     height: 56px;
-    border: 1px dashed $gray2;
+    border: 1px dashed $color-text-l30;
     border-radius: 8px;
     @include flexbox;
     @include align-items(center);
@@ -257,7 +256,7 @@
     margin-top: 35px;
     width: 100%;
     height: 32px;
-    color: $gray2;
+    color: $color-text-l30;
     @include flexbox;
     @include align-items(center);
     @include justify-content(center);
@@ -266,7 +265,7 @@
       margin-right: 18px;
       padding-right: 23px;
       height: 100%;
-      border-right: 1px solid $gray2;
+      border-right: 1px solid $color-text-l30;
       .svg-icon{ margin-right: 3px; }
     }
     &__users{

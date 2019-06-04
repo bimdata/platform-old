@@ -1,5 +1,5 @@
 <template>
-    <div class="navigation">
+    <div class="navigation col-8">
         <navigation-link
           v-for="(item, index) in items"
           :key="index"

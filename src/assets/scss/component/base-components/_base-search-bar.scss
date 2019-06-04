@@ -37,7 +37,7 @@ $search-lg-size-input: $search-lg-size-container - $search-btn-size;
       width: 0;
     }
     &::placeholder{
-      color: $gray2;
+      color: $color-text-l30;
       font-weight: 100;
       @include font-size(14px);
     }

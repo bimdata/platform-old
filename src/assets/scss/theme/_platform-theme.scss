@@ -1,0 +1,238 @@
+.theme-dark{
+  min-height: 100vh;
+
+  /* custom GLOBAL --------------------------------------------- */
+  input, textarea, [contenteditable]{
+    caret-color: $color-white;
+  }
+  input{
+    background-color: $color-dark-background;
+    &:focus{
+      background-color: $color-dark-background;
+    }
+  }
+
+  .table-spaced{
+    &__head{
+      .table-spaced__row{
+        background-color: $color-primary-d20;
+        color: $color-white;
+      }
+    }
+    &__body{
+      .table-spaced__row{
+        background-color: $color-dark-background;
+      }
+    }
+    &__row{
+      .table-spaced__items ~ .table-spaced__items{
+        border-color: $color-dark-primary;
+      }
+    }
+  }
+
+  /* custom HEADER --------------------------------------------- */
+  .header{
+    background-color: $color-dark-background;
+    // custom ITEM MENU
+    .navigation__item{
+      &::after{
+        background-color: $color-secondary;
+      }
+    }
+    // custom USER MENU
+    .user-menu__action{
+      .user-menu__u{
+        &-fullname, &-email{
+          color: $color-white;
+        }
+        &-picto{
+          .svg-fill{
+            fill: $color-white;
+          }
+        }
+      }
+    }
+    .user-menu__d{
+      &::before{
+        background-color: $color-dark-background;
+      }
+      &-content{
+        background-color: $color-dark-background;
+      }
+      .profile-item, .logout-item{
+        background-color: $color-dark-background;
+        color: $color-white;
+        &:hover{
+          background-color: $color-dark-primary;
+        }
+      }
+    }
+  }
+
+  /* custom CHOICE LIST ---------------------------------------- */
+  .card-container, .toolbar-page{
+    .choice-list{
+      &__field-selected{
+        background-color: $color-dark-background;
+        color: $color-white;
+        &__display-icon{
+          .svg-fill{
+            color: $color-white;
+          }
+        }
+      }
+      &__list-options{
+        background-color: $color-dark-background;
+        color: $color-white;
+      }
+    }
+  }
+
+  /* custom SEARCH COMPONENT ----------------------------------- */
+  .search-component{
+    .search-input{
+      background-color: $color-dark-background;
+      border-right: 1px solid #f7f7f7;
+      &.is-close{
+        border: none;
+      }
+    }
+    .base-button-icon{
+      background-color: $color-dark-background;
+      border: none;
+      .svg-icon{
+        fill: $color-white;
+      }
+    }
+  }
+
+  /* custom BASE BUTTON ICON ----------------------------------- */
+  .base-button-icon{
+    background-color: $color-dark-background;
+    .svg-icon{
+      fill: $color-white;
+    }
+  }
+
+  /* custom NEW PROJECT ---------------------------------------- */
+  .new-project-item{
+    &__card-container{
+      &.active{
+        background-color: $color-dark-background;
+      }
+    }
+    &__edit-container{
+      background-color: $color-dark-background;
+      &__header{
+        span{
+          color: $color-white;
+        }
+        .svg-fill{
+          fill: $color-white;
+        }
+      }
+      &__body{
+        .base-input-text-material{
+          .highlight{
+            background-color: transparent;
+          }
+          label{
+            color: $color-white;
+          }
+          .bar{
+            &:before, &:after{
+              background: $color-white;
+            }
+          }
+        }
+      }
+    }
+    &__picto-container{
+      background-color: $color-dark-primary;
+      .svg-icon{
+        fill: $color-white;
+      }
+    }
+  }
+
+  /* custom BASE CARD ------------------------------------------ */
+  .base-card{
+    background-color: $color-dark-background;
+  }
+
+  /* custom CARD-BD -------------------------------------------- */
+  .card-bd{
+    background-color: $color-dark-background;
+    &__header{
+      .base-button-option__tool{
+        &:hover{
+          background-color: $color-admonition-title;
+        }
+        .base-button-option__menu{
+          background-color: $color-admonition-title;
+          border: none;
+          ul{
+            li{
+              color: $color-white;
+              &:hover, &:active{
+                background-color: $color-dark-primary;
+              }
+            }
+          }
+        }
+      }
+    }
+    &__circle{
+      background-color: $color-dark-primary;
+    }
+    &__title{
+      color: $color-white;
+    }
+    &__infos-cloud{
+      opacity: .6;
+    }
+  }
+
+  /* custom PAGE PROJECT -------------------------------------- */
+  .page-project{
+    .main-ifc{
+      &__navigation-project__title{
+        color: $color-white;
+      }
+      &__map{
+        .map-wrapper__container{
+          border-color: $color-background-d30;
+          &__step{
+            .svg-icon{
+              color: $color-white;
+            }
+          }
+          &__step--first{
+            p{
+              color: $color-white;
+            }
+          }
+        }
+      }
+    }
+    .user-project{
+      .users-list{
+        &__header{
+          .svg-icon{
+            color: $color-white;
+          }
+        }
+        &__user__name{
+          color: $color-white;
+        }
+      }
+    }
+  }
+
+  .base-buton-option__tool{
+    &:hover{
+      background-color: $color-dark-background;
+    }
+  }
+}
