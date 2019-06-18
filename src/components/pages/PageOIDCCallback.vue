@@ -54,9 +54,7 @@ export default {
         }
 
         this.sendCodeToBackPlatform(payload).then(() => {
-          setTimeout(() => {
-            router.push(redirectPath)
-          }, 2000)
+          router.push(redirectPath)
         })
       })
       .catch((err) => {
