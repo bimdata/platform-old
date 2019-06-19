@@ -43,7 +43,6 @@ export default {
     },
     clickedTool () {
       this.displayMenu = !this.displayMenu
-      this.clicked = false
       this.clicked = true
       this.$emit('option-toggled', this.displayMenu)
       setTimeout(() => {

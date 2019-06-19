@@ -210,16 +210,12 @@ export default {
       })
     },
     openSendInvite () {
-      setTimeout(() => {
-        this.displaySearchUser = false
-        this.displaySendInvit = true
-      }, 500)
+      this.displaySearchUser = false
+      this.displaySendInvit = true
     },
     openSearchUser () {
-      setTimeout(() => {
-        this.displaySendInvit = false
-        this.displaySearchUser = true
-      }, 500)
+      this.displaySendInvit = false
+      this.displaySearchUser = true
     },
     toggleRightsInvitation () {
       this.displayRightsInvitation = !this.displayRightsInvitation
@@ -229,10 +225,8 @@ export default {
       this.toggleRightsInvitation()
     },
     resetSearchUser () {
-      setTimeout(() => {
-        this.displaySearchUser = false
-        this.searchFilter = ''
-      }, 500)
+      this.displaySearchUser = false
+      this.searchFilter = ''
     },
     async removeUser (userId) {
       const cloudId = this.$route.params.cloudId
