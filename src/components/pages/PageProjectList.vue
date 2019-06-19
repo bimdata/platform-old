@@ -227,15 +227,11 @@ export default {
       this.searchFilter = value
     },
     resetSearchUser () {
-      setTimeout(() => {
-        this.displaySearchUser = false
-        this.searchUserFilter = ''
-      }, 500)
+      this.displaySearchUser = false
+      this.searchUserFilter = ''
     },
     closeModalUsersList () {
-      setTimeout(() => {
-        this.showModalUsersList = false
-      }, 500)
+      this.showModalUsersList = false
     },
     selectCloud ({ value: cloudId }) {
       this.$router.push({name: 'project-list', params: {cloudId}})
@@ -274,9 +270,7 @@ export default {
       return Isemail.validate(this.emailInvite)
     },
     openSearchUser () {
-      setTimeout(() => {
-        this.displaySearchUser = true
-      }, 500)
+      this.displaySearchUser = true
     },
     async sendInvitation () {
       if (this.emailInviteValid()) {

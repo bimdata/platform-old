@@ -154,7 +154,6 @@ export default {
     },
     clickedTool () {
       this.displayMenu = !this.displayMenu
-      this.clicked = false
       this.clicked = true
       setTimeout(() => {
         this.clicked = false

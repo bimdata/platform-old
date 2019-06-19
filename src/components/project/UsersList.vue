@@ -98,6 +98,7 @@ export default {
         this.hasResendResponseError = true
       }
       setTimeout(() => {
+        // Hide OK message after 3 sec
         this.hasResendResponse = false
         this.hasResendResponseError = false
       }, 3000)

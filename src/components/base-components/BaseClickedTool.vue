@@ -27,7 +27,6 @@ export default {
   },
   methods: {
     clickedTool () {
-      this.clicked = false
       this.clicked = true
       setTimeout(() => {
         this.clicked = false
