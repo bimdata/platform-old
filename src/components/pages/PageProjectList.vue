@@ -15,7 +15,7 @@
         <div class="search-container" :class="{'search-container--only': !isAdmin}">
           <base-search-bar @on-search="toSearch"></base-search-bar>
         </div>
-        <div class="card-container" v-if="isAdmin">
+        <div class="card-container">
             <div class="top-toolbar__choice-list-items">
               <base-button-icon iconName="alphabetic-filter" height="16" width="16" @on-click-action="sortAlphabetically()"></base-button-icon>
             </div>
