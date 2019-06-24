@@ -142,6 +142,7 @@ import BaseClickedTool from '@/components/base-components/BaseClickedTool'
 import UsersList from '@/components/project/UsersList'
 import _ from 'lodash'
 import Isemail from 'isemail'
+import { sortAlphabetically } from '@/utils/filters'
 
 export default {
   data () {
@@ -203,15 +204,7 @@ export default {
       return filteredProjects
     },
     sortedCloudProjects () {
-      if (this.sort.type === 'alphabetically') {
-        const cloudProjects = this.cloudProjects
-        if (this.sort.ascendant) {
-          return cloudProjects.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1)
-        } else {
-          return cloudProjects.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? 1 : -1)
-        }
-      }
-      return this.cloudProjects
+      return sortAlphabetically(this.cloudProjects, this.sort.type, this.sort.ascendant)
     },
     usersAdminInvited () {
       let admin = _.filter(this.guests, {role: 100})

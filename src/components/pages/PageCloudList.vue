@@ -85,6 +85,7 @@ import CardCloudList from '@/components/cloud-list/CardCloudList'
 import BaseSearchBar from '@/components/base-components/BaseSearchBar'
 import BaseButtonAction from '@/components/base-components/BaseButtonAction'
 import BaseButtonIcon from '@/components/base-components/BaseButtonIcon'
+import { sortAlphabetically } from '@/utils/filters'
 
 export default {
   components: {
@@ -119,15 +120,7 @@ export default {
       return filteredClouds
     },
     sortedClouds () {
-      if (this.sort.type === 'alphabetically') {
-        const filteredClouds = this.filteredClouds
-        if (this.sort.ascendant) {
-          return filteredClouds.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1)
-        } else {
-          return filteredClouds.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? 1 : -1)
-        }
-      }
-      return this.filteredClouds
+      return sortAlphabetically(this.filteredClouds, this.sort.type, this.sort.ascendant)
     }
   },
   methods: {
