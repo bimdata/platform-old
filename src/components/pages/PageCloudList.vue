@@ -18,6 +18,11 @@
             <base-search-bar @on-search="toSearch"></base-search-bar>
           </div>
           <div class="card-container">
+              <div class="top-toolbar__choice-list-items">
+                <base-button-icon iconName="alphabetic-filter" height="16" width="16" @on-click-action="sortAlphabetically()"></base-button-icon>
+              </div>
+          </div>
+          <div class="card-container">
             <div class="top-toolbar__choice-list-items">
               <button type="button" class="btn base-button-action top-toolbar__button-new-file" :class="{'active': openCreationCloud}" @click="toggleOpenCreationCloud">
                 <svgicon name="add" height="20" width="20"></svgicon>
@@ -67,7 +72,7 @@
           </div>
         </div>
         <card-cloud-list
-          v-for="cloud in filteredClouds"
+          v-for="cloud in sortedClouds"
           :key="cloud.id"
           :cloud="cloud"
         ></card-cloud-list>
@@ -79,15 +84,21 @@ import { mapState } from 'vuex'
 import CardCloudList from '@/components/cloud-list/CardCloudList'
 import BaseSearchBar from '@/components/base-components/BaseSearchBar'
 import BaseButtonAction from '@/components/base-components/BaseButtonAction'
+import BaseButtonIcon from '@/components/base-components/BaseButtonIcon'
 
 export default {
   components: {
     CardCloudList,
     BaseSearchBar,
-    BaseButtonAction
+    BaseButtonAction,
+    BaseButtonIcon
   },
   data () {
     return {
+      sort: {
+        type: 'date',
+        ascendant: false
+      },
       searchFilter: '',
       newCloudName: '',
       openCreationCloud: false,
@@ -102,15 +113,30 @@ export default {
       clouds: state => state.clouds
     }),
     filteredClouds () {
-      let filteredclouds = this.clouds.filter(cloud => {
+      let filteredClouds = this.clouds.filter(cloud => {
         return cloud.name.toLowerCase().includes(this.searchFilter.toLowerCase())
       })
-      return filteredclouds
+      return filteredClouds
+    },
+    sortedClouds () {
+      if (this.sort.type === 'alphabetically') {
+        const filteredClouds = this.filteredClouds
+        if (this.sort.ascendant) {
+          return filteredClouds.sort((a, b) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1)
+        } else {
+          return filteredClouds.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? 1 : -1)
+        }
+      }
+      return this.filteredClouds
     }
   },
   methods: {
     toSearch (value) {
       this.searchFilter = value
+    },
+    sortAlphabetically () {
+      this.sort.type = 'alphabetically'
+      this.sort.ascendant = !this.sort.ascendant
     },
     toggleOpenCreationCloud () {
       this.openCreationCloud = !this.openCreationCloud
