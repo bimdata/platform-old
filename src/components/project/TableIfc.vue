@@ -64,7 +64,7 @@
               <svgicon name="pencil" width="13" height="13"></svgicon>
               {{ $t('project.rename') }}
 
-              <div class="new_folder_box rename" v-show="displayRename">
+              <div class="new_folder_box rename" v-if="displayRename">
                 <div class="new_folder_box__title">
                   {{ $t('project.rename_file') }}
                 </div>
