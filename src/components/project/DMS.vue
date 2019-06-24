@@ -238,7 +238,7 @@ export default {
   data () {
     return {
       displayTreeSelect: false,
-      isVisibleTreeView: false,
+      isVisibleTreeView: true,
       selectAll: false,
       filter: null,
       selected: [],
