@@ -365,7 +365,6 @@ export default {
       }
     },
     downloadFile (documentAction) {
-      console.log(documentAction)
       window.open(documentAction.item.file)
     },
     formatCreatorCell (creator) {
