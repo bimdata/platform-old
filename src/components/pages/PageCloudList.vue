@@ -85,7 +85,9 @@ import CardCloudList from '@/components/cloud-list/CardCloudList'
 import BaseSearchBar from '@/components/base-components/BaseSearchBar'
 import BaseButtonAction from '@/components/base-components/BaseButtonAction'
 import BaseButtonIcon from '@/components/base-components/BaseButtonIcon'
-import { sortAlphabetically } from '@/utils/filters'
+import { sortAlphabetically, SORT_TYPE } from '@/utils/sorts'
+
+console.log(SORT_TYPE)
 
 export default {
   components: {
@@ -97,7 +99,7 @@ export default {
   data () {
     return {
       sort: {
-        type: 'date',
+        type: SORT_TYPE.DATE,
         ascendant: false
       },
       searchFilter: '',
@@ -128,7 +130,7 @@ export default {
       this.searchFilter = value
     },
     sortAlphabetically () {
-      this.sort.type = 'alphabetically'
+      this.sort.type = SORT_TYPE.ALPHABETICALLY
       this.sort.ascendant = !this.sort.ascendant
     },
     toggleOpenCreationCloud () {

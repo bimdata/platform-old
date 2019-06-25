@@ -142,13 +142,13 @@ import BaseClickedTool from '@/components/base-components/BaseClickedTool'
 import UsersList from '@/components/project/UsersList'
 import _ from 'lodash'
 import Isemail from 'isemail'
-import { sortAlphabetically } from '@/utils/filters'
+import { sortAlphabetically, SORT_TYPE } from '@/utils/sorts'
 
 export default {
   data () {
     return {
       sort: {
-        type: 'date',
+        type: SORT_TYPE.DATE,
         ascendant: false
       },
       selectedCloud: {},
@@ -240,7 +240,7 @@ export default {
       this.searchFilter = value
     },
     sortAlphabetically () {
-      this.sort.type = 'alphabetically'
+      this.sort.type = SORT_TYPE.ALPHABETICALLY
       this.sort.ascendant = !this.sort.ascendant
     },
     resetSearchUser () {
