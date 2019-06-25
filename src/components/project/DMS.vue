@@ -171,8 +171,8 @@
                           </div>
                           <div class="base-input-text-material">
                             <input
+                                :ref="`rename-${documentAction.item.id}`"
                                 type="text"
-                                autofocus
                                 :placeholder="$t('project.folder_name')"
                                 required
                                 v-model="renameFolder"
@@ -398,7 +398,6 @@ export default {
       let type = documentAction.item.type
       let id = documentAction.item.id
       let name = this.renameFolder
-
       this.$store.dispatch('project/updateName', {type, id, name})
 
       this.toggleMenuAction(false)
@@ -433,7 +432,11 @@ export default {
       this.displayRename = !this.displayRename
       this.showRemoveActions = false
       this.renameFolder = documentAction.item.name
-      this.isIfc = documentAction.item.ifc_id
+      this.isIfc = documentAction.item.ifcId
+      this.$nextTick(() => {
+        this.$refs[`rename-${documentAction.item.id}`].focus()
+        this.$refs[`rename-${documentAction.item.id}`].setSelectionRange(0, this.renameFolder.length)
+      })
     },
     type (fileName) {
       if (fileName === undefined) {
