@@ -67,6 +67,9 @@
       "guest": "Guest",
       "without_answer": "without answer",
       "manage_admin": "Manage administrators",
-      "users_list": "Users list"
+      "users_list": "Users list",
+      "invitation_sent": "Invitation envoyé à {email}",
+      "too_much_invitations_sent": "Trop d'invitations envoyés à {email}",
+      "valid_email_attended": "Le champs e-mail doit être valide ou remplit"
     }
 }

@@ -28,7 +28,7 @@
             <card-project-content :role="passRole"></card-project-content>
           </div>
           <div class="user-project">
-            <users-list :users="allUsers" :filter="searchFilter" @on-remove-user="removeUser" @on-remove-user-pending="removeUserPending" @on-update-user="updateUser" :class="{'users-list--large': displaySendInvit || displaySearchUser}">
+            <users-list :users="allUsers" :filter="searchFilter" :hasTriedToInviteInvalidEmail="hasTriedToInviteInvalidEmail" @on-remove-user="removeUser" @on-remove-user-pending="removeUserPending" @on-update-user="updateUser" @on-remove-error="hasTriedToInviteInvalidEmail = false" :class="{'users-list--large': displaySendInvit || displaySearchUser}">
               <template slot="users-list-header">
                 <div class="users-list__header">
                   <div class="users-list__header__left-container d-none">
@@ -117,7 +117,7 @@ import UploadIfc from '@/components/project/UploadIfc'
 import BaseInputRadio from '@/components/base-components/BaseInputRadio'
 import DMS from '@/components/project/DMS'
 import UploadFile from '@/components/project/UploadFile'
-import Isemail from 'isemail'
+import IsEmail from 'isemail'
 import { mixin as clickaway } from 'vue-clickaway'
 
 export default {
@@ -150,7 +150,8 @@ export default {
       displaySendInvit: false,
       displaySearchUser: false,
       displayRightsInvitation: false,
-      mailInvitation: ''
+      mailInvitation: '',
+      hasTriedToInviteInvalidEmail: false
     }
   },
   methods: {
@@ -164,7 +165,7 @@ export default {
       deleteUserPending: 'project/deleteUserPending'
     }),
     emailInviteValid () {
-      return Isemail.validate(this.mailInvitation)
+      return IsEmail.validate(this.mailInvitation)
     },
     async sendInvitation () {
       if (this.emailInviteValid()) {
@@ -184,6 +185,11 @@ export default {
           }
           this.displaySendInvit = false
         }
+      } else {
+        this.hasTriedToInviteInvalidEmail = true
+        setTimeout(() => {
+          this.hasTriedToInviteInvalidEmail = false
+        }, 3000)
       }
     },
     closeUploadIfc () {
