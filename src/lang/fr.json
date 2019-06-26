@@ -7,14 +7,14 @@
         "download": "Télécharger",
         "name": "Nom",
         "type": "Type",
-        "creator": "Créateur",
+        "creator": "Auteur",
         "updated_at": "Mis à jour à",
-        "state": "État",
+        "state": "Statut",
         "view": "Voir",
         "size": "Taille",
         "file": "Fichier",
-        "type_to_search": "Entrer du texte pour chercher",
-        "move_to": "Déplacer dans",
+        "type_to_search": "Saisir du texte pour rechercher",
+        "move_to": "Déplacer vers",
         "unselect_all": "Tout déselectionner",
         "create_folder": "Créer un dossier",
         "delete": "Supprimer",
@@ -36,9 +36,9 @@
         "new": "Nouveau"
     },
     "cloud_list": {
-      "clouds_list": "Liste des espaces",
-      "rename_cloud": "Renommer l'espace",
-      "cloud_name": "Nom de l'espace"
+      "clouds_list": "Liste des Espaces",
+      "rename_cloud": "Renommer l'Espace",
+      "cloud_name": "Nom de l'Espace"
     },
     "project_list": {
         "new_project": "Nouveau projet",
@@ -48,9 +48,9 @@
         "rename_project": "Renommer le projet"
     },
     "dms": {
-      "no_creator": "Pas de créateur",
+      "no_creator": "Pas d'auteur",
       "move_here": "Déplacer ici",
-      "move_to": "Déplacer dans",
+      "move_to": "Déplacer vers",
       "choose_destination": "Choisir une destination"
     },
     "ifc": {
@@ -61,7 +61,7 @@
       "user": "Utilisateur",
       "administrator": "Administrateur",
       "remove": "Retirer un utilisateur",
-      "modify_rights": "Editer les droits utilisateurs",
+      "modify_rights": "Editer les droits de l'utilisateur",
       "resend_invitation": "Renvoyer une invitation ?",
       "invite": "Inviter",
       "guest": "Invité",
