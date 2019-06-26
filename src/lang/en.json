@@ -62,6 +62,7 @@
       "user": "User",
       "administrator": "Admin",
       "remove": "Delete user",
+      "rights": "Rights",
       "modify_rights": "Edit user rights",
       "resend_invitation": "Resend invitation ?",
       "invite": "Invite",

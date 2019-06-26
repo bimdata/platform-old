@@ -141,7 +141,7 @@ export default {
     return {
       chosenRight: {
         value: null,
-        text: 'Droits'
+        text: this.$t('rights')
       },
       searchFilter: '',
       loadedProject: false,
