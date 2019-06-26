@@ -1,4 +1,8 @@
 {
+    "header": {
+        "back_to_project": "Back to project",
+        "clouds_projects": "Cloud's projects"
+    },
     "dashboard": {
         "logout": "Logout",
         "profile_btn": "Account settings"

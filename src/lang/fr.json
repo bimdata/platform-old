@@ -1,4 +1,8 @@
 {
+    "header": {
+      "back_to_project": "Retourner au projet",
+      "clouds_projects": "Projets de l'Espace"
+    },
     "dashboard": {
         "logout": "Logout",
         "profile_btn": "Paramètres du compte"
