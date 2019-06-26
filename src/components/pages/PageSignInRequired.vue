@@ -51,7 +51,7 @@ export default {
         sessionStorage.setItem('last_nonce', state.nonce)
       }).catch(function (err) {
         this.$store.commit('setOidcError', err)
-        console.log(err)
+        console.error(err)
       })
     }
   },
