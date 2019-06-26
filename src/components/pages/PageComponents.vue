@@ -190,7 +190,6 @@ export default {
   },
   methods: {
     BaseChoiceListSelected () {
-      console.log(this.baseChoiceList.selected)
     }
   },
   computed: {
@@ -212,7 +211,6 @@ export default {
       let greaterValue = (oldValue.created > newValue.created) ? oldValue : newValue
       return greaterValue
     })
-    console.log(currentState)
   }
 }
 </script>

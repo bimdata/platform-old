@@ -87,8 +87,6 @@ import BaseButtonAction from '@/components/base-components/BaseButtonAction'
 import BaseButtonIcon from '@/components/base-components/BaseButtonIcon'
 import { sortAlphabetically, SORT_TYPE } from '@/utils/sorts'
 
-console.log(SORT_TYPE)
-
 export default {
   components: {
     CardCloudList,
