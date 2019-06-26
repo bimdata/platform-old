@@ -6,7 +6,7 @@
             <transition name="slide-fade" mode="out-in">
                 <router-view :key="$route.fullPath" v-if="displayPage"></router-view>
                 <div class="loader loader-layout" v-else>
-                  <p class="loader-layout__text">Loading</p>
+                  <p class="loader-layout__text">{{ $t('layout.loading') }}</p>
                   <div class="lds-dual-ring"></div>
                 </div>
             </transition>

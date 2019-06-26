@@ -70,5 +70,8 @@
       "without_answer": "without answer",
       "manage_admin": "Manage administrators",
       "users_list": "Users list"
+    },
+    "layout": {
+        "loading": "Loading"
     }
 }

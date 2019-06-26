@@ -70,5 +70,8 @@
       "without_answer": "sans réponse",
       "manage_admin": "Gérer les administrateurs",
       "users_list": "Liste des utilisateurs"
-    }
+    },
+    "layout": {
+      "loading": "Chargement"
+  }
 }
