@@ -29,6 +29,14 @@
               </span>
             </div>
           </transition>
+          <transition name="slide-bottom-fade">
+            <div class="users-list__response-resend users-list__response-resend--error users-list__response-resend--big" v-if="hasTriedToInviteWithoutRights">
+              {{ $t('users.rights_attended') }}
+              <span class="users-list__response-resend__close" @click="removeError">
+                <svgicon name="close" height="18" width="18"></svgicon>
+              </span>
+            </div>
+          </transition>
           <slot name="users-list-header"></slot>
           <div class="users-list__body">
             <ul class="users-list__users">
@@ -89,8 +97,11 @@ export default {
     hasTriedToInviteInvalidEmail: {
       type: Boolean,
       default: false
+    },
+    hasTriedToInviteWithoutRights: {
+      type: Boolean,
+      default: false
     }
-
   },
   methods: {
     removeUser (userId) {

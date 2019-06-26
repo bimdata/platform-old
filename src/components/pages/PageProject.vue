@@ -28,7 +28,17 @@
             <card-project-content :role="passRole"></card-project-content>
           </div>
           <div class="user-project">
-            <users-list :users="allUsers" :filter="searchFilter" :hasTriedToInviteInvalidEmail="hasTriedToInviteInvalidEmail" @on-remove-user="removeUser" @on-remove-user-pending="removeUserPending" @on-update-user="updateUser" @on-remove-error="hasTriedToInviteInvalidEmail = false" :class="{'users-list--large': displaySendInvit || displaySearchUser}">
+            <users-list
+              :users="allUsers"
+              :filter="searchFilter"
+              :hasTriedToInviteInvalidEmail="hasTriedToInviteInvalidEmail"
+              :hasTriedToInviteWithoutRights="hasTriedToInviteWithoutRights"
+              @on-remove-user="removeUser"
+              @on-remove-user-pending="removeUserPending"
+              @on-update-user="updateUser"
+              @on-remove-error="removeUsersListsErrors"
+              :class="{'users-list--large': displaySendInvit || displaySearchUser}"
+            >
               <template slot="users-list-header">
                 <div class="users-list__header">
                   <div class="users-list__header__left-container d-none">
@@ -151,7 +161,8 @@ export default {
       displaySearchUser: false,
       displayRightsInvitation: false,
       mailInvitation: '',
-      hasTriedToInviteInvalidEmail: false
+      hasTriedToInviteInvalidEmail: false,
+      hasTriedToInviteWithoutRights: false
     }
   },
   methods: {
@@ -168,29 +179,37 @@ export default {
       return IsEmail.validate(this.mailInvitation)
     },
     async sendInvitation () {
-      if (this.emailInviteValid()) {
-        if (this.chosenRight.value) {
-          await this.projectInvite({
-            project: this.project,
-            invite: {
-              email: this.mailInvitation,
-              role: this.chosenRight.value,
-              redirect_uri: `${process.env.BD_APP_URL}/cloud/${this.$route.params.cloudId}/project/${this.$route.params.projectId}`
-            }
-          })
-
-          this.mailInvitation = ''
-          if (this.isAdmin) {
-            this.getGuests()
-          }
-          this.displaySendInvit = false
-        }
-      } else {
+      if (!this.emailInviteValid()) {
         this.hasTriedToInviteInvalidEmail = true
         setTimeout(() => {
           this.hasTriedToInviteInvalidEmail = false
         }, 3000)
+        return false
+      } else if (!this.chosenRight.value) {
+        this.hasTriedToInviteWithoutRights = true
+        setTimeout(() => {
+          this.hasTriedToInviteWithoutRights = false
+        }, 3000)
+        return false
       }
+      await this.projectInvite({
+        project: this.project,
+        invite: {
+          email: this.mailInvitation,
+          role: this.chosenRight.value,
+          redirect_uri: `${process.env.BD_APP_URL}/cloud/${this.$route.params.cloudId}/project/${this.$route.params.projectId}`
+        }
+      })
+
+      this.mailInvitation = ''
+      if (this.isAdmin) {
+        this.getGuests()
+      }
+      this.displaySendInvit = false
+    },
+    removeUsersListsErrors () {
+      this.hasTriedToInviteInvalidEmail = false
+      this.hasTriedToInviteWithoutRights = false
     },
     closeUploadIfc () {
       this.displayUpload = false
