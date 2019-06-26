@@ -207,7 +207,7 @@ export default {
       }
     }
 
-    const currentState = listOfStates.reduce(function (oldValue, newValue) {
+    listOfStates.reduce(function (oldValue, newValue) {
       let greaterValue = (oldValue.created > newValue.created) ? oldValue : newValue
       return greaterValue
     })
