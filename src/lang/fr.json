@@ -33,7 +33,8 @@
         "confirm": "Confirmer",
         "upload": "Téléversement",
         "upload_text": "Téléverser votre premier fichier",
-        "new": "Nouveau"
+        "new": "Nouveau",
+        "loading": "Chargement"
     },
     "cloud_list": {
       "clouds_list": "Liste des Espaces",

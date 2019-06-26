@@ -33,7 +33,8 @@
         "confirm": "Confirm",
         "upload": "Upload",
         "upload_text": "Upload your first file",
-        "new": "New"
+        "new": "New",
+        "loading": "Loading"
     },
     "cloud_list": {
       "clouds_list": "Clouds list",
