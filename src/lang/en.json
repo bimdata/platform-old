@@ -9,7 +9,7 @@
         "type": "Type",
         "creator": "Creator",
         "updated_at": "Updated at",
-        "state": "State",
+        "state": "Status",
         "view": "View",
         "size": "Size",
         "file": "File",
