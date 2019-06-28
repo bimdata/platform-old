@@ -14,7 +14,7 @@ export class IFCRepository {
 
       return response
     } catch (e) {
-      console.log(e.statusCode)
+      console.error(e.statusCode)
     }
   }
 
@@ -23,7 +23,7 @@ export class IFCRepository {
       const response = await this.ifcApiClient.getIfc(cloudPk, id, projectPk)
       return response
     } catch (e) {
-      console.log(e)
+      console.error(e)
     }
   }
 
@@ -38,7 +38,7 @@ export class IFCRepository {
 
       return response
     } catch (e) {
-      console.log(e.statusCode)
+      console.error(e.statusCode)
     }
   }
 
@@ -78,7 +78,7 @@ export class IFCRepository {
       )
       return response
     } catch (e) {
-      console.log(e.statusCode)
+      console.error(e.statusCode)
     }
   }
 

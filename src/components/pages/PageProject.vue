@@ -82,7 +82,7 @@
       <div class="row">
         <div class="col-12">
           <base-card :fullscreen-available="false" class="ged-card">
-            <template slot="header-title">Project's documents</template>
+            <template slot="header-title">{{ $t('project.project_document') }}</template>
             <template slot="content" v-if="!hasFiles">
               <upload-file name="upload-file" :role="passRole"></upload-file>
             </template>
@@ -95,7 +95,7 @@
     </template>
     <template v-else>
       <div class="loader loader-layout">
-        <p class="loader-layout__text">Loading</p>
+        <p class="loader-layout__text">{{ $t('project.loading') }}</p>
         <div class="lds-dual-ring"></div>
       </div>
     </template>
@@ -141,7 +141,7 @@ export default {
     return {
       chosenRight: {
         value: null,
-        text: 'Droits'
+        text: this.$t('rights')
       },
       searchFilter: '',
       loadedProject: false,

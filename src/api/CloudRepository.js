@@ -9,7 +9,7 @@ export class CloudRepository {
       const response = await this.cloudApiClient.getClouds()
       return response
     } catch (e) {
-      console.log(e.statusCode)
+      console.error(e.statusCode)
     }
   }
 
@@ -20,7 +20,7 @@ export class CloudRepository {
       const response = await this.cloudApiClient.createCloud(cloud)
       return response
     } catch (e) {
-      console.log(e.statusCode)
+      console.error(e.statusCode)
     }
   }
 
@@ -29,7 +29,7 @@ export class CloudRepository {
       const response = await this.cloudApiClient.deleteCloud(idCloud)
       return response
     } catch (e) {
-      console.log(e.statusCode)
+      console.error(e.statusCode)
     }
   }
 
@@ -38,7 +38,7 @@ export class CloudRepository {
       const response = await this.cloudApiClient.updateCloud(cloud.id, cloud)
       return response
     } catch (e) {
-      console.log(e.statusCode)
+      console.error(e.statusCode)
     }
   }
 
@@ -46,7 +46,7 @@ export class CloudRepository {
     try {
       return this.cloudApiClient.getCloudUsers(idCloud)
     } catch (e) {
-      console.log(e.statusCode)
+      console.error(e.statusCode)
     }
   }
 
@@ -59,7 +59,7 @@ export class CloudRepository {
       const response = await this.cloudApiClient.deleteCloudUser(cloudPk, id)
       return response
     } catch (e) {
-      console.log(e.statusCode)
+      console.error(e.statusCode)
     }
   }
 
@@ -68,7 +68,7 @@ export class CloudRepository {
       const response = await this.cloudApiClient.cancelCloudUserInvitation(cloudPk, id)
       return response
     } catch (e) {
-      console.log(e)
+      console.error(e)
     }
   }
 
@@ -81,7 +81,7 @@ export class CloudRepository {
       let response = this.cloudApiClient.getCloudInvitations(cloudPk)
       return response
     } catch (e) {
-      console.log(e.statusCode)
+      console.error(e.statusCode)
     }
   }
 }

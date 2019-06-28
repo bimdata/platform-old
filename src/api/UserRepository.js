@@ -8,7 +8,7 @@ export class UserRepository {
       const response = await this.userApiClient.getSelfUser()
       return response
     } catch (e) {
-      console.log(e.statusCode)
+      console.error(e.statusCode)
     }
   }
 
@@ -17,7 +17,7 @@ export class UserRepository {
       const response = await this.userApiClient.getSelfProjects()
       return response
     } catch (e) {
-      console.log(e.statusCode)
+      console.error(e.statusCode)
     }
   }
 }

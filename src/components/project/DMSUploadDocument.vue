@@ -1,6 +1,6 @@
 <template>
     <div class="upload-area upload-area-dms">
-        <base-button-tool iconName="newfile" class="uppy modalOpener">
+        <base-button-tool iconName="newfile" class="uppy modalOpener" :label="$t('project.import_document')">
         </base-button-tool>
         <div class="DMSDashboardContainer"></div>
     </div>
