@@ -1,4 +1,8 @@
 {
+    "header": {
+        "back_to_project": "Back to project",
+        "clouds_projects": "Cloud's projects"
+    },
     "dashboard": {
         "logout": "Logout",
         "profile_btn": "Account settings"
@@ -9,7 +13,7 @@
         "type": "Type",
         "creator": "Creator",
         "updated_at": "Updated at",
-        "state": "State",
+        "state": "Status",
         "view": "View",
         "size": "Size",
         "file": "File",
@@ -27,13 +31,18 @@
         "rename": "Rename",
         "rename_folder": "Rename folder",
         "rename_file": "Rename file",
-        "advice": "Advice",
+        "fill_in": "Fill in",
         "missing": "missing",
         "save": "Save",
         "confirm": "Confirm",
         "upload": "Upload",
         "upload_text": "Upload your first file",
-        "new": "New"
+        "loading": "Loading",
+        "new": "New",
+        "new_folder": "New folder",
+        "import_document": "Import a document",
+        "close_tree_view": "Close tree view",
+        "open_tree_view": "Open tree view"
     },
     "cloud_list": {
       "clouds_list": "Clouds list",
@@ -61,6 +70,7 @@
       "user": "User",
       "administrator": "Admin",
       "remove": "Delete user",
+      "rights": "Rights",
       "modify_rights": "Edit user rights",
       "resend_invitation": "Resend invitation ?",
       "invite": "Invite",
@@ -72,5 +82,8 @@
       "too_much_invitations_sent": "Too much invitations sent to {email}",
       "valid_email_attended": "Empty or invalid e-mail provided",
       "rights_attended": "Role for the user has not been provided"
+    },
+    "layout": {
+        "loading": "Loading"
     }
 }

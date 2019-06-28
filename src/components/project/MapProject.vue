@@ -11,7 +11,7 @@
               <div class="map-wrapper__container__step--first">
                 <svgicon name="map-marker" height="47" width="47"></svgicon>
                 <p>IfcPostalAddress {{ $t('project.missing') }}</p>
-                <button v-if="isAdminRole" class="btn btn-primary base-button-action" @click="secondStepActive = true">{{ $t('project.advice') }}</button>
+                <button v-if="isAdminRole" class="btn btn-primary base-button-action" @click="secondStepActive = true">{{ $t('project.fill_in') }}</button>
               </div>
             </div>
           </div>

@@ -2,6 +2,10 @@
   margin-bottom: 26px;
   position: relative;
   .card-container{
+    &:not(:last-child) {
+      margin: 0 14px 0 0;
+    }
+
     margin: 0;
     width: auto;
   }

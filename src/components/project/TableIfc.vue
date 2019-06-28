@@ -70,8 +70,8 @@
                 </div>
                 <div class="base-input-text-material">
                   <input
+                      :ref="`rename-${data.item.actions.documentAction.id}`"
                       type="text"
-                      autofocus
                       :placeholder="$t('project.file_name')"
                       required
                       v-model="renameFolder"
@@ -229,6 +229,10 @@ export default {
       this.displayRename = !this.displayRename
       this.showRemoveActions = false
       this.renameFolder = documentAction.name
+      this.$nextTick(() => {
+        this.$refs[`rename-${documentAction.id}`].focus()
+        this.$refs[`rename-${documentAction.id}`].setSelectionRange(0, this.renameFolder.length)
+      })
     },
     viewIfc (ifcData) {
       this.$router.push({ name: 'viewer', params: ifcData })

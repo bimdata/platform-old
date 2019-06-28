@@ -15,6 +15,11 @@
         <div class="search-container" :class="{'search-container--only': !isAdmin}">
           <base-search-bar @on-search="toSearch"></base-search-bar>
         </div>
+        <div class="card-container">
+            <div class="top-toolbar__choice-list-items">
+              <base-button-icon iconName="alphabetic-filter" height="16" width="16" @on-click-action="sortAlphabetically()"></base-button-icon>
+            </div>
+        </div>
         <div class="card-container" v-if="isAdmin">
             <div class="top-toolbar__choice-list-items">
               <base-button-icon iconName="add-account" height="16" width="16" @on-click-action="showModal = !showModal"></base-button-icon>
@@ -62,7 +67,7 @@
         </div>
       </div>
       <card-project-list
-        v-for="(project) in cloudProjects"
+        v-for="(project) in sortedCloudProjects"
         :cloudId="$store.state.currentCloud.id"
         :project="project"
         :key="project.id"
@@ -137,10 +142,15 @@ import BaseClickedTool from '@/components/base-components/BaseClickedTool'
 import UsersList from '@/components/project/UsersList'
 import _ from 'lodash'
 import Isemail from 'isemail'
+import { sortAlphabetically, SORT_TYPE } from '@/utils/sorts'
 
 export default {
   data () {
     return {
+      sort: {
+        type: SORT_TYPE.DATE,
+        ascendant: false
+      },
       selectedCloud: {},
       optionsCloud: [],
       displayNewForm: false,
@@ -188,10 +198,13 @@ export default {
       let cloudId = this.$store.state.currentCloud.id
       let cloudProjects = _.find(this.$store.state.clouds, ['id', cloudId]).projects
       let projects = _.orderBy(cloudProjects, p => p.created_at, 'desc')
-      let filteredprojects = projects.filter(project => {
+      let filteredProjects = projects.filter(project => {
         return project.name.toLowerCase().includes(this.searchFilter.toLowerCase())
       })
-      return filteredprojects
+      return filteredProjects
+    },
+    sortedCloudProjects () {
+      return sortAlphabetically(this.cloudProjects, this.sort.type, this.sort.ascendant)
     },
     usersAdminInvited () {
       let admin = _.filter(this.guests, {role: 100})
@@ -225,6 +238,10 @@ export default {
     }),
     toSearch (value) {
       this.searchFilter = value
+    },
+    sortAlphabetically () {
+      this.sort.type = SORT_TYPE.ALPHABETICALLY
+      this.sort.ascendant = !this.sort.ascendant
     },
     resetSearchUser () {
       this.displaySearchUser = false

@@ -57,7 +57,7 @@ export default {
       const oidcUserManager = vuexOidcCreateUserManager(oidcSettings)
       oidcUserManager.signoutRedirect().catch(function (err) {
         this.$store.commit('setOidcError', err)
-        console.log(err)
+        console.error(err)
       })
     }
   },

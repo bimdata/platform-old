@@ -24,7 +24,7 @@ export default {
       if (this.getNamePage === 'viewer') {
         const project = this.$store.getters.getProjectById(this.$route.params.projectId)
         this.$store.commit('project/SET_PROJECT', project)
-        return this.$store.state.project ? this.$store.state.project.selectedProject.name : 'Back to project'
+        return this.$store.state.project ? this.$store.state.project.selectedProject.name : this.$t('header.back_to_project')
       }
 
       return null
@@ -38,7 +38,7 @@ export default {
         },
         {
           routeName: 'project-list',
-          textLabel: 'Project\'s clouds',
+          textLabel: this.$t('header.clouds_projects'),
           displayLink: this.getNamePage === 'project'
         },
         {

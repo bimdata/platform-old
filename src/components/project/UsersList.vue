@@ -43,6 +43,7 @@
               <users-list-item
                 v-for="(user, index) in filteredUsers"
                 :key="`user-${index}`"
+                :index="index"
                 :user="user"
                 :displayMenu="displayMenu"
                 :role="user.role"
@@ -50,7 +51,7 @@
                 @on-update-user="updateUser"
                 @on-remove-user-pending="removeUserPending"
                 @email-resend="displayResponse"
-                :class="{'open-top': index > 5}"></users-list-item>
+                :class="{'open-top': index > 4}"></users-list-item>
             </ul>
           </div>
         </div>

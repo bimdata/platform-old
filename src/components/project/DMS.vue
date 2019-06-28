@@ -31,11 +31,13 @@
         <div class="dms__toolbox noselect" v-show="!displaySelectedToolbox">
           <base-button-tool iconName="tree"
                             :class="{'is-active': isVisibleTreeView}"
-                            @click="displayTreeView">
+                            @click="displayTreeView"
+                            :tooltipLabel="isVisibleTreeView ? $t('project.close_tree_view') : $t('project.open_tree_view')"
+          >
           </base-button-tool>
           <dms-upload-document v-if="isUserRole" class="base-button-tool__container"></dms-upload-document>
-          <base-button-tool v-if="isUserRole" iconName="add-folder" @click="toggleAddFolderMenu">
-            <div class="new_folder_box" v-show="addFolder">
+          <base-button-tool v-if="isUserRole" iconName="add-folder" @click="toggleAddFolderMenu" :tooltipLabel="$t('project.new_folder')">
+            <div class="new_folder_box" v-show="addFolderMenu">
               <div class="new_folder_box__title">
                   {{ $t('project.create_folder') }}
               </div>
@@ -56,7 +58,7 @@
                   <span @click="saveFolder">{{ $t('project.validate') }}</span>
                 </div>
             </div>
-            <div class="new_folder_box__overlay" v-show="addFolder" @click="toggleAddFolderMenu"></div>
+            <div class="new_folder_box__overlay" v-show="addFolderMenu" @click="toggleAddFolderMenu"></div>
           </base-button-tool>
           <span class="dms__search">
             <img src="../../assets/images/icons/search.svg" />
@@ -157,7 +159,7 @@
                         <svgicon name="play" width="13" height="13"></svgicon>
                         {{ $t('project.view') }}
                       </li>
-                      <li @click="downloadFile(documentAction)">
+                      <li @click="downloadFile(documentAction)" v-if="documentAction.item.type != 'Folder'">
                         <svgicon name="download" width="13" height="13"></svgicon>
                           {{ $t('project.download') }}
                       </li>
@@ -171,8 +173,8 @@
                           </div>
                           <div class="base-input-text-material">
                             <input
+                                :ref="`rename-${documentAction.item.id}`"
                                 type="text"
-                                autofocus
                                 :placeholder="$t('project.folder_name')"
                                 required
                                 v-model="renameFolder"
@@ -238,7 +240,7 @@ export default {
   data () {
     return {
       displayTreeSelect: false,
-      isVisibleTreeView: false,
+      isVisibleTreeView: true,
       selectAll: false,
       filter: null,
       selected: [],
@@ -291,7 +293,7 @@ export default {
       currentFolderItems: [],
       filesTree: [],
       listViewOriginalWidth: null,
-      addFolder: false,
+      addFolderMenu: false,
       newFolderName: ''
     }
   },
@@ -326,7 +328,7 @@ export default {
     async saveFolder () {
       if (this.newFolderName !== '') {
         await this.$store.dispatch('project/createFolder', this.newFolderName)
-        this.addFolder = false
+        this.addFolderMenu = false
       }
     },
     cancelRename () {
@@ -398,7 +400,6 @@ export default {
       let type = documentAction.item.type
       let id = documentAction.item.id
       let name = this.renameFolder
-
       this.$store.dispatch('project/updateName', {type, id, name})
 
       this.toggleMenuAction(false)
@@ -417,7 +418,7 @@ export default {
       this.valueCreatorEvent = value
     },
     toggleAddFolderMenu () {
-      this.addFolder = !this.addFolder
+      this.addFolderMenu = !this.addFolderMenu
       this.$nextTick(() => {
         this.$refs.createFolderInput.focus()
       })
@@ -433,7 +434,11 @@ export default {
       this.displayRename = !this.displayRename
       this.showRemoveActions = false
       this.renameFolder = documentAction.item.name
-      this.isIfc = documentAction.item.ifc_id
+      this.isIfc = documentAction.item.ifcId
+      this.$nextTick(() => {
+        this.$refs[`rename-${documentAction.item.id}`].focus()
+        this.$refs[`rename-${documentAction.item.id}`].setSelectionRange(0, this.renameFolder.length)
+      })
     },
     type (fileName) {
       if (fileName === undefined) {

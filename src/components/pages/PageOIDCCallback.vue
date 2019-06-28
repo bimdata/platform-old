@@ -39,7 +39,7 @@ export default {
         const response = await request.post('back_callback/', payload)
         return response
       } catch (err) {
-        console.log('error: ' + err)
+        console.error('error: ' + err)
       }
     }
   },
@@ -58,7 +58,7 @@ export default {
         })
       })
       .catch((err) => {
-        console.log(err)
+        console.error(err)
         router.push('/oidc-callback-error') // Handle errors any way you want
       })
   }
