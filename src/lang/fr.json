@@ -1,4 +1,8 @@
 {
+    "header": {
+      "back_to_project": "Retourner au projet",
+      "clouds_projects": "Projets de l'Espace"
+    },
     "dashboard": {
         "logout": "Se déconnecter",
         "profile_btn": "Paramètres du compte"
@@ -34,7 +38,10 @@
         "upload": "Téléversement",
         "upload_text": "Téléverser votre premier fichier",
         "new": "Nouveau",
-        "loading": "Chargement"
+        "new_folder": "Nouveau dossier",
+        "import_document": "Importer un document",
+        "close_tree_view": "Fermer l'arborescence",
+        "open_tree_view": "Ouvrir l'arborescence"
     },
     "cloud_list": {
       "clouds_list": "Liste des Espaces",

@@ -1,12 +1,22 @@
 <template>
     <div class="base-button-tool__container">
-        <div class="base-button-tool" v-on="listeners">
-            <svgicon class="base-button-tool__icon" v-show="iconName !== undefined" :name="iconName" :width="iconWidth" :height="iconHeight"></svgicon>
+        <div
+          class="base-button-tool"
+          v-on="listeners"
+          :style="{width: calculatedWidthWithLabel ? `${calculatedWidthWithLabel}px` : '32px'}"
+          v-b-tooltip.hover.bottom="tooltipLabel"
+        >
+            <svgicon class="base-button-tool__icon" v-show="iconName !== undefined" :name="iconName" :width="iconWidth" :height="iconHeight" :style="{marginRight: label !== '' ? '5px' : '0' }"></svgicon>
+            <span class="base-button-tool__label">
+              {{ label }}
+            </span>
         </div>
         <slot></slot>
     </div>
 </template>
 <script>
+import { getTextWidth } from '@/utils/text.js'
+
 export default {
   props: {
     iconWidth: {
@@ -20,6 +30,14 @@ export default {
     iconName: {
       type: String,
       default: ''
+    },
+    label: {
+      type: String,
+      default: ''
+    },
+    tooltipLabel: {
+      type: String,
+      default: ''
     }
   },
   computed: {
@@ -27,6 +45,12 @@ export default {
       return {
         ...this.$listeners
       }
+    },
+    calculatedWidthWithLabel () {
+      if (this.label !== '') {
+        return getTextWidth(this.label, 'roboto', '13pt', 'bold')
+      }
+      return false
     }
   }
 }

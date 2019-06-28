@@ -12,7 +12,7 @@ export class ProjectRepository {
       const response = await this.projectApiClient.createProject(idCloud, project)
       return response
     } catch (e) {
-      console.log(e.statusCode)
+      console.error(e.statusCode)
     }
   }
 
@@ -21,7 +21,7 @@ export class ProjectRepository {
       const response = await this.projectApiClient.deleteProject(idCloud, project.id)
       return response
     } catch (e) {
-      console.log(e.statusCode)
+      console.error(e.statusCode)
     }
   }
 
@@ -30,7 +30,7 @@ export class ProjectRepository {
       const response = await this.projectApiClient.updateProject(idCloud, project.id, project)
       return response
     } catch (e) {
-      console.log(e.statusCode)
+      console.error(e.statusCode)
     }
   }
 
@@ -39,7 +39,7 @@ export class ProjectRepository {
       const response = this.projectApiClient.getProjectTree(idCloud, idProject)
       return response
     } catch (e) {
-      console.log(e.statusCode)
+      console.error(e.statusCode)
     }
   }
 
@@ -48,7 +48,7 @@ export class ProjectRepository {
       const response = this.projectApiClient.deleteDocument(idCloud, idDocument, idProject)
       return response
     } catch (e) {
-      console.log(e.statusCode)
+      console.error(e.statusCode)
     }
   }
 
@@ -57,7 +57,7 @@ export class ProjectRepository {
       const response = this.projectApiClient.deleteFolder(idCloud, idFolder, idProject)
       return response
     } catch (e) {
-      console.log(e.statusCode)
+      console.error(e.statusCode)
     }
   }
 
@@ -69,7 +69,7 @@ export class ProjectRepository {
       const response = await this.projectApiClient.createFolder(idCloud, idProject, folder)
       return response
     } catch (e) {
-      console.log(e.statusCode)
+      console.error(e.statusCode)
     }
   }
 
@@ -82,7 +82,7 @@ export class ProjectRepository {
       const response = await this.projectApiClient.updateFolder(idCloud, idFolder, idProject, folder)
       return response
     } catch (e) {
-      console.log(e.statusCode)
+      console.error(e.statusCode)
     }
   }
 
@@ -95,7 +95,7 @@ export class ProjectRepository {
       const response = await this.projectApiClient.updateDocument(idCloud, idFolder, idProject, folder)
       return response
     } catch (e) {
-      console.log(e.statusCode)
+      console.error(e.statusCode)
     }
   }
 
@@ -104,7 +104,7 @@ export class ProjectRepository {
       const response = await this.projectApiClient.getProjects(idCloud)
       return response
     } catch (e) {
-      console.log(e.statusCode)
+      console.error(e.statusCode)
     }
   }
 
@@ -113,7 +113,7 @@ export class ProjectRepository {
       const response = await this.projectApiClient.getProjectUsers(cloudPk, projectPk)
       return response
     } catch (e) {
-      console.log(e.statusCode)
+      console.error(e.statusCode)
     }
   }
 
@@ -121,7 +121,7 @@ export class ProjectRepository {
     try {
       return this.projectApiClient.inviteProjectUser(cloudId, projectId, invite)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     }
   }
 
@@ -130,7 +130,7 @@ export class ProjectRepository {
       const response = await this.projectApiClient.getProjectInvitations(cloudId, projectPk)
       return response
     } catch (e) {
-      console.log(e)
+      console.error(e)
     }
   }
 
@@ -139,7 +139,7 @@ export class ProjectRepository {
       return this.projectApiClient
         .deleteProjectUser(params.cloudId, params.userId, params.projectId)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     }
   }
 
@@ -148,7 +148,7 @@ export class ProjectRepository {
       return this.projectApiClient
         .cancelProjectUserInvitation(params.cloudPk, params.id, params.projectPk)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     }
   }
 
@@ -157,7 +157,7 @@ export class ProjectRepository {
       return this.projectApiClient
         .updateProjectUser(cloudPk, id, projectPk, userProjectUpdate)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     }
   }
 }
