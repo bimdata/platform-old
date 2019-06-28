@@ -40,6 +40,7 @@
                     name="rights"
                     @input="radioSelected(right)"
                     :selected="role"
+                    :class="{'open-top': index > 4}"
                   ></base-input-radio>
                   <transition name="slide-fade">
                     <base-valid-delete v-if="showRemoveRightsActions" @on-valid-action="changeUserRights" @on-cancel-action="showRemoveRightsActions = false"></base-valid-delete>
@@ -133,6 +134,10 @@ export default {
       type: Number,
       required: true,
       default: 0
+    },
+    index: {
+      type: Number,
+      required: true
     }
   },
   computed: {
