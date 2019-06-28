@@ -149,11 +149,9 @@ export default {
   async createFolder ({commit, state, dispatch}, name) {
     let idCloud = state.selectedProject.cloud.id
     let idProject = state.selectedProject.id
-    const folder = await this.ProjectRepositoryRequest.createFolder(idCloud, idProject, name, state.currentFolderId)
+    await this.ProjectRepositoryRequest.createFolder(idCloud, idProject, name, state.currentFolderId)
 
     await dispatch('getTree', state.selectedProject)
-    await dispatch('changeFolder', folder.id)
-    commit('TOGGLE_FOLDER', folder.parent_id)
   },
   async moveItemsDMS ({commit, state, dispatch}, {idNewParentFolder, items}) {
     let idCloud = state.selectedProject.cloud.id

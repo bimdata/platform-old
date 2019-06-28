@@ -37,7 +37,7 @@
           </base-button-tool>
           <dms-upload-document v-if="isUserRole" class="base-button-tool__container"></dms-upload-document>
           <base-button-tool v-if="isUserRole" iconName="add-folder" @click="toggleAddFolderMenu" :tooltipLabel="$t('project.new_folder')">
-            <div class="new_folder_box" v-show="addFolder">
+            <div class="new_folder_box" v-show="addFolderMenu">
               <div class="new_folder_box__title">
                   {{ $t('project.create_folder') }}
               </div>
@@ -58,7 +58,7 @@
                   <span @click="saveFolder">{{ $t('project.validate') }}</span>
                 </div>
             </div>
-            <div class="new_folder_box__overlay" v-show="addFolder" @click="toggleAddFolderMenu"></div>
+            <div class="new_folder_box__overlay" v-show="addFolderMenu" @click="toggleAddFolderMenu"></div>
           </base-button-tool>
           <span class="dms__search">
             <img src="../../assets/images/icons/search.svg" />
@@ -293,7 +293,7 @@ export default {
       currentFolderItems: [],
       filesTree: [],
       listViewOriginalWidth: null,
-      addFolder: false,
+      addFolderMenu: false,
       newFolderName: ''
     }
   },
@@ -328,7 +328,7 @@ export default {
     async saveFolder () {
       if (this.newFolderName !== '') {
         await this.$store.dispatch('project/createFolder', this.newFolderName)
-        this.addFolder = false
+        this.addFolderMenu = false
       }
     },
     cancelRename () {
@@ -418,7 +418,7 @@ export default {
       this.valueCreatorEvent = value
     },
     toggleAddFolderMenu () {
-      this.addFolder = !this.addFolder
+      this.addFolderMenu = !this.addFolderMenu
       this.$nextTick(() => {
         this.$refs.createFolderInput.focus()
       })
