@@ -37,6 +37,7 @@
         "confirm": "Confirm",
         "upload": "Upload",
         "upload_text": "Upload your first file",
+        "loading": "Loading",
         "new": "New",
         "new_folder": "New folder",
         "import_document": "Import a document",
