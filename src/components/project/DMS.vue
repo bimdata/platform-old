@@ -159,7 +159,7 @@
                         <svgicon name="play" width="13" height="13"></svgicon>
                         {{ $t('project.view') }}
                       </li>
-                      <li @click="downloadFile(documentAction)">
+                      <li @click="downloadFile(documentAction)" v-if="documentAction.item.type != 'Folder'">
                         <svgicon name="download" width="13" height="13"></svgicon>
                           {{ $t('project.download') }}
                       </li>
