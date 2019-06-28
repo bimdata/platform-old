@@ -58,7 +58,7 @@ export default {
       }
       return ifcs
     } catch (e) {
-      console.log(e)
+      console.error(e)
     }
   },
   async fetchElements ({commit, state}, project) {
@@ -76,7 +76,7 @@ export default {
       commit('SET_ELEMENTS', elements)
       return elements
     } catch (e) {
-      console.log(e)
+      console.error(e)
     }
   },
   async getTree ({commit, dispatch, state}, project) {
@@ -90,7 +90,7 @@ export default {
       commit('SET_CURRENT_ELEMENT', result)
       return tree
     } catch (e) {
-      console.log(e)
+      console.error(e)
     }
   },
   toggleFolderOpened ({commit}, folderId) {
@@ -210,7 +210,7 @@ export default {
       await this.dispatch('fetchUserCloudsDetails')
       return true
     } catch (e) {
-      console.log(e)
+      console.error(e)
     }
   },
 
