@@ -31,10 +31,12 @@
         <div class="dms__toolbox noselect" v-show="!displaySelectedToolbox">
           <base-button-tool iconName="tree"
                             :class="{'is-active': isVisibleTreeView}"
-                            @click="displayTreeView">
+                            @click="displayTreeView"
+                            :tooltipLabel="isVisibleTreeView ? $t('project.close_tree_view') : $t('project.open_tree_view')"
+          >
           </base-button-tool>
           <dms-upload-document v-if="isUserRole" class="base-button-tool__container"></dms-upload-document>
-          <base-button-tool v-if="isUserRole" iconName="add-folder" @click="toggleAddFolderMenu">
+          <base-button-tool v-if="isUserRole" iconName="add-folder" @click="toggleAddFolderMenu" :tooltipLabel="$t('project.new_folder')">
             <div class="new_folder_box" v-show="addFolder">
               <div class="new_folder_box__title">
                   {{ $t('project.create_folder') }}

@@ -1,4 +1,8 @@
 {
+    "header": {
+        "back_to_project": "Back to project",
+        "clouds_projects": "Cloud's projects"
+    },
     "dashboard": {
         "logout": "Logout",
         "profile_btn": "Account settings"
@@ -33,7 +37,11 @@
         "confirm": "Confirm",
         "upload": "Upload",
         "upload_text": "Upload your first file",
-        "new": "New"
+        "new": "New",
+        "new_folder": "New folder",
+        "import_document": "Import a document",
+        "close_tree_view": "Close tree view",
+        "open_tree_view": "Open tree view"
     },
     "cloud_list": {
       "clouds_list": "Clouds list",

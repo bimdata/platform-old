@@ -11,7 +11,7 @@ $base-button-tool: 'base-button-tool';
   svg{ @include transition(color .15s linear); }
   &:hover{
     cursor: pointer;
-    svg{ color: $color-primary; }
+    svg, span{ color: $color-primary; }
   }
   &.is-active{
     svg{ color: $color-primary; }
