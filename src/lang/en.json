@@ -13,7 +13,7 @@
         "type": "Type",
         "creator": "Creator",
         "updated_at": "Updated at",
-        "state": "State",
+        "state": "Status",
         "view": "View",
         "size": "Size",
         "file": "File",
@@ -31,12 +31,13 @@
         "rename": "Rename",
         "rename_folder": "Rename folder",
         "rename_file": "Rename file",
-        "advice": "Advice",
+        "fill_in": "Fill in",
         "missing": "missing",
         "save": "Save",
         "confirm": "Confirm",
         "upload": "Upload",
         "upload_text": "Upload your first file",
+        "loading": "Loading",
         "new": "New",
         "new_folder": "New folder",
         "import_document": "Import a document",
@@ -69,6 +70,7 @@
       "user": "User",
       "administrator": "Admin",
       "remove": "Delete user",
+      "rights": "Rights",
       "modify_rights": "Edit user rights",
       "resend_invitation": "Resend invitation ?",
       "invite": "Invite",
@@ -76,5 +78,8 @@
       "without_answer": "without answer",
       "manage_admin": "Manage administrators",
       "users_list": "Users list"
+    },
+    "layout": {
+        "loading": "Loading"
     }
 }
