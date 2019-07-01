@@ -69,7 +69,7 @@
       "invitation_sent": "Invitation envoyé à {email}",
       "too_much_invitations_sent": "Trop d'invitations envoyés à {email}",
       "valid_email_attended": "Le champs e-mail doit être valide ou remplit",
-      "rights_attended": "Le rôle de l'utilisateur n'a pas été renseigné"
+      "rights_attended": "Le rôle de l'utilisateur n'a pas été renseigné",
       "users": "Utilisateurs",
       "user": "Utilisateur",
       "administrator": "Administrateur",
