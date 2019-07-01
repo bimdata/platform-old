@@ -20,6 +20,7 @@
                 </div>
                 <div class="base-input-text-material">
                   <input
+                    :ref="`rename-${project.id}`"
                     type="text"
                     autofocus
                     :placeholder="project.name"
@@ -119,6 +120,10 @@ export default {
       this.displayRename = !this.displayRename
       this.showRemoveActions = false
       this.renameProject = this.project.name
+      this.$nextTick(() => {
+        this.$refs[`rename-${this.project.id}`].focus()
+        this.$refs[`rename-${this.project.id}`].setSelectionRange(0, this.renameProject.length)
+      })
     },
     saveRename () {
       this.$store.dispatch('project/updateProjectName', {cloudPk: this.$store.state.currentCloud.id, id: this.project.id, name: this.renameProject})

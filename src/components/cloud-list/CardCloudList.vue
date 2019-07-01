@@ -18,8 +18,8 @@
                 </div>
                 <div class="base-input-text-material">
                   <input
+                    :ref="`rename-${cloud.id}`"
                     type="text"
-                    autofocus
                     :placeholder="cloud.name"
                     required
                     v-model="renameCloud"
@@ -102,6 +102,10 @@ export default {
       this.displayRename = !this.displayRename
       this.showRemoveActions = false
       this.renameCloud = this.cloud.name
+      this.$nextTick(() => {
+        this.$refs[`rename-${this.cloud.id}`].focus()
+        this.$refs[`rename-${this.cloud.id}`].setSelectionRange(0, this.renameCloud.length)
+      })
     },
     saveRename () {
       this.$store.dispatch('updateCloudName', {id: this.cloud.id, name: this.renameCloud})
