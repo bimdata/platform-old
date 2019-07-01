@@ -102,7 +102,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "echo YOLO"
+      "pre-commit": "eslint --ext .js,.vue src"
     }
   }
 }

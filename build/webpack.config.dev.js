@@ -19,9 +19,9 @@ module.exports = merge(baseConfig, {
     host: HOST,
     port: PORT,
     open: true,
-    overlay: { warnings: false, errors: true },
+    overlay: { warnings: false, errors: false },
     publicPath: '/',
-    quiet: true,
+    quiet: false,
     watchOptions: {
       poll: true
     }
