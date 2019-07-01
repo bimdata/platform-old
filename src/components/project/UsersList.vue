@@ -7,7 +7,7 @@
         <div class="users-list">
           <transition name="slide-bottom-fade">
             <div class="users-list__response-resend" v-if="hasResendResponse">
-              Invitation sent to {{ resendEmail }}
+              {{ $t('users.invitation_sent', { email: resendEmail }) }}
               <span class="users-list__response-resend__close" @click="hasResendResponse = false">
                 <svgicon name="close" height="18" width="18"></svgicon>
               </span>
@@ -15,8 +15,24 @@
           </transition>
           <transition name="slide-bottom-fade">
             <div class="users-list__response-resend users-list__response-resend--error" v-if="hasResendResponseError">
-              Too much invitation sent to {{ resendEmail }}
+              {{ $t('users.too_much_invitations_sent', { email: resendEmail }) }}
               <span class="users-list__response-resend__close" @click="hasResendResponseError = false">
+                <svgicon name="close" height="18" width="18"></svgicon>
+              </span>
+            </div>
+          </transition>
+          <transition name="slide-bottom-fade">
+            <div class="users-list__response-resend users-list__response-resend--error users-list__response-resend--big" v-if="hasTriedToInviteInvalidEmail">
+              {{ $t('users.valid_email_attended') }}
+              <span class="users-list__response-resend__close" @click="removeError">
+                <svgicon name="close" height="18" width="18"></svgicon>
+              </span>
+            </div>
+          </transition>
+          <transition name="slide-bottom-fade">
+            <div class="users-list__response-resend users-list__response-resend--error users-list__response-resend--big" v-if="hasTriedToInviteWithoutRights">
+              {{ $t('users.rights_attended') }}
+              <span class="users-list__response-resend__close" @click="removeError">
                 <svgicon name="close" height="18" width="18"></svgicon>
               </span>
             </div>
@@ -78,6 +94,14 @@ export default {
     filter: {
       type: String,
       default: ''
+    },
+    hasTriedToInviteInvalidEmail: {
+      type: Boolean,
+      default: false
+    },
+    hasTriedToInviteWithoutRights: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
@@ -89,6 +113,9 @@ export default {
     },
     updateUser (user, right) {
       this.$emit('on-update-user', user, right)
+    },
+    removeError () {
+      this.$emit('on-remove-error')
     },
     displayResponse (email, nbResend) {
       this.nbResend = nbResend

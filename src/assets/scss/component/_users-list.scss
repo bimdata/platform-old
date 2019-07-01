@@ -372,17 +372,24 @@
     width: 100%;
     z-index: 1;
 
+    &--big {
+      height: 50px;
+      padding: 15px 35px;
+  }
+
     &__close {
       position: absolute;
       right: 12px;
       top: 50%;
       transform: translateY(-50%);
+      cursor: pointer;
     }
 
     &--error {
       background: $danger;
     }
   }
+  
   &-modal {
     .close {
       position: absolute;

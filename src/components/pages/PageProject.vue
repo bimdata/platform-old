@@ -28,7 +28,17 @@
             <card-project-content :role="passRole"></card-project-content>
           </div>
           <div class="user-project">
-            <users-list :users="allUsers" :filter="searchFilter" @on-remove-user="removeUser" @on-remove-user-pending="removeUserPending" @on-update-user="updateUser" :class="{'users-list--large': displaySendInvit || displaySearchUser}">
+            <users-list
+              :users="allUsers"
+              :filter="searchFilter"
+              :hasTriedToInviteInvalidEmail="hasTriedToInviteInvalidEmail"
+              :hasTriedToInviteWithoutRights="hasTriedToInviteWithoutRights"
+              @on-remove-user="removeUser"
+              @on-remove-user-pending="removeUserPending"
+              @on-update-user="updateUser"
+              @on-remove-error="removeUsersListsErrors"
+              :class="{'users-list--large': displaySendInvit || displaySearchUser}"
+            >
               <template slot="users-list-header">
                 <div class="users-list__header">
                   <div class="users-list__header__left-container d-none">
@@ -117,7 +127,7 @@ import UploadIfc from '@/components/project/UploadIfc'
 import BaseInputRadio from '@/components/base-components/BaseInputRadio'
 import DMS from '@/components/project/DMS'
 import UploadFile from '@/components/project/UploadFile'
-import Isemail from 'isemail'
+import IsEmail from 'isemail'
 import { mixin as clickaway } from 'vue-clickaway'
 
 export default {
@@ -150,7 +160,9 @@ export default {
       displaySendInvit: false,
       displaySearchUser: false,
       displayRightsInvitation: false,
-      mailInvitation: ''
+      mailInvitation: '',
+      hasTriedToInviteInvalidEmail: false,
+      hasTriedToInviteWithoutRights: false
     }
   },
   methods: {
@@ -164,27 +176,36 @@ export default {
       deleteUserPending: 'project/deleteUserPending'
     }),
     emailInviteValid () {
-      return Isemail.validate(this.mailInvitation)
+      return IsEmail.validate(this.mailInvitation)
     },
     async sendInvitation () {
-      if (this.emailInviteValid()) {
-        if (this.chosenRight.value) {
-          await this.projectInvite({
-            project: this.project,
-            invite: {
-              email: this.mailInvitation,
-              role: this.chosenRight.value,
-              redirect_uri: `${process.env.BD_APP_URL}/cloud/${this.$route.params.cloudId}/project/${this.$route.params.projectId}`
-            }
-          })
-
-          this.mailInvitation = ''
-          if (this.isAdmin) {
-            this.getGuests()
-          }
-          this.displaySendInvit = false
-        }
+      if (!this.emailInviteValid()) {
+        this.hasTriedToInviteInvalidEmail = true
+        setTimeout(() => (this.hasTriedToInviteInvalidEmail = false), 3000)
+        return false
+      } else if (!this.chosenRight.value) {
+        this.hasTriedToInviteWithoutRights = true
+        setTimeout(() => (this.hasTriedToInviteWithoutRights = false), 3000)
+        return false
       }
+      await this.projectInvite({
+        project: this.project,
+        invite: {
+          email: this.mailInvitation,
+          role: this.chosenRight.value,
+          redirect_uri: `${process.env.BD_APP_URL}/cloud/${this.$route.params.cloudId}/project/${this.$route.params.projectId}`
+        }
+      })
+
+      this.mailInvitation = ''
+      if (this.isAdmin) {
+        this.getGuests()
+      }
+      this.displaySendInvit = false
+    },
+    removeUsersListsErrors () {
+      this.hasTriedToInviteInvalidEmail = false
+      this.hasTriedToInviteWithoutRights = false
     },
     closeUploadIfc () {
       this.displayUpload = false

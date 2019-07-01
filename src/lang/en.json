@@ -77,7 +77,11 @@
       "guest": "Guest",
       "without_answer": "without answer",
       "manage_admin": "Manage administrators",
-      "users_list": "Users list"
+      "users_list": "Users list",
+      "invitation_sent": "Invitation sent to {email}",
+      "too_much_invitations_sent": "Too much invitations sent to {email}",
+      "valid_email_attended": "Empty or invalid e-mail provided",
+      "rights_attended": "Role for the user has not been provided"
     },
     "layout": {
         "loading": "Loading"
