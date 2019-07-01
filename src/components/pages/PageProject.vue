@@ -181,15 +181,11 @@ export default {
     async sendInvitation () {
       if (!this.emailInviteValid()) {
         this.hasTriedToInviteInvalidEmail = true
-        setTimeout(() => {
-          this.hasTriedToInviteInvalidEmail = false
-        }, 3000)
+        setTimeout(() => (this.hasTriedToInviteInvalidEmail = false), 3000)
         return false
       } else if (!this.chosenRight.value) {
         this.hasTriedToInviteWithoutRights = true
-        setTimeout(() => {
-          this.hasTriedToInviteWithoutRights = false
-        }, 3000)
+        setTimeout(() => (this.hasTriedToInviteWithoutRights = false), 3000)
         return false
       }
       await this.projectInvite({
