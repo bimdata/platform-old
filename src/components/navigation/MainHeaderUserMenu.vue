@@ -48,7 +48,14 @@ export default {
       this.displayMenuOptions = false
     },
     openProfile () {
-      window.open(`${process.env.BD_OIDC_IP}/profile`)
+      const config = 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=650,height=700'
+      const embed = window.open(`${process.env.BD_OIDC_IP}/embed_profile`, 'targetWindow', config)
+      var timer = setInterval(() => {
+        if (embed.closed) {
+          clearInterval(timer)
+          document.location.reload()
+        }
+      }, 100)
     },
     toggleMenuOptions () {
       this.displayMenuOptions = !this.displayMenuOptions
