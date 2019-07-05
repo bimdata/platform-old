@@ -441,7 +441,7 @@ export default {
       })
     },
     type (fileName) {
-      if (fileName === undefined) {
+      if (fileName === undefined || fileName === null) {
         return 'Folder'
       }
 
