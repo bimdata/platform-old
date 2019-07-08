@@ -24,7 +24,7 @@
   "author": "Bimdata",
   "license": "MIT",
   "dependencies": {
-    "@bimdata/bimdata-api-client": "^4.0.2",
+    "@bimdata/bimdata-api-client": "^4.0.3",
     "@bimdata/utils": "^0.2.3",
     "axios": "^0.18.0",
     "bootstrap-vue": "^2.0.0-rc.11",
