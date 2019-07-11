@@ -62,7 +62,7 @@ export default {
       }, 100)
     },
     openBimdataConnect () {
-      window.open(`${process.env.BD_OIDC_IP}`)
+      window.open(process.env.BD_OIDC_IP)
     },
     toggleMenuOptions () {
       this.displayMenuOptions = !this.displayMenuOptions
