@@ -16,6 +16,10 @@
           <span><svgicon name="account" width="16"></svgicon></span>
           {{ $t('dashboard.profile_btn') }}
         </div>
+        <div @click="openBimdataConnect" size="small" iconName="" class="connect-item">
+          <span><svgicon name="picto-bimdataconnect" width="16"></svgicon></span>
+          {{ $t('dashboard.connect_auth') }}
+        </div>
         <div class="logout-item" @click="logout">
           <span><svgicon name="bimdata_power-settings"></svgicon></span>
           {{ $t('dashboard.logout') }}
@@ -56,6 +60,9 @@ export default {
           document.location.reload()
         }
       }, 100)
+    },
+    openBimdataConnect () {
+      window.open(`${process.env.BD_OIDC_IP}`)
     },
     toggleMenuOptions () {
       this.displayMenuOptions = !this.displayMenuOptions
