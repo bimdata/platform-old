@@ -5,6 +5,7 @@
     },
     "dashboard": {
         "logout": "Logout",
+        "connect_auth": "BIMData Connect",
         "profile_btn": "Account settings"
     },
     "project": {
