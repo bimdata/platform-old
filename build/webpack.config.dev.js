@@ -21,7 +21,7 @@ module.exports = merge(baseConfig, {
     open: true,
     overlay: { warnings: false, errors: false },
     publicPath: '/',
-    quiet: false,
+    quiet: true,
     watchOptions: {
       poll: true
     }
