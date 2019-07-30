@@ -40,5 +40,8 @@ $md-radio-checked-size: 8px;
       background:$md-radio-checked-color;
       @include transform(scale(0));
     }
+    &[disabled] {
+      color: #E2E2E2;
+    }
   }
 }

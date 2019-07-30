@@ -1,7 +1,7 @@
 <template>
     <div class="base-input-radio">
-        <input type="radio" :id="name + '-' + id + '-' + option.value" :name="name + id" :value="option.value" v-model="radioModel" @click="onSelect">
-        <label :for="name + '-' + id + '-' + option.value">
+        <input type="radio" :id="`${name}-${id}-${option.value}`" :name="name + id" :value="option.value" :disabled="option.disabled" v-model="radioModel" @click="onSelect">
+        <label :disabled="option.disabled" :for="`${name}-${id}-${option.value}`">
           {{ option.text }}
         </label>
     </div>
