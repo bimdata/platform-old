@@ -22,7 +22,7 @@
         </div>
         <div class="card-container" v-if="isAdmin">
             <div class="top-toolbar__choice-list-items">
-              <base-button-icon iconName="add-account" height="16" width="16" @on-click-action="showModal = !showModal"></base-button-icon>
+              <base-button-icon iconName="add-account" height="16" width="16" @on-click-action="showModal = !showModal" v-if="isAdmin"></base-button-icon>
             </div>
         </div>
       </div>
