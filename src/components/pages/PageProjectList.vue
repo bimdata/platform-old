@@ -95,9 +95,6 @@
             </template>
             <template slot="users-list-header">
               <div class="users-list__header users-list__header--large users-list__header__admin users-list__header__invitation">
-                <span id="users-list-icon">
-                  <svgicon name="add-account" width="16" height="16"></svgicon>
-                </span>
                 <input type="email" v-model="emailInvite" placeholder="Email invitation" @keyup.enter="sendInvitation" class="users-list-modal__input-mail" />
                 <div class="rights-select" @click="toggleRightsInvitation">
                   <svgicon name="chevron-down" width="20" height="18" class="arrow-down"></svgicon>
