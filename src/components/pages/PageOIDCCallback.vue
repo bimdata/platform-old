@@ -34,7 +34,6 @@ export default {
     async sendCodeToBackPlatform (payload) {
       request.defaults.baseURL = process.env.BD_PLATFORM_BACK_BASE_URL
       request.defaults.headers.post['Content-Type'] = 'application/json'
-
       try {
         const response = await request.post('back_callback/', payload)
         return response
@@ -52,7 +51,6 @@ export default {
           code: this.getCode(),
           nonce: nonce
         }
-
         this.sendCodeToBackPlatform(payload).then(() => {
           router.push(redirectPath)
         })
