@@ -49,7 +49,7 @@ export default {
       oidcUserManager.signinRedirect().then(() => {
         let state = this.getCurrentState()
         sessionStorage.setItem('last_nonce', state.nonce)
-      }).catch(function (err) {
+      }).catch(err => {
         this.$store.commit('setOidcError', err)
         console.error(err)
       })
