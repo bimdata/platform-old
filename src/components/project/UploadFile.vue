@@ -7,7 +7,13 @@
               class="m-0">
     </svgicon>
     <p class="my-4" v-if="isUserRole">{{ $t('project.upload_text') }} {{ text }}</p>
-    <div v-if="isUserRole" class="upload-area upload-area-upload">
+    <div class="UppyForm">
+      <form>
+        <input type="file" name="files[]" multiple="">
+      </form>
+    </div>
+    <div class="UppyProgressBar"></div>
+    <!-- <div v-if="isUserRole" class="upload-area upload-area-upload">
       <div iconName="newfile" class="base-button-empty__container uppy modalOpener">
         <div class="base-button-empty" v-on="listeners">
           <button class="btn btn-primary">{{ $t('project.upload') }} {{ btn }}</button>
@@ -15,14 +21,15 @@
         <slot></slot>
       </div>
       <div class="UploadContainer"></div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 import Uppy from '@uppy/core'
-import Dashboard from '@uppy/dashboard'
 import XHRUpload from '@uppy/xhr-upload'
+import FileInput from '@uppy/file-input'
+import ProgressBar from '@uppy/progress-bar'
 import { mapState } from 'vuex'
 import { hasUserRole } from '@/utils/manageRights'
 
@@ -90,10 +97,9 @@ export default {
     let baseApiUrl = process.env.BD_API_BASE_URL
     let endpointUpload = baseApiUrl + '/cloud/' + this.cloudId + '/project/' + this.projectId + '/document'
     let token = this.$store.state.oidc.access_token
-    let target = this.target
     let options = {
       debug: false,
-      autoProceed: false,
+      autoProceed: true,
       restrictions: {
         maxFileSize: 1000000000, // 1 Go
         maxNumberOfFiles: null,
@@ -101,19 +107,19 @@ export default {
       }
     }
     this.uppy = new Uppy(options)
-      .use(Dashboard, {
-        trigger: '.modalOpener',
-        inline: false,
-        target: target,
+      .use(FileInput, {
+        target: '.UppyForm',
         replaceTargetContent: true,
-        showProgressDetails: true,
-        note: '',
-        proudlyDisplayPoweredByUppy: false,
-        height: 163,
-        browserBackButtonClose: true
+        pretty: true,
+        inputNames: 'files[]'
+      })
+      .use(ProgressBar, {
+        target: '.UppyProgressBar',
+        hideAfterFinish: true
       })
       .use(XHRUpload, {
         endpoint: endpointUpload,
+        formData: true,
         fieldName: 'file',
         headers: {
           'authorization': `Bearer ${token}`
@@ -128,9 +134,6 @@ export default {
       this.$emit('upload-complete', result)
 
       if (result.successful) {
-        setTimeout(() => {
-          this.uppy.getPlugin('Dashboard').closeModal()
-        }, 2000)
       }
     })
   }
