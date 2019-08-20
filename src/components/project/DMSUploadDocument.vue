@@ -1,13 +1,18 @@
 <template>
     <div class="upload-area upload-area-dms">
-        <base-button-tool iconName="newfile" class="uppy modalOpener" :label="$t('project.import_document')">
-        </base-button-tool>
+        <div class="UppyForm">
+          <form>
+            <input type="file" name="files[]" multiple="">
+          </form>
+        </div>
+        <!-- <base-button-tool iconName="newfile" class="uppy modalOpener" :label="$t('project.import_document')">
+        </base-button-tool> -->
         <div class="DMSDashboardContainer"></div>
     </div>
 </template>
 <script>
 import Uppy from '@uppy/core'
-import Dashboard from '@uppy/dashboard'
+import FileInput from '@uppy/file-input'
 import XHRUpload from '@uppy/xhr-upload'
 import BaseButtonTool from '@/components/base-components/BaseButtonTool'
 import { mapState } from 'vuex'
@@ -52,27 +57,21 @@ export default {
     let baseApiUrl = process.env.BD_API_BASE_URL
     let endpointUpload = baseApiUrl + '/cloud/' + this.cloudId + '/project/' + this.projectId + '/document'
     let token = this.$store.state.oidc.access_token
-    let target = this.target
 
     this.uppy = new Uppy({
       debug: false,
-      autoProceed: false,
+      autoProceed: true,
       restrictions: {
         maxFileSize: 1000000000, // 1 Go
         maxNumberOfFiles: null,
         minNumberOfFiles: 1
       }
     })
-      .use(Dashboard, {
-        trigger: '.modalOpener',
-        inline: false,
-        target: target,
+      .use(FileInput, {
+        target: '.UppyForm',
         replaceTargetContent: true,
-        showProgressDetails: true,
-        note: '',
-        proudlyDisplayPoweredByUppy: false,
-        height: 163,
-        browserBackButtonClose: true
+        pretty: true,
+        inputNames: 'files[]'
       })
       .use(XHRUpload, {
         endpoint: endpointUpload,
@@ -90,9 +89,6 @@ export default {
       this.$emit('upload-complete', result)
 
       if (result.successful) {
-        setTimeout(() => {
-          this.uppy.getPlugin('Dashboard').closeModal()
-        }, 2000)
       }
     })
   }
