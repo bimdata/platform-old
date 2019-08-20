@@ -11,8 +11,13 @@
     </div>
 </template>
 <script>
+import Vue from 'vue';
 import { mapGetters, mapMutations } from 'vuex'
 import BimdataViewer from '@bimdata/viewer'
+import store from '../../store'
+
+Vue.use(BimdataViewer, { store });
+
 export default {
   data () {
     return {
