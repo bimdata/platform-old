@@ -2,6 +2,10 @@ $base-upload-area: 'upload-area';
 
 .#{$base-upload-area} {
 
+  .uppy-DragDrop-input {
+    display: none;
+  }
+
   .uppy-StatusBar:not([aria-hidden=true]).is-waiting {
     background: $white;
   }

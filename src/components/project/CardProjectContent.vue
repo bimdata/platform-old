@@ -4,7 +4,7 @@
       {{ projectName }}
     </template>
     <template v-if="panoramas.length === 0 && isUserRole" slot="content">
-      <upload-file name="upload-ifc" text="IFC" btn="IFC" :role="role"></upload-file>
+      <upload-file :key="'upload-ifc'" name="upload-ifc" text="IFC" btn="IFC" :role="role"></upload-file>
     </template>
     <template slot="content" v-else-if="isLoading">
       <div class="loader loader-layout">

@@ -20,6 +20,10 @@ export default {
     target: {
       type: String,
       default: '.DashboardContainer'
+    },
+    cancelUpload: {
+      type: String,
+      default: ''
     }
   },
   mounted () {
@@ -27,8 +31,8 @@ export default {
     let endpointUpload = baseApiUrl + '/cloud/' + this.cloudId + '/project/' + this.projectId + '/document'
     let token = this.$store.state.oidc.access_token
 
-    const uppy = new Uppy({
-      debug: false,
+    this.uppy = new Uppy({
+      debug: true,
       autoProceed: true,
       restrictions: {
         maxFileSize: 1000000000, // 1 Go
@@ -52,11 +56,28 @@ export default {
         }
       })
 
-    uppy.on('complete', result => {
+    this.uppy.on('upload-progress', (file, progress) => {
+      const payload = {
+        id: file.id,
+        name: file.name,
+        extension: file.extension,
+        uploaded: progress.bytesUploaded,
+        total: progress.bytesTotal
+      }
+      this.$emit('upload-progress', payload)
+    })
+
+    this.uppy.on('complete', result => {
       setTimeout(() => {
         this.$emit('upload-complete', result)
       }, 2000)
     })
+  },
+  watch: {
+    cancelUpload: function (newCancelUpload, _) {
+      this.uppy.removeFile(newCancelUpload)
+      this.$emit('on-cancel-done', newCancelUpload)
+    }
   }
 }
 </script>

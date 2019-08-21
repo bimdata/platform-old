@@ -94,7 +94,7 @@
           <base-card :fullscreen-available="false" class="ged-card">
             <template slot="header-title">{{ $t('project.project_document') }}</template>
             <template slot="content" v-if="!hasFiles">
-              <upload-file name="upload-file" :role="passRole"></upload-file>
+              <upload-file :key="'upload-file'" name="upload-file" :role="passRole"></upload-file>
             </template>
             <template slot="content" v-else>
               <dms :role="passRole"></dms>
@@ -208,7 +208,7 @@ export default {
       this.hasTriedToInviteWithoutRights = false
     },
     closeUploadIfc () {
-      this.displayUpload = false
+      // this.displayUpload = false
     },
     away () {
       this.displayRightsInvitation = false

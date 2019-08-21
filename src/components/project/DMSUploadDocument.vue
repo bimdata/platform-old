@@ -59,7 +59,7 @@ export default {
     let token = this.$store.state.oidc.access_token
 
     this.uppy = new Uppy({
-      debug: false,
+      debug: true,
       autoProceed: true,
       restrictions: {
         maxFileSize: 1000000000, // 1 Go
@@ -71,7 +71,12 @@ export default {
         target: '.UppyForm',
         replaceTargetContent: true,
         pretty: true,
-        inputNames: 'files[]'
+        inputNames: 'files[]',
+        locale: {
+          strings: {
+            chooseFiles: '<h1>yolo</h1>'
+          }
+        }
       })
       .use(XHRUpload, {
         endpoint: endpointUpload,

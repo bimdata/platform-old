@@ -6,22 +6,13 @@
               color="#EFF0F3 #fff #E6E7EA #DDDDDD #30374B #fff #fff"
               class="m-0">
     </svgicon>
-    <p class="my-4" v-if="isUserRole">{{ $t('project.upload_text') }} {{ text }}</p>
-    <div class="UppyForm">
+    <p class="my-4" v-if="isUserRole">{{ $t('project.upload_text', {type: text}) }}</p>
+    <div :id="`UppyForm-${$vnode.key}`">
       <form>
         <input type="file" name="files[]" multiple="">
       </form>
     </div>
     <div class="UppyProgressBar"></div>
-    <!-- <div v-if="isUserRole" class="upload-area upload-area-upload">
-      <div iconName="newfile" class="base-button-empty__container uppy modalOpener">
-        <div class="base-button-empty" v-on="listeners">
-          <button class="btn btn-primary">{{ $t('project.upload') }} {{ btn }}</button>
-        </div>
-        <slot></slot>
-      </div>
-      <div class="UploadContainer"></div>
-    </div> -->
   </div>
 </template>
 
@@ -108,10 +99,15 @@ export default {
     }
     this.uppy = new Uppy(options)
       .use(FileInput, {
-        target: '.UppyForm',
+        target: `#UppyForm-${this.$vnode.key}`,
         replaceTargetContent: true,
         pretty: true,
-        inputNames: 'files[]'
+        inputNames: 'files[]',
+        locale: {
+          strings: {
+            chooseFiles: this.$t('project.upload')
+          }
+        }
       })
       .use(ProgressBar, {
         target: '.UppyProgressBar',
