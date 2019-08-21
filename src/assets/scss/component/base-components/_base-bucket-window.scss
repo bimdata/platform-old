@@ -1,0 +1,29 @@
+.base-bucket-window {
+    position: absolute;
+    width: 362px;
+    bottom: 11px;
+    right: 0;
+    background: white;
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.07);
+
+    &.minimize {
+        .content {
+            height: 0px
+        }
+    }
+
+    .header {
+        .label {
+            color:#2f374a;
+            font-weight: bold;
+        }
+        div {
+            float: right;
+            display: inline-block;
+        }
+    }
+
+    .content {
+        height: 234px
+    }
+}

@@ -1,6 +1,6 @@
 <template>
   <span class="base-button-option__tool" @click="clickedTool" :class="{clicked: clicked}">
-    <svgicon :name="iconName" :width="iconWidth" :height="iconHeight" @click.native="clickedToolEvent" :class="iconName"></svgicon>
+    <svgicon :name="iconName" :width="iconWidth" :height="iconHeight" :color="iconColor" @click.native="clickedToolEvent" :class="iconName"></svgicon>
   </span>
 </template>
 
@@ -23,6 +23,10 @@ export default {
     iconWidth: {
       type: String,
       default: '22'
+    },
+    iconColor: {
+      type: String,
+      default: '#2f374a'
     }
   },
   methods: {
