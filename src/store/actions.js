@@ -1,7 +1,6 @@
 import { UserRepository } from '@/api/UserRepository'
 import { CloudRepository } from '@/api/CloudRepository'
 import { ProjectRepository } from '@/api/ProjectRepository'
-import router from '@/router'
 import { generateClient } from '@/api/initClient'
 import _ from 'lodash'
 
@@ -11,26 +10,6 @@ export default {
     this.UserRepositoryRequest = new UserRepository(defaultClient)
     this.CloudRepositoryRequest = new CloudRepository(defaultClient)
     this.ProjectRepositoryRequest = new ProjectRepository(defaultClient)
-  },
-  oidcCheckAuthAccessRedirect (context, { route, redirectAuto }) {
-    return new Promise((resolve) => {
-      let hasAccess = true
-      if (!(context.state.oidc.access_token || context.state.oidc.id_token) && !route.meta.isOidcCallback) {
-        if (route.meta.isPublic) {
-
-        } else {
-          const redirectPath = document.location.pathname + (document.location.search || '') + (document.location.hash || '')
-          sessionStorage.setItem('vuex_oidc_active_route', redirectPath)
-          if (redirectAuto === undefined) {
-            router.push({name: 'signin-required'})
-          } else {
-            router.push({name: 'signin-required', query: { redirect: 'auto' }})
-          }
-          hasAccess = false
-        }
-      }
-      resolve(hasAccess)
-    })
   },
   async fetchUserData ({commit}) {
     try {
