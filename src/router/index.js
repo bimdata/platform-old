@@ -7,9 +7,8 @@ import PageCloudList from '@/components/pages/PageCloudList'
 import PageComponents from '@/components/pages/PageComponents'
 import PageViewer from '@/components/pages/PageViewer'
 import OidcCallback from '@/components/pages/PageOIDCCallback'
-import PageSignInRequired from '@/components/pages/PageSignInRequired'
-import oidcRouterMiddleware from './oidcRouterMiddleware'
 import store from '@/store'
+import { vuexOidcCreateRouterMiddleware } from 'vuex-oidc'
 
 Vue.use(Router)
 
@@ -65,7 +64,7 @@ const router = new Router({
       name: 'components',
       component: PageComponents,
       meta: {
-        isPublic: true
+        isPublic: false
       }
     },
     {
@@ -73,22 +72,12 @@ const router = new Router({
       name: 'oidcCallback',
       component: OidcCallback,
       meta: {
-        isVuexOidcCallback: true,
-        isPublic: true
-      }
-    },
-    {
-      path: '/signin-required', // Needs to match redirect_uri in you oidcSettings
-      name: 'signin-required',
-      component: PageSignInRequired,
-      meta: {
-        isVuexOidcCallback: false,
+        isOidcCallback: true,
         isPublic: true
       }
     }
   ]
 })
-
-router.beforeEach(oidcRouterMiddleware(store))
+router.beforeEach(vuexOidcCreateRouterMiddleware(store))
 
 export default router

@@ -11,7 +11,10 @@ const utils = require('./utils')
 
 module.exports = {
 
-  entry: './src/main.js',
+  entry: {
+    index: './src/main.js',
+    'silent-renew-oidc': './src/silent-renew-oidc.js'
+  },
 
   resolve: {
     extensions: ['.js', '.vue', '.json'],
@@ -24,9 +27,9 @@ module.exports = {
       'components': utils.resolve('src/components')
     }
   },
-
   output: {
     publicPath: '/',
+    filename: '[name].js',
   },
 
   module: {
@@ -85,21 +88,28 @@ module.exports = {
       systemvars: true
     }),
     new HtmlWebpackPlugin({
+      filename: 'silent-renew-oidc.html',
+      template: 'silent-renew-oidc.html',
+      chunks: ['silent-renew-oidc'],
+      inject: true
+    }),
+    new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html',
+      chunks: ['index'],
       inject: true
     }),
     new VueLoaderPlugin(),
     new CopyWebpackPlugin([
-    {
-      from: 'node_modules/@bimdata/utils/dist/fonts',
-      to: 'dist/fonts'
-    },
-    {
-      from: utils.resolve('static/img'),
-      to: utils.resolve('dist/static/img'),
-      toType: 'dir'
-    },
-  ])
+      {
+        from: 'node_modules/@bimdata/utils/dist/fonts',
+        to: 'dist/fonts'
+      },
+      {
+        from: utils.resolve('static/img'),
+        to: utils.resolve('dist/static/img'),
+        toType: 'dir'
+      },
+    ])
   ]
 }

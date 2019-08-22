@@ -20,7 +20,7 @@
           <span><svgicon name="picto-bimdataconnect" width="16"></svgicon></span>
           {{ $t('dashboard.connect_auth') }}
         </div>
-        <div class="logout-item" @click="logout">
+        <div class="logout-item" @click="signOutOidc">
           <span><svgicon name="bimdata_power-settings"></svgicon></span>
           {{ $t('dashboard.logout') }}
         </div>
@@ -30,9 +30,7 @@
 </template>
 <script>
 import { mixin as clickaway } from 'vue-clickaway'
-import { vuexOidcCreateUserManager } from 'vuex-oidc'
-import { oidcSettings } from '@/config/OIDCSettings'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import BaseButtonAction from '@/components/base-components/BaseButtonAction'
 import BaseDropdown from '@/components/base-components/BaseDropdown'
 
@@ -48,6 +46,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'signOutOidc'
+    ]),
     away () {
       this.displayMenuOptions = false
     },
@@ -66,13 +67,6 @@ export default {
     },
     toggleMenuOptions () {
       this.displayMenuOptions = !this.displayMenuOptions
-    },
-    logout () {
-      const oidcUserManager = vuexOidcCreateUserManager(oidcSettings)
-      oidcUserManager.signoutRedirect().catch(function (err) {
-        this.$store.commit('setOidcError', err)
-        console.error(err)
-      })
     }
   },
   computed: {
