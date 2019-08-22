@@ -65,6 +65,18 @@
         @include align-items(center);
         @include justify-content(center);
       }
+      #users-list-icon {
+        height: 32px;
+        width: 32px;
+        margin-right: 8px;
+        @include flexbox;
+        @include align-items(center);
+        @include justify-content(center);
+        
+        .svg-icon {
+          cursor: unset;
+        }
+      }
     }
     &__right-container{
       margin-left: auto;
