@@ -12,7 +12,6 @@
         <input type="file" name="files[]" multiple="">
       </form>
     </div>
-    <div class="UppyProgressBar"></div>
   </div>
 </template>
 
@@ -20,7 +19,6 @@
 import Uppy from '@uppy/core'
 import XHRUpload from '@uppy/xhr-upload'
 import FileInput from '@uppy/file-input'
-import ProgressBar from '@uppy/progress-bar'
 import { mapState } from 'vuex'
 import { hasUserRole } from '@/utils/manageRights'
 
@@ -85,10 +83,10 @@ export default {
     }
   },
   mounted () {
-    let baseApiUrl = process.env.BD_API_BASE_URL
-    let endpointUpload = baseApiUrl + '/cloud/' + this.cloudId + '/project/' + this.projectId + '/document'
-    let token = this.$store.state.oidc.access_token
-    let options = {
+    const baseApiUrl = process.env.BD_API_BASE_URL
+    const endpointUpload = baseApiUrl + '/cloud/' + this.cloudId + '/project/' + this.projectId + '/document'
+    const token = this.$store.state.oidc.access_token
+    const options = {
       debug: false,
       autoProceed: true,
       restrictions: {
@@ -109,10 +107,6 @@ export default {
           }
         }
       })
-      .use(ProgressBar, {
-        target: '.UppyProgressBar',
-        hideAfterFinish: true
-      })
       .use(XHRUpload, {
         endpoint: endpointUpload,
         formData: true,
@@ -121,9 +115,11 @@ export default {
           'authorization': `Bearer ${token}`
         }
       })
+
     this.uppy.setMeta({
       parent_id: this.currentFolderId
     })
+
     this.uppy.on('complete', result => {
       this.$store.dispatch('project/getTree', this.$store.state.project.selectedProject)
       this.$store.dispatch('project/fetchProjectIfc', this.project)
