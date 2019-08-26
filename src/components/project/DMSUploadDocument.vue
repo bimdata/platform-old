@@ -28,6 +28,10 @@ export default {
     cancelUpload: {
       type: String,
       default: ''
+    },
+    retryUpload: {
+      type: String,
+      default: ''
     }
   },
   data () {
@@ -61,6 +65,10 @@ export default {
     cancelUpload: function (newCancelUpload, _) {
       this.uppy.removeFile(newCancelUpload)
       this.$emit('on-cancel-done', newCancelUpload)
+    },
+    retryUpload: function (newRetryUpload, _) {
+      this.uppy.retryUpload(newRetryUpload)
+      this.$emit('on-retry-upload', newRetryUpload)
     }
   },
   methods: {
@@ -122,6 +130,12 @@ export default {
         total: progress.bytesTotal
       }
       this.$emit('on-upload-progress', payload)
+    })
+
+    this.uppy.on('upload-error', (file, error, response) => {
+      console.log('error with file:', file.id)
+      console.log('error message:', error)
+      this.$emit('on-upload-error', file.id)
     })
 
     this.uppy.on('complete', result => {

@@ -378,12 +378,39 @@ $width-lg-tree: 350px;
 }
 
 .base-bucket-window {
-  td {
-    background: #fff !important;
+  table {
+    table-layout: fixed;
+
+    tr.item {
+      background: #fff;
+      border-bottom: 1px #d8d8d85e solid;
+
+      td:first {
+        width: 35px !important;
+      }
+
+      .cancel-btn span {
+        margin: 0;
+      }
+
+      td {
+        background: #fff !important;
+      }
+    }
   }
-  tr {
-    background: #fff;
-    border-bottom: 1px #d8d8d85e solid;
+  
+  .name {
+    color: #95989A;
+  }
+  .red {
+    color: #E01919;
+  }
+  button {
+    min-width: 66px !important;
+  }
+  .state {
+    font-style: italic;
+    color: #E01919;
   }
   .progress-bar {
     background: #EDEFF1;

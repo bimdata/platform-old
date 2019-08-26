@@ -6,7 +6,7 @@
           :style="{width: calculatedWidthWithLabel ? `${calculatedWidthWithLabel}px` : '32px'}"
           v-b-tooltip.hover.bottom="tooltipLabel"
         >
-            <svgicon class="base-button-tool__icon" v-show="iconName !== undefined" :name="iconName" :width="iconWidth" :height="iconHeight" :style="{marginRight: label !== '' ? '5px' : '0' }"></svgicon>
+            <svgicon class="base-button-tool__icon" v-show="iconName !== ''" :name="iconName" :width="iconWidth" :height="iconHeight" :style="{marginRight: label !== '' ? '5px' : '0' }"></svgicon>
             <span class="base-button-tool__label">
               {{ label }}
             </span>

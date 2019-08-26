@@ -39,8 +39,11 @@
             v-if="isUserRole"
             class="base-button-tool__container"
             :cancel-upload="cancelledUploadFileId"
+            :retry-upload="retriedUploadFileId"
             @on-upload-progress="onUploadProgress"
             @on-upload-complete="onUploadComplete"
+            @on-upload-error="onUploadError"
+            @on-retry-upload="onRetryUpload"
             @on-cancel-done="removeUploadingFile"
           ></dms-upload-document>
           <base-button-tool v-if="isUserRole" iconName="add-folder" @click="toggleAddFolderMenu" :tooltipLabel="$t('project.new_folder')">
@@ -214,7 +217,7 @@
           </div>
         </div>
     </div>
-    <base-bucket-window :open="displayUploadsBucket" :label="`${uploadingFiles.filter(el => el.uploaded === el.total).length} importations terminées`">
+    <base-bucket-window :open="displayUploadsBucket" :label="`${uploadingFiles.filter(el => el.state === 'success').length} importations terminées`">
       <div slot="elements" class="elements">
         <table>
           <tbody>
@@ -222,29 +225,32 @@
               class="item"
               v-for="uploadingFile in uploadingFiles"
               :key="uploadingFile.id">
-                <td>
+                <td width="35">
                   <img
                     :src="`/static/img/files-icons/${uploadingFile.extension}.svg`"
                     width="15"
                   />
                 </td>
                 <td>
-                  <span>{{ uploadingFile.name }}</span>
+                  <span class="name" :class="{red: uploadingFile.state === 'fail'}">{{ uploadingFile.name }}</span>
                 </td>
                 <td>
-                  <span class="state"></span>
+                  <span v-if="uploadingFile.state === 'fail'" class="state">Failed</span>
                 </td>
                 <td>
                   <div class="progress-bar" v-show="uploadingFile.uploaded !== uploadingFile.total">
                     <div class="done" :style="{ width: `${(((uploadingFile.uploaded / uploadingFile.total) / 100) * 10000).toFixed(0)}%` }"></div>
                   </div>
-                  <span class="size" v-show="uploadingFile.uploaded === uploadingFile.total">{{ uploadingFile.total | getFormattedSize }}</span>
-                  <base-button-tool
+                  <span class="size" v-show="uploadingFile.uploaded === uploadingFile.total && uploadingFile.state === 'success'">{{ uploadingFile.total | getFormattedSize }}</span>
+                  <button
+                    @click="retryUpload(uploadingFile.id)"
+                    class="btn btn-primary base-button-action"
                     v-show="uploadingFile.state === 'fail'"
-                    :label="'Retry'"
-                    ></base-button-tool>
+                  >
+                    Retry
+                  </button>
                 </td>
-                <td>
+                <td width="52" class="cancel-btn">
                   <base-clicked-tool @on-clicked-tool="cancelUpload(uploadingFile.id)" iconName="close" iconWidth="20" iconHeight="20"></base-clicked-tool>
                 </td>
             </tr>
@@ -346,6 +352,7 @@ export default {
       newFolderName: '',
       uploadingFiles: [],
       cancelledUploadFileId: '',
+      retriedUploadFileId: '',
       displayUploadsBucket: false
     }
   },
@@ -386,6 +393,9 @@ export default {
     cancelUpload (fileId) {
       this.cancelledUploadFileId = fileId
     },
+    retryUpload (fileId) {
+      this.retriedUploadFileId = fileId
+    },
     removeUploadingFile (fileId) {
       this.uploadingFiles = this.uploadingFiles.filter(el => el.id !== fileId)
     },
@@ -403,6 +413,14 @@ export default {
         let foundFileIndex = this.uploadingFiles.findIndex(el => el.id === file.id)
         this.uploadingFiles[foundFileIndex].state = 'success'
       })
+    },
+    onRetryUpload (fileId) {
+      let foundFileIndex = this.uploadingFiles.findIndex(el => el.id === fileId)
+      this.uploadingFiles[foundFileIndex].state = ''
+    },
+    onUploadError (fileId) {
+      let foundFileIndex = this.uploadingFiles.findIndex(el => el.id === fileId)
+      this.uploadingFiles[foundFileIndex].state = 'fail'
     },
     cancelRename () {
       this.displayRename = false
