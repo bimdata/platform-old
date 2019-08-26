@@ -1,19 +1,21 @@
 <template>
     <div class="upload-area upload-area-dms">
-        <div class="UppyForm">
-          <form>
-            <input type="file" name="files[]" multiple="">
-          </form>
-        </div>
-        <!-- <base-button-tool iconName="newfile" class="uppy modalOpener" :label="$t('project.import_document')">
-        </base-button-tool> -->
-        <div class="DMSDashboardContainer"></div>
+      <input
+        ref="input_file"
+        v-show="false"
+        type="file"
+        name="files[]"
+        @change="handleInputChange"
+        multiple="true"
+      >
+      <base-button-tool @click="click" iconName="newfile" class="uppy modalOpener" :label="$t('project.import_document')">
+      </base-button-tool>
     </div>
 </template>
 <script>
 import Uppy from '@uppy/core'
-import FileInput from '@uppy/file-input'
 import XHRUpload from '@uppy/xhr-upload'
+import toArray from '@uppy/utils/lib/toArray'
 import BaseButtonTool from '@/components/base-components/BaseButtonTool'
 import { mapState } from 'vuex'
 
@@ -61,6 +63,30 @@ export default {
       this.$emit('on-cancel-done', newCancelUpload)
     }
   },
+  methods: {
+    click () {
+      this.$refs.input_file.click()
+    },
+    handleInputChange (event) {
+      const files = toArray(event.target.files)
+
+      files.forEach((file) => {
+        try {
+          this.uppy.addFile({
+            source: this.id,
+            name: file.name,
+            type: file.type,
+            data: file
+          })
+        } catch (err) {
+          if (!err.isRestriction) {
+            this.uppy.log(err)
+          }
+        }
+      })
+      event.target.value = null
+    }
+  },
   mounted () {
     let baseApiUrl = process.env.BD_API_BASE_URL
     let endpointUpload = baseApiUrl + '/cloud/' + this.cloudId + '/project/' + this.projectId + '/document'
@@ -75,17 +101,6 @@ export default {
         minNumberOfFiles: 1
       }
     })
-      .use(FileInput, {
-        target: '.UppyForm',
-        replaceTargetContent: true,
-        pretty: true,
-        inputNames: 'files[]',
-        locale: {
-          strings: {
-            chooseFiles: '<h1>yolo</h1>'
-          }
-        }
-      })
       .use(XHRUpload, {
         endpoint: endpointUpload,
         fieldName: 'file',
