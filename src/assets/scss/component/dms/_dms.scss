@@ -395,34 +395,58 @@ $width-lg-tree: 350px;
 
       td {
         background: #fff !important;
+
+        .icon {
+          width: 7%;
+        }
+
+        .name {
+          width: 42%;
+
+          span {
+            color: #95989A;
+            overflow: hidden;
+
+          }
+        }
+
+        .fail {
+          width: 13%;
+          font-style: italic;
+          color: #E01919;
+        }
+
+        .state {
+          width: 23%;
+          
+          .progress-bar {
+            background: #EDEFF1;
+            height: 8px;
+            width: 76px;
+            border-radius: 4px;
+        
+            .done {
+              background: #4DBD74;
+              position: relative;
+              height: 8px;
+              border-radius: 4px;
+            }
+          }
+          
+          button {
+            min-width: 66px !important;
+          }
+        }
+
+        .cancel-btn {
+          width: 11%;
+        }
       }
     }
   }
   
-  .name {
-    color: #95989A;
-  }
   .red {
     color: #E01919;
   }
-  button {
-    min-width: 66px !important;
-  }
-  .state {
-    font-style: italic;
-    color: #E01919;
-  }
-  .progress-bar {
-    background: #EDEFF1;
-    height: 8px;
-    width: 76px;
-    border-radius: 4px;
 
-    .done {
-      background: #4DBD74;
-      position: relative;
-      height: 8px;
-      border-radius: 4px;
-    }
-  }
 }

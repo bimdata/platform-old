@@ -225,19 +225,19 @@
               class="item"
               v-for="uploadingFile in uploadingFiles"
               :key="uploadingFile.id">
-                <td width="35">
+                <td class="icon">
                   <img
                     :src="`/static/img/files-icons/${uploadingFile.extension}.svg`"
                     width="15"
                   />
                 </td>
-                <td>
-                  <span class="name" :class="{red: uploadingFile.state === 'fail'}">{{ uploadingFile.name }}</span>
+                <td class="name">
+                  <span :class="{red: uploadingFile.state === 'fail'}">{{ uploadingFile.name }}</span>
                 </td>
-                <td>
-                  <span v-if="uploadingFile.state === 'fail'" class="state">Failed</span>
+                <td class="fail">
+                  <span v-if="uploadingFile.state === 'fail'">Failed</span>
                 </td>
-                <td>
+                <td class="state">
                   <div class="progress-bar" v-show="uploadingFile.uploaded !== uploadingFile.total">
                     <div class="done" :style="{ width: `${(((uploadingFile.uploaded / uploadingFile.total) / 100) * 10000).toFixed(0)}%` }"></div>
                   </div>
@@ -250,7 +250,7 @@
                     Retry
                   </button>
                 </td>
-                <td width="52" class="cancel-btn">
+                <td class="cancel-btn">
                   <base-clicked-tool @on-clicked-tool="cancelUpload(uploadingFile.id)" iconName="close" iconWidth="20" iconHeight="20"></base-clicked-tool>
                 </td>
             </tr>
