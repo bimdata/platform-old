@@ -12,6 +12,7 @@
             </div>
         </div>
         <div class="content">
+          <slot name="elements"></slot>
         </div>
     </div>
 </template>

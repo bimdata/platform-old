@@ -38,7 +38,10 @@
           <dms-upload-document
             v-if="isUserRole"
             class="base-button-tool__container"
-            @on-upload-progress="uploadProgress"
+            :cancel-upload="cancelledUploadFileId"
+            @on-upload-progress="onUploadProgress"
+            @on-upload-complete="onUploadComplete"
+            @on-cancel-done="removeUploadingFile"
           ></dms-upload-document>
           <base-button-tool v-if="isUserRole" iconName="add-folder" @click="toggleAddFolderMenu" :tooltipLabel="$t('project.new_folder')">
             <div class="new_folder_box" v-show="addFolderMenu">
@@ -211,9 +214,43 @@
           </div>
         </div>
     </div>
-    <base-bucket-window
-      :label="'7 importations terminées'"
-    >
+    <base-bucket-window v-if="displayUploadsBucket" :label="`${uploadingFiles.filter(el => el.uploaded === el.total).length} importations terminées`">
+      <div slot="elements" class="elements">
+        <table>
+          <tbody>
+            <tr
+              class="item"
+              v-for="uploadingFile in uploadingFiles"
+              :key="uploadingFile.id">
+                <td>
+                  <img
+                    :src="`/static/img/files-icons/${uploadingFile.extension}.svg`"
+                    width="15"
+                  />
+                </td>
+                <td>
+                  <span>{{ uploadingFile.name }}</span>
+                </td>
+                <td>
+                  <span class="state"></span>
+                </td>
+                <td>
+                  <div class="progress-bar" v-show="uploadingFile.uploaded !== uploadingFile.total">
+                    <div class="done" :style="{ width: `${(((uploadingFile.uploaded / uploadingFile.total) / 100) * 10000).toFixed(0)}%` }"></div>
+                  </div>
+                  <span class="size" v-show="uploadingFile.uploaded === uploadingFile.total">{{ uploadingFile.total | getFormattedSize }}</span>
+                  <base-button-tool
+                    v-show="uploadingFile.state === 'fail'"
+                    :label="'Retry'"
+                    ></base-button-tool>
+                </td>
+                <td>
+                  <base-clicked-tool @on-clicked-tool="cancelUpload(uploadingFile.id)" iconName="close" iconWidth="20" iconHeight="20"></base-clicked-tool>
+                </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </base-bucket-window>
   </div>
 </template>
@@ -223,6 +260,7 @@ import DMSTreeView from '@/components/project/DMSTreeView'
 import BaseButtonTool from '@/components/base-components/BaseButtonTool'
 import BaseTreeSelect from '@/components/base-components/BaseTreeSelect'
 import BaseInputCheckbox from '@/components/base-components/BaseInputCheckbox'
+import BaseClickedTool from '@/components/base-components/BaseClickedTool'
 import DMSUploadDocument from '@/components/project/DMSUploadDocument'
 import BaseValidDelete from '@/components/base-components/BaseValidDelete'
 import ListChoice from '@/components/project/ListChoice'
@@ -245,6 +283,7 @@ export default {
     ListChoice,
     BaseBucketWindow,
     BaseValidDelete,
+    BaseClickedTool,
     'dms-upload-document': DMSUploadDocument
   },
   data () {
@@ -304,7 +343,10 @@ export default {
       filesTree: [],
       listViewOriginalWidth: null,
       addFolderMenu: false,
-      newFolderName: ''
+      newFolderName: '',
+      uploadingFiles: [],
+      cancelledUploadFileId: '',
+      displayUploadsBucket: false
     }
   },
   props: {
@@ -341,8 +383,26 @@ export default {
         this.addFolderMenu = false
       }
     },
-    uploadProgress (payload) {
-      console.log(payload)
+    cancelUpload (fileId) {
+      this.cancelledUploadFileId = fileId
+    },
+    removeUploadingFile (fileId) {
+      this.uploadingFiles = this.uploadingFiles.filter(el => el.id !== fileId)
+    },
+    onUploadProgress (payload) {
+      this.displayUploadsBucket = true
+      let foundFileIndex = this.uploadingFiles.findIndex(el => el.id === payload.id)
+      if (foundFileIndex === -1) {
+        this.uploadingFiles.push(payload)
+      } else {
+        this.uploadingFiles[foundFileIndex].uploaded = payload.uploaded
+      }
+    },
+    onUploadComplete (result) {
+      result.successful.forEach(file => {
+        let foundFileIndex = this.uploadingFiles.findIndex(el => el.id === file.id)
+        this.uploadingFiles[foundFileIndex].state = 'success'
+      })
     },
     cancelRename () {
       this.displayRename = false

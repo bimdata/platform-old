@@ -22,6 +22,10 @@ export default {
     target: {
       type: String,
       default: '.DMSDashboardContainer'
+    },
+    cancelUpload: {
+      type: String,
+      default: ''
     }
   },
   data () {
@@ -51,6 +55,10 @@ export default {
       this.uppy.setMeta({
         parent_id: this.currentFolderId
       })
+    },
+    cancelUpload: function (newCancelUpload, _) {
+      this.uppy.removeFile(newCancelUpload)
+      this.$emit('on-cancel-done', newCancelUpload)
     }
   },
   mounted () {
@@ -98,14 +106,13 @@ export default {
         uploaded: progress.bytesUploaded,
         total: progress.bytesTotal
       }
-      console.log('yeah')
       this.$emit('on-upload-progress', payload)
     })
 
     this.uppy.on('complete', result => {
       this.$store.dispatch('project/getTree', this.$store.state.project.selectedProject)
       this.$store.dispatch('project/fetchProjectIfc', this.project)
-      this.$emit('upload-complete', result)
+      this.$emit('on-upload-complete', result)
 
       if (result.successful) {
       }

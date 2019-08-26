@@ -376,3 +376,26 @@ $width-lg-tree: 350px;
     top: 27px;
   }
 }
+
+.base-bucket-window {
+  td {
+    background: #fff !important;
+  }
+  tr {
+    background: #fff;
+    border-bottom: 1px #d8d8d85e solid;
+  }
+  .progress-bar {
+    background: #EDEFF1;
+    height: 8px;
+    width: 76px;
+    border-radius: 4px;
+
+    .done {
+      background: #4DBD74;
+      position: relative;
+      height: 8px;
+      border-radius: 4px;
+    }
+  }
+}

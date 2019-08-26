@@ -56,7 +56,7 @@ export default {
         }
       })
 
-    this.uppy.on('upload-progress', (file, progress) => {
+    this.uppy.on('on-upload-progress', (file, progress) => {
       const payload = {
         id: file.id,
         name: file.name,
@@ -64,7 +64,7 @@ export default {
         uploaded: progress.bytesUploaded,
         total: progress.bytesTotal
       }
-      this.$emit('upload-progress', payload)
+      this.$emit('on-upload-progress', payload)
     })
 
     this.uppy.on('complete', result => {

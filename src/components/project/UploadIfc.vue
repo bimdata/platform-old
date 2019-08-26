@@ -8,7 +8,7 @@
                           class="upload-area-ifc"
                           :cloud-id="project.cloud.id"
                           :cancel-upload="cancelledUploadFileId"
-                          @upload-progress="onUploadProgress"
+                          @on-upload-progress="onUploadProgress"
                           @upload-complete="onUploadComplete"
                           @on-cancel-done="removeFile">
         </base-upload-area>
@@ -26,15 +26,12 @@ export default {
   },
   data: () => ({
     uploadingFiles: [],
-    cancelledUploadFileId: String
+    cancelledUploadFileId: ''
   }),
   computed: {
     ...mapState('project', {
       project: 'selectedProject'
     })
-  },
-  created () {
-    this.cancelledUploadFileId = ''
   },
   methods: {
     removeFile (fileId) {
