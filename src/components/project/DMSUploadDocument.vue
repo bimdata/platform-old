@@ -85,9 +85,23 @@ export default {
           'authorization': `Bearer ${token}`
         }
       })
+
     this.uppy.setMeta({
       parent_id: this.currentFolderId
     })
+
+    this.uppy.on('upload-progress', (file, progress) => {
+      const payload = {
+        id: file.id,
+        name: file.name,
+        extension: file.extension,
+        uploaded: progress.bytesUploaded,
+        total: progress.bytesTotal
+      }
+      console.log('yeah')
+      this.$emit('on-upload-progress', payload)
+    })
+
     this.uppy.on('complete', result => {
       this.$store.dispatch('project/getTree', this.$store.state.project.selectedProject)
       this.$store.dispatch('project/fetchProjectIfc', this.project)

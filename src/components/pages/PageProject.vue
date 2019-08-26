@@ -94,16 +94,17 @@
           <base-card :fullscreen-available="false" class="ged-card">
             <template slot="header-title">{{ $t('project.project_document') }}</template>
             <template slot="content" v-if="!hasFiles">
-              <upload-file :key="'upload-file'" name="upload-file" :role="passRole"></upload-file>
+              <upload-file
+                :key="'upload-file'"
+                name="upload-file"
+                :role="passRole"
+              >
+              </upload-file>
             </template>
             <template slot="content" v-else>
               <dms :role="passRole"></dms>
             </template>
           </base-card>
-          <base-bucket-window
-            :label="'7 importations terminées'"
-          >
-          </base-bucket-window>
         </div>
       </div>
     </template>
@@ -131,7 +132,6 @@ import UploadIfc from '@/components/project/UploadIfc'
 import BaseInputRadio from '@/components/base-components/BaseInputRadio'
 import DMS from '@/components/project/DMS'
 import UploadFile from '@/components/project/UploadFile'
-import BaseBucketWindow from '@/components/base-components/BaseBucketWindow'
 import IsEmail from 'isemail'
 import { mixin as clickaway } from 'vue-clickaway'
 
@@ -149,7 +149,6 @@ export default {
     UsersList,
     BaseInputRadio,
     BaseValidDelete,
-    BaseBucketWindow,
     UploadFile,
     'dms': DMS
   },

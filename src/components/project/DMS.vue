@@ -35,7 +35,11 @@
                             :tooltipLabel="isVisibleTreeView ? $t('project.close_tree_view') : $t('project.open_tree_view')"
           >
           </base-button-tool>
-          <dms-upload-document v-if="isUserRole" class="base-button-tool__container"></dms-upload-document>
+          <dms-upload-document
+            v-if="isUserRole"
+            class="base-button-tool__container"
+            @on-upload-progress="uploadProgress"
+          ></dms-upload-document>
           <base-button-tool v-if="isUserRole" iconName="add-folder" @click="toggleAddFolderMenu" :tooltipLabel="$t('project.new_folder')">
             <div class="new_folder_box" v-show="addFolderMenu">
               <div class="new_folder_box__title">
@@ -207,6 +211,10 @@
           </div>
         </div>
     </div>
+    <base-bucket-window
+      :label="'7 importations terminées'"
+    >
+    </base-bucket-window>
   </div>
 </template>
 <script>
@@ -218,6 +226,7 @@ import BaseInputCheckbox from '@/components/base-components/BaseInputCheckbox'
 import DMSUploadDocument from '@/components/project/DMSUploadDocument'
 import BaseValidDelete from '@/components/base-components/BaseValidDelete'
 import ListChoice from '@/components/project/ListChoice'
+import BaseBucketWindow from '@/components/base-components/BaseBucketWindow'
 import BaseButtonOption from '@/components/base-components/BaseButtonOption'
 import { mixin as clickaway } from 'vue-clickaway'
 import { hasUserRole } from '@/utils/manageRights'
@@ -234,6 +243,7 @@ export default {
     BaseInputCheckbox,
     BaseButtonOption,
     ListChoice,
+    BaseBucketWindow,
     BaseValidDelete,
     'dms-upload-document': DMSUploadDocument
   },
@@ -330,6 +340,9 @@ export default {
         await this.$store.dispatch('project/createFolder', this.newFolderName)
         this.addFolderMenu = false
       }
+    },
+    uploadProgress (payload) {
+      console.log(payload)
     },
     cancelRename () {
       this.displayRename = false
