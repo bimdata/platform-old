@@ -214,7 +214,7 @@
           </div>
         </div>
     </div>
-    <base-bucket-window v-if="displayUploadsBucket" :label="`${uploadingFiles.filter(el => el.uploaded === el.total).length} importations terminées`">
+    <base-bucket-window :open="displayUploadsBucket" :label="`${uploadingFiles.filter(el => el.uploaded === el.total).length} importations terminées`">
       <div slot="elements" class="elements">
         <table>
           <tbody>

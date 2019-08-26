@@ -1,5 +1,5 @@
 <template>
-    <div :class="{ minimize: isMinimize }" class="base-bucket-window">
+    <div v-if="display" :class="{ minimize: isMinimize }" class="base-bucket-window">
         <div class="header">
             <span class="label">
               {{ label }}
@@ -27,10 +27,15 @@ export default {
     label: {
       type: String,
       default: ''
+    },
+    open: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
     return {
+      display: false,
       isMinimize: false
     }
   },
@@ -41,7 +46,12 @@ export default {
       this.isMinimize = !this.isMinimize
     },
     close () {
-
+      this.display = !this.display
+    }
+  },
+  watch: {
+    open: function (newValue, _) {
+      this.display = newValue
     }
   }
 }
