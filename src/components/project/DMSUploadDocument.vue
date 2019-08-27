@@ -133,8 +133,6 @@ export default {
     })
 
     this.uppy.on('upload-error', (file, error, response) => {
-      console.log('error with file:', file.id)
-      console.log('error message:', error)
       this.$emit('on-upload-error', file.id)
     })
 

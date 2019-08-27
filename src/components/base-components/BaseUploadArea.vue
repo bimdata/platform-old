@@ -17,19 +17,15 @@ export default {
       type: Number,
       default: null
     },
-    target: {
-      type: String,
-      default: '.DashboardContainer'
-    },
     cancelUpload: {
       type: String,
       default: ''
     }
   },
   mounted () {
-    let baseApiUrl = process.env.BD_API_BASE_URL
-    let endpointUpload = baseApiUrl + '/cloud/' + this.cloudId + '/project/' + this.projectId + '/document'
-    let token = this.$store.state.oidc.access_token
+    const baseApiUrl = process.env.BD_API_BASE_URL
+    const endpointUpload = baseApiUrl + '/cloud/' + this.cloudId + '/project/' + this.projectId + '/document'
+    const token = this.$store.state.oidc.access_token
 
     this.uppy = new Uppy({
       debug: true,
@@ -46,7 +42,12 @@ export default {
         width: '100%',
         height: '100%',
         note: null,
-        locale: {}
+        locale: {
+          strings: {
+            dropHereOr: 'Drag and drop to store your project assets',
+            browse: 'Select file'
+          }
+        }
       })
       .use(XHRUpload, {
         endpoint: endpointUpload,
@@ -56,20 +57,25 @@ export default {
         }
       })
 
-    this.uppy.on('on-upload-progress', (file, progress) => {
+    this.uppy.on('upload-progress', (file, progress) => {
       const payload = {
         id: file.id,
         name: file.name,
         extension: file.extension,
         uploaded: progress.bytesUploaded,
-        total: progress.bytesTotal
+        total: progress.bytesTotal,
+        state: 'pending'
       }
       this.$emit('on-upload-progress', payload)
     })
 
+    this.uppy.on('upload-error', (file, error, response) => {
+      this.$emit('on-upload-error', file.id)
+    })
+
     this.uppy.on('complete', result => {
       setTimeout(() => {
-        this.$emit('upload-complete', result)
+        this.$emit('on-upload-complete', result)
       }, 2000)
     })
   },

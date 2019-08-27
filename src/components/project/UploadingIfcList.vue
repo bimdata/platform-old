@@ -5,6 +5,7 @@
         :key="`uploading-file-${index}`"
         :file="file"
         :uploaded="file.uploaded"
+        :state="file.state"
         @on-cancel-upload="cancelUpload"
       >
       </uploading-ifc-item>
@@ -12,7 +13,6 @@
 </template>
 <script>
 import UploadingIfcItem from '@/components/project/UploadingIfcItem'
-// import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -24,19 +24,9 @@ export default {
       default: () => []
     }
   },
-  computed: {
-    // ...mapState('project', {
-    //   project: 'selectedProject'
-    // })
-  },
   methods: {
     cancelUpload (fileId) {
       this.$emit('on-cancel-upload', fileId)
-    },
-    onUploadComplete (result) {
-      // this.$store.dispatch('project/fetchProjectIfc', this.project)
-      // this.$store.dispatch('project/getTree', this.project)
-      // this.$emit('upload-complete', result)
     }
   }
 }

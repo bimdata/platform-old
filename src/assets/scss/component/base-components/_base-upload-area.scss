@@ -78,3 +78,26 @@ $base-upload-area: 'upload-area';
   min-width: auto !important;
   min-height: auto !important;
 }
+
+.upload-area {
+  .uppy-DragDrop-inner {
+    padding: 0 !important;
+  
+    svg {
+      display: none !important;
+    }
+  }
+
+  .uppy-DragDrop-label {
+    font-family: Roboto;
+    font-weight: 500;
+    color: #95989A;
+  }
+
+  button {
+    border-color: #2F374A !important;
+    background: #E8E8E8 !important;
+    width: 100% !important;
+    height: 108px !important;
+  }
+}

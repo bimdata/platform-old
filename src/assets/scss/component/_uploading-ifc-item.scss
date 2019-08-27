@@ -1,5 +1,6 @@
 .uploading-ifc-item {
     padding: 14px;
+    height: 71px;
     margin-top: 11px;
     background: white;
     box-shadow: 0 2px 10px 0 rgba(0,0,0,0.07);
@@ -11,7 +12,20 @@
     .content {
         margin-left: 45px;
 
-        #progress-bar {
+        .cancel-btn {
+            &:after{
+                width: 19px;
+                height: 19px;
+            }
+            
+            margin-top: -6.5px;
+            float: right;
+            width: 19px;
+            height: 19px;
+            border: 1px solid #979797;
+        }
+
+        .progress-bar {
             background: #E4E7EA;
             height: 4px;
     
@@ -22,6 +36,21 @@
             }
         }
     
+        .stats {
+            font-style: italic;
+            .speed {
+                font-style: normal;
+            }
+        }
+
+        .informations {
+            display: none;
+        }
+
+        .label {
+            display: none;
+        }
+
         .speed {
             float: right;
         }
@@ -29,6 +58,44 @@
         .cancel-btn {
             float: right;
             cursor: pointer;
+        }
+    }
+
+    &.success {
+        .informations {
+            font-style: italic;
+            display: block;
+        }
+
+        .stats {
+            display: none;
+        }
+    }
+
+    &.fail {
+        border: 2px solid #F40C0C;
+        background-color: #FFF2F2;
+
+        .informations {
+            display: block;
+
+            .label {
+                display: inline;
+                font-weight: 700;
+                color: #F40C0C;
+            }
+        }
+
+        .stats {
+            display: none;
+        }
+
+        .cancel-btn {
+            margin-top: 6.5px;
+            float: right;
+            width: 19px;
+            height: 19px;
+            border: 1px solid #F40C0C;
         }
     }
 }

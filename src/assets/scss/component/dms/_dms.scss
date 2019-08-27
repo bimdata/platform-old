@@ -416,16 +416,16 @@ $width-lg-tree: 350px;
           color: #E01919;
         }
 
-        .state {
+        &.state {
           width: 23%;
           
-          .progress-bar {
+          > .progress-bar {
             background: #EDEFF1;
             height: 8px;
             width: 76px;
             border-radius: 4px;
         
-            .done {
+            > .done {
               background: #4DBD74;
               position: relative;
               height: 8px;

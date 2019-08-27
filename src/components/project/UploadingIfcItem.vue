@@ -1,25 +1,33 @@
 <template>
-    <div class="uploading-ifc-item">
+    <div class="uploading-ifc-item" :class="{fail: state === 'fail', success: state === 'success'}">
       <img
           :src="`/static/img/files-icons/${file.extension}.svg`"
           width="30"
       />
       <div class="content">
+        <base-clicked-tool class="cancel-btn" @on-clicked-tool="cancelUpload(file.id)" iconName="close" iconWidth="19" iconHeight="19" :iconColor="state === 'fail' ? '#F40C0C' : '#cecece'"></base-clicked-tool>
         <span>{{ file.name }}</span>
-        <span class="cancel-btn" @click="cancelUpload(file.id)">cancel_button</span>
-        <div id="progress-bar">
-          <div class="done" :style="{ width: `${(((uploaded / file.total) / 100) * 10000).toFixed(0)}%` }"></div>
+        <div class="informations">
+          <span class="size">{{ file.total | getFormattedSize }}</span>
+          <span>- </span>
+          <span class="label">Upload failed</span>
         </div>
-        <span>{{ uploaded | getFormattedSize }}  {{ file.total | getFormattedSize }} ({{ (((uploaded / file.total) / 100) * 10000).toFixed(0) }}% done)</span>
-        <span class="speed">{{ speed | getFormattedSize }}/s</span>
+        <div class="stats">
+          <div class="progress-bar">
+            <div class="done" :style="{ width: `${(((uploaded / file.total) / 100) * 10000).toFixed(0)}%` }"></div>
+          </div>
+          <span>{{ uploaded | getFormattedSize }}  {{ file.total | getFormattedSize }} ({{ (((uploaded / file.total) / 100) * 10000).toFixed(0) }}% done)</span>
+          <span class="speed">{{ speed | getFormattedSize }}/s</span>
+        </div>
       </div>
     </div>
 </template>
 <script>
-// import { mapState } from 'vuex'
+import BaseClickedTool from '@/components/base-components/BaseClickedTool'
 
 export default {
   components: {
+    BaseClickedTool
   },
   props: {
     file: {
@@ -29,12 +37,11 @@ export default {
     uploaded: {
       type: Number,
       required: true
+    },
+    state: {
+      type: String,
+      required: true
     }
-  },
-  computed: {
-    // ...mapState('project', {
-    //   project: 'selectedProject'
-    // })
   },
   created () {
     this.speed = 0
@@ -42,11 +49,6 @@ export default {
   methods: {
     cancelUpload (fileId) {
       this.$emit('on-cancel-upload', fileId)
-    },
-    onUploadComplete (result) {
-      // this.$store.dispatch('project/fetchProjectIfc', this.project)
-      // this.$store.dispatch('project/getTree', this.project)
-      // this.$emit('upload-complete', result)
     }
   },
   watch: {

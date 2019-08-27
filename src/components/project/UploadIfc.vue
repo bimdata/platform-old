@@ -9,7 +9,8 @@
                           :cloud-id="project.cloud.id"
                           :cancel-upload="cancelledUploadFileId"
                           @on-upload-progress="onUploadProgress"
-                          @upload-complete="onUploadComplete"
+                          @on-upload-complete="onUploadComplete"
+                          @on-upload-error="onUploadError"
                           @on-cancel-done="removeFile">
         </base-upload-area>
     </div>
@@ -48,11 +49,16 @@ export default {
         this.uploadingFiles[foundFileIndex].uploaded = payload.uploaded
       }
     },
+    onUploadError (fileId) {
+      let foundFileIndex = this.uploadingFiles.findIndex(el => el.id === fileId)
+      this.uploadingFiles[foundFileIndex].state = 'fail'
+    },
     onUploadComplete (result) {
       this.$store.dispatch('project/fetchProjectIfc', this.project)
       this.$store.dispatch('project/getTree', this.project)
       result.successful.forEach(file => {
-        this.uploadingFiles = this.uploadingFiles.filter(el => el.id !== file.id)
+        let foundFileIndex = this.uploadingFiles.findIndex(el => el.id === file.id)
+        this.uploadingFiles[foundFileIndex].state = 'success'
       })
       this.$emit('upload-complete', result)
     }
