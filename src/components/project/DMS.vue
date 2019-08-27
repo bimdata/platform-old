@@ -471,13 +471,14 @@ export default {
             let type = (this.type(item.file_name) === 'Folder') ? 'folder' : 'file'
             return element.id === item.id && element.type === type
           })
+          const fileType = this.type(item.file_name).toLowerCase()
 
-          const fileTypeExist = checkIfFileIconExist(this.type(item.file_name).toLowerCase())
+          const fileTypeExist = checkIfFileIconExist(fileType)
 
           let icon
-          if (item.file_name !== undefined) {
+          if (item.type === 'Folder') {
             if (fileTypeExist) {
-              icon = `${this.type(item.file_name).toLowerCase()}.svg`
+              icon = `${fileType}.svg`
             } else {
               icon = 'unknown.svg'
             }
