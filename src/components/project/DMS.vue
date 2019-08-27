@@ -472,6 +472,19 @@ export default {
             return element.id === item.id && element.type === type
           })
 
+          const fileTypeExist = checkIfFileIconExist(this.type(item.file_name).toLowerCase())
+
+          let icon
+          if (item.file_name !== undefined) {
+            if (fileTypeExist) {
+              icon = `${this.type(item.file_name).toLowerCase()}.svg`
+            } else {
+              icon = 'unknown.svg'
+            }
+          } else {
+            icon = 'folder.svg'
+          }
+
           return {
             id: item.id,
             name: item.name,
@@ -479,7 +492,7 @@ export default {
             type: this.type(item.file_name),
             ifcId: item.ifc_id,
             idPrefix: (this.type(item.file_name) === 'Folder') ? 'folder' : 'file',
-            icon: (item.file_name !== undefined) ? checkIfFileIconExist(this.type(item.file_name).toLowerCase()) ? `${this.type(item.file_name).toLowerCase()}.svg` : 'unknown.svg' : 'folder.svg',
+            icon: icon,
             creator: item.created_by,
             size: item.size,
             file: item.file,
