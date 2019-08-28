@@ -10,13 +10,13 @@
         <div class="informations">
           <span class="size">{{ file.total | getFormattedSize }}</span>
           <span>- </span>
-          <span class="label">Upload failed</span>
+          <span class="label">{{ $t('project.upload_failed') }}</span>
         </div>
         <div class="stats">
           <div class="progress-bar">
             <div class="done" :style="{ width: `${(((uploaded / file.total) / 100) * 10000).toFixed(0)}%` }"></div>
           </div>
-          <span>{{ uploaded | getFormattedSize }}  {{ file.total | getFormattedSize }} ({{ (((uploaded / file.total) / 100) * 10000).toFixed(0) }}% done)</span>
+          <span>{{ uploaded | getFormattedSize }}  {{ file.total | getFormattedSize }} ({{ (((uploaded / file.total) / 100) * 10000).toFixed(0) }}% {{ $t('project.done') }})</span>
           <span class="speed">{{ speed | getFormattedSize }}/s</span>
         </div>
       </div>
