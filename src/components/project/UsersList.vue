@@ -47,6 +47,7 @@
                 :user="user"
                 :displayMenu="displayMenu"
                 :role="user.role"
+                :level="level"
                 @on-remove-user="removeUser"
                 @on-update-user="updateUser"
                 @on-remove-user-pending="removeUserPending"
@@ -102,6 +103,10 @@ export default {
     hasTriedToInviteWithoutRights: {
       type: Boolean,
       default: false
+    },
+    level: {
+      type: String,
+      required: true
     }
   },
   methods: {
