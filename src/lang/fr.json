@@ -43,7 +43,9 @@
         "new_folder": "Nouveau dossier",
         "import_document": "Importer un document",
         "close_tree_view": "Fermer l'arborescence",
-        "open_tree_view": "Ouvrir l'arborescence"
+        "open_tree_view": "Ouvrir l'arborescence",
+        "drop_files": "Glisser-déposer pour stocker vos fichiers de projet",
+        "select_file": "Sélectionner un fichier"
     },
     "cloud_list": {
       "clouds_list": "Liste des Espaces",

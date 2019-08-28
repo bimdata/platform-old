@@ -41,11 +41,10 @@ export default {
         target: '.upload-area',
         width: '100%',
         height: '100%',
-        note: null,
         locale: {
           strings: {
-            dropHereOr: 'Drag and drop to store your project assets',
-            browse: 'Select file'
+            dropHereOr: `${this.$t('project.drop_files')} or %{browse}`,
+            browse: this.$t('project.select_file')
           }
         }
       })
