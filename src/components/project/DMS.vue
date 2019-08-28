@@ -235,7 +235,7 @@
                   <span :class="{red: uploadingFile.state === 'fail'}">{{ uploadingFile.name }}</span>
                 </td>
                 <td class="fail">
-                  <span v-if="uploadingFile.state === 'fail'">Failed</span>
+                  <span v-if="uploadingFile.state === 'fail'">{{ $t('project.failed') }}</span>
                 </td>
                 <td class="state">
                   <div class="progress-bar" v-show="uploadingFile.uploaded !== uploadingFile.total">

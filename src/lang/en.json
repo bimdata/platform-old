@@ -45,7 +45,8 @@
         "close_tree_view": "Close tree view",
         "open_tree_view": "Open tree view",
         "drop_files": "Drag and drop to store your project assets",
-        "select_file": "Select file"
+        "select_file": "Select file",
+        "failed": "Failed"
     },
     "cloud_list": {
       "clouds_list": "Clouds list",

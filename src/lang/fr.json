@@ -45,7 +45,8 @@
         "close_tree_view": "Fermer l'arborescence",
         "open_tree_view": "Ouvrir l'arborescence",
         "drop_files": "Glisser-déposer pour stocker vos fichiers de projet",
-        "select_file": "Sélectionner un fichier"
+        "select_file": "Sélectionner un fichier",
+        "failed": "Echoué"
     },
     "cloud_list": {
       "clouds_list": "Liste des Espaces",
