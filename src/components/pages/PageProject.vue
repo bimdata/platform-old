@@ -33,6 +33,7 @@
               :filter="searchFilter"
               :hasTriedToInviteInvalidEmail="hasTriedToInviteInvalidEmail"
               :hasTriedToInviteWithoutRights="hasTriedToInviteWithoutRights"
+              :level="'project'"
               @on-remove-user="removeUser"
               @on-remove-user-pending="removeUserPending"
               @on-update-user="updateUser"

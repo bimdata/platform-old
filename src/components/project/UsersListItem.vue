@@ -138,6 +138,10 @@ export default {
     index: {
       type: Number,
       required: true
+    },
+    level: {
+      type: String,
+      required: true
     }
   },
   computed: {
@@ -154,6 +158,7 @@ export default {
       deleteProjectUser: 'project/deleteProjectUser',
       projectInvite: 'project/projectInvite',
       updateProjectUserRole: 'project/updateProjectUserRole',
+      cloudInvite: 'inviteCloudUser',
       deleteCloudUser: 'deleteCloudUser',
       updateCloudUser: 'updateCloudUser'
     }),
@@ -218,14 +223,25 @@ export default {
     },
     async resendInvitation (email, role) {
       this.nbResend++
-      await this.projectInvite({
-        project: this.project,
-        invite: {
-          email: email,
-          role: role,
-          redirect_uri: `${process.env.BD_APP_URL}/cloud/${this.$route.params.cloudId}/project/${this.$route.params.projectId}`
-        }
-      })
+      if (this.level === 'project') {
+        await this.projectInvite({
+          project: this.project,
+          invite: {
+            email: email,
+            role: role,
+            redirect_uri: `${process.env.BD_APP_URL}/cloud/${this.$route.params.cloudId}/project/${this.$route.params.projectId}`
+          }
+        })
+      } else {
+        this.cloudInvite({
+          cloudId: this.$route.params.cloudId,
+          invite: {
+            email: email,
+            role: role,
+            redirect_uri: `${process.env.BD_APP_URL}/cloud/${this.$route.params.cloudId}`
+          }
+        })
+      }
       this.$emit('email-resend', email, this.nbResend)
     }
   }

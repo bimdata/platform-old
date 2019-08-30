@@ -22,7 +22,7 @@
         </div>
         <div class="card-container" v-if="isAdmin">
             <div class="top-toolbar__choice-list-items">
-              <base-button-icon iconName="add-account" height="16" width="16" @on-click-action="showModal = !showModal"></base-button-icon>
+              <base-button-icon iconName="add-account" height="16" width="16" @on-click-action="showModal = !showModal" v-if="isAdmin"></base-button-icon>
             </div>
         </div>
       </div>
@@ -80,20 +80,43 @@
       </button>
       <transition name="fade">
         <template v-if="!showModalUsersList">
-          <users-list :displayMenu="false" :users="usersAdminCloud" @on-remove-user="removeUser" @on-remove-user-pending="removeUserPending" class="users-list--large">
+          <users-list
+            :displayMenu="false"
+            :users="usersAdminCloud"
+            :hasTriedToInviteInvalidEmail="hasTriedToInviteInvalidEmail"
+            :hasTriedToInviteWithoutRights="hasTriedToInviteWithoutRights"
+              :level="'cloud'"
+            @on-remove-user="removeUser"
+            @on-remove-user-pending="removeUserPending"
+            @on-remove-error="removeUsersListsErrors"
+            class="users-list--large"
+          >
             <template slot="header-title">
               {{ $t('users.manage_admin') }}
             </template>
             <template slot="users-list-header">
-              <div class="users-list__header users-list__header--large users-list__header__admin">
+              <div class="users-list__header users-list__header--large users-list__header__admin users-list__header__invitation">
                 <input type="email" v-model="emailInvite" placeholder="Email invitation" @keyup.enter="sendInvitation" class="users-list-modal__input-mail" />
-                <a href="#" role="button" class="btn btn-primary base-button-action" @click="sendInvitation" :class="{'disabled': !emailInviteValid()}">
-                  {{ $t('users.invite') }}
-                </a>
-                <span id="users-list-tooltip" @click="showModalUsersList = true">
-                  <svgicon name="account" width="16" height="16"></svgicon>
-                </span>
-                <b-tooltip target="users-list-tooltip" placement="bottom" :title="$t('users.users_list')"></b-tooltip>
+                <div class="rights-select" @click="toggleRightsInvitation">
+                  <svgicon name="chevron-down" width="20" height="18" class="arrow-down"></svgicon>
+                  <span class="ellipsis">{{ chosenRight.text }}</span>
+                  <div class="base-button-option__menu" v-if="displayRightsInvitation" v-on-clickaway="away">
+                    <ul>
+                      <li v-for="(right, index) in rights" :key="index">
+                        <base-input-radio
+                          :option="right"
+                          :selected="right.selected"
+                          name="invitation-rights"
+                          @input="setInvitationRight"
+                        ></base-input-radio>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <base-valid-delete @on-valid-action="sendInvitation" @on-cancel-action="emailInvite = ''"></base-valid-delete>
+                <base-button-action class="btn btn-primary base-button-action" iconColor="#fff" iconName="account" height="16" width="16" @click="showModalUsersList = true">
+                    {{ $t('users.users_list') }}
+                </base-button-action>
               </div>
             </template>
           </users-list>
@@ -139,17 +162,24 @@ import BaseButtonAction from '@/components/base-components/BaseButtonAction'
 import BaseButtonIcon from '@/components/base-components/BaseButtonIcon'
 import BaseValidDelete from '@/components/base-components/BaseValidDelete'
 import BaseClickedTool from '@/components/base-components/BaseClickedTool'
+import BaseInputRadio from '@/components/base-components/BaseInputRadio'
 import UsersList from '@/components/project/UsersList'
 import _ from 'lodash'
 import Isemail from 'isemail'
 import { sortAlphabetically, SORT_TYPE } from '@/utils/sorts'
+import { mixin as clickaway } from 'vue-clickaway'
 
 export default {
+  mixins: [ clickaway ],
   data () {
     return {
       sort: {
         type: SORT_TYPE.DATE,
         ascendant: false
+      },
+      chosenRight: {
+        value: 100,
+        text: this.$t('users.administrator')
       },
       selectedCloud: {},
       optionsCloud: [],
@@ -167,7 +197,10 @@ export default {
       displayError: false,
       creationPending: 0,
       isCreatingProject: false,
-      emptyValue: 'This field may not be blank'
+      emptyValue: 'This field may not be blank',
+      displayRightsInvitation: false,
+      hasTriedToInviteInvalidEmail: false,
+      hasTriedToInviteWithoutRights: false
     }
   },
   components: {
@@ -177,6 +210,7 @@ export default {
     BaseSearchBar,
     BaseButtonIcon,
     BaseClickedTool,
+    BaseInputRadio,
     BaseCard,
     UsersList,
     BaseValidDelete
@@ -227,6 +261,28 @@ export default {
     },
     isAdmin () {
       return this.hasAdminRole(this.$store.state.currentCloud.role)
+    },
+    rights () {
+      return [
+        {
+          text: this.$t('users.administrator'),
+          selected: 1,
+          disabled: false,
+          value: 100
+        },
+        {
+          text: this.$t('users.user'),
+          selected: 0,
+          disabled: true,
+          value: 50
+        },
+        {
+          text: this.$t('users.guest'),
+          selected: 0,
+          disabled: true,
+          value: 25
+        }
+      ]
     }
   },
   methods: {
@@ -286,24 +342,46 @@ export default {
     emailInviteValid () {
       return Isemail.validate(this.emailInvite)
     },
+    removeUsersListsErrors () {
+      this.hasTriedToInviteInvalidEmail = false
+      this.hasTriedToInviteWithoutRights = false
+    },
+    away () {
+      this.displayRightsInvitation = false
+    },
+    setInvitationRight (value) {
+      this.chosenRight = value
+      this.toggleRightsInvitation()
+    },
+    toggleRightsInvitation () {
+      this.displayRightsInvitation = !this.displayRightsInvitation
+    },
     openSearchUser () {
       this.displaySearchUser = true
     },
     async sendInvitation () {
-      if (this.emailInviteValid()) {
-        await this.sendCloudInvitation({
-          cloudId: this.$route.params.cloudId,
-          invite: {
-            email: this.emailInvite,
-            redirect_uri: `${process.env.BD_APP_URL}/cloud/${this.$route.params.cloudId}`
-          }
-        })
-
-        this.emailInvite = ''
-        if (this.isAdmin) {
-          await this.getCloudGuests()
-        }
+      if (!this.emailInviteValid()) {
+        this.hasTriedToInviteInvalidEmail = true
+        setTimeout(() => (this.hasTriedToInviteInvalidEmail = false), 3000)
+        return false
+      } else if (!this.chosenRight.value) {
+        this.hasTriedToInviteWithoutRights = true
+        setTimeout(() => (this.hasTriedToInviteWithoutRights = false), 3000)
+        return false
       }
+      await this.sendCloudInvitation({
+        cloudId: this.$route.params.cloudId,
+        invite: {
+          email: this.emailInvite,
+          redirect_uri: `${process.env.BD_APP_URL}/cloud/${this.$route.params.cloudId}`
+        }
+      })
+
+      this.emailInvite = ''
+      if (this.isAdmin) {
+        await this.getCloudGuests()
+      }
+      this.displaySendInvit = false
     },
     async removeUser (userId) {
       const cloudId = this.$store.state.currentCloud.id
