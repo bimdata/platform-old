@@ -19,8 +19,7 @@ jobs:
 
       - run: npm ci
 
-      - run: npm run unit
-      - run: npm run e2e
+      - run: npm test
 
       - save_cache:
           key: v3-dependencies-npm-{{ checksum "package-lock.json" }}
