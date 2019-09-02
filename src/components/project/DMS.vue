@@ -477,13 +477,13 @@ export default {
 
           let icon
           if (item.type === 'Folder') {
+            icon = 'folder.svg'
+          } else {
             if (fileTypeExist) {
               icon = `${fileType}.svg`
             } else {
               icon = 'unknown.svg'
             }
-          } else {
-            icon = 'folder.svg'
           }
 
           return {

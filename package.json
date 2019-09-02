@@ -23,7 +23,7 @@
   "author": "Bimdata",
   "license": "MIT",
   "dependencies": {
-    "@bimdata/bimdata-api-client": "^4.1.1",
+    "@bimdata/bimdata-api-client": "^5.0.2",
     "@bimdata/utils": "0.2.3",
     "@bimdata/viewer": "0.1.19",
     "axios": "^0.18.1",
