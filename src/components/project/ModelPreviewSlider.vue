@@ -20,7 +20,13 @@
         <svgicon name="chevron-right" height="30" width="30"></svgicon>
       </div>
       <div v-if="showViewerButton" class="model-control-button">
-        <base-button-action @click="viewModel(panoramas[activePanIndex].id)" icon-name="eye">{{ $t('ifc.open') }}</base-button-action>
+        <base-button-action
+          @click="viewModel(panoramas[activePanIndex].id)"
+          icon-name="eye"
+          icon-color="fff"
+        >
+        {{ $t('ifc.open') }}
+        </base-button-action>
       </div>
       <div class="model-preview-counter">
         <b class="text-primary">{{ currentCounter }}</b>/{{ panoramas.length }}
