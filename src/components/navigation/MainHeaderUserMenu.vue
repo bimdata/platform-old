@@ -54,7 +54,7 @@ export default {
     },
     openProfile () {
       const config = 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=650,height=700'
-      const embed = window.open(`${process.env.BD_OIDC_IP}/embed_profile`, 'targetWindow', config)
+      const embed = window.open(`${process.env.BD_CONNECT_URL}/embed_profile`, 'targetWindow', config)
       var timer = setInterval(() => {
         if (embed.closed) {
           clearInterval(timer)
@@ -63,7 +63,7 @@ export default {
       }, 100)
     },
     openBimdataConnect () {
-      window.open(process.env.BD_OIDC_IP)
+      window.open(process.env.BD_CONNECT_URL)
     },
     toggleMenuOptions () {
       this.displayMenuOptions = !this.displayMenuOptions
