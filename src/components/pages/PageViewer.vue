@@ -1,16 +1,30 @@
 <template>
     <div class="h-100">
-        <iframe :src="viewerUrl" width="100%" height="100%" class="no-borders"></iframe>
+        <iframe :src="viewerUrl" width="100%" height="100%" class="no-borders" v-if="iframeViewer"></iframe>
+        <BimdataViewer
+          v-if="!iframeViewer"
+          :apiUrl="apiUrl"
+          :accessToken="oidcAccessToken"
+          :ifcConfig="ifcConfig"
+          :plugins="plugins"
+        />
     </div>
 </template>
 <script>
 import { mapGetters, mapMutations } from 'vuex'
-
+import BimdataViewer from '@bimdata/viewer'
 export default {
   data () {
     return {
-      viewerUrl: null
+      viewerUrl: null,
+      iframeViewer: null,
+      plugins: [],
+      ifcConfig: {},
+      apiUrl: process.env.BD_API_BASE_URL
     }
+  },
+  components: {
+    BimdataViewer
   },
   computed: {
     ...mapGetters(['oidcAccessToken', 'getCloudById', 'getCustomUrl'])
@@ -24,9 +38,18 @@ export default {
       this.mutateCurrentCloud(cloud)
     },
     createViewer (params, callback) {
-      if (this.getCustomUrl) {
+      if (this.getCustomUrl === 'viewer_2') {
+        this.iframeViewer = false
+        this.ifcConfig = {
+          cloudId: params.cloudId,
+          projectId: params.projectId,
+          ifcIds: [params.ifcId]
+        }
+      } else if (this.getCustomUrl) {
+        this.iframeViewer = true
         this.viewerUrl = `${this.getCustomUrl}/?cloudId=${params.cloudId}&projectId=${params.projectId}&ifcId=${params.ifcId}&accessToken=${this.oidcAccessToken}`
       } else {
+        this.iframeViewer = true
         this.viewerUrl = `${process.env.BD_VIEWER_BASE_URL}/?cloudId=${params.cloudId}&projectId=${params.projectId}&ifcId=${params.ifcId}&accessToken=${this.oidcAccessToken}`
       }
       callback()

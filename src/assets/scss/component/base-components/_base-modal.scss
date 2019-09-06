@@ -1,0 +1,40 @@
+// custom MODAL USERS LIST
+.modal-open {
+  .modal-body {
+    .close {
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      color: $color-primary;
+      opacity: 1;
+      z-index: 1;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  .modal-backdrop {
+    background: $color-primary;
+    opacity: $modal-backdrop-opacity;
+  }
+}
+
+// custom MODAL UPPY
+.uppy-Dashboard--modal {
+  .uppy-Dashboard-overlay {
+    background-color: rgba($color-primary, 0.55) !important;
+  }
+  .uppy-Dashboard-inner {
+    .uppy-Dashboard-close {
+      span {
+        color: $color-primary;
+      }
+      &:hover {
+        opacity: 0.5;
+      }
+      &:focus {
+        outline: none !important;
+      }
+    }
+  }
+}

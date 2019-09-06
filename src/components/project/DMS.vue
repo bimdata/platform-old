@@ -221,6 +221,7 @@ import ListChoice from '@/components/project/ListChoice'
 import BaseButtonOption from '@/components/base-components/BaseButtonOption'
 import { mixin as clickaway } from 'vue-clickaway'
 import { hasUserRole } from '@/utils/manageRights'
+import { checkIfFileIconExist } from '@/utils/fileIcons.js'
 import _ from 'lodash'
 import { mapState } from 'vuex'
 
@@ -470,6 +471,20 @@ export default {
             let type = (this.type(item.file_name) === 'Folder') ? 'folder' : 'file'
             return element.id === item.id && element.type === type
           })
+          const fileType = this.type(item.file_name).toLowerCase()
+
+          const fileTypeExist = checkIfFileIconExist(fileType)
+
+          let icon
+          if (item.type === 'Folder') {
+            icon = 'folder.svg'
+          } else {
+            if (fileTypeExist) {
+              icon = `${fileType}.svg`
+            } else {
+              icon = 'unknown.svg'
+            }
+          }
 
           return {
             id: item.id,
@@ -478,7 +493,7 @@ export default {
             type: this.type(item.file_name),
             ifcId: item.ifc_id,
             idPrefix: (this.type(item.file_name) === 'Folder') ? 'folder' : 'file',
-            icon: (item.file_name !== undefined) ? this.type(item.file_name).toLowerCase() + '.svg' : 'folder.svg',
+            icon: icon,
             creator: item.created_by,
             size: item.size,
             file: item.file,

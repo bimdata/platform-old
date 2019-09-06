@@ -85,6 +85,7 @@
             :users="usersAdminCloud"
             :hasTriedToInviteInvalidEmail="hasTriedToInviteInvalidEmail"
             :hasTriedToInviteWithoutRights="hasTriedToInviteWithoutRights"
+              :level="'cloud'"
             @on-remove-user="removeUser"
             @on-remove-user-pending="removeUserPending"
             @on-remove-error="removeUsersListsErrors"
