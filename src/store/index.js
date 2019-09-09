@@ -8,7 +8,6 @@ import { vuexOidcCreateStoreModule } from 'vuex-oidc'
 import { oidcSettings } from '@/config/OIDCSettings'
 
 Vue.use(Vuex)
-let oidc = vuexOidcCreateStoreModule(oidcSettings)
 
 const store = new Vuex.Store({
   state: {
@@ -23,7 +22,7 @@ const store = new Vuex.Store({
     clouds: []
   },
   modules: {
-    oidc,
+    oidc: vuexOidcCreateStoreModule(oidcSettings),
     project: ProjectModule
   },
   mutations,
