@@ -10,10 +10,9 @@ const Dotenv = require('dotenv-webpack');
 const utils = require('./utils')
 
 module.exports = {
-
   entry: {
-    index: './src/main.js',
-    'silent-renew-oidc': './src/silent-renew-oidc.js'
+    main: './src/main.js',
+    oidcRenew: './src/silent-renew-oidc.js'
   },
 
   resolve: {
@@ -29,7 +28,6 @@ module.exports = {
   },
   output: {
     publicPath: '/',
-    filename: '[name].js',
   },
 
   module: {
@@ -90,13 +88,12 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'silent-renew-oidc.html',
       template: 'silent-renew-oidc.html',
-      chunks: ['silent-renew-oidc'],
-      inject: true
+      chunks: ['oidcRenew'],
+      inject: 'head'
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html',
-      chunks: ['index'],
       inject: true
     }),
     new VueLoaderPlugin(),
