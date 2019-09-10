@@ -12,7 +12,7 @@ const utils = require('./utils')
 module.exports = {
   entry: {
     main: './src/main.js',
-    oidcRenew: './src/silent-renew-oidc.js'
+    oidcRenew: './src/oidc-silent-renew.js'
   },
 
   resolve: {
@@ -86,8 +86,8 @@ module.exports = {
       systemvars: true
     }),
     new HtmlWebpackPlugin({
-      filename: 'silent-renew-oidc.html',
-      template: 'silent-renew-oidc.html',
+      filename: 'oidc-silent-renew.html',
+      template: 'oidc-silent-renew.html',
       chunks: ['oidcRenew'],
       inject: 'head'
     }),
