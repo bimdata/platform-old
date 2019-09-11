@@ -2,7 +2,7 @@
 
 const webpack = require('webpack')
 
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { WebPlugin, AutoWebPlugin } = require('web-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 const Dotenv = require('dotenv-webpack');
@@ -85,16 +85,15 @@ module.exports = {
     new Dotenv({
       systemvars: true
     }),
-    new HtmlWebpackPlugin({
-      filename: 'oidc-silent-renew.html',
-      template: 'oidc-silent-renew.html',
-      chunks: ['oidcRenew'],
-      inject: 'head'
-    }),
-    new HtmlWebpackPlugin({
+    new WebPlugin({
       filename: 'index.html',
       template: 'index.html',
-      inject: true
+      requires: ['main'],
+    }),
+    new WebPlugin({
+      filename: 'oidc-silent-renew.html',
+      template: 'oidc-silent-renew.html',
+      requires: ['oidcRenew'],
     }),
     new VueLoaderPlugin(),
     new CopyWebpackPlugin([
