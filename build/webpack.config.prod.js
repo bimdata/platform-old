@@ -11,18 +11,6 @@ module.exports = merge(baseConfig, {
     chunkFilename: "[name].[chunkhash].js",
     filename: '[name].[chunkhash].js',
   },
-
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        commons: {
-          test: /[\\/]node_modules[\\/]/,
-          name: "vendor",
-          chunks: "all",
-        },
-      },
-    },
-  },
   module: {
     rules: [
       {
