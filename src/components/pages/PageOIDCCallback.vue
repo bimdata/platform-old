@@ -27,30 +27,27 @@ export default {
       'oidcSignInCallback'
     ]),
     async sendCodeToBackPlatform () {
-      let res = await fetch(process.env.BD_PLATFORM_BACK_BASE_URL + '/create_or_update_user/', {
+      return fetch(process.env.BD_PLATFORM_BACK_BASE_URL + '/create_or_update_user/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + this.oidcAccessToken
         }
       })
-      console.log(res)
     }
   },
   computed: {
     ...mapGetters(['oidcAccessToken'])
   },
-  mounted () {
-    this.oidcSignInCallback()
-      .then((redirectPath) => {
-        this.sendCodeToBackPlatform().then(() => {
-          router.push(redirectPath)
-        })
-      })
-      .catch((err) => {
-        console.error(err)
-        router.push('/oidc-callback-error') // Handle errors any way you want
-      })
+  async mounted () {
+    try {
+      const redirectPath = await this.oidcSignInCallback()
+      await this.sendCodeToBackPlatform()
+      router.push(redirectPath)
+    } catch (err) {
+      console.error(err)
+      router.push('/oidc-callback-error') // Handle errors any way you want
+    }
   }
 }
 </script>

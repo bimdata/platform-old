@@ -5,8 +5,8 @@ export const oidcSettings = {
   post_logout_redirect_uri: process.env.BD_APP_URL,
   response_type: 'id_token token',
   scope: 'openid profile email',
+  revokeAccessTokenOnSignout: true,
   automaticSilentRenew: true,
   silentRedirectUri: process.env.BD_APP_URL + '/oidc-silent-renew.html',
-  revokeAccessTokenOnSignout: true,
   extraQueryParams: {kc_idp_hint: 'bimdataconnect'}
 }

@@ -4,7 +4,6 @@ import LayoutPageDashboard from '@/components/layouts/LayoutPageDashboard'
 import PageProject from '@/components/pages/PageProject'
 import PageProjectList from '@/components/pages/PageProjectList'
 import PageCloudList from '@/components/pages/PageCloudList'
-import PageComponents from '@/components/pages/PageComponents'
 import PageViewer from '@/components/pages/PageViewer'
 import OidcCallback from '@/components/pages/PageOIDCCallback'
 import store from '@/store'
@@ -58,14 +57,6 @@ const router = new Router({
           }
         }
       ]
-    },
-    {
-      path: '/components',
-      name: 'components',
-      component: PageComponents,
-      meta: {
-        isPublic: false
-      }
     },
     {
       path: '/oidc-callback', // Needs to match redirect_uri in you oidcSettings
