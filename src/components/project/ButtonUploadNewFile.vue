@@ -2,6 +2,7 @@
     <base-button-action icon-name="add"
                         icon-width="20"
                         icon-height="20"
+                        icon-color="fff"
                         v-on="listeners">
         {{ $t('project.file') }}
     </base-button-action>

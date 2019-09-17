@@ -8,7 +8,6 @@
 @import "global/base";
 @import "global/svg";
 @import "form/forms";
-@import "layout/login";
 @import "layout/dashboard";
 @import "layout/header";
 @import "layout/header_user_menu";
@@ -29,6 +28,7 @@
 @import "component/base-components/base-model-preview";
 @import "component/base-components/base-input-radio";
 @import "component/base-components/base-input-text-material";
+@import "component/base-components/base-modal";
 @import "component/base-components/base-search-bar";
 @import "component/base-components/base-bd-table";
 @import "component/base-components/base-button-tool";
@@ -44,6 +44,5 @@
 @import "pages/page-clouds";
 @import "pages/page-projects";
 @import "pages/project";
-@import "pages/signin-required";
 @import "pages/viewer";
 @import "transitions";

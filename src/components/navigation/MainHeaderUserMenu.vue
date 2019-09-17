@@ -20,7 +20,7 @@
           <span><svgicon name="picto-bimdataconnect" width="16"></svgicon></span>
           {{ $t('dashboard.connect_auth') }}
         </div>
-        <div class="logout-item" @click="logout">
+        <div class="logout-item" @click="signOutOidc">
           <span><svgicon name="bimdata_power-settings"></svgicon></span>
           {{ $t('dashboard.logout') }}
         </div>
@@ -30,9 +30,7 @@
 </template>
 <script>
 import { mixin as clickaway } from 'vue-clickaway'
-import { vuexOidcCreateUserManager } from 'vuex-oidc'
-import { oidcSettings } from '@/config/OIDCSettings'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import BaseButtonAction from '@/components/base-components/BaseButtonAction'
 import BaseDropdown from '@/components/base-components/BaseDropdown'
 
@@ -48,12 +46,15 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'signOutOidc'
+    ]),
     away () {
       this.displayMenuOptions = false
     },
     openProfile () {
       const config = 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=650,height=700'
-      const embed = window.open(`${process.env.BD_OIDC_IP}/embed_profile`, 'targetWindow', config)
+      const embed = window.open(`${process.env.BD_CONNECT_URL}/embed_profile`, 'targetWindow', config)
       var timer = setInterval(() => {
         if (embed.closed) {
           clearInterval(timer)
@@ -62,17 +63,10 @@ export default {
       }, 100)
     },
     openBimdataConnect () {
-      window.open(process.env.BD_OIDC_IP)
+      window.open(process.env.BD_CONNECT_URL)
     },
     toggleMenuOptions () {
       this.displayMenuOptions = !this.displayMenuOptions
-    },
-    logout () {
-      const oidcUserManager = vuexOidcCreateUserManager(oidcSettings)
-      oidcUserManager.signoutRedirect().catch(function (err) {
-        this.$store.commit('setOidcError', err)
-        console.error(err)
-      })
     }
   },
   computed: {

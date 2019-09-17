@@ -12,9 +12,8 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import router from '@/router'
-import request from 'axios'
 
 export default {
   name: 'OidcCallback',
@@ -27,40 +26,28 @@ export default {
     ...mapActions([
       'oidcSignInCallback'
     ]),
-    getCode () {
-      let searchParams = new URLSearchParams(window.location.hash)
-      return searchParams.get('code')
-    },
-    async sendCodeToBackPlatform (payload) {
-      request.defaults.baseURL = process.env.BD_PLATFORM_BACK_BASE_URL
-      request.defaults.headers.post['Content-Type'] = 'application/json'
-
-      try {
-        const response = await request.post('back_callback/', payload)
-        return response
-      } catch (err) {
-        console.error('error: ' + err)
-      }
+    async sendCodeToBackPlatform () {
+      return fetch(process.env.BD_PLATFORM_BACK_BASE_URL + '/create_or_update_user/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + this.oidcAccessToken
+        }
+      })
     }
   },
-  mounted () {
-    this.oidcSignInCallback()
-      .then((redirectPath) => {
-        sessionStorage.setItem('hasEverConnected', true)
-        let nonce = sessionStorage.getItem('last_nonce')
-        let payload = {
-          code: this.getCode(),
-          nonce: nonce
-        }
-
-        this.sendCodeToBackPlatform(payload).then(() => {
-          router.push(redirectPath)
-        })
-      })
-      .catch((err) => {
-        console.error(err)
-        router.push('/oidc-callback-error') // Handle errors any way you want
-      })
+  computed: {
+    ...mapGetters(['oidcAccessToken'])
+  },
+  async mounted () {
+    try {
+      const redirectPath = await this.oidcSignInCallback()
+      await this.sendCodeToBackPlatform()
+      router.push(redirectPath)
+    } catch (err) {
+      console.error(err)
+      router.push('/oidc-callback-error') // Handle errors any way you want
+    }
   }
 }
 </script>

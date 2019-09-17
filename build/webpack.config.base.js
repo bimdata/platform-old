@@ -10,8 +10,10 @@ const Dotenv = require('dotenv-webpack');
 const utils = require('./utils')
 
 module.exports = {
-
-  entry: './src/main.js',
+  entry: {
+    main: './src/main.js',
+    oidcRenew: './src/oidc-silent-renew.js'
+  },
 
   resolve: {
     extensions: ['.js', '.vue', '.json'],
@@ -24,7 +26,6 @@ module.exports = {
       'components': utils.resolve('src/components')
     }
   },
-
   output: {
     publicPath: '/',
   },
@@ -87,19 +88,26 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html',
+      chunks: ['main'],
       inject: true
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'oidc-silent-renew.html',
+      template: 'oidc-silent-renew.html',
+      chunks: ['oidcRenew'],
+      inject: 'head'
     }),
     new VueLoaderPlugin(),
     new CopyWebpackPlugin([
-    {
-      from: 'node_modules/@bimdata/utils/dist/fonts',
-      to: 'dist/fonts'
-    },
-    {
-      from: utils.resolve('static/img'),
-      to: utils.resolve('dist/static/img'),
-      toType: 'dir'
-    },
-  ])
+      {
+        from: 'node_modules/@bimdata/utils/dist/fonts',
+        to: 'dist/fonts'
+      },
+      {
+        from: utils.resolve('static/img'),
+        to: utils.resolve('dist/static/img'),
+        toType: 'dir'
+      },
+    ])
   ]
 }
