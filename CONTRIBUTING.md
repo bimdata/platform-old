@@ -85,14 +85,19 @@ And you should be ready to go!
 
 # Contribute code
 
+This project uses GitHub Pull Requests to manage contributions, so [read up on how to fork a GitHub project and file a PR](https://guides.github.com/activities/forking) if you've never done it before.
+
+If this seems like a lot or you aren't able to do all this setup, you might also be able to [edit the files directly](https://help.github.com/articles/editing-files-in-another-user-s-repository/) without having to do any of this setup.
+
+
 We like code commits a lot! They're super handy, and they keep the project going and doing the work it needs to do to be useful to others.
 
 Code contributions of just about any size are acceptable.
 
-To contribute code:
+Let's go!
 
 * [Set up the project](#project-setup).
-* Make any necessary changes to the source code.
+* Make any necessary changes to the source code. Note that we are using [coding standards](#coding-standards).
 * Include any [additional documentation](#contribute-documentation) the changes might need.
 * Let the CircleCI build pass (that verify that your contribution works as expected).
 * Write clear, concise commit message(s).
@@ -100,12 +105,10 @@ To contribute code:
 * Go to https://github.com/bimdata/platform/pulls and open a new pull request with your changes.
 * If your PR is connected to an open issue, add a line in your PR's description that says `Fixes: #123`, where `#123` is the number of the issue you're fixing.
 
-## Getting started
+## Coding Standards
 
-This project uses GitHub Pull Requests to manage contributions, so [read up on how to fork a GitHub project and file a PR](https://guides.github.com/activities/forking) if you've never done it before.
-
-If this seems like a lot or you aren't able to do all this setup, you might also be able to [edit the files directly](https://help.github.com/articles/editing-files-in-another-user-s-repository/) without having to do any of this setup.
-
+For the frontend, we follow the [Javascript Standard Style](https://standardjs.com/).
+For the backend, we are using the [PSF/Black code formatter](https://github.com/psf/black).
 
 ## Code review process
 
