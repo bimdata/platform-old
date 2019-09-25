@@ -35,13 +35,12 @@ If you have a question about this project, how to use it, or just need clarifica
 
 * Contact us: support@bimdata.io
 
-## Report an Error or Bug
+## Report an Issue
 
 If you run into an error or bug with the project:
 
 * Contact us: support@bimdata.io
 
-## Request a Feature
 
 If the project doesn't do something you need or want it to do:
 
@@ -69,14 +68,7 @@ If you want to go the usual route and run the project locally, though:
 * [Install BIMData Platform](https://)
 * [Fork the project](https://guides.github.com/activities/forking/#fork)
 
-Then in your terminal:
-* `cd path/to/your/clone`
-* Install dependencies with:`npm i`
-* Configure the environment: `cp .env.example .env`
-* Change in .env for any custom configuration you may have.
-* Start the local dev server: `npm run dev`
-* Compile SVG icons: `npm run svg-process`
-* Build for a prod-like: `npm run build`
+Then [look at the README for the frontend](https://github.com/bimdata/platform/blob/master/README.md) and [the README for the backend](https://github.com/bimdata/platform-back/blob/master/README.md)
 
 And you should be ready to go!
 
@@ -104,7 +96,7 @@ To contribute code:
 
 Once you've filed the PR:
 
-* Maintainers will not review PRs until all checks pass (it means "until Docker builds").
+* Maintainers will not review PRs until all checks pass (it means "until CircleCI builds").
 * One or more maintainers will use GitHub's review feature to review your PR.
 * If the maintainer asks for any changes, then edit your changes, push, and ask for another review.
 * If the maintainer decides to pass on your PR, they will thank you for the contribution and explain why they won't be accepting the changes. That's ok! We still really appreciate you taking the time to do it, and we don't take that lightly.
@@ -184,7 +176,7 @@ PR reviews use [GitHub's own review feature](https://help.github.com/articles/ab
 Some notes:
 
 * You may ask for minor changes ("nitpicks"), but consider whether they are really blockers to merging: try to err on the side of "approve, with comments".
-* *ALL PULL REQUESTS* should be let the Docker build pass.
+* *ALL PULL REQUESTS* should be let the CircleCI build pass.
 * Please make sure you're familiar with the code or documentation being updated, unless it's a minor change (spellchecking, minor formatting, etc). You may @mention another project member who you think is better suited for the review, but still provide a non-approving review of your own.
 * Be extra kind💛: people who submit code/doc contributions are putting themselves in a pretty vulnerable position, and have put time and care into what they've done (even if that's not obvious to you!) -- always respond with respect, be understanding, but don't feel like you need to sacrifice your standards for their sake, either. Just don't be a jerk about it?
 
