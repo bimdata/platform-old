@@ -14,7 +14,7 @@ let originalMethod = vuexOidcStorage.actions.authenticateOidc
 vuexOidcStorage.actions.authenticateOidc = function authenticateOidc (context, redirectPath) {
   Object.keys(localStorage)
     .filter(entry => entry.startsWith('oidc.'))
-    .forEach(localStorage.removeItem)
+    .forEach(entry => localStorage.removeItem(entry))
   originalMethod(context, redirectPath)
 }
 
