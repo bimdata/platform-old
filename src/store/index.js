@@ -12,9 +12,9 @@ Vue.use(Vuex)
 let vuexOidcStorage = vuexOidcCreateStoreModule(oidcSettings)
 let originalMethod = vuexOidcStorage.actions.authenticateOidc
 vuexOidcStorage.actions.authenticateOidc = function authenticateOidc (context, redirectPath) {
-  Object.keys(sessionStorage)
+  Object.keys(localStorage)
     .filter(entry => entry.startsWith('oidc.'))
-    .forEach(sessionStorage.removeItem)
+    .forEach(localStorage.removeItem)
   originalMethod(context, redirectPath)
 }
 
