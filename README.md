@@ -1,31 +1,82 @@
-# Bimdata Platform
-Bimdata Platform application.
-## Up & running
-1. Install dependencies:
+# BIMData Platform
+
+BIMData Platform is a web application to manage your project in the BIM ecosystem. You can manage your projects and your files in relation with your users.
+Projects are organized into Clouds. BIMData Platform manages models with open formats such as IFC and BCF.
+
+[screenshot]
+
+
+## Technical view of the Platform
+
+️️BIMData Platform is an web application. It's a frontend to the BIMData's API, built with Javascript using Vue.
+
+
+## Install
+
+### Fork this repository
+
+[gif of the forking button]
+
+```
+git clone git@github.com:bimdata/platform.git
+```
+and place yourself in the ``platform`` directory. 
+Then by CLI, using NPM packager, install dependencies and launch the Platform on your local server.
+
+## Configure your Platform
+
+Type the following commands to:
+
+#### Install dependencies
 ```
 npm i
-```
-2. Configure environment
+``` 
+
+(It's a shortcut for ``npm install``.)
+
+#### Configure environment
+
 ```
 cp .env.example .env
 ```
-3. Change in .env any custom configuration
+#### Change in .env any custom configuration
 
-4. Starting dev server:
+Edit your ``.env`` file in a text editor, and change:
+* `BD_OIDC_CLIENT_ID` value by the Client ID of your application ([How-to create your application with BIMData Connect](https://developers.bimdata.io/cookbook/create_an_application.html))
+* `BD_MAPBOX_TOKEN` value by your own Mapbox Token ([How-to create a Temporary token for Mapbox](https://docs.mapbox.com/help/tutorials/get-started-tokens-api/#creating-temporary-tokens))
+
+
+#### Start your dev server
+
+Still in the ``platform`` directory, type the following command:
 ```
 npm run dev
 ```
-5. compile svg icons:
+And you are Up & running locally!
+
+## Additional tasks
+
+### Compile SVG icons
 ```
 npm run svg-process
+
 ```
-6. Building for production:
-```
-npm run build
-```
-7. Running tests (unit, e2e, all):
+### Running tests 
+
+Run the unit tests, end-to-end and all the test suite by running the following commands:
+
 ```
 npm run unit
 npm run e2e
+```
+All tests:
+```
 npm run test
+```
+
+## Running and deploy
+
+### Building for production
+```
+npm run build
 ```
