@@ -1,6 +1,6 @@
 # BIMData Platform
 
-BIMData Platform is a web application to manage your project in the BIM ecosystem. You can manage your projects and your files in relation with your users.
+BIMData Platform is a web application to manage your project in the BIM ecosystem. You can manage your projects and your files in relation to your users.
 Projects are organized into Clouds. BIMData Platform manages models with open formats such as IFC and BCF.
 
 [screenshot]
@@ -8,7 +8,7 @@ Projects are organized into Clouds. BIMData Platform manages models with open fo
 
 ## Technical view of the Platform
 
-️️BIMData Platform is an web application. It's a frontend to the BIMData's API, built with Javascript using Vue.
+️️BIMData Platform is a web application. It's a frontend to the BIMData's API, built with Javascript using Vue.
 
 
 ## Install
@@ -18,9 +18,9 @@ Projects are organized into Clouds. BIMData Platform manages models with open fo
 [gif of the forking button]
 
 ```
-git clone git@github.com:bimdata/platform.git
+git clone https://github.com/bimdata/platform.git
 ```
-and place yourself in the ``platform`` directory. 
+and place yourself in the ``platform/`` directory. 
 Then by CLI, using NPM packager, install dependencies and launch the Platform on your local server.
 
 ## Configure your Platform
@@ -48,26 +48,28 @@ Edit your ``.env`` file in a text editor, and change:
 
 #### Start your dev server
 
-Still in the ``platform`` directory, type the following command:
+While being still in the ``platform/`` directory, type the following command:
 ```
 npm run dev
 ```
-And you are Up & running locally!
+And the local server is up & running!
 
 ## Additional tasks
 
 ### Compile SVG icons
+
+Added an new icon?
+Re-generate the SVG by running the following command:
+
 ```
 npm run svg-process
-
 ```
 ### Running tests 
 
-Run the unit tests, end-to-end and all the test suite by running the following commands:
+Run the unit tests by running the following commands:
 
 ```
 npm run unit
-npm run e2e
 ```
 All tests:
 ```
@@ -77,6 +79,7 @@ npm run test
 ## Running and deploy
 
 ### Building for production
+
 ```
 npm run build
 ```
