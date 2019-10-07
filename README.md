@@ -3,7 +3,7 @@
 BIMData Platform is a web application to manage your project in the BIM ecosystem. You can manage your projects and your files in relation to your users.
 Projects are organized into Clouds. BIMData Platform manages models with open formats such as IFC and BCF.
 
-![Screenshot BIMData Platform](screenshot-platform.svg "Screenshot BIMData Platform")]
+![Screenshot BIMData Platform](screenshot-platform.svg "Screenshot BIMData Platform")
 
 
 ## Technical view of the Platform
@@ -13,9 +13,7 @@ Projects are organized into Clouds. BIMData Platform manages models with open fo
 
 ## Install
 
-### Fork this repository
-
-[gif of the forking button]
+### Clone this repository
 
 ```
 git clone https://github.com/bimdata/platform.git
