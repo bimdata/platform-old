@@ -3,7 +3,7 @@
 BIMData Platform is a web application to manage your project in the BIM ecosystem. You can manage your projects and your files in relation to your users.
 Projects are organized into Clouds. BIMData Platform manages models with open formats such as IFC and BCF.
 
-[screenshot]
+![Screenshot BIMData Platform](screenshot-platform.svg "Screenshot BIMData Platform")]
 
 
 ## Technical view of the Platform
