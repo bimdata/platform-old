@@ -1,3 +1,7 @@
+/* This file is part of the BIMData Platform package.
+(c) BIMData support@bimdata.io
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code. */
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'

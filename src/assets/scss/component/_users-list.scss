@@ -1,3 +1,7 @@
+/* This file is part of the BIMData Platform package.
+(c) BIMData support@bimdata.io
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code. */
 .users-list {
   height: calc(399px + 1rem*2); //same size that .main-ifc
   overflow: hidden;
@@ -72,7 +76,7 @@
         @include flexbox;
         @include align-items(center);
         @include justify-content(center);
-        
+
         .svg-icon {
           cursor: unset;
         }
@@ -132,7 +136,7 @@
         border: 1px solid $border-color;
         color: $color-primary;
         cursor: pointer;
-        
+
         @include flexbox;
         @include align-items(center);
 
@@ -401,7 +405,7 @@
       background: $danger;
     }
   }
-  
+
   &-modal {
     .close {
       position: absolute;
@@ -418,7 +422,7 @@
 
       &:focus {
         border-color: $color-primary;
-        
+
         &::placeholder {
           opacity: 0;
         }

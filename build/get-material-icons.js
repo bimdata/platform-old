@@ -1,3 +1,8 @@
+/* This file is part of the BIMData Platform package.
+(c) BIMData support@bimdata.io
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code. */
+'use strict';
 const fs = require('fs');
 const sourcePath = 'node_modules/@mdi/svg/svg';
 const destPath = 'src/assets/images/icons';
