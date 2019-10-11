@@ -4,7 +4,7 @@ For the full copyright and license information, please view the LICENSE
 file that was distributed with this source code. -->
 <template>
   <div class="card-container">
-    <div class="base-card card-item card-bd noselect" @click.stop.self="accessCloud">
+    <div class="base-card card-item card-bd noselect">
       <div class="card-bd__header">
         <base-button-option ref="menu" @option-toggled="toggleMenu" v-if="hasAdminRole(cloud.role)">
           <ul>
@@ -46,11 +46,22 @@ file that was distributed with this source code. -->
           </ul>
         </base-button-option>
       </div>
-      <div class="card-bd__body" @click.stop="accessCloud">
+      <div class="card-bd__body" @click="accessCloud">
         <div class="card-bd__body-container">
-          <div class="card-bd__circle">
-            <div class="card-bd__picto-container">
-              <svgicon name="img-more" height="26" width="26"></svgicon>
+          <div class="card-bd__circle" @click.stop="assignImage()">
+            <img v-show="cloud.image" :src="cloud.image">
+            <div :id="`UppyForm-${$vnode.key}`">
+              <input
+                ref="input_file"
+                v-show="false"
+                type="file"
+                name="files[]"
+                @change="handleInputChange"
+                multiple="true"
+              >
+            </div>
+            <div class="card-bd__picto-container" >
+              <svgicon v-show="!cloud.image" name="img-more" height="26" width="26"></svgicon>
             </div>
           </div>
           <div class="card-bd__title">
@@ -85,6 +96,9 @@ import { mixin as clickaway } from 'vue-clickaway'
 import BaseButtonOption from '@/components/base-components/BaseButtonOption'
 import BaseValidDelete from '@/components/base-components/BaseValidDelete'
 import { hasAdminRole } from '@/utils/manageRights'
+import Uppy from '@uppy/core'
+import XHRUpload from '@uppy/xhr-upload'
+import toArray from '@uppy/utils/lib/toArray'
 
 export default {
   data () {
@@ -110,6 +124,30 @@ export default {
     }
   },
   methods: {
+    assignImage () {
+      if (!this.cloud.image) {
+        this.$refs.input_file.click()
+      }
+    },
+    handleInputChange (event) {
+      const files = toArray(event.target.files)
+
+      files.forEach((file) => {
+        try {
+          this.uppy.addFile({
+            source: this.id,
+            name: file.name,
+            type: file.type,
+            data: file
+          })
+        } catch (err) {
+          if (!err.isRestriction) {
+            this.uppy.log(err)
+          }
+        }
+      })
+      event.target.value = null
+    },
     hasAdminRole,
     toggleRename () {
       this.displayRename = !this.displayRename
@@ -134,7 +172,7 @@ export default {
     cancelRename () {
       this.displayRename = false
     },
-    accessCloud () {
+    accessCloud (info) {
       this.$store.commit('SET_CURRENT_CLOUD', this.cloud)
       this.$router.push({name: 'project-list', params: {cloudId: this.cloud.id}})
     },
@@ -176,6 +214,55 @@ export default {
         this.clicked = false
       }, 500)
     }
+  },
+  mounted () {
+    let baseApiUrl = process.env.BD_API_BASE_URL
+    console.log(this.cloud)
+    let endpointUpload = baseApiUrl + '/cloud/' + this.cloud.id
+    let token = this.$store.state.oidc.access_token
+
+    this.uppy = new Uppy({
+      debug: true,
+      autoProceed: true,
+      restrictions: {
+        maxFileSize: 1000000000, // 1 Go
+        maxNumberOfFiles: null,
+        minNumberOfFiles: 1
+      }
+    })
+      .use(XHRUpload, {
+        method: 'patch',
+        metaFields: ['size'],
+        endpoint: endpointUpload,
+        formData: true,
+        fieldName: 'image',
+        headers: {
+          'authorization': `Bearer ${token}`
+        }
+      })
+
+    this.uppy.on('upload-progress', (file, progress) => {
+      const payload = {
+        id: file.id,
+        name: file.name,
+        extension: file.extension,
+        uploaded: progress.bytesUploaded,
+        total: progress.bytesTotal
+      }
+      this.$emit('on-upload-progress', payload)
+    })
+
+    this.uppy.on('upload-error', (file, error, response) => {
+      this.$emit('on-upload-error', file.id)
+    })
+
+    this.uppy.on('complete', result => {
+      await this.update()
+      this.$emit('on-upload-complete', result)
+
+      if (result.successful) {
+      }
+    })
   }
 }
 </script>
