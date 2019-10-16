@@ -54,8 +54,6 @@ export default {
       this.uploadingFiles[foundFileIndex].state = 'fail'
     },
     onUploadComplete (result) {
-      this.$store.dispatch('project/fetchProjectIfc', this.project)
-      this.$store.dispatch('project/getTree', this.project)
       result.successful.forEach(file => {
         let foundFileIndex = this.uploadingFiles.findIndex(el => el.id === file.id)
         this.uploadingFiles[foundFileIndex].state = 'success'

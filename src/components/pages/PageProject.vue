@@ -17,7 +17,7 @@
         ></button-upload-new-file>
       </div>
       <div class="col-12 upload-area-container">
-        <upload-ifc @upload-complete="closeUploadIfc" v-show="displayUpload"></upload-ifc>
+        <upload-ifc @upload-complete="closeUploadIfc" v-if="displayUpload"></upload-ifc>
       </div>
     </div>
 
@@ -214,7 +214,8 @@ export default {
       this.hasTriedToInviteWithoutRights = false
     },
     closeUploadIfc () {
-      // this.displayUpload = false
+      setTimeout(() => this.displayUpload = false, 2000)
+      
     },
     away () {
       this.displayRightsInvitation = false

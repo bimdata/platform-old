@@ -1,5 +1,5 @@
 <template>
-    <div class="upload-area upload-area-dms">
+    <div class="upload-area-dms">
       <input
         ref="input_file"
         v-show="false"
