@@ -141,12 +141,12 @@
                           :src="'/static/img/files-icons/' + data.item.icon"
                           width="20"
                       />
-                      {{ data.item.name }}
+                      {{ data.item.name | middle-truncate(50) }}
                     </template>
                     <template v-else>
                       <span class="table-name__name">
                         <svgicon name="folder" width="20" height="26"></svgicon>
-                        {{ data.item.name }}
+                        {{ data.item.name | middle-truncate(50) }}
                       </span>
                     </template>
                   </span>
@@ -232,7 +232,7 @@
                   />
                 </td>
                 <td class="name">
-                  <span :class="{red: uploadingFile.state === 'fail'}">{{ uploadingFile.name }}</span>
+                  <span :class="{red: uploadingFile.state === 'fail'}">{{ uploadingFile.name | middle-truncate(25) }}</span>
                 </td>
                 <td class="fail">
                   <span v-if="uploadingFile.state === 'fail'">{{ $t('project.failed') }}</span>

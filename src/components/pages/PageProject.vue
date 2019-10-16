@@ -214,8 +214,7 @@ export default {
       this.hasTriedToInviteWithoutRights = false
     },
     closeUploadIfc () {
-      setTimeout(() => this.displayUpload = false, 2000)
-      
+      setTimeout(() => (this.displayUpload = false), 2000)
     },
     away () {
       this.displayRightsInvitation = false
