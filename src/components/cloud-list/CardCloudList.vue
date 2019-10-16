@@ -60,7 +60,7 @@ file that was distributed with this source code. -->
                 multiple="true"
               >
             </div>
-            <div class="card-bd__picto-container" >
+            <div class="card-bd__picto-container">
               <svgicon v-show="!cloud.image" name="img-more" height="26" width="26"></svgicon>
             </div>
           </div>
@@ -217,7 +217,6 @@ export default {
   },
   mounted () {
     let baseApiUrl = process.env.BD_API_BASE_URL
-    console.log(this.cloud)
     let endpointUpload = baseApiUrl + '/cloud/' + this.cloud.id
     let token = this.$store.state.oidc.access_token
 
@@ -231,25 +230,20 @@ export default {
       }
     })
       .use(XHRUpload, {
-        method: 'patch',
         metaFields: ['size'],
+        method: 'patch',
         endpoint: endpointUpload,
-        formData: true,
         fieldName: 'image',
         headers: {
           'authorization': `Bearer ${token}`
         }
       })
 
-    this.uppy.on('upload-progress', (file, progress) => {
-      const payload = {
-        id: file.id,
-        name: file.name,
-        extension: file.extension,
-        uploaded: progress.bytesUploaded,
-        total: progress.bytesTotal
-      }
-      this.$emit('on-upload-progress', payload)
+    this.uppy.on('file-added', (file) => {
+      console.log(file.id)
+      this.uppy.setFileMeta(file.id, {
+        name: this.cloud.name
+      })
     })
 
     this.uppy.on('upload-error', (file, error, response) => {
@@ -257,10 +251,9 @@ export default {
     })
 
     this.uppy.on('complete', result => {
-      await this.update()
       this.$emit('on-upload-complete', result)
-
       if (result.successful) {
+        this.cloud.image = result.successful[0].response.body.image
       }
     })
   }
