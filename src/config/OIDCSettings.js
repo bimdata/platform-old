@@ -1,3 +1,7 @@
+/* This file is part of the BIMData Platform package.
+(c) BIMData support@bimdata.io
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code. */
 export const oidcSettings = {
   authority: process.env.BD_OIDC_IP + '/auth/realms/bimdata',
   client_id: process.env.BD_OIDC_CLIENT_ID,

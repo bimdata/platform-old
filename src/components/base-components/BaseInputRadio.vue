@@ -1,3 +1,7 @@
+<!-- This file is part of the BIMData Platform package.
+(c) BIMData support@bimdata.io
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code. -->
 <template>
     <div class="base-input-radio">
         <input type="radio" :id="`${name}-${id}-${option.value}`" :name="name + id" :value="option.value" :disabled="option.disabled" v-model="radioModel" @click="onSelect">

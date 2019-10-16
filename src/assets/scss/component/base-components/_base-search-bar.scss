@@ -1,3 +1,7 @@
+/* This file is part of the BIMData Platform package.
+(c) BIMData support@bimdata.io
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code. */
 $search-border-color: $body-bg;
 $search-btn-size: 44px;
 $search-size-container: 216px;
@@ -12,8 +16,8 @@ $search-lg-size-input: $search-lg-size-container - $search-btn-size;
   position: relative;
   box-shadow: 0 2px 10px 0 rgba($color-black,.08);
   @include flexbox;
-  
-  @include media-breakpoint-up(md){ 
+
+  @include media-breakpoint-up(md){
     max-width: $search-md-size-container;
   }
   @include media-breakpoint-up(lg){
@@ -26,7 +30,7 @@ $search-lg-size-input: $search-lg-size-container - $search-btn-size;
     border: none;
     @include transition(all linear .25s);
 
-    @include media-breakpoint-up(md){ 
+    @include media-breakpoint-up(md){
       width: $search-md-size-input;
     }
     @include media-breakpoint-up(lg){

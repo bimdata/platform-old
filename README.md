@@ -81,3 +81,8 @@ npm run test
 ```
 npm run build
 ```
+
+## License
+
+    You are free to copy, modify, and distribute BIMData Platform Backend under the terms of the LGPL 3.0 license.
+    See the LICENSE file for details.

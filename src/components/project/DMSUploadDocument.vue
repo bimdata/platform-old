@@ -1,3 +1,7 @@
+<!-- This file is part of the BIMData Platform package.
+(c) BIMData support@bimdata.io
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code. -->
 <template>
     <div class="upload-area upload-area-dms">
         <base-button-tool iconName="newfile" class="uppy modalOpener" :label="$t('project.import_document')">

@@ -1,3 +1,7 @@
+<!-- This file is part of the BIMData Platform package.
+(c) BIMData support@bimdata.io
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code. -->
 <template>
   <div class="search-component">
     <input type="text" placeholder="search" class="search-input" :class="{'is-close': !isOpen}" v-model="valueToSearch" @input="sendValue">

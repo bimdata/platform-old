@@ -1,3 +1,7 @@
+/* This file is part of the BIMData Platform package.
+(c) BIMData support@bimdata.io
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code. */
 $base-card-name: 'base-card';
 $card-header-color: #F8F8F9;
 $toolbox-background: #E6E6E6;
@@ -37,7 +41,7 @@ $toolbox-background: #E6E6E6;
   min-height: 428px;
   display: grid;
   @include align-items(center);
-  
+
   .base-button-empty__container{
     .btn{
       width: 121px;
