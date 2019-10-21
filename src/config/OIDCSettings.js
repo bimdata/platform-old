@@ -13,5 +13,6 @@ export const oidcSettings = {
   automaticSilentRenew: true,
   silentRedirectUri: process.env.BD_APP_URL + '/oidc-silent-renew.html',
   validateSubOnSilentRenew: true,
-  extraQueryParams: {kc_idp_hint: 'bimdataconnect'}
+  extraQueryParams: {kc_idp_hint: 'bimdataconnect'},
+  clockSkew: 900
 }
