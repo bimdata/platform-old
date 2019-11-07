@@ -4,7 +4,7 @@
   "description": "A Vuejs using Webpack 4",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --progress --config build/webpack.config.dev.js --port 8080",
+    "serve": "webpack-dev-server --progress --config build/webpack.config.dev.js --port 8080",
     "build": "webpack --config build/webpack.config.prod.js",
     "lint": "eslint --ext .js,.vue src",
     "lint:fix": "eslint --ext .js,.vue src --fix",
