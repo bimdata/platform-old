@@ -42,19 +42,19 @@ export default {
       this.mutateCurrentCloud(cloud)
     },
     createViewer (params, callback) {
-      if (this.getCustomUrl === 'viewer_2') {
+      if (this.getCustomUrl === 'old_viewer') {
+        this.iframeViewer = true
+        this.viewerUrl = `${process.env.BD_VIEWER_BASE_URL}/?cloudId=${params.cloudId}&projectId=${params.projectId}&ifcId=${params.ifcId}&accessToken=${this.oidcAccessToken}`
+      } else if (this.getCustomUrl) {
+        this.iframeViewer = true
+        this.viewerUrl = `${this.getCustomUrl}/?cloudId=${params.cloudId}&projectId=${params.projectId}&ifcId=${params.ifcId}&accessToken=${this.oidcAccessToken}`
+      } else {
         this.iframeViewer = false
         this.ifcConfig = {
           cloudId: params.cloudId,
           projectId: params.projectId,
           ifcIds: [params.ifcId]
         }
-      } else if (this.getCustomUrl) {
-        this.iframeViewer = true
-        this.viewerUrl = `${this.getCustomUrl}/?cloudId=${params.cloudId}&projectId=${params.projectId}&ifcId=${params.ifcId}&accessToken=${this.oidcAccessToken}`
-      } else {
-        this.iframeViewer = true
-        this.viewerUrl = `${process.env.BD_VIEWER_BASE_URL}/?cloudId=${params.cloudId}&projectId=${params.projectId}&ifcId=${params.ifcId}&accessToken=${this.oidcAccessToken}`
       }
       callback()
     }
