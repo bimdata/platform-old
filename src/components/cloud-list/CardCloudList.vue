@@ -8,18 +8,23 @@ file that was distributed with this source code. -->
       <div class="card-bd__header">
         <base-button-option ref="menu" @option-toggled="toggleMenu" v-if="hasAdminRole(cloud.role)">
           <ul>
-            <li @click.stop.self="showRemoveActions = true" class="base-button-option__menu__remove">
+            <li
+              @click.stop.self="showRemoveActions = true"
+              class="base-button-option__menu__remove"
+            >
               {{ $t('project_list.remove') }}
               <transition name="slide-fade">
-                <base-valid-delete v-if="showRemoveActions" @on-valid-action="remove" @on-cancel-action="showRemoveActions = false"></base-valid-delete>
+                <base-valid-delete
+                  v-if="showRemoveActions"
+                  @on-valid-action="remove"
+                  @on-cancel-action="showRemoveActions = false"
+                ></base-valid-delete>
               </transition>
             </li>
             <li @click.stop.self="toggleRename()" :class="{'actif': displayRename}">
               {{ $t('project.rename') }}
               <div class="new_folder_box rename" v-if="displayRename">
-                <div class="new_folder_box__title">
-                  {{ $t('cloud_list.rename_cloud') }}
-                </div>
+                <div class="new_folder_box__title">{{ $t('cloud_list.rename_cloud') }}</div>
                 <div class="base-input-text-material">
                   <input
                     :ref="`rename-${cloud.id}`"
@@ -28,7 +33,7 @@ file that was distributed with this source code. -->
                     required
                     v-model="renameCloud"
                     @keyup.enter="saveRename"
-                  >
+                  />
                   <span class="highlight"></span>
                   <span class="bar"></span>
                 </div>
@@ -49,7 +54,11 @@ file that was distributed with this source code. -->
             </div>
           </div>
           <div class="card-bd__title">
-            <span v-if="cloud.name && cloud.name.length > 25" v-b-tooltip.hover :title="cloud.name">{{ cloud.name | middle-truncate(25) }}</span>
+            <span
+              v-if="cloud.name && cloud.name.length > 25"
+              v-b-tooltip.hover
+              :title="cloud.name"
+            >{{ cloud.name | middle-truncate(25) }}</span>
             <span v-else>{{ cloud.name }}</span>
             </div>
           <div class="card-bd__infos-cloud">
@@ -64,7 +73,7 @@ file that was distributed with this source code. -->
           </div>
         </div>
       </div>
-      <div class="loader" v-show="displayLoader">
+      <div class="loader-platform" v-show="displayLoader">
         <div class="lds-dual-ring"></div>
       </div>
     </div>

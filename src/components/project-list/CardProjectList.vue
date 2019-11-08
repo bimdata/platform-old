@@ -73,7 +73,7 @@ file that was distributed with this source code. -->
           </div>
         </div>
       </router-link>
-      <div class="loader" v-show="displayLoader">
+      <div class="loader-platform" v-show="displayLoader">
         <div class="lds-dual-ring"></div>
       </div>
     </div>

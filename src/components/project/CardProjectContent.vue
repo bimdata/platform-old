@@ -11,7 +11,7 @@ file that was distributed with this source code. -->
       <upload-file name="upload-ifc" text="IFC" btn="IFC" :role="role"></upload-file>
     </template>
     <template slot="content" v-else-if="isLoading">
-      <div class="loader loader-layout">
+      <div class="loader-platform loader-layout">
         <div class="lds-dual-ring"></div>
       </div>
     </template>

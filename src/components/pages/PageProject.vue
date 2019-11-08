@@ -109,8 +109,8 @@ file that was distributed with this source code. -->
       </div>
     </template>
     <template v-else>
-      <div class="loader loader-layout">
-        <p class="loader-layout__text">{{ $t('project.loading') }}</p>
+      <div class="loader-platform loader-layout">
+        <p class="loader-platform-layout__text">{{ $t('project.loading') }}</p>
         <div class="lds-dual-ring"></div>
       </div>
     </template>

@@ -9,8 +9,8 @@ file that was distributed with this source code. -->
           <div :class="this.$route.meta.container" class="h-100">
             <transition name="slide-fade" mode="out-in">
                 <router-view :key="$route.fullPath" v-if="displayPage"></router-view>
-                <div class="loader loader-layout" v-else>
-                  <p class="loader-layout__text">{{ $t('layout.loading') }}</p>
+          <div class="loader-platform loader-layout" v-else>
+            <p class="loader-platform-layout__text">{{ $t('layout.loading') }}</p>
                   <div class="lds-dual-ring"></div>
                 </div>
             </transition>
