@@ -4,7 +4,7 @@ For the full copyright and license information, please view the LICENSE
 file that was distributed with this source code. -->
 <template>
     <div>
-      <div class="loader loader-redirect" v-show="displayLoader">
+    <div class="loader-platform loader-redirect" v-show="displayLoader">
         <img
           class="logo-container__logo"
           src="../../assets/images/logo-page-loader.svg"
