@@ -13,15 +13,6 @@ import { oidcSettings } from '@/config/OIDCSettings'
 
 Vue.use(Vuex)
 
-let vuexOidcStorage = vuexOidcCreateStoreModule(oidcSettings)
-let originalMethod = vuexOidcStorage.actions.authenticateOidc
-vuexOidcStorage.actions.authenticateOidc = function authenticateOidc (context, redirectPath) {
-  Object.keys(localStorage)
-    .filter(entry => entry.startsWith('oidc.'))
-    .forEach(entry => localStorage.removeItem(entry))
-  originalMethod(context, redirectPath)
-}
-
 const store = new Vuex.Store({
   state: {
     isAuthenticated: false,
@@ -35,7 +26,7 @@ const store = new Vuex.Store({
     clouds: []
   },
   modules: {
-    oidc: vuexOidcStorage,
+    oidc: vuexOidcCreateStoreModule(oidcSettings),
     project: ProjectModule
   },
   mutations,
