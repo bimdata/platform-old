@@ -16,7 +16,6 @@ const utils = require('./utils')
 module.exports = {
   entry: {
     main: './src/main.js',
-    oidcRenew: './src/oidc-silent-renew.js'
   },
 
   resolve: {
@@ -94,12 +93,6 @@ module.exports = {
       template: 'index.html',
       chunks: ['main'],
       inject: true
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'oidc-silent-renew.html',
-      template: 'oidc-silent-renew.html',
-      chunks: ['oidcRenew'],
-      inject: 'head'
     }),
     new VueLoaderPlugin(),
     new CopyWebpackPlugin([
