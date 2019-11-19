@@ -13,5 +13,6 @@ export const oidcSettings = {
   automaticSilentRenew: true,
   validateSubOnSilentRenew: true,
   extraQueryParams: {kc_idp_hint: 'bimdataconnect'},
+  monitorSession: false,
   clockSkew: 900
 }
