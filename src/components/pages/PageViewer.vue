@@ -7,10 +7,8 @@ file that was distributed with this source code. -->
         <iframe :src="viewerUrl" width="100%" height="100%" class="no-borders" v-if="iframeViewer"></iframe>
         <BimdataViewer
           v-if="!iframeViewer"
-          :apiUrl="apiUrl"
           :accessToken="oidcAccessToken"
-          :ifcConfig="ifcConfig"
-          :plugins="plugins"
+          :cfg="cfg"
         />
     </div>
 </template>
@@ -22,9 +20,7 @@ export default {
     return {
       viewerUrl: null,
       iframeViewer: null,
-      plugins: [],
-      ifcConfig: {},
-      apiUrl: process.env.BD_API_BASE_URL
+      cfg: null
     }
   },
   components: {
@@ -50,10 +46,11 @@ export default {
         this.viewerUrl = `${this.getCustomUrl}/?cloudId=${params.cloudId}&projectId=${params.projectId}&ifcId=${params.ifcId}&accessToken=${this.oidcAccessToken}`
       } else {
         this.iframeViewer = false
-        this.ifcConfig = {
+        this.cfg = {
           cloudId: params.cloudId,
           projectId: params.projectId,
-          ifcIds: [params.ifcId]
+          ifcIds: [params.ifcId],
+          apiUrl: process.env.BD_API_BASE_URL
         }
       }
       callback()
