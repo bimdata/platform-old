@@ -4,21 +4,16 @@ For the full copyright and license information, please view the LICENSE
 file that was distributed with this source code. -->
 <template>
   <div class="text-center">
-    <svgicon :name="name"
-              height="80"
-              width="80"
-              color="#EFF0F3 #fff #E6E7EA #DDDDDD #30374B #fff #fff"
-              class="m-0">
-    </svgicon>
-    <p class="my-4" v-if="isUserRole">{{ $t('project.upload_text') }} {{ text }}</p>
+    <p class="mb-4" v-if="isUserRole">{{ $t('project.upload_text') }} <span>{{ text }}</span></p>
     <div v-if="isUserRole" class="upload-area upload-area-upload">
       <div iconName="newfile" class="base-button-empty__container uppy modalOpener">
         <div class="base-button-empty" v-on="listeners">
-          <button class="btn btn-primary">{{ $t('project.upload') }} {{ btn }}</button>
+          <button class="btn btn-primary">{{ $t('project.upload') }}</button>
         </div>
         <slot></slot>
       </div>
       <div class="UploadContainer"></div>
+      <button class="btn btn-primary" v-if="name === 'gedcard'">{{ $t('project.create_folder') }}</button>
     </div>
   </div>
 </template>
@@ -41,10 +36,6 @@ export default {
       default: null
     },
     text: {
-      type: String,
-      default: null
-    },
-    btn: {
       type: String,
       default: null
     },
