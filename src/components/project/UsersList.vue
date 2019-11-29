@@ -43,7 +43,12 @@ file that was distributed with this source code. -->
           </transition>
           <slot name="users-list-header"></slot>
           <div class="users-list__body">
-            <ul class="users-list__users">
+            <div class="users-list__empty" v-if="users.length < 2">
+              <img src="../../assets/images/illu-user.svg" alt="">
+              <p>{{ $t('users.invitation_text') }} <span>{{ $t('users.user_collaborater') }}</span></p>
+              <button class="btn btn-primary">{{ $t('users.invitation_btn') }}</button>
+            </div>
+            <ul v-else class="users-list__users">
               <users-list-item
                 v-for="(user, index) in filteredUsers"
                 :key="`user-${index}`"
