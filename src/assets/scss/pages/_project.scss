@@ -10,6 +10,27 @@ file that was distributed with this source code. */
     overflow: hidden;
     .base-card__content{
       padding: 0;
+      img{
+        margin: auto;
+      }
+      p{
+        span{
+          font-weight: bold;
+          color: $color-primary;
+          text-transform: lowercase;
+        }
+      }
+      .upload-area{
+        display: flex;
+        justify-content: center;
+        .btn-primary{
+          width: 121px;
+          height: 33px;
+          &:first-child{
+            margin-right: 24px;
+          }
+        }
+      }
     }
   }
   .table-spaced {
@@ -58,6 +79,17 @@ file that was distributed with this source code. */
     @include media-breakpoint-up(lg){
       margin-right: 20px;
       width: calc(100%/3 * 2 - 20px);
+    }
+    .base-card__content{
+      img{
+        margin: auto;
+      }
+      p{
+        span{
+          font-weight: bold;
+          color: $color-primary;
+        }
+      }
     }
 
     .model-preview-slider{
