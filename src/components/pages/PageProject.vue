@@ -42,6 +42,7 @@ file that was distributed with this source code. -->
               @on-remove-user-pending="removeUserPending"
               @on-update-user="updateUser"
               @on-remove-error="removeUsersListsErrors"
+              @invitation-click="openSendInvite"
               :class="{'users-list--large': displaySendInvit || displaySearchUser}"
             >
               <template slot="users-list-header">
@@ -157,7 +158,7 @@ export default {
     return {
       chosenRight: {
         value: null,
-        text: this.$t('rights')
+        text: this.$t('users.rights')
       },
       searchFilter: '',
       loadedProject: false,
