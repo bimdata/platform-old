@@ -5,6 +5,7 @@ file that was distributed with this source code. */
 .page-project{
   padding-bottom: 50px - $grid-gutter-width;
   .ged-card{
+    min-height: 500px;
     max-height: 560px;
     background: $color-background;
     overflow: hidden;
