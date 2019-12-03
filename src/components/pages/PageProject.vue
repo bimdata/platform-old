@@ -89,7 +89,7 @@ file that was distributed with this source code. -->
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row" v-if="$store.state.project && $store.state.project.ifcs && $store.state.project.ifcs.length">
         <div class="col-12">
           <table-ifc :role="passRole"></table-ifc>
         </div>
