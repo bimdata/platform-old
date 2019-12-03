@@ -99,7 +99,7 @@ file that was distributed with this source code. -->
           <base-card :fullscreen-available="false" class="ged-card">
             <template slot="header-title">{{ $t('project.project_document') }}</template>
             <template slot="content" v-if="!hasFiles">
-              <img src="../../../src/assets/images/illu-file.svg" >
+              <img src="../../../src/assets/images/illu-file.svg">
               <upload-file :text="$t('project.file')" name="gedcard" :role="passRole"></upload-file>
             </template>
             <template slot="content" v-else>
