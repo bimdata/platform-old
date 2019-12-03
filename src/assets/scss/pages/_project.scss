@@ -20,6 +20,11 @@ file that was distributed with this source code. */
           text-transform: lowercase;
         }
       }
+      .table-name{
+        img{
+          margin: 0 8px 0 0;
+        }
+      }
       .upload-area{
         display: flex;
         justify-content: center;
