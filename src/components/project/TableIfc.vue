@@ -56,15 +56,15 @@ file that was distributed with this source code. -->
       <template slot="actions" slot-scope="data">
         <base-button-option v-if="isUserRole" @option-toggled="toggleMenuAction">
           <ul>
-            <li @click="viewIfc(data.item.actions)">
+            <li @click="viewIfc(data.item.actions)" v-if="getState(data.item.actions.status) === 'ok'">
               <svgicon name="play" width="13" height="13"></svgicon>
               {{ $t('project.view') }}
             </li>
-            <li @click="downloadFile(data.item.actions.documentAction)">
+            <li @click="downloadFile (data.item.actions.documentAction)" v-if="getState(data.item.actions.status) !== 'loading'">
               <svgicon name="download" width="13" height="13"></svgicon>
               {{ $t('project.download') }}
             </li>
-            <li @click.stop.self="toggleRename(data.item.actions.documentAction)" :class="{'actif': displayRename}">
+            <li @click.stop.self="toggleRename(data.item.actions.documentAction)" v-if="getState(data.item.actions.status) !== 'loading'" :class="{'actif': displayRename}">
               <svgicon name="pencil" width="13" height="13"></svgicon>
               {{ $t('project.rename') }}
 
