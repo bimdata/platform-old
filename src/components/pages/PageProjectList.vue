@@ -89,7 +89,8 @@ file that was distributed with this source code. -->
             :users="usersAdminCloud"
             :hasTriedToInviteInvalidEmail="hasTriedToInviteInvalidEmail"
             :hasTriedToInviteWithoutRights="hasTriedToInviteWithoutRights"
-              :level="'cloud'"
+            :userAlreadyInCloud="userAlreadyInCloud"
+            :level="'cloud'"
             @on-remove-user="removeUser"
             @on-remove-user-pending="removeUserPending"
             @on-remove-error="removeUsersListsErrors"
@@ -204,7 +205,8 @@ export default {
       emptyValue: 'This field may not be blank',
       displayRightsInvitation: false,
       hasTriedToInviteInvalidEmail: false,
-      hasTriedToInviteWithoutRights: false
+      hasTriedToInviteWithoutRights: false,
+      userAlreadyInCloud: false
     }
   },
   components: {
@@ -373,13 +375,19 @@ export default {
         setTimeout(() => (this.hasTriedToInviteWithoutRights = false), 3000)
         return false
       }
-      await this.sendCloudInvitation({
-        cloudId: this.$route.params.cloudId,
-        invite: {
-          email: this.emailInvite,
-          redirect_uri: `${process.env.BD_APP_URL}/cloud/${this.$route.params.cloudId}`
-        }
-      })
+      try {
+        await this.sendCloudInvitation({
+          cloudId: this.$route.params.cloudId,
+          invite: {
+            email: this.emailInvite,
+            redirect_uri: `${process.env.BD_APP_URL}/cloud/${this.$route.params.cloudId}`
+          }
+        })
+      } catch (e) {
+        this.userAlreadyInCloud = true
+        setTimeout(() => (this.userAlreadyInCloud = false), 3000)
+        return false
+      }
 
       this.emailInvite = ''
       if (this.isAdmin) {

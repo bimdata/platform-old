@@ -42,6 +42,14 @@ file that was distributed with this source code. -->
           </div>
         </transition>
         <transition name="slide-bottom-fade">
+          <div class="users-list__response-resend users-list__response-resend--error users-list__response-resend--big" v-if="userAlreadyInCloud">
+            {{ $t('users.users_already_in_cloud') }}
+            <span class="users-list__response-resend__close" @click="removeError">
+              <svgicon name="close" height="18" width="18"></svgicon>
+            </span>
+          </div>
+        </transition>
+        <transition name="slide-bottom-fade">
           <div class="users-list__response-resend users-list__response-resend--error users-list__response-resend--big" v-if="hasTriedToInviteWithoutRights">
             {{ $t('users.rights_attended') }}
             <span class="users-list__response-resend__close" @click="removeError">
@@ -122,6 +130,10 @@ export default {
       default: false
     },
     userAlreadyInProject: {
+      type: Boolean,
+      default: false
+    },
+    userAlreadyInCloud: {
       type: Boolean,
       default: false
     },

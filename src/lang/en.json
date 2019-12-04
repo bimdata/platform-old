@@ -86,7 +86,9 @@
       "invitation_text": "Invite your first",
       "user_collaborater": "Collaborater",
       "invitation_btn": "Invitation",
-      "users_already_in_project": "This user is already a member of this project"
+      "users_already_in_project": "This user is already a member of this project",
+      "users_already_in_cloud": "This user is already a member of this cloud"
+
     },
     "layout": {
         "loading": "Loading"
