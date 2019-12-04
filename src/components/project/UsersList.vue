@@ -3,70 +3,78 @@
 For the full copyright and license information, please view the LICENSE
 file that was distributed with this source code. -->
 <template>
-    <base-card :fullscreen-available="false" class="users-list__card">
-      <slot slot="header-title" name="header-title">
-        {{ $t('users.users') }}
-      </slot>
-      <template slot="content">
-        <div class="users-list">
-          <transition name="slide-bottom-fade">
-            <div class="users-list__response-resend" v-if="hasResendResponse">
-              {{ $t('users.invitation_sent', { email: resendEmail }) }}
-              <span class="users-list__response-resend__close" @click="hasResendResponse = false">
-                <svgicon name="close" height="18" width="18"></svgicon>
-              </span>
-            </div>
-          </transition>
-          <transition name="slide-bottom-fade">
-            <div class="users-list__response-resend users-list__response-resend--error" v-if="hasResendResponseError">
-              {{ $t('users.too_much_invitations_sent', { email: resendEmail }) }}
-              <span class="users-list__response-resend__close" @click="hasResendResponseError = false">
-                <svgicon name="close" height="18" width="18"></svgicon>
-              </span>
-            </div>
-          </transition>
-          <transition name="slide-bottom-fade">
-            <div class="users-list__response-resend users-list__response-resend--error users-list__response-resend--big" v-if="hasTriedToInviteInvalidEmail">
-              {{ $t('users.valid_email_attended') }}
-              <span class="users-list__response-resend__close" @click="removeError">
-                <svgicon name="close" height="18" width="18"></svgicon>
-              </span>
-            </div>
-          </transition>
-          <transition name="slide-bottom-fade">
-            <div class="users-list__response-resend users-list__response-resend--error users-list__response-resend--big" v-if="hasTriedToInviteWithoutRights">
-              {{ $t('users.rights_attended') }}
-              <span class="users-list__response-resend__close" @click="removeError">
-                <svgicon name="close" height="18" width="18"></svgicon>
-              </span>
-            </div>
-          </transition>
-          <slot name="users-list-header"></slot>
-          <div class="users-list__body">
-            <div class="users-list__empty" v-if="users && users.length < 2">
-              <img src="../../assets/images/illu-user.svg" alt="">
-              <p>{{ $t('users.invitation_text') }} <span>{{ $t('users.user_collaborater') }}</span></p>
-              <button @click="$emit('invitation-click')" class="btn btn-primary">{{ $t('users.invitation_btn') }}</button>
-            </div>
-            <ul v-else class="users-list__users">
-              <users-list-item
-                v-for="(user, index) in filteredUsers"
-                :key="`user-${index}`"
-                :index="index"
-                :user="user"
-                :displayMenu="displayMenu"
-                :role="user.role"
-                :level="level"
-                @on-remove-user="removeUser"
-                @on-update-user="updateUser"
-                @on-remove-user-pending="removeUserPending"
-                @email-resend="displayResponse"
-                :class="{'open-top': index > 4}"></users-list-item>
-            </ul>
+  <base-card :fullscreen-available="false" class="users-list__card">
+    <slot slot="header-title" name="header-title">
+      {{ $t('users.users') }}
+    </slot>
+    <template slot="content">
+      <div class="users-list">
+        <transition name="slide-bottom-fade">
+          <div class="users-list__response-resend" v-if="hasResendResponse">
+            {{ $t('users.invitation_sent', { email: resendEmail }) }}
+            <span class="users-list__response-resend__close" @click="hasResendResponse = false">
+              <svgicon name="close" height="18" width="18"></svgicon>
+            </span>
           </div>
+        </transition>
+        <transition name="slide-bottom-fade">
+          <div class="users-list__response-resend users-list__response-resend--error" v-if="hasResendResponseError">
+            {{ $t('users.too_much_invitations_sent', { email: resendEmail }) }}
+            <span class="users-list__response-resend__close" @click="hasResendResponseError = false">
+              <svgicon name="close" height="18" width="18"></svgicon>
+            </span>
+          </div>
+        </transition>
+        <transition name="slide-bottom-fade">
+          <div class="users-list__response-resend users-list__response-resend--error users-list__response-resend--big" v-if="hasTriedToInviteInvalidEmail">
+            {{ $t('users.valid_email_attended') }}
+            <span class="users-list__response-resend__close" @click="removeError">
+              <svgicon name="close" height="18" width="18"></svgicon>
+            </span>
+          </div>
+        </transition>
+        <transition name="slide-bottom-fade">
+          <div class="users-list__response-resend users-list__response-resend--error users-list__response-resend--big" v-if="userAlreadyInProject">
+            {{ $t('users.users_already_in_project') }}
+            <span class="users-list__response-resend__close" @click="removeError">
+              <svgicon name="close" height="18" width="18"></svgicon>
+            </span>
+          </div>
+        </transition>
+        <transition name="slide-bottom-fade">
+          <div class="users-list__response-resend users-list__response-resend--error users-list__response-resend--big" v-if="hasTriedToInviteWithoutRights">
+            {{ $t('users.rights_attended') }}
+            <span class="users-list__response-resend__close" @click="removeError">
+              <svgicon name="close" height="18" width="18"></svgicon>
+            </span>
+          </div>
+        </transition>
+        <slot name="users-list-header"></slot>
+        <div class="users-list__body">
+          <div class="users-list__empty" v-if="users && users.length < 2">
+            <img src="../../assets/images/illu-user.svg" alt="">
+            <p>{{ $t('users.invitation_text') }} <span>{{ $t('users.user_collaborater') }}</span></p>
+            <button @click="$emit('invitation-click')" class="btn btn-primary">{{ $t('users.invitation_btn') }}</button>
+          </div>
+          <ul v-else class="users-list__users">
+            <users-list-item
+              v-for="(user, index) in filteredUsers"
+              :key="`user-${index}`"
+              :index="index"
+              :user="user"
+              :displayMenu="displayMenu"
+              :role="user.role"
+              :level="level"
+              @on-remove-user="removeUser"
+              @on-update-user="updateUser"
+              @on-remove-user-pending="removeUserPending"
+              @email-resend="displayResponse"
+              :class="{'open-top': index > 4}"></users-list-item>
+          </ul>
         </div>
-      </template>
-    </base-card>
+      </div>
+    </template>
+  </base-card>
 </template>
 <script>
 import BaseCard from '@/components/base-components/BaseCard'
@@ -110,6 +118,10 @@ export default {
       default: false
     },
     hasTriedToInviteWithoutRights: {
+      type: Boolean,
+      default: false
+    },
+    userAlreadyInProject: {
       type: Boolean,
       default: false
     },

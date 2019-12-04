@@ -37,6 +37,7 @@ file that was distributed with this source code. -->
               :filter="searchFilter"
               :hasTriedToInviteInvalidEmail="hasTriedToInviteInvalidEmail"
               :hasTriedToInviteWithoutRights="hasTriedToInviteWithoutRights"
+              :userAlreadyInProject="userAlreadyInProject"
               :level="'project'"
               @on-remove-user="removeUser"
               @on-remove-user-pending="removeUserPending"
@@ -169,7 +170,8 @@ export default {
       displayRightsInvitation: false,
       mailInvitation: '',
       hasTriedToInviteInvalidEmail: false,
-      hasTriedToInviteWithoutRights: false
+      hasTriedToInviteWithoutRights: false,
+      userAlreadyInProject: false
     }
   },
   methods: {
@@ -195,15 +197,20 @@ export default {
         setTimeout(() => (this.hasTriedToInviteWithoutRights = false), 3000)
         return false
       }
-      await this.projectInvite({
-        project: this.project,
-        invite: {
-          email: this.mailInvitation,
-          role: this.chosenRight.value,
-          redirect_uri: `${process.env.BD_APP_URL}/cloud/${this.$route.params.cloudId}/project/${this.$route.params.projectId}`
-        }
-      })
-
+      try {
+        await this.projectInvite({
+          project: this.project,
+          invite: {
+            email: this.mailInvitation,
+            role: this.chosenRight.value,
+            redirect_uri: `${process.env.BD_APP_URL}/cloud/${this.$route.params.cloudId}/project/${this.$route.params.projectId}`
+          }
+        })
+      } catch (e) {
+        this.userAlreadyInProject = true
+        setTimeout(() => (this.userAlreadyInProject = false), 3000)
+        return false
+      }
       this.mailInvitation = ''
       if (this.isAdmin) {
         this.getGuests()

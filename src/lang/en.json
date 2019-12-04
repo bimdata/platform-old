@@ -85,7 +85,8 @@
       "rights_attended": "Role for the user has not been provided",
       "invitation_text": "Invite your first",
       "user_collaborater": "Collaborater",
-      "invitation_btn": "Invitation"
+      "invitation_btn": "Invitation",
+      "users_already_in_project": "This user is already a member of this project"
     },
     "layout": {
         "loading": "Loading"
