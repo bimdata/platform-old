@@ -11,6 +11,9 @@ file that was distributed with this source code. */
     overflow: hidden;
     .base-card__content{
       padding: 0;
+      .breadcrumb{
+        background-color: $color-white;
+      }
       img{
         margin: auto;
       }
