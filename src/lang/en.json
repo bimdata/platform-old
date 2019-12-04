@@ -37,7 +37,7 @@
         "save": "Save",
         "confirm": "Confirm",
         "upload": "Upload",
-        "upload_text": "Upload your first file",
+        "upload_text": "Upload your first",
         "loading": "Loading",
         "new": "New",
         "new_folder": "New folder",
@@ -82,7 +82,10 @@
       "invitation_sent": "Invitation sent to {email}",
       "too_much_invitations_sent": "Too much invitations sent to {email}",
       "valid_email_attended": "Empty or invalid e-mail provided",
-      "rights_attended": "Role for the user has not been provided"
+      "rights_attended": "Role for the user has not been provided",
+      "invitation_text": "Invite your first",
+      "user_collaborater": "Collaborater",
+      "invitation_btn": "Invitation"
     },
     "layout": {
         "loading": "Loading"

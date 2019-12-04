@@ -5,11 +5,41 @@ file that was distributed with this source code. */
 .page-project{
   padding-bottom: 50px - $grid-gutter-width;
   .ged-card{
+    min-height: 500px;
     max-height: 560px;
     background: $color-background;
     overflow: hidden;
     .base-card__content{
       padding: 0;
+      .breadcrumb{
+        background-color: $color-white;
+      }
+      img{
+        margin: auto;
+      }
+      p{
+        span{
+          font-weight: bold;
+          color: $color-primary;
+          text-transform: lowercase;
+        }
+      }
+      .table-name{
+        img{
+          margin: 0 8px 0 0;
+        }
+      }
+      .upload-area{
+        display: flex;
+        justify-content: center;
+        .btn-primary{
+          width: 121px;
+          height: 33px;
+          &:first-child{
+            margin-right: 24px;
+          }
+        }
+      }
     }
   }
   .table-spaced {
@@ -58,6 +88,17 @@ file that was distributed with this source code. */
     @include media-breakpoint-up(lg){
       margin-right: 20px;
       width: calc(100%/3 * 2 - 20px);
+    }
+    .base-card__content{
+      img{
+        margin: auto;
+      }
+      p{
+        span{
+          font-weight: bold;
+          color: $color-primary;
+        }
+      }
     }
 
     .model-preview-slider{

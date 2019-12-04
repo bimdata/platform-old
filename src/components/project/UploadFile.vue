@@ -4,21 +4,40 @@ For the full copyright and license information, please view the LICENSE
 file that was distributed with this source code. -->
 <template>
   <div class="text-center">
-    <svgicon :name="name"
-              height="80"
-              width="80"
-              color="#EFF0F3 #fff #E6E7EA #DDDDDD #30374B #fff #fff"
-              class="m-0">
-    </svgicon>
-    <p class="my-4" v-if="isUserRole">{{ $t('project.upload_text') }} {{ text }}</p>
+    <p class="mb-4" v-if="isUserRole">{{ $t('project.upload_text') }} <span>{{ text }}</span></p>
     <div v-if="isUserRole" class="upload-area upload-area-upload">
       <div iconName="newfile" class="base-button-empty__container uppy modalOpener">
         <div class="base-button-empty" v-on="listeners">
-          <button class="btn btn-primary">{{ $t('project.upload') }} {{ btn }}</button>
+          <button class="btn btn-primary">{{ $t('project.upload') }}</button>
         </div>
         <slot></slot>
       </div>
       <div class="UploadContainer"></div>
+      <button v-if="name === 'gedcard'" class="btn btn-primary" iconName="add-folder" @click.self="toggleAddFolderMenu">
+        {{ $t('project.create_folder') }}
+        <div class="new_folder_box" v-show="addFolderMenu">
+          <div class="new_folder_box__title">
+            {{ $t('project.create_folder') }}
+          </div>
+          <div class="base-input-text-material">
+            <input
+              ref="createFolderInput"
+              @keyup.enter="saveFolder"
+              v-model="newFolderName"
+              :placeholder="$t('project.folder_name')"
+              type="text"
+              required
+            >
+            <span class="highlight"></span>
+            <span class="bar"></span>
+          </div>
+            <div class="new_folder_box__button-validation">
+              <span @click="toggleAddFolderMenu">{{ $t('project.cancel') }}</span>
+              <span @click="saveFolder">{{ $t('project.validate') }}</span>
+            </div>
+        </div>
+        <div class="new_folder_box__overlay" v-show="addFolderMenu" @click="toggleAddFolderMenu"></div>
+      </button>
     </div>
   </div>
 </template>
@@ -29,8 +48,12 @@ import Dashboard from '@uppy/dashboard'
 import XHRUpload from '@uppy/xhr-upload'
 import { mapState } from 'vuex'
 import { hasUserRole } from '@/utils/manageRights'
+import BaseButtonTool from '@/components/base-components/BaseButtonTool'
 
 export default {
+  components: {
+    BaseButtonTool
+  },
   props: {
     target: {
       type: String,
@@ -44,10 +67,6 @@ export default {
       type: String,
       default: null
     },
-    btn: {
-      type: String,
-      default: null
-    },
     role: {
       type: Number,
       default: null
@@ -55,7 +74,9 @@ export default {
   },
   data () {
     return {
-      uppy: null
+      uppy: null,
+      addFolderMenu: false,
+      newFolderName: ''
     }
   },
   computed: {
@@ -81,7 +102,23 @@ export default {
     }
   },
   methods: {
-    hasUserRole
+    hasUserRole,
+    toggleAddFolderMenu () {
+      this.addFolderMenu = !this.addFolderMenu
+      console.log(this.addFolderMenu)
+      if (this.addFolderMenu) {
+        this.$nextTick(() => {
+          this.$refs.createFolderInput.focus()
+        })
+      }
+      this.newFolderName = ''
+    },
+    async saveFolder () {
+      if (this.newFolderName !== '') {
+        await this.$store.dispatch('project/createFolder', this.newFolderName)
+        this.addFolderMenu = false
+      }
+    }
   },
   watch: {
     currentFolderId () {

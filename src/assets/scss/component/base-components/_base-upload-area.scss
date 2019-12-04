@@ -73,6 +73,14 @@ $base-upload-area: 'upload-area';
       }
     }
   }
+  .new_folder_box{
+    left: calc(50% - 207px/2);
+    top: calc(50% - 101px/2);
+    &__overlay{
+      position: absolute;
+      background-color: rgba(47,55,74,.8);
+    }
+  }
 }
 .uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose>.uppy-Dashboard-inner{
   min-width: auto !important;

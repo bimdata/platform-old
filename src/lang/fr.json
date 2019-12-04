@@ -37,7 +37,7 @@
         "save": "Sauvegarder",
         "confirm": "Confirmer",
         "upload": "Téléversement",
-        "upload_text": "Téléverser votre premier fichier",
+        "upload_text": "Téléverser votre premier",
         "loading": "Chargement",
         "new": "Nouveau",
         "new_folder": "Nouveau dossier",
@@ -82,7 +82,10 @@
       "guest": "Invité",
       "without_answer": "sans réponse",
       "manage_admin": "Gérer les administrateurs",
-      "users_list": "Liste des utilisateurs"
+      "users_list": "Liste des utilisateurs",
+      "invitation_text": "Inviter votre premier",
+      "user_collaborater": "collaborateur",
+      "invitation_btn": "Invitation"
     },
     "layout": {
       "loading": "Chargement"

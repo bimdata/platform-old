@@ -114,6 +114,13 @@ $width-lg-tree: 350px;
     height: 100%;
     overflow: auto;
     @include transition(.2s ease all);
+    .table-name{
+      span{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+      }
+    }
   }
 
   &.shrinked{
@@ -202,9 +209,6 @@ $width-lg-tree: 350px;
     ul{
       li{
         padding: 6px 12px;
-        .svg-icon{
-          margin-right: 10px;
-        }
       }
     }
 
@@ -323,7 +327,7 @@ $width-lg-tree: 350px;
   box-shadow: $bd-box-shadow;
   text-align: left;
   z-index: 2;
-  @include font-size(11px);
+  @include font-size(12px);
   @include transition(.15s ease all);
   &.rename{
     left: -120%;
@@ -348,11 +352,12 @@ $width-lg-tree: 350px;
   }
   .base-input-text-material{
     margin: 0;
-    padding: 10px 0 26px 0;
+    padding: 16px 0;
     input{
+      height: 22px;
       padding: 0;
       color: $color-text;
-      @include font-size(11px);
+      @include font-size(12px);
     }
   }
   .new_folder_box__button-validation{
@@ -362,7 +367,6 @@ $width-lg-tree: 350px;
     @include justify-content(flex-end);
     span{
       padding-left: $grid-gutter-width;
-      text-transform: uppercase;
       &:hover{
         color: darken($color-primary, 10);
         cursor: pointer;

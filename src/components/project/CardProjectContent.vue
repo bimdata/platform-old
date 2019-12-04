@@ -8,7 +8,8 @@ file that was distributed with this source code. -->
       {{ projectName }}
     </template>
     <template v-if="panoramas.length === 0 && isUserRole" slot="content">
-      <upload-file name="upload-ifc" text="IFC" btn="IFC" :role="role"></upload-file>
+      <img src="../../../src/assets/images/illu-ifc.svg">
+      <upload-file text="IFC" :role="role"></upload-file>
     </template>
     <template slot="content" v-else-if="isLoading">
       <div class="loader-platform loader-layout">

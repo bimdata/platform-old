@@ -42,6 +42,7 @@ file that was distributed with this source code. -->
               @on-remove-user-pending="removeUserPending"
               @on-update-user="updateUser"
               @on-remove-error="removeUsersListsErrors"
+              @invitation-click="openSendInvite"
               :class="{'users-list--large': displaySendInvit || displaySearchUser}"
             >
               <template slot="users-list-header">
@@ -89,7 +90,7 @@ file that was distributed with this source code. -->
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row" v-if="$store.state.project && $store.state.project.ifcs && $store.state.project.ifcs.length">
         <div class="col-12">
           <table-ifc :role="passRole"></table-ifc>
         </div>
@@ -99,7 +100,8 @@ file that was distributed with this source code. -->
           <base-card :fullscreen-available="false" class="ged-card">
             <template slot="header-title">{{ $t('project.project_document') }}</template>
             <template slot="content" v-if="!hasFiles">
-              <upload-file name="upload-file" :role="passRole"></upload-file>
+              <img src="../../../src/assets/images/illu-file.svg">
+              <upload-file :text="$t('project.file')" name="gedcard" :role="passRole"></upload-file>
             </template>
             <template slot="content" v-else>
               <dms :role="passRole"></dms>
@@ -156,7 +158,7 @@ export default {
     return {
       chosenRight: {
         value: null,
-        text: this.$t('rights')
+        text: this.$t('users.rights')
       },
       searchFilter: '',
       loadedProject: false,

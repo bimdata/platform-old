@@ -159,7 +159,7 @@ file that was distributed with this source code. -->
                 <template slot="action" slot-scope="documentAction">
                   <base-button-option @option-toggled="toggleMenuAction" v-if="isUserRole">
                     <ul>
-                      <li @click="viewIfc(documentAction.item.ifcId)" v-if="documentAction.item.ifcId">
+                      <li @click="viewIfc(documentAction.item.ifcId)" v-if="documentAction.item.ifcId && documentAction.item.status === 'C'">
                         <svgicon name="play" width="13" height="13"></svgicon>
                         {{ $t('project.view') }}
                       </li>
@@ -466,7 +466,8 @@ export default {
   computed: {
     ...mapState('project', {
       currentElement: 'currentElement',
-      project: 'selectedProject'
+      project: 'selectedProject',
+      ifcs: 'ifcs'
     }),
     currentItems () {
       return this.currentElement.children.map(
@@ -489,6 +490,7 @@ export default {
               icon = 'unknown.svg'
             }
           }
+          const ifc = this.ifcs.find(ifc => ifc.id === item.ifc_id)
 
           return {
             id: item.id,
@@ -500,6 +502,7 @@ export default {
             icon: icon,
             creator: item.created_by,
             size: item.size,
+            status: ifc ? ifc.status : null,
             file: item.file,
             _rowVariant: result ? 'selected-row' : ''
           }

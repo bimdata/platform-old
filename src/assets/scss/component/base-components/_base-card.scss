@@ -14,44 +14,38 @@ $toolbox-background: #E6E6E6;
   box-shadow: $bd-box-shadow;
   font-weight: normal;
   text-align: left;
-}
-
-.#{$base-card-name}__header{
-  height: 40px;
-  background-color: $card-header-color;
-  @include flexbox;
-}
-
-.#{$base-card-name}__title-container{
-  padding: 15px;
-  color: $color-primary;
-  flex: 1 auto;
-  line-height: 1rem;
-  @include font-size(13px);
-}
-
-.#{$base-card-name}__expand{
-  padding: 10px;
-  background-color: $toolbox-background;
-  cursor: pointer;
-}
-
-.#{$base-card-name}__content{
-  padding: 1rem;
-  min-height: 428px;
-  display: grid;
-  @include align-items(center);
-
-  .base-button-empty__container{
-    .btn{
-      width: 121px;
-      height: 33px;
+  &__header{
+    height: 40px;
+    background-color: $card-header-color;
+    @include flexbox;
+  }
+  &__title-container{
+    padding: 15px;
+    color: $color-primary;
+    flex: 1 auto;
+    line-height: 1rem;
+    @include font-size(13px);
+  }
+  &__expand{
+    padding: 10px;
+    background-color: $toolbox-background;
+    cursor: pointer;
+  }
+  &__content{
+    padding: 1rem;
+    min-height: 428px;
+    display: grid;
+    @include align-items(center);
+    .base-button-empty__container{
+      .btn{
+        width: 121px;
+        height: 33px;
+      }
     }
   }
-}
-
-.#{$base-card-name}__link{
-  &:hover {
-    text-decoration: none;
+  &__link{
+    &:hover {
+      text-decoration: none;
+    }
   }
 }

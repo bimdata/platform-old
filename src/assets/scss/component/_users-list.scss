@@ -212,6 +212,23 @@ file that was distributed with this source code. */
   &__body{
     overflow-y: auto;
   }
+  &__empty{
+    height: 376px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    p{
+      span{
+        color: $color-primary;
+        font-weight: bold;
+      }
+    }
+    .btn{
+      width: 121px;
+    }
+  }
   &__users{
     padding: 0;
     margin: 0;
