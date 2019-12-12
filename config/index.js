@@ -17,7 +17,7 @@ module.exports = {
     proxyTable: {
       // proxy all requests starting with /api to jsonplaceholder
       '/bimviewer.js': {
-        target: 'https://cdn-staging.bimdata.io/js/',
+        target: 'https://cdn-next.bimdata.io/js/',
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''
