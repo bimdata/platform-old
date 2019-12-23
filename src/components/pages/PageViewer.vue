@@ -4,9 +4,10 @@ For the full copyright and license information, please view the LICENSE
 file that was distributed with this source code. -->
 <template>
     <div class="h-100">
-        <iframe :src="viewerUrl" width="100%" height="100%" class="no-borders" v-if="iframeViewer"></iframe>
+        <iframe :src="viewerUrl" width="100%" height="100%" class="no-borders" v-if="iframeViewer === true"></iframe>
         <BimdataViewer
-          v-if="!iframeViewer"
+          ref="bimdataViewerInstance"
+          v-if="iframeViewer === false"
           :accessToken="oidcAccessToken"
           :cfg="cfg"
         />
@@ -15,6 +16,8 @@ file that was distributed with this source code. -->
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import BimdataViewer from '@bimdata/viewer'
+import { snowflakesPlugin } from '@bimdata/snowflakes-viewer-plugin'
+
 export default {
   data () {
     return {
@@ -52,11 +55,14 @@ export default {
           ifcIds: [params.ifcId],
           apiUrl: process.env.BD_API_BASE_URL
         }
+        this.$nextTick(() => {
+          this.$refs.bimdataViewerInstance.registerPlugins([snowflakesPlugin])
+        })
       }
       callback()
     }
   },
-  created () {
+  mounted () {
     this.setCurrentCloud()
     const params = this.$route.params
     this.$store.commit('SET_LOADER_PAGE', true)
