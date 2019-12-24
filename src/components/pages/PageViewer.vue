@@ -16,7 +16,7 @@ file that was distributed with this source code. -->
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import BimdataViewer from '@bimdata/viewer'
-import { snowflakesPlugin } from '@bimdata/snowflakes-viewer-plugin'
+import SnowflakesPlugin from '@bimdata/snowflakes-viewer-plugin'
 
 export default {
   data () {
@@ -56,7 +56,7 @@ export default {
           apiUrl: process.env.BD_API_BASE_URL
         }
         this.$nextTick(() => {
-          this.$refs.bimdataViewerInstance.registerPlugins([snowflakesPlugin])
+          this.$refs.bimdataViewerInstance.registerPlugins([SnowflakesPlugin])
         })
       }
       callback()
