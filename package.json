@@ -24,9 +24,9 @@
   "license": "MIT",
   "dependencies": {
     "@bimdata/bimdata-api-client": "^5.0.6",
-    "@bimdata/snowflakes-viewer-plugin": "0.0.8",
+    "@bimdata/snowflakes-viewer-plugin": "0.0.9",
     "@bimdata/utils": "0.2.3",
-    "@bimdata/viewer": "0.4.2",
+    "@bimdata/viewer": "0.4.3",
     "axios": "^0.19.0",
     "bootstrap-vue": "^2.0.0-rc.28",
     "isemail": "^3.2.0",
