@@ -61,7 +61,7 @@ file that was distributed with this source code. -->
         <div class="users-list__body">
           <div class="users-list__empty" v-if="users && users.length < 2">
             <img src="../../assets/images/illu-user.svg" alt="">
-            <p>{{ $t('users.invitation_text') }} <span>{{ $t('users.user_collaborater') }}</span></p>
+            <p>{{ $t('users.invitation_text') }} <span>{{ $t('users.user_member') }}</span></p>
             <button @click="$emit('invitation-click')" class="btn btn-primary">{{ $t('users.invitation_btn') }}</button>
           </div>
           <ul v-else class="users-list__users">
