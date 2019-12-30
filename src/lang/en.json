@@ -28,7 +28,7 @@
         "folder_name": "Folder's name",
         "file_name": "File's name",
         "project_document": "Project's documents",
-        "error_conversion": "Error in conversion",
+        "error_conversion": "Conversion error",
         "rename": "Rename",
         "rename_folder": "Rename folder",
         "rename_file": "Rename file",
@@ -84,7 +84,7 @@
       "valid_email_attended": "Empty or invalid e-mail provided",
       "rights_attended": "Role for the user has not been provided",
       "invitation_text": "Invite your first",
-      "user_collaborater": "Collaborater",
+      "user_member": "Project member",
       "invitation_btn": "Invitation",
       "users_already_in_project": "This user is already a member of this project",
       "users_already_in_cloud": "This user is already a member of this cloud"
