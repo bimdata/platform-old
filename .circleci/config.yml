@@ -44,17 +44,17 @@ jobs:
             docker cp /home/circleci/repo deployment:/var/repo
             docker start deployment
 
-            docker exec -it deployment ansible-playbook build.yml -i inventories/staging --tags=platform --extra-vars='{"context_dir":"/var/repo","ansible_ssh_private_key_file":"./files/deploy_rsa"}' --user=deploy
+            docker exec -e ANSIBLE_VAULT_PASSWD -it deployment ansible-playbook build.yml -i inventories/staging --tags=platform --extra-vars='{"context_dir":"/var/repo","ansible_ssh_private_key_file":"./files/deploy_rsa"}' --user=deploy
             docker push bimdata/platform:latest
 
-            docker exec -it deployment ansible-playbook build.yml -i inventories/next --tags=platform --extra-vars='{"context_dir":"/var/repo","ansible_ssh_private_key_file":"./files/deploy_rsa"}' --user=deploy
+            docker exec -e ANSIBLE_VAULT_PASSWD -it deployment ansible-playbook build.yml -i inventories/next --tags=platform --extra-vars='{"context_dir":"/var/repo","ansible_ssh_private_key_file":"./files/deploy_rsa"}' --user=deploy
             docker push bimdata/platform:staging
 
-            docker exec -it deployment ansible-playbook build.yml -i inventories/prod --tags=platform --extra-vars='{"context_dir":"/var/repo","ansible_ssh_private_key_file":"./files/deploy_rsa"}' --user=deploy
+            docker exec -e ANSIBLE_VAULT_PASSWD -it deployment ansible-playbook build.yml -i inventories/prod --tags=platform --extra-vars='{"context_dir":"/var/repo","ansible_ssh_private_key_file":"./files/deploy_rsa"}' --user=deploy
             docker push bimdata/platform:next
 
             # deploy master branch
-            docker exec -it deployment ansible-playbook deploy.yml -i inventories/staging --tags=platform --extra-vars "ansible_ssh_private_key_file=./files/deploy_rsa" --user=deploy
+            docker exec -e ANSIBLE_VAULT_PASSWD -it deployment ansible-playbook deploy.yml -i inventories/staging --tags=platform --extra-vars "ansible_ssh_private_key_file=./files/deploy_rsa" --user=deploy
 
 
 workflows:
