@@ -38,7 +38,7 @@ $base-button-option: 'base-button-option';
       @include transition(.15s linear all);
     }
     &:hover{
-      background-color: $color-background;
+      background-color: $color-white;
       transition: all .2s cubic-bezier(.35,0,.25,1);
     }
   }
