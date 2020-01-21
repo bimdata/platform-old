@@ -164,9 +164,13 @@ file that was distributed with this source code. */
 }
 
 .card-bd{
+  padding: 0;
   @include flexbox;
   @include flex-direction(column);
   @include justify-content(flex-start);
+  &__bg{
+    height: 4px;
+  }
   &__header{
     height: 25px;
     position: absolute;
@@ -222,9 +226,53 @@ file that was distributed with this source code. */
   }
   &__body{
     flex: 1 0 auto;
+    flex-direction: column;
     @include flexbox;
     @include align-items(center);
     @include justify-content(space-around);
+    &__img{
+      height: calc(100% - 79px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      background-color: #F7F7F7;
+      .card-bd__picto-container{
+        svg{
+          .icon-dark-color{
+            fill: var(--dark-color);
+          }
+          .icon-color{
+            fill: var(--color);
+          }
+          .icon-light-color{
+            fill: var(--light-color);
+          }
+        }
+      }
+    }
+    &__title{
+      width: 100%;
+      height: 79px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      span{
+        margin-bottom: 11px;
+        position: relative;
+        color: $color-primary;
+        text-align: center;
+      }
+      &-hr{
+        margin: 0 auto;
+        height: 1px;
+        width: 50px;
+        bottom: -10px;
+        background-color: #E1E1E2;
+        display: block;
+      }
+    }
   }
   &__body-container{
     width: 100%;
@@ -248,15 +296,15 @@ file that was distributed with this source code. */
       width: 100%;
     }
   }
-  &__picto-container{
-    width: 56px;
-    height: 56px;
-    border: 1px dashed $gray2;
-    border-radius: 8px;
-    @include flexbox;
-    @include align-items(center);
-    @include justify-content(center);
-  }
+  // &__picto-container{
+  //   width: 56px;
+  //   height: 56px;
+  //   border: 1px dashed $gray2;
+  //   border-radius: 8px;
+  //   @include flexbox;
+  //   @include align-items(center);
+  //   @include justify-content(center);
+  // }
   &__infos-cloud{
     margin-top: 35px;
     width: 100%;
@@ -287,20 +335,6 @@ file that was distributed with this source code. */
 
     &:hover {
       text-decoration: underline;
-    }
-    &:after{
-      margin: 0 auto;
-      width: 100%;
-      height: 1px;
-      max-width: 50px;
-      display: inline-block;
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: -10px;
-      background-color: $color-text;
-      @include transition(.15s ease all);
     }
   }
   &__title--edit-mode{

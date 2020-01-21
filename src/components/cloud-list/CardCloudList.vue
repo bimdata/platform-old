@@ -5,6 +5,8 @@ file that was distributed with this source code. -->
 <template>
   <div class="card-container">
     <div class="base-card card-item card-bd noselect">
+      <div class="card-bd__bg" :style="{'background-color': color.color}">
+      </div>
       <div class="card-bd__header">
         <base-button-option ref="menu" @option-toggled="toggleMenu" v-if="hasAdminRole(cloud.role)">
           <ul>
@@ -43,45 +45,47 @@ file that was distributed with this source code. -->
                 </div>
               </div>
           </li>
+          <li @click.stop.self="assignImage()">Upload image</li>
           </ul>
         </base-button-option>
       </div>
       <div class="card-bd__body" @click="accessCloud">
-        <div class="card-bd__body-container">
-          <div class="card-bd__circle" @click.stop="assignImage()">
-            <img v-show="cloud.image" :src="cloud.image">
-            <div :id="`UppyForm-${$vnode.key}`">
-              <input
-                ref="input_file"
-                v-show="false"
-                type="file"
-                name="files[]"
-                @change="handleInputChange"
-                multiple="true"
-              >
-            </div>
-            <div class="card-bd__picto-container">
-              <svgicon v-show="!cloud.image" name="img-more" height="26" width="26"></svgicon>
-            </div>
+        <div class="card-bd__body__img">
+          <img v-show="cloud.image" :src="cloud.image">
+          <div :id="`UppyForm-${$vnode.key}`">
+            <input
+              ref="input_file"
+              v-show="false"
+              type="file"
+              name="files[]"
+              @change="handleInputChange"
+              multiple="true"
+            >
           </div>
-          <div class="card-bd__title">
-            <span
-              v-if="cloud.name && cloud.name.length > 25"
-              v-b-tooltip.hover
-              :title="cloud.name"
-            >{{ cloud.name | middle-truncate(25) }}</span>
-            <span v-else>{{ cloud.name }}</span>
-            </div>
-          <div class="card-bd__infos-cloud">
-            <span class="card-bd__infos-cloud__projects" v-if="hasAdminRole(cloud.role)">
-              <svgicon name="application" height="30" width="30"></svgicon>
-              +{{ cloud.projects.length }}
-            </span>
-            <span class="card-bd__infos-cloud__users" v-if="hasAdminRole(cloud.role)">
-              +{{ cloud.users.length }}
-              <svgicon name="account" height="30" width="30"></svgicon>
-            </span>
+          <div class="card-bd__picto-container">
+            <Icon
+              v-show="!cloud.image"
+              class="icon-building"
+              icon-name="icon-building"
+              width="131"
+              height="107"
+              x="131"
+              y="107"
+              :style="{'--dark-color': color.colorDark, '--color': color.color, '--light-color': color.colorLight}"
+            >
+              <component :is="image" />
+            </Icon>
+            <!-- <img v-show="!cloud.image" :src="url"> -->
           </div>
+        </div>
+        <div class="card-bd__body__title">
+          <span
+            v-if="cloud.name && cloud.name.length > 25"
+            v-b-tooltip.hover
+            :title="cloud.name"
+          >{{ cloud.name | middle-truncate(25) }}</span>
+          <span v-else>{{ cloud.name }}</span>
+          <div class="card-bd__body__title-hr"></div>
         </div>
       </div>
       <div class="loader-platform" v-show="displayLoader">
@@ -92,6 +96,7 @@ file that was distributed with this source code. -->
 </template>
 <script>
 import _ from 'lodash'
+import seedrandom from 'seedrandom'
 import { mixin as clickaway } from 'vue-clickaway'
 import BaseButtonOption from '@/components/base-components/BaseButtonOption'
 import BaseValidDelete from '@/components/base-components/BaseValidDelete'
@@ -100,7 +105,24 @@ import Uppy from '@uppy/core'
 import XHRUpload from '@uppy/xhr-upload'
 import toArray from '@uppy/utils/lib/toArray'
 
+import Icon from '../icons/icon.vue'
+import IconBuilding from '../icons/icon-building.vue'
+import IconBuilding02 from '../icons/icon-building_02.vue'
+import IconBuilding03 from '../icons/icon-building_03.vue'
+import IconBuilding04 from '../icons/icon-building_04.vue'
+import IconBuilding05 from '../icons/icon-building_05.vue'
+
 export default {
+  components: {
+    BaseButtonOption,
+    BaseValidDelete,
+    Icon,
+    IconBuilding,
+    IconBuilding02,
+    IconBuilding03,
+    IconBuilding04,
+    IconBuilding05
+  },
   data () {
     return {
       clicked: false,
@@ -109,12 +131,49 @@ export default {
       showRemoveActions: false,
       displayRename: false,
       displayLoader: false,
-      renameCloud: ''
+      renameCloud: '',
+      color: null,
+      image: null,
+      availableImagesComponent: [
+        'IconBuilding',
+        'IconBuilding02',
+        'IconBuilding03',
+        'IconBuilding04',
+        'IconBuilding05'
+      ],
+      availableColors: [
+        {
+          colorDark: '#314E76',
+          color: '#2EBBC5',
+          colorLight: '#72EEF6'
+        },
+        {
+          colorDark: '#CB1E22',
+          color: '#FC590C',
+          colorLight: '#F89E14'
+        },
+        {
+          colorDark: '#185227',
+          color: '#2F8340',
+          colorLight: '#77BD85'
+        },
+        {
+          colorDark: '#913731',
+          color: '#D85C47',
+          colorLight: '#E4937F'
+        },
+        {
+          colorDark: '#71BAE9',
+          color: '#96C6E3',
+          colorLight: '#B7DAF2'
+        },
+        {
+          colorDark: '#6C2B39',
+          color: '#964449',
+          colorLight: '#CC9B68'
+        }
+      ]
     }
-  },
-  components: {
-    BaseButtonOption,
-    BaseValidDelete
   },
   mixins: [ clickaway ],
   props: {
@@ -256,6 +315,11 @@ export default {
         this.cloud.image = result.successful[0].response.body.image
       }
     })
+  },
+  created () {
+    const seededRng = seedrandom(this.cloud.id.toString())
+    this.image = this.availableImagesComponent[Math.abs(seededRng.int32()) % this.availableImagesComponent.length]
+    this.color = this.availableColors[Math.abs(seededRng.int32()) % this.availableColors.length]
   }
 }
 </script>
