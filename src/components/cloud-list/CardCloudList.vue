@@ -276,17 +276,16 @@ export default {
       if (this.newName === '' || this.newName === this.cloud.name) {
         this.newName = ''
       } else {
-        this.update(this.newName).then(() => {
+        this.updateName(this.newName).then(() => {
           this.newName = ''
         })
       }
     },
-    async update (name) {
+    async updateName (name) {
       let cloud = _.cloneDeep(this.cloud)
       cloud.name = name
-      this.$store.dispatch('updateCloud', cloud).then(() => {
-        return true
-      })
+      this.$store.dispatch('updateCloud', cloud)
+    },
     },
     clickedTool () {
       this.displayMenu = !this.displayMenu
