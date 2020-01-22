@@ -117,22 +117,22 @@ import XHRUpload from '@uppy/xhr-upload'
 import toArray from '@uppy/utils/lib/toArray'
 
 import Icon from '../icons/icon.vue'
-import IconBuilding from '../icons/icon-building.vue'
-import IconBuilding02 from '../icons/icon-building_02.vue'
-import IconBuilding03 from '../icons/icon-building_03.vue'
-import IconBuilding04 from '../icons/icon-building_04.vue'
-import IconBuilding05 from '../icons/icon-building_05.vue'
+import IconCastle from '../icons/icon-castle.vue'
+import IconFactory from '../icons/icon-factory.vue'
+import IconHotel from '../icons/icon-hotel.vue'
+import IconHut from '../icons/icon-hut.vue'
+import IconTower from '../icons/icon-tower.vue'
 
 export default {
   components: {
     BaseButtonOption,
     BaseValidDelete,
     Icon,
-    IconBuilding,
-    IconBuilding02,
-    IconBuilding03,
-    IconBuilding04,
-    IconBuilding05
+    IconCastle,
+    IconFactory,
+    IconHotel,
+    IconHut,
+    IconTower
   },
   data () {
     return {
@@ -148,11 +148,11 @@ export default {
       bgColor: null,
       image: null,
       availableImagesComponent: [
-        'IconBuilding',
-        'IconBuilding02',
-        'IconBuilding03',
-        'IconBuilding04',
-        'IconBuilding05'
+        'IconCastle',
+        'IconFactory',
+        'IconHotel',
+        'IconHut',
+        'IconTower'
       ],
       availableColors: [
         {
