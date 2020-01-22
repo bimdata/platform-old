@@ -67,6 +67,10 @@ file that was distributed with this source code. -->
               v-show="!cloud.image"
               class="icon-building"
               icon-name="icon-building"
+              width="141"
+              height="141"
+              x="141"
+              y="141"
               :style="{'--dark-color': svgColor.colorDark, '--color': svgColor.color, '--light-color': svgColor.colorLight}"
             >
               <component :is="image" />
