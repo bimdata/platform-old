@@ -46,7 +46,7 @@ file that was distributed with this source code. -->
               </div>
           </li>
           <li @click.stop="assignImage()">
-            Upload image
+            {{ $t('cloud_list.upload_image') }}
             <div :id="`UppyForm-${$vnode.key}`">
               <input
                 ref="input_file"
@@ -59,7 +59,7 @@ file that was distributed with this source code. -->
             </div>
           </li>
           <li @click.stop="deleteImage = !deleteImage" v-if="cloud.image">
-            Delete image
+            {{ $t('cloud_list.delete_image') }}
             <transition name="slide-fade">
               <base-valid-delete
                 v-if="deleteImage"

@@ -48,7 +48,9 @@
     "cloud_list": {
       "clouds_list": "Liste des Espaces",
       "rename_cloud": "Renommer l'Espace",
-      "cloud_name": "Nom de l'Espace"
+      "cloud_name": "Nom de l'Espace",
+      "upload_image": "Télécharger une image",
+      "delete_image": "Supprimer l'image"
     },
     "project_list": {
         "new_project": "Nouveau projet",
