@@ -105,7 +105,6 @@ export default {
     hasUserRole,
     toggleAddFolderMenu () {
       this.addFolderMenu = !this.addFolderMenu
-      console.log(this.addFolderMenu)
       if (this.addFolderMenu) {
         this.$nextTick(() => {
           this.$refs.createFolderInput.focus()
