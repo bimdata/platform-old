@@ -119,6 +119,9 @@ export default {
     }),
     filteredClouds () {
       let filteredClouds = this.clouds.filter(cloud => {
+        if (!cloud.name) {
+          return false
+        }
         return cloud.name.toLowerCase().includes(this.searchFilter.toLowerCase())
       })
       return filteredClouds

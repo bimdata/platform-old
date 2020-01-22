@@ -4,7 +4,9 @@ For the full copyright and license information, please view the LICENSE
 file that was distributed with this source code. -->
 <template>
   <div class="card-container">
-    <div class="base-card card-item card-bd noselect" @click.stop.self="accessCloud">
+    <div class="base-card card-item card-bd noselect">
+      <div class="card-bd__bg" :style="{'background-color': bgColor}">
+      </div>
       <div class="card-bd__header">
         <base-button-option ref="menu" @option-toggled="toggleMenu" v-if="hasAdminRole(cloud.role)">
           <ul>
@@ -43,34 +45,58 @@ file that was distributed with this source code. -->
                 </div>
               </div>
           </li>
+          <li @click.stop="assignImage()">
+            {{ $t('cloud_list.upload_image') }}
+            <div :id="`UppyForm-${$vnode.key}`">
+              <input
+                ref="input_file"
+                v-show="false"
+                type="file"
+                name="files[]"
+                @change="handleInputChange"
+                multiple="true"
+              >
+            </div>
+          </li>
+          <li @click.stop="deleteImage = !deleteImage" v-if="cloud.image">
+            {{ $t('cloud_list.delete_image') }}
+            <transition name="slide-fade">
+              <base-valid-delete
+                v-if="deleteImage"
+                @on-valid-action="removeImage"
+                @on-cancel-action="deleteImage = !deleteImage"
+              ></base-valid-delete>
+            </transition>
+          </li>
           </ul>
         </base-button-option>
       </div>
-      <div class="card-bd__body" @click.stop="accessCloud">
-        <div class="card-bd__body-container">
-          <div class="card-bd__circle">
-            <div class="card-bd__picto-container">
-              <svgicon name="img-more" height="26" width="26"></svgicon>
-            </div>
+      <div class="card-bd__body" @click="accessCloud">
+        <div class="card-bd__body__img">
+          <img v-show="cloud.image" :src="cloud.image">
+          <div class="card-bd__picto-container">
+            <Icon
+              v-show="!cloud.image"
+              class="icon-building"
+              icon-name="icon-building"
+              width="141"
+              height="141"
+              x="141"
+              y="141"
+              :style="{'--dark-color': svgColor.colorDark, '--color': svgColor.color, '--light-color': svgColor.colorLight}"
+            >
+              <component :is="image" />
+            </Icon>
           </div>
-          <div class="card-bd__title">
-            <span
-              v-if="cloud.name && cloud.name.length > 25"
-              v-b-tooltip.hover
-              :title="cloud.name"
-            >{{ cloud.name | middle-truncate(25) }}</span>
-            <span v-else>{{ cloud.name }}</span>
-            </div>
-          <div class="card-bd__infos-cloud">
-            <span class="card-bd__infos-cloud__projects" v-if="hasAdminRole(cloud.role)">
-              <svgicon name="application" height="30" width="30"></svgicon>
-              +{{ cloud.projects.length }}
-            </span>
-            <span class="card-bd__infos-cloud__users" v-if="hasAdminRole(cloud.role)">
-              +{{ cloud.users.length }}
-              <svgicon name="account" height="30" width="30"></svgicon>
-            </span>
-          </div>
+        </div>
+        <div class="card-bd__body__title">
+          <span
+            v-if="cloud.name && cloud.name.length > 25"
+            v-b-tooltip.hover
+            :title="cloud.name"
+          >{{ cloud.name | middle-truncate(25) }}</span>
+          <span v-else>{{ cloud.name }}</span>
+          <div class="card-bd__body__title-hr"></div>
         </div>
       </div>
       <div class="loader-platform" v-show="displayLoader">
@@ -81,26 +107,111 @@ file that was distributed with this source code. -->
 </template>
 <script>
 import _ from 'lodash'
+import seedrandom from 'seedrandom'
 import { mixin as clickaway } from 'vue-clickaway'
 import BaseButtonOption from '@/components/base-components/BaseButtonOption'
 import BaseValidDelete from '@/components/base-components/BaseValidDelete'
 import { hasAdminRole } from '@/utils/manageRights'
+import Uppy from '@uppy/core'
+import XHRUpload from '@uppy/xhr-upload'
+import toArray from '@uppy/utils/lib/toArray'
+
+import Icon from '../icons/icon.vue'
+import IconCastle from '../icons/icon-castle.vue'
+import IconFactory from '../icons/icon-factory.vue'
+import IconHotel from '../icons/icon-hotel.vue'
+import IconHut from '../icons/icon-hut.vue'
+import IconTower from '../icons/icon-tower.vue'
 
 export default {
+  components: {
+    BaseButtonOption,
+    BaseValidDelete,
+    Icon,
+    IconCastle,
+    IconFactory,
+    IconHotel,
+    IconHut,
+    IconTower
+  },
   data () {
     return {
       clicked: false,
       displayMenu: false,
       newName: '',
       showRemoveActions: false,
+      deleteImage: false,
       displayRename: false,
       displayLoader: false,
-      renameCloud: ''
+      renameCloud: '',
+      svgColor: null,
+      bgColor: null,
+      image: null,
+      availableImagesComponent: [
+        'IconCastle',
+        'IconFactory',
+        'IconHotel',
+        'IconHut',
+        'IconTower'
+      ],
+      availableColors: [
+        {
+          colorDark: '#314E76',
+          color: '#2EBBC5',
+          colorLight: '#72EEF6'
+        },
+        {
+          colorDark: '#CB1E22',
+          color: '#FC590C',
+          colorLight: '#F89E14'
+        },
+        {
+          colorDark: '#185227',
+          color: '#2F8340',
+          colorLight: '#77BD85'
+        },
+        {
+          colorDark: '#913731',
+          color: '#D85C47',
+          colorLight: '#E4937F'
+        },
+        {
+          colorDark: '#5A9CC5',
+          color: '#96C6E3',
+          colorLight: '#CFE9F9'
+        },
+        {
+          colorDark: '#845EC2',
+          color: '#B39CD0',
+          colorLight: '#E5E1EB'
+        },
+        {
+          colorDark: '#2F374A',
+          color: '#5E667B',
+          colorLight: '#E3F0FF'
+        },
+        {
+          colorDark: '#059E40',
+          color: '#70B02B',
+          colorLight: '#B5BE1D'
+        },
+        {
+          colorDark: '#004A68',
+          color: '#0075A5',
+          colorLight: '#009DAD'
+        },
+        {
+          colorDark: '#0F4C82',
+          color: '#527CB7',
+          colorLight: '#D4E1ED'
+        },
+        {
+          colorDark: '#DDB539',
+          color: '#F9C72C',
+          colorLight: '#FFE48F'
+        }
+      ]
     }
-  },
-  components: {
-    BaseButtonOption,
-    BaseValidDelete
   },
   mixins: [ clickaway ],
   props: {
@@ -110,6 +221,31 @@ export default {
     }
   },
   methods: {
+    assignImage () {
+      if (!this.cloud.image || this.cloud.image !== null) {
+        this.$refs.input_file.click()
+      }
+      this.$refs.menu.displayMenu = false
+    },
+    handleInputChange (event) {
+      const files = toArray(event.target.files)
+
+      files.forEach((file) => {
+        try {
+          this.uppy.addFile({
+            source: this.id,
+            name: file.name,
+            type: file.type,
+            data: file
+          })
+        } catch (err) {
+          if (!err.isRestriction) {
+            this.uppy.log(err)
+          }
+        }
+      })
+      event.target.value = null
+    },
     hasAdminRole,
     toggleRename () {
       this.displayRename = !this.displayRename
@@ -157,17 +293,21 @@ export default {
       if (this.newName === '' || this.newName === this.cloud.name) {
         this.newName = ''
       } else {
-        this.update(this.newName).then(() => {
+        this.updateName(this.newName).then(() => {
           this.newName = ''
         })
       }
     },
-    async update (name) {
+    async updateName (name) {
       let cloud = _.cloneDeep(this.cloud)
       cloud.name = name
-      this.$store.dispatch('updateCloud', cloud).then(() => {
-        return true
-      })
+      this.$store.dispatch('updateCloud', cloud)
+    },
+    async removeImage () {
+      let cloud = _.cloneDeep(this.cloud)
+      cloud.image = null
+      this.$store.dispatch('updateCloud', cloud)
+      this.$refs.menu.displayMenu = false
     },
     clickedTool () {
       this.displayMenu = !this.displayMenu
@@ -176,6 +316,54 @@ export default {
         this.clicked = false
       }, 500)
     }
+  },
+  mounted () {
+    let baseApiUrl = process.env.BD_API_BASE_URL
+    let endpointUpload = baseApiUrl + '/cloud/' + this.cloud.id
+    let token = this.$store.state.oidc.access_token
+
+    this.uppy = new Uppy({
+      debug: true,
+      autoProceed: true,
+      restrictions: {
+        maxFileSize: 1000000000, // 1 Go
+        maxNumberOfFiles: null,
+        minNumberOfFiles: 1
+      }
+    })
+      .use(XHRUpload, {
+        metaFields: ['size'],
+        method: 'patch',
+        endpoint: endpointUpload,
+        fieldName: 'image',
+        headers: {
+          'authorization': `Bearer ${token}`
+        }
+      })
+
+    this.uppy.on('file-added', (file) => {
+      this.uppy.setFileMeta(file.id, {
+        name: this.cloud.name
+      })
+    })
+
+    this.uppy.on('upload-error', (file, error, response) => {
+      this.$emit('on-upload-error', file.id)
+    })
+
+    this.uppy.on('complete', result => {
+      this.$emit('on-upload-complete', result)
+      if (result.successful) {
+        this.cloud.image = result.successful[0].response.body.image
+      }
+    })
+  },
+  created () {
+    const seededRng = seedrandom(this.cloud.id.toString())
+    this.image = this.availableImagesComponent[Math.abs(seededRng.int32()) % this.availableImagesComponent.length]
+    this.svgColor = this.availableColors[Math.abs(seededRng.int32()) % this.availableColors.length]
+    const values = Object.values(this.svgColor)
+    this.bgColor = values[Math.abs(seededRng.int32()) % values.length]
   }
 }
 </script>

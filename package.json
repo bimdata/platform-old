@@ -23,7 +23,7 @@
   "author": "Bimdata",
   "license": "MIT",
   "dependencies": {
-    "@bimdata/bimdata-api-client": "^5.0.6",
+    "@bimdata/bimdata-api-client": "^5.6.0",
     "@bimdata/snowflakes-viewer-plugin": "0.1.0",
     "@bimdata/utils": "0.2.3",
     "@bimdata/viewer": "0.6.0",
@@ -34,6 +34,7 @@
     "moment": "^2.24.0",
     "oidc-client": "^1.9.1",
     "scriptjs": "^2.5.9",
+    "seedrandom": "^3.0.5",
     "uppy": "0.26.0",
     "velocity-animate": "^1.5.2",
     "vue": "2.5.22",

@@ -48,7 +48,9 @@
     "cloud_list": {
       "clouds_list": "Clouds list",
       "rename_cloud": "Rename Cloud",
-      "cloud_name": "Cloud's name"
+      "cloud_name": "Cloud's name",
+      "upload_image": "Upload image",
+      "delete_image": "Delete image"
     },
     "project_list": {
         "new_project": "New Project",
