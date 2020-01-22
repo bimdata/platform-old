@@ -23,7 +23,7 @@
   "author": "Bimdata",
   "license": "MIT",
   "dependencies": {
-    "@bimdata/bimdata-api-client": "^5.2.0",
+    "@bimdata/bimdata-api-client": "^5.6.0",
     "@bimdata/snowflakes-viewer-plugin": "0.1.0",
     "@bimdata/utils": "0.2.3",
     "@bimdata/viewer": "0.6.0",
