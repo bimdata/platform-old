@@ -45,23 +45,35 @@ file that was distributed with this source code. -->
                 </div>
               </div>
           </li>
-          <li @click.stop.self="assignImage()">Upload image</li>
+          <li @click.stop="assignImage()">
+            Upload image
+            <div :id="`UppyForm-${$vnode.key}`">
+              <input
+                ref="input_file"
+                v-show="false"
+                type="file"
+                name="files[]"
+                @change="handleInputChange"
+                multiple="true"
+              >
+            </div>
+          </li>
+          <li @click.stop="deleteImage = !deleteImage" v-if="cloud.image">
+            Delete image
+            <transition name="slide-fade">
+              <base-valid-delete
+                v-if="deleteImage"
+                @on-valid-action="removeImage"
+                @on-cancel-action="deleteImage = !deleteImage"
+              ></base-valid-delete>
+            </transition>
+          </li>
           </ul>
         </base-button-option>
       </div>
       <div class="card-bd__body" @click="accessCloud">
         <div class="card-bd__body__img">
           <img v-show="cloud.image" :src="cloud.image">
-          <div :id="`UppyForm-${$vnode.key}`">
-            <input
-              ref="input_file"
-              v-show="false"
-              type="file"
-              name="files[]"
-              @change="handleInputChange"
-              multiple="true"
-            >
-          </div>
           <div class="card-bd__picto-container">
             <Icon
               v-show="!cloud.image"
@@ -75,7 +87,6 @@ file that was distributed with this source code. -->
             >
               <component :is="image" />
             </Icon>
-            <!-- <img v-show="!cloud.image" :src="url"> -->
           </div>
         </div>
         <div class="card-bd__body__title">
@@ -129,6 +140,7 @@ export default {
       displayMenu: false,
       newName: '',
       showRemoveActions: false,
+      deleteImage: false,
       displayRename: false,
       displayLoader: false,
       renameCloud: '',
@@ -210,9 +222,10 @@ export default {
   },
   methods: {
     assignImage () {
-      if (!this.cloud.image) {
+      if (!this.cloud.image || this.cloud.image !== null) {
         this.$refs.input_file.click()
       }
+      this.$refs.menu.displayMenu = false
     },
     handleInputChange (event) {
       const files = toArray(event.target.files)
@@ -290,6 +303,11 @@ export default {
       cloud.name = name
       this.$store.dispatch('updateCloud', cloud)
     },
+    async removeImage () {
+      let cloud = _.cloneDeep(this.cloud)
+      cloud.image = null
+      this.$store.dispatch('updateCloud', cloud)
+      this.$refs.menu.displayMenu = false
     },
     clickedTool () {
       this.displayMenu = !this.displayMenu
@@ -324,7 +342,6 @@ export default {
       })
 
     this.uppy.on('file-added', (file) => {
-      console.log(file.id)
       this.uppy.setFileMeta(file.id, {
         name: this.cloud.name
       })
