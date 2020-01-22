@@ -163,14 +163,39 @@ export default {
           colorLight: '#E4937F'
         },
         {
-          colorDark: '#71BAE9',
+          colorDark: '#5A9CC5',
           color: '#96C6E3',
-          colorLight: '#B7DAF2'
+          colorLight: '#CFE9F9'
         },
         {
-          colorDark: '#6C2B39',
-          color: '#964449',
-          colorLight: '#CC9B68'
+          colorDark: '#845EC2',
+          color: '#B39CD0',
+          colorLight: '#E5E1EB'
+        },
+        {
+          colorDark: '#2F374A',
+          color: '#5E667B',
+          colorLight: '#E3F0FF'
+        },
+        {
+          colorDark: '#059E40',
+          color: '#70B02B',
+          colorLight: '#B5BE1D'
+        },
+        {
+          colorDark: '#004A68',
+          color: '#0075A5',
+          colorLight: '#009DAD'
+        },
+        {
+          colorDark: '#0F4C82',
+          color: '#527CB7',
+          colorLight: '#D4E1ED'
+        },
+        {
+          colorDark: '#DDB539',
+          color: '#F9C72C',
+          colorLight: '#FFE48F'
         }
       ]
     }
