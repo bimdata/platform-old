@@ -5,7 +5,7 @@ file that was distributed with this source code. -->
 <template>
   <div class="card-container">
     <div class="base-card card-item card-bd noselect">
-      <div class="card-bd__bg" :style="{'background-color': color.color}">
+      <div class="card-bd__bg" :style="{'background-color': bgColor}">
       </div>
       <div class="card-bd__header">
         <base-button-option ref="menu" @option-toggled="toggleMenu" v-if="hasAdminRole(cloud.role)">
@@ -67,11 +67,7 @@ file that was distributed with this source code. -->
               v-show="!cloud.image"
               class="icon-building"
               icon-name="icon-building"
-              width="131"
-              height="107"
-              x="131"
-              y="107"
-              :style="{'--dark-color': color.colorDark, '--color': color.color, '--light-color': color.colorLight}"
+              :style="{'--dark-color': svgColor.colorDark, '--color': svgColor.color, '--light-color': svgColor.colorLight}"
             >
               <component :is="image" />
             </Icon>
@@ -132,7 +128,8 @@ export default {
       displayRename: false,
       displayLoader: false,
       renameCloud: '',
-      color: null,
+      svgColor: null,
+      bgColor: null,
       image: null,
       availableImagesComponent: [
         'IconBuilding',
@@ -344,7 +341,9 @@ export default {
   created () {
     const seededRng = seedrandom(this.cloud.id.toString())
     this.image = this.availableImagesComponent[Math.abs(seededRng.int32()) % this.availableImagesComponent.length]
-    this.color = this.availableColors[Math.abs(seededRng.int32()) % this.availableColors.length]
+    this.svgColor = this.availableColors[Math.abs(seededRng.int32()) % this.availableColors.length]
+    const values = Object.values(this.svgColor)
+    this.bgColor = values[Math.abs(seededRng.int32()) % values.length]
   }
 }
 </script>
