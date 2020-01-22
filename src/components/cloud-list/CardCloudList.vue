@@ -270,7 +270,7 @@ export default {
     cancelRename () {
       this.displayRename = false
     },
-    accessCloud (info) {
+    accessCloud () {
       this.$store.commit('SET_CURRENT_CLOUD', this.cloud)
       this.$router.push({name: 'project-list', params: {cloudId: this.cloud.id}})
     },
