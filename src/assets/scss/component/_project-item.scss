@@ -225,6 +225,7 @@ file that was distributed with this source code. */
     }
   }
   &__body{
+    height: calc(100% - 79px);
     flex: 1 0 auto;
     flex-direction: column;
     @include flexbox;
@@ -237,6 +238,11 @@ file that was distributed with this source code. */
       justify-content: center;
       width: 100%;
       background-color: #F7F7F7;
+      img{
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+      }
       .card-bd__picto-container{
         svg{
           .icon-dark-color{
@@ -296,15 +302,6 @@ file that was distributed with this source code. */
       width: 100%;
     }
   }
-  // &__picto-container{
-  //   width: 56px;
-  //   height: 56px;
-  //   border: 1px dashed $gray2;
-  //   border-radius: 8px;
-  //   @include flexbox;
-  //   @include align-items(center);
-  //   @include justify-content(center);
-  // }
   &__infos-cloud{
     margin-top: 35px;
     width: 100%;
@@ -355,7 +352,7 @@ file that was distributed with this source code. */
 
 .project-preview{
   height: 216px;
-  background: $bg-preview;
+  background: #f7f7f7;
   &-icon{
     padding-top: 12px;
     width: 100%;
