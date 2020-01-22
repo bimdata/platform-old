@@ -12,6 +12,7 @@ $base-button-option: 'base-button-option';
     position: relative;
     border-radius: 50%;
     transition: all .2s cubic-bezier(.35,0,.25,1);
+    background-color: #f7f7f7;
     @include flexbox;
     @include align-items(center);
     @include justify-content(center);
