@@ -119,7 +119,7 @@ import toArray from '@uppy/utils/lib/toArray'
 import Icon from '../icons/icon.vue'
 import IconBuilding from '../icons/icon-building.vue'
 import IconCastle from '../icons/icon-castle.vue'
-import IconClinical from '../icons/icon-clinical.vue'
+import IconClinic from '../icons/icon-clinic.vue'
 import IconFactory from '../icons/icon-factory.vue'
 import IconHotel from '../icons/icon-hotel.vue'
 import IconHouse from '../icons/icon-house.vue'
@@ -134,7 +134,7 @@ export default {
     Icon,
     IconBuilding,
     IconCastle,
-    IconClinical,
+    IconClinic,
     IconFactory,
     IconHotel,
     IconHouse,
@@ -158,7 +158,7 @@ export default {
       availableImagesComponent: [
         'IconBuilding',
         'IconCastle',
-        'IconClinical',
+        'IconClinic',
         'IconFactory',
         'IconHotel',
         'IconHouse',
