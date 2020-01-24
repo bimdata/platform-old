@@ -117,10 +117,14 @@ import XHRUpload from '@uppy/xhr-upload'
 import toArray from '@uppy/utils/lib/toArray'
 
 import Icon from '../icons/icon.vue'
+import IconBuilding from '../icons/icon-building.vue'
 import IconCastle from '../icons/icon-castle.vue'
+import IconClinic from '../icons/icon-clinic.vue'
 import IconFactory from '../icons/icon-factory.vue'
 import IconHotel from '../icons/icon-hotel.vue'
+import IconHouse from '../icons/icon-house.vue'
 import IconHut from '../icons/icon-hut.vue'
+import IconOffice from '../icons/icon-office.vue'
 import IconTower from '../icons/icon-tower.vue'
 
 export default {
@@ -128,10 +132,14 @@ export default {
     BaseButtonOption,
     BaseValidDelete,
     Icon,
+    IconBuilding,
     IconCastle,
+    IconClinic,
     IconFactory,
     IconHotel,
+    IconHouse,
     IconHut,
+    IconOffice,
     IconTower
   },
   data () {
@@ -148,10 +156,14 @@ export default {
       bgColor: null,
       image: null,
       availableImagesComponent: [
+        'IconBuilding',
         'IconCastle',
+        'IconClinic',
         'IconFactory',
         'IconHotel',
+        'IconHouse',
         'IconHut',
+        'IconOffice',
         'IconTower'
       ],
       availableColors: [
@@ -209,6 +221,36 @@ export default {
           colorDark: '#DDB539',
           color: '#F9C72C',
           colorLight: '#FFE48F'
+        },
+        {
+          colorDark: '#33345A',
+          color: '#62507D',
+          colorLight: '#936E9E'
+        },
+        {
+          colorDark: '#79283B',
+          color: '#A73852',
+          colorLight: '#FF5961'
+        },
+        {
+          colorDark: '#BB547A',
+          color: '#F689AE',
+          colorLight: '#FFE3F2'
+        },
+        {
+          colorDark: '#236478',
+          color: '#00A0A4',
+          colorLight: '#CAFBE7'
+        },
+        {
+          colorDark: '#FF6B00',
+          color: '#FFA500',
+          colorLight: '#FFCD72'
+        },
+        {
+          colorDark: '#FF8E75',
+          color: '#FAB896',
+          colorLight: '#FFDDBE'
         }
       ]
     }
