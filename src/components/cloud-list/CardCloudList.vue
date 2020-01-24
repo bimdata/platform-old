@@ -241,6 +241,16 @@ export default {
           colorDark: '#236478',
           color: '#00A0A4',
           colorLight: '#CAFBE7'
+        },
+        {
+          colorDark: '#FF6B00',
+          color: '#FFA500',
+          colorLight: '#FFCD72'
+        },
+        {
+          colorDark: '#FF8E75',
+          color: '#FAB896',
+          colorLight: '#FFDDBE'
         }
       ]
     }
