@@ -123,8 +123,12 @@ import IconClinic from '../icons/icon-clinic.vue'
 import IconFactory from '../icons/icon-factory.vue'
 import IconHotel from '../icons/icon-hotel.vue'
 import IconHouse from '../icons/icon-house.vue'
+import IconHouseStilt from '../icons/icon-house-stilt.vue'
 import IconHut from '../icons/icon-hut.vue'
+import IconModernHouse from '../icons/icon-modern-house.vue'
 import IconOffice from '../icons/icon-office.vue'
+import IconPolice from '../icons/icon-police.vue'
+import IconStadium from '../icons/icon-stadium.vue'
 import IconTower from '../icons/icon-tower.vue'
 
 export default {
@@ -138,8 +142,12 @@ export default {
     IconFactory,
     IconHotel,
     IconHouse,
+    IconHouseStilt,
     IconHut,
+    IconModernHouse,
     IconOffice,
+    IconPolice,
+    IconStadium,
     IconTower
   },
   data () {
@@ -162,8 +170,12 @@ export default {
         'IconFactory',
         'IconHotel',
         'IconHouse',
+        'IconHouseStilt',
         'IconHut',
+        'IconModernHouse',
         'IconOffice',
+        'IconPolice',
+        'IconStadium',
         'IconTower'
       ],
       availableColors: [
