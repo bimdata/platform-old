@@ -162,8 +162,10 @@ export default {
       return [valDeg, valMin, ...valSec.toString().split('.')]
     },
     coordToDD (coord) {
-      var e = coord.split(',')
-      return this.DMStoDD(parseInt(e[0]), parseInt(e[1]), parseFloat(e[2] + '.' + e[3]))
+      if (typeof coord === 'string') {
+        coord = coord.split(',')
+      }
+      return this.DMStoDD(parseInt(coord[0]), parseInt(coord[1]), parseFloat(coord[2] + '.' + coord[3]))
     },
     async getLatLongFromAddress () {
       const urlAddress = this.ifcPostalAddress.replace(/ /g, '+')
