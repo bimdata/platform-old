@@ -52,7 +52,10 @@ export default {
           cloudId: params.cloudId,
           projectId: params.projectId,
           ifcIds: [params.ifcId],
-          apiUrl: process.env.BD_API_BASE_URL
+          apiUrl: process.env.BD_API_BASE_URL,
+          bimdataPlugins: {
+            warning: false
+          }
         }
         this.$nextTick(() => {
           // Register plugin here
