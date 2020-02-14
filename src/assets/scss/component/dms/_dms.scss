@@ -3,7 +3,7 @@
 For the full copyright and license information, please view the LICENSE
 file that was distributed with this source code. */
 $width-tree: 272px;
-$width-lg-tree: 350px;
+$width-lg-tree: 300px;
 
 .dms{
   position: relative;
@@ -114,6 +114,9 @@ $width-lg-tree: 350px;
     height: 100%;
     overflow: auto;
     @include transition(.2s ease all);
+    .table-selected{
+      width: 37px;
+    }
     .table-name{
       span{
         display: flex;
@@ -223,6 +226,11 @@ $width-lg-tree: 350px;
   .base-checkbox{
     margin: 0;
     line-height: unset;
+    span{
+      &::before{
+        margin: 0;
+      }
+    }
   }
 }
 
