@@ -118,6 +118,9 @@ $width-lg-tree: 300px;
       width: 37px;
     }
     .table-name{
+      svg{
+        margin: 0 8px 0 0;
+      }
       span{
         display: flex;
         align-items: center;
