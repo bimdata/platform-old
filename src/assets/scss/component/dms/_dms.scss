@@ -185,6 +185,9 @@ $width-lg-tree: 300px;
       min-width: 47%;
       &__name{
         cursor: pointer;
+        svg{
+          min-width: 20px;
+        }
       }
     }
     .table-type{
