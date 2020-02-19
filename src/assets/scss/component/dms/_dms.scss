@@ -117,6 +117,9 @@ $width-lg-tree: 300px;
     .table-selected{
       width: 37px;
     }
+    .table-name, .table-type, .table-date, .table-size{
+      cursor: pointer;
+    }
     .table-name{
       svg{
         margin: 0 8px 0 0;
