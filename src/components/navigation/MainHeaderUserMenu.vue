@@ -24,6 +24,17 @@ file that was distributed with this source code. -->
           <span><svgicon name="picto-bimdataconnect" width="16"></svgicon></span>
           {{ $t('dashboard.connect_auth') }}
         </div>
+        <div size="small" iconName="" class="switch-item">
+          <span><svgicon name="switch-lang" width="16"></svgicon></span>
+          <span v-for="locale in $i18n.availableLocales" :key="locale">
+            <div class="base-input-radio">
+              <input type="radio" :id="`MainHeaderUserMenu-${locale}`" name="MainHeaderUserMenuLocale" :value="locale" v-model="$i18n.locale">
+              <label :for="`MainHeaderUserMenu-${locale}`">
+                {{ locale }}
+              </label>
+            </div>
+          </span>
+        </div>
         <div class="logout-item" @click="signOutOidc">
           <span><svgicon name="bimdata_power-settings"></svgicon></span>
           {{ $t('dashboard.logout') }}
@@ -37,11 +48,13 @@ import { mixin as clickaway } from 'vue-clickaway'
 import { mapGetters, mapActions } from 'vuex'
 import BaseButtonAction from '@/components/base-components/BaseButtonAction'
 import BaseDropdown from '@/components/base-components/BaseDropdown'
+import BaseInputRadio from '@/components/base-components/BaseInputRadio'
 
 export default {
   components: {
     BaseButtonAction,
-    BaseDropdown
+    BaseDropdown,
+    BaseInputRadio
   },
   mixins: [ clickaway ],
   data () {
