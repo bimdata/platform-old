@@ -8,7 +8,7 @@ file that was distributed with this source code. -->
                         icon-height="20"
                         icon-color="fff"
                         v-on="listeners">
-        {{ $t('project.file') }}
+        {{ $t('project.ifc_file') }}
     </base-button-action>
 </template>
 <script>

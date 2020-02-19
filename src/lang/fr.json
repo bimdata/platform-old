@@ -18,6 +18,7 @@
         "view": "Voir",
         "size": "Taille",
         "file": "Fichier",
+        "ifc_file": "Fichier IFC",
         "type_to_search": "Saisir du texte pour rechercher",
         "move_to": "Déplacer vers",
         "unselect_all": "Tout déselectionner",
