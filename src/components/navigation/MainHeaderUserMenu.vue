@@ -28,7 +28,7 @@ file that was distributed with this source code. -->
           <span><svgicon name="switch-lang" width="16"></svgicon></span>
           <span v-for="locale in $i18n.availableLocales" :key="locale">
             <div class="base-input-radio">
-              <input type="radio" :id="`MainHeaderUserMenu-${locale}`" name="MainHeaderUserMenuLocale" :value="locale" v-model="$i18n.locale">
+              <input type="radio" :id="`MainHeaderUserMenu-${locale}`" name="MainHeaderUserMenuLocale" :value="locale" v-model="selectedLanguage">
               <label :for="`MainHeaderUserMenu-${locale}`">
                 {{ locale }}
               </label>
@@ -99,6 +99,15 @@ export default {
           (this.getCurrentUserFirstname[0] + this.getCurrentUserLastname[0])
             .toUpperCase()
         ) : 'NN'
+    },
+    selectedLanguage: {
+      get () {
+        return this.$i18n.locale
+      },
+      set (locale) {
+        localStorage.selectedLanguage = locale
+        this.$i18n.locale = locale
+      }
     }
   }
 }
