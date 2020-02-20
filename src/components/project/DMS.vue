@@ -66,7 +66,7 @@ file that was distributed with this source code. -->
           </base-button-tool>
           <span class="dms__search">
             <img src="../../assets/images/icons/search.svg" />
-            <b-form-input v-model="filter" placeholder="Type to search" />
+            <b-form-input v-model="filter" :placeholder="$t('project.type_to_search')" />
           </span>
         </div>
         <div class="dms__content" ref="filesContent" :class="{'shrinked': isVisibleTreeView}">
