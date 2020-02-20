@@ -52,7 +52,7 @@ export default {
     },
     calculatedWidthWithLabel () {
       if (this.label !== '') {
-        return getTextWidth(this.label, 'roboto', '13pt', 'bold')
+        return getTextWidth(this.label, 'roboto', '15pt', 'bold')
       }
       return false
     }

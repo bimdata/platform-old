@@ -8,7 +8,7 @@ file that was distributed with this source code. -->
     <div v-if="isUserRole" class="upload-area upload-area-upload">
       <div iconName="newfile" class="base-button-empty__container uppy modalOpener">
         <div class="base-button-empty" v-on="listeners">
-          <button class="btn btn-primary">{{ $t('project.upload') }}</button>
+          <button class="btn btn-primary">{{ $t('project.upload') }} <span v-if="name === null">{{ text }}</span></button>
         </div>
         <slot></slot>
       </div>

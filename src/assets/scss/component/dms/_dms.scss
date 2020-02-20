@@ -3,7 +3,7 @@
 For the full copyright and license information, please view the LICENSE
 file that was distributed with this source code. */
 $width-tree: 272px;
-$width-lg-tree: 350px;
+$width-lg-tree: 300px;
 
 .dms{
   position: relative;
@@ -114,7 +114,16 @@ $width-lg-tree: 350px;
     height: 100%;
     overflow: auto;
     @include transition(.2s ease all);
+    .table-selected{
+      width: 37px;
+    }
+    .table-name, .table-type, .table-date, .table-size{
+      cursor: pointer;
+    }
     .table-name{
+      svg{
+        margin: 0 8px 0 0;
+      }
       span{
         display: flex;
         align-items: center;
@@ -182,6 +191,9 @@ $width-lg-tree: 350px;
       min-width: 47%;
       &__name{
         cursor: pointer;
+        svg{
+          min-width: 20px;
+        }
       }
     }
     .table-type{
@@ -223,6 +235,11 @@ $width-lg-tree: 350px;
   .base-checkbox{
     margin: 0;
     line-height: unset;
+    span{
+      &::before{
+        margin: 0;
+      }
+    }
   }
 }
 

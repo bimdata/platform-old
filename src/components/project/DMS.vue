@@ -95,6 +95,10 @@ file that was distributed with this source code. -->
                   </label>
                 </template>
                 <template slot="HEAD_name" slot-scope="data">
+                  <svgicon name="list-manage"
+                         height="11"
+                         width="11">
+                  </svgicon>
                   {{ $t('project.name') }}
                 </template>
                 <template slot="HEAD_type" slot-scope="data">
