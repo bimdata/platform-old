@@ -5,7 +5,7 @@ file that was distributed with this source code. */
 export class CloudRepository {
   constructor (defaultClient) {
     this.defaultClient = defaultClient
-    this.cloudApiClient = new defaultClient.CloudApi()
+    this.cloudApiClient = new defaultClient.CollaborationApi()
   }
 
   async getSelfUserClouds () {

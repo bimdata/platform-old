@@ -4,7 +4,7 @@ For the full copyright and license information, please view the LICENSE
 file that was distributed with this source code. */
 export class UserRepository {
   constructor (defaultClient) {
-    this.userApiClient = new defaultClient.UserApi()
+    this.userApiClient = new defaultClient.CollaborationApi()
   }
 
   async getSelfUserData () {

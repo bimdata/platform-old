@@ -5,7 +5,7 @@ file that was distributed with this source code. */
 export class ProjectRepository {
   constructor (defaultClient) {
     this.defaultClient = defaultClient
-    this.projectApiClient = new defaultClient.ProjectApi()
+    this.projectApiClient = new defaultClient.CollaborationApi()
   }
 
   async createNewProject (idCloud, name) {
