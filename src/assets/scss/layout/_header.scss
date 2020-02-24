@@ -8,7 +8,7 @@ file that was distributed with this source code. */
   position: relative;
   color: $color-primary;
   background-color: $color-white;
-  z-index: 1;
+  z-index: 2;
   @include bm-box-shadow;
   &__container {
     height: 100%;
