@@ -5,11 +5,6 @@ file that was distributed with this source code. */
 form button{
   border-radius: 3px;
 }
-// input[type=text]{
-//   @include media-breakpoint-up(sm){
-//     min-width: 370px;
-//   }
-// }
 .form-control{
   border: 1px solid $border-color;
   color: $color-primary;
