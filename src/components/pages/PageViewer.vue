@@ -54,7 +54,8 @@ export default {
           ifcIds: [params.ifcId],
           apiUrl: process.env.BD_API_BASE_URL,
           bimdataPlugins: {
-            warning: false
+            warning: false,
+            split: true
           }
         }
         this.$nextTick(() => {
