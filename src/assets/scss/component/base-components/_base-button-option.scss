@@ -42,10 +42,15 @@ $base-button-option: 'base-button-option';
       background-color: rgba($color-text,.2);
       transition: all .2s cubic-bezier(.35,0,.25,1);
     }
+    &.open{
+      &:hover{
+        background-color: transparent;
+      }
+    }
   }
   &__menu{
     padding: 8px 0;
-    width: 114px;
+    width: 188px;
     position: absolute;
     top: 25px;
     right: 7px;
