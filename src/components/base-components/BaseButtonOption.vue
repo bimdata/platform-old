@@ -6,7 +6,7 @@ file that was distributed with this source code. -->
   <span class="base-button-option__tool"
         @click="clickedTool"
         v-on-clickaway="closeTool"
-        :class="{clicked: clicked}">
+        :class="{clicked: clicked, open: displayMenu === true}">
     <svgicon name="more-options"
              height="23"
              width="23"
