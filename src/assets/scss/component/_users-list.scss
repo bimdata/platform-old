@@ -295,7 +295,7 @@ file that was distributed with this source code. */
       cursor: pointer;
       &__menu{
         .base-button-option__menu{
-          width: 134px;
+          width: 184px;
           @include font-size(12px);
 
           @include media-breakpoint-up(sm){
@@ -309,6 +309,8 @@ file that was distributed with this source code. */
           }
 
           li{
+            text-align: right;
+            line-height: 1.2;
             @include justify-content(flex-end);
           }
           .svg-icon{
