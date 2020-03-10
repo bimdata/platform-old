@@ -13,7 +13,9 @@ file that was distributed with this source code. */
     width: $pic-size;
     height: $pic-size;
     min-width: $pic-size;
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 50%;
     background-color: $color-primary;
     color: $color-white;

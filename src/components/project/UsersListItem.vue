@@ -7,7 +7,12 @@ file that was distributed with this source code. -->
       <div class="users-list__user__picture">
         <template v-if="user.hasAccepted">
           <img :src="user.photo" alt="" class="img-fluid circle" v-if="user.photo">
-          <span class="user-menu__pic" v-else>{{ `${user.firstname} ${user.lastname}` | initialsFormat }}</span>
+          <span v-else-if="user.firstname && user.lastname" class="user-menu__pic">
+          {{ `${user.firstname} ${user.lastname}` | initialsFormat }}
+          </span>
+          <span class="user-menu__pic" v-else>
+            <svgicon name="account" height="20" width="20"></svgicon>
+          </span>
         </template>
         <template v-else>
             <svgicon name="user-invit-pending" height="40" width="40"></svgicon>
