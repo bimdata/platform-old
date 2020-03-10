@@ -7,9 +7,12 @@ file that was distributed with this source code. -->
       <div class="users-list__user__picture">
         <template v-if="user.hasAccepted">
           <img :src="user.photo" alt="" class="img-fluid circle" v-if="user.photo">
-          <span class="user-menu__pic" v-else>{{ `${user.firstname} ${user.lastname}` | initialsFormat }}</span>
-          <!--<span class="users-list__user__status users-list__user__status--inline" v-if="user.online"></span>
-          <span class="users-list__user__status users-list__user__status--outline" v-else></span>-->
+          <span v-else-if="user.firstname && user.lastname" class="user-menu__pic">
+          {{ `${user.firstname} ${user.lastname}` | initialsFormat }}
+          </span>
+          <span class="user-menu__pic" v-else>
+            <svgicon name="account" height="20" width="20"></svgicon>
+          </span>
         </template>
         <template v-else>
             <svgicon name="user-invit-pending" height="40" width="40"></svgicon>
@@ -17,7 +20,8 @@ file that was distributed with this source code. -->
       </div>
       <div class="users-list__user__datas">
         <p v-if="user.hasAccepted">
-          <span class="users-list__user__name">{{ user.firstname }} {{ user.lastname }}</span>
+          <span v-if="user.firstname && user.lastname" class="users-list__user__name">{{ user.firstname }} {{ user.lastname }}</span>
+          <span v-else class="users-list__user__name">{{ user.email }}</span>
           <span>{{ user.job }}</span>
           <span>{{ user.company }}</span>
         </p>
