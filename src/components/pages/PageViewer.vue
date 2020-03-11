@@ -16,6 +16,11 @@ file that was distributed with this source code. -->
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import BimdataViewer from '@bimdata/viewer'
+import bimObjectPlugin from '@bimdata/bimobject-viewer-plugin'
+
+const availablePlugins = {
+  bimobject: bimObjectPlugin
+}
 
 export default {
   data () {
@@ -60,10 +65,17 @@ export default {
         }
         this.$nextTick(() => {
           // Register plugin here
-          this.$refs.bimdataViewerInstance.registerPlugins([])
+          const pluginsToEnable = this.getPluginConfig()
+          this.$refs.bimdataViewerInstance.registerPlugins(pluginsToEnable)
         })
       }
       callback()
+    },
+    getPluginConfig () {
+      return this.$store.state.currentCloud.features
+        .filter(feature => feature.name.startsWith('viewer-plugin-'))
+        .map(feature => feature.name.split('viewer-plugin-')[1])
+        .map(pluginName => availablePlugins[pluginName])
     }
   },
   mounted () {
