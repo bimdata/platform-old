@@ -74,6 +74,9 @@ $base-button-option: 'base-button-option';
         @include align-items(center);
         &:hover,
         &.actif{ background: $gray3; }
+        span{
+          width: calc(100% - 12px - 8px);
+        }
       }
     }
     &__remove{ position: relative; }
