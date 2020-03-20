@@ -17,9 +17,11 @@ file that was distributed with this source code. -->
 import { mapGetters, mapMutations } from 'vuex'
 import BimdataViewer from '@bimdata/viewer'
 import bimObjectPlugin from '@bimdata/bimobject-viewer-plugin'
+import gltfExtractorPlugin from '@bimdata/gltf-extractor-viewer-plugin'
 
 const availablePlugins = {
-  bimobject: bimObjectPlugin
+  bimobject: bimObjectPlugin,
+  gltfExtractor: gltfExtractorPlugin
 }
 
 export default {
