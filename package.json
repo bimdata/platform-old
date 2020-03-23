@@ -4,8 +4,8 @@
   "description": "A Vuejs using Webpack 4",
   "main": "index.js",
   "scripts": {
-    "serve": "webpack-dev-server --progress --config build/webpack.config.dev.js --port 8080",
-    "build": "webpack --config build/webpack.config.prod.js",
+    "serve": "node --max-old-space-size=4000 ./node_modules/.bin/webpack-dev-server --progress --config build/webpack.config.dev.js --port 8080",
+    "build": "node --max-old-space-size=4000 ./node_modules/.bin/webpack --config build/webpack.config.prod.js",
     "lint": "eslint --ext .js,.vue src",
     "lint:fix": "eslint --ext .js,.vue src --fix",
     "unit": "jest --config test/unit/jest.config.js",
@@ -23,6 +23,7 @@
   "author": "Bimdata",
   "license": "MIT",
   "dependencies": {
+    "@bimdata/bim-and-co-viewer-plugin": "0.0.2",
     "@bimdata/bimdata-api-client": "~6.2.0",
     "@bimdata/bimobject-viewer-plugin": "^0.2.1",
     "@bimdata/gltf-extractor-viewer-plugin": "^0.0.2",
