@@ -15,29 +15,29 @@ file that was distributed with this source code. -->
       <div class="UploadContainer"></div>
       <button v-if="name === 'gedcard'" class="btn btn-primary" iconName="add-folder" @click.self="toggleAddFolderMenu">
         {{ $t('project.create_folder') }}
-        <div class="new_folder_box" v-show="addFolderMenu">
-          <div class="new_folder_box__title">
-            {{ $t('project.create_folder') }}
-          </div>
-          <div class="base-input-text-material">
-            <input
-              ref="createFolderInput"
-              @keyup.enter="saveFolder"
-              v-model="newFolderName"
-              :placeholder="$t('project.folder_name')"
-              type="text"
-              required
-            >
-            <span class="highlight"></span>
-            <span class="bar"></span>
-          </div>
-            <div class="new_folder_box__button-validation">
-              <span @click="toggleAddFolderMenu">{{ $t('project.cancel') }}</span>
-              <span @click="saveFolder">{{ $t('project.validate') }}</span>
-            </div>
-        </div>
-        <div class="new_folder_box__overlay" v-show="addFolderMenu" @click="toggleAddFolderMenu"></div>
       </button>
+      <div class="new_folder_box" v-show="addFolderMenu">
+        <div class="new_folder_box__title">
+          {{ $t('project.create_folder') }}
+        </div>
+        <div class="base-input-text-material">
+          <input
+            ref="createFolderInput"
+            @keyup.enter="saveFolder"
+            v-model="newFolderName"
+            :placeholder="$t('project.folder_name')"
+            type="text"
+            required
+          >
+          <span class="highlight"></span>
+          <span class="bar"></span>
+        </div>
+        <div class="new_folder_box__button-validation">
+          <span @click="toggleAddFolderMenu">{{ $t('project.cancel') }}</span>
+          <span @click="saveFolder">{{ $t('project.validate') }}</span>
+        </div>
+      </div>
+      <div class="new_folder_box__overlay" v-show="addFolderMenu" @click="toggleAddFolderMenu"></div>
     </div>
   </div>
 </template>
@@ -103,7 +103,7 @@ export default {
   },
   methods: {
     hasUserRole,
-    toggleAddFolderMenu () {
+    toggleAddFolderMenu (e) {
       this.addFolderMenu = !this.addFolderMenu
       if (this.addFolderMenu) {
         this.$nextTick(() => {
