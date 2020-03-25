@@ -98,7 +98,7 @@ file that was distributed with this source code. -->
       </div>
       <div class="row">
         <div class="col-12">
-          <base-card :fullscreen-available="false" class="ged-card">
+          <base-card :fullscreen-available="false" class="ged-card" :class="{empty : isCardEmpty}">
             <template slot="header-title">{{ $t('project.project_document') }}</template>
             <template slot="content" v-if="!hasFiles">
               <img src="../../../src/assets/images/illu-file.svg">
@@ -171,7 +171,8 @@ export default {
       mailInvitation: '',
       hasTriedToInviteInvalidEmail: false,
       hasTriedToInviteWithoutRights: false,
-      userAlreadyInProject: false
+      userAlreadyInProject: false,
+      empty: true
     }
   },
   methods: {
@@ -293,6 +294,11 @@ export default {
       const cloudId = this.$route.params.cloudId
       const projectId = this.$route.params.projectId
       await this.$store.dispatch('project/getProjectGuests', { cloudId, projectId })
+    },
+    isCardEmpty () {
+      if (this.hasFiles) {
+        this.empty = !this.empty
+      }
     }
   },
   mounted () {
