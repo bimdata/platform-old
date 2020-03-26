@@ -9,6 +9,9 @@ file that was distributed with this source code. */
     max-height: 560px;
     background: $color-background;
     overflow: hidden;
+    &.empty{
+      background: $color-white;
+    }
     .base-card__content{
       padding: 0;
       .breadcrumb{

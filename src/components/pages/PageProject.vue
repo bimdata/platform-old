@@ -98,7 +98,7 @@ file that was distributed with this source code. -->
       </div>
       <div class="row">
         <div class="col-12">
-          <base-card :fullscreen-available="false" class="ged-card">
+          <base-card :fullscreen-available="false" class="ged-card" :class="{empty : !hasFiles}">
             <template slot="header-title">{{ $t('project.project_document') }}</template>
             <template slot="content" v-if="!hasFiles">
               <img src="../../../src/assets/images/illu-file.svg">
