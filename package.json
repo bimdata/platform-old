@@ -4,7 +4,7 @@
   "description": "A Vuejs using Webpack 4",
   "main": "index.js",
   "scripts": {
-    "serve": "node --max-old-space-size=4000 ./node_modules/.bin/webpack-dev-server --progress --config build/webpack.config.dev.js --port 8080",
+    "serve": "webpack-dev-server --progress --config build/webpack.config.dev.js --port 8080",
     "build": "node --max-old-space-size=4000 ./node_modules/.bin/webpack --config build/webpack.config.prod.js",
     "lint": "eslint --ext .js,.vue src",
     "lint:fix": "eslint --ext .js,.vue src --fix",
