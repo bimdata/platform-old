@@ -5,7 +5,8 @@ file that was distributed with this source code. -->
 <template>
   <base-card :fullscreen-available="false">
     <template slot="header-title">
-      {{ projectName }}
+      <span v-if="projectName && projectName.length > 160" v-b-tooltip.hover :title="projectName">{{ projectName|middle-truncate(160) }}</span>
+      <span v-else>{{ projectName }}</span>
     </template>
     <template v-if="panoramas.length === 0 && isUserRole" slot="content">
       <img src="../../../src/assets/images/illu-ifc.svg">
