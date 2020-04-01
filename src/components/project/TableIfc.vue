@@ -66,11 +66,6 @@ file that was distributed with this source code. -->
               {{ $t('project.download') }}
             </li>
 
-            <li @click="optimize(data.item.actions.documentAction)" v-if="getState(data.item.actions.status) !== 'loading'">
-              <svgicon name="optimize" width="13" height="13"></svgicon>
-              {{ $t('project.optimize') }}
-            </li>
-
             <li @click.stop.self="toggleRename(data.item.actions.documentAction)" v-if="getState(data.item.actions.status) !== 'loading'" :class="{'actif': displayRename}">
               <svgicon name="pencil" width="13" height="13"></svgicon>
               {{ $t('project.rename') }}
@@ -96,6 +91,16 @@ file that was distributed with this source code. -->
                   <span @click="saveRename(data.item.actions.documentAction)">{{ $t('project.validate') }}</span>
                 </div>
               </div>
+            </li>
+
+            <li @click="optimize(data.item.actions.documentAction)" v-if="getState(data.item.actions.status) !== 'loading'">
+              <svgicon name="optimize" width="13" height="13"></svgicon>
+              {{ $t('project.optimize') }}
+            </li>
+
+            <li @click="reprocess(data.item.actions.documentAction)">
+              <svgicon name="reprocess" width="13" height="13"></svgicon>
+              {{ $t('project.reprocess') }}
             </li>
 
             <li
@@ -222,6 +227,9 @@ export default {
     },
     async optimize (documentAction) {
       await this.$store.dispatch('project/optimizeIfc', documentAction)
+    },
+    async reprocess (documentAction) {
+      await this.$store.dispatch('project/reprocessIfc', documentAction)
     },
     getState (state) {
       switch (state) {

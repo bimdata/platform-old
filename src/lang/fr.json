@@ -9,6 +9,7 @@
         "profile_btn": "Paramètres du compte"
     },
     "project": {
+        "reprocess": "Reprocesser",
         "optimize": "Optimiser",
         "download": "Télécharger",
         "name": "Nom",

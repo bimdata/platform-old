@@ -249,5 +249,10 @@ export default {
   },
   async optimizeIfc ({state}, document) {
     return this.IFCRepositoryRequest.optimizeIfc(state.selectedProject.cloud.id, document.ifc_id, state.selectedProject.id)
+  },
+
+  async reprocessIfc ({ state, dispatch }, document) {
+    await this.IFCRepositoryRequest.reprocessIfc(state.selectedProject.cloud.id, document.ifc_id, state.selectedProject.id)
+    await dispatch('fetchProjectIfc', state.selectedProject)
   }
 }
