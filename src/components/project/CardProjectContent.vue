@@ -5,7 +5,7 @@ file that was distributed with this source code. -->
 <template>
   <base-card :fullscreen-available="false">
     <template slot="header-title">
-      <span v-if="projectName && projectName.length > 160" v-b-tooltip.hover :title="projectName">{{ projectName|middle-truncate(160) }}</span>
+      <span v-if="projectName && projectName.length > 100" v-b-tooltip.hover :title="projectName">{{ projectName|middle-truncate(100) }}</span>
       <span v-else>{{ projectName }}</span>
     </template>
     <template v-if="panoramas.length === 0 && isUserRole" slot="content">
