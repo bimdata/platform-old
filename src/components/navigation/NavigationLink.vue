@@ -10,7 +10,8 @@ file that was distributed with this source code. -->
       class="navigation__item"
       exact
     >
-      {{ text }}
+      <span v-if="text && text.length > 30" v-b-tooltip.hover :title="text">{{ text|middle-truncate(30) }}</span>
+      <span v-else>{{ text }}</span>
     </router-link>
 </template>
 <script>
