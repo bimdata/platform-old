@@ -246,5 +246,8 @@ export default {
   },
   async createIfcSite (store, options) {
     return this.IFCRepositoryRequest.createIfcSite(options)
+  },
+  async optimizeIfc ({state}, document) {
+    return this.IFCRepositoryRequest.optimizeIfc(state.selectedProject.cloud.id, document.ifc_id, state.selectedProject.id)
   }
 }

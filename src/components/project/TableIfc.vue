@@ -60,10 +60,17 @@ file that was distributed with this source code. -->
               <svgicon name="play" width="13" height="13"></svgicon>
               {{ $t('project.view') }}
             </li>
-            <li @click="downloadFile (data.item.actions.documentAction)" v-if="getState(data.item.actions.status) !== 'loading'">
+
+            <li @click="downloadFile(data.item.actions.documentAction)" v-if="getState(data.item.actions.status) !== 'loading'">
               <svgicon name="download" width="13" height="13"></svgicon>
               {{ $t('project.download') }}
             </li>
+
+            <li @click="optimize(data.item.actions.documentAction)" v-if="getState(data.item.actions.status) !== 'loading'">
+              <svgicon name="optimize" width="13" height="13"></svgicon>
+              {{ $t('project.optimize') }}
+            </li>
+
             <li @click.stop.self="toggleRename(data.item.actions.documentAction)" v-if="getState(data.item.actions.status) !== 'loading'" :class="{'actif': displayRename}">
               <svgicon name="pencil" width="13" height="13"></svgicon>
               {{ $t('project.rename') }}
@@ -90,6 +97,7 @@ file that was distributed with this source code. -->
                 </div>
               </div>
             </li>
+
             <li
                 @click.stop.self="displayRemoveActions"
                 class="base-button-option__menu__remove"
@@ -211,6 +219,9 @@ export default {
     },
     downloadFile (documentAction) {
       window.open(documentAction.file)
+    },
+    async optimize (documentAction) {
+      await this.$store.dispatch('project/optimizeIfc', documentAction)
     },
     getState (state) {
       switch (state) {

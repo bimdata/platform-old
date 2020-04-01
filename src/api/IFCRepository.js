@@ -31,6 +31,15 @@ export class IFCRepository {
     }
   }
 
+  async optimizeIfc (cloudPk, id, projectPk) {
+    try {
+      const response = await this.ifcApiClient.optimizeIfc(cloudPk, id, projectPk, {})
+      return response
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
   async getIfcSites ({cloudPk, projectPk, ifcPk}) {
     try {
       const response = await this.ifcApiClient.getElements(
