@@ -57,29 +57,42 @@ export default {
         this.viewerUrl = `${this.getCustomUrl}/?cloudId=${params.cloudId}&projectId=${params.projectId}&ifcId=${params.ifcId}&accessToken=${this.oidcAccessToken}`
       } else {
         this.iframeViewer = false
+        const bimdataPlugins = {
+          warning: false,
+          split: true,
+          ...this.getBimdataPluginConfig()
+        }
+
         this.cfg = {
           cloudId: params.cloudId,
           projectId: params.projectId,
           ifcIds: [params.ifcId],
           apiUrl: process.env.BD_API_BASE_URL,
-          bimdataPlugins: {
-            warning: false,
-            split: true
-          }
+          bimdataPlugins
         }
         this.$nextTick(() => {
           // Register plugin here
-          const pluginsToEnable = this.getPluginConfig()
+          const pluginsToEnable = this.getPluginList()
           this.$refs.bimdataViewerInstance.registerPlugins(pluginsToEnable)
         })
       }
       callback()
     },
-    getPluginConfig () {
+    getPluginList () {
       return this.$store.state.currentCloud.features
         .filter(feature => feature.name.startsWith('viewer-plugin-'))
         .map(feature => feature.name.split('viewer-plugin-')[1])
         .map(pluginName => availablePlugins[pluginName])
+    },
+    getBimdataPluginConfig () {
+      return this.$store.state.currentCloud.features
+        .filter(feature => feature.name.startsWith('viewer-bimdata-plugin-'))
+        .map(feature => feature.name.split('viewer-bimdata-plugin-')[1])
+        .map(name => name.split('-'))
+        .reduce((acc, [feature, state]) => {
+          acc[feature] = (state === 'true')
+          return acc
+        }, {})
     }
   },
   mounted () {
