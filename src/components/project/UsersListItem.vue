@@ -36,35 +36,32 @@ file that was distributed with this source code. -->
       <div class="users-list__user__actions" v-if="user.hasAccepted && isAdmin()">
         <base-button-option ref="menu" @option-toggled="toggleMenu" class="users-list__user__actions__menu" v-if="displayMenu">
           <ul>
-              <li @click.stop.self="toggleRights()" :class="{'actif': displayRights}" class="arrow-left">
-                <span>{{ $t('users.modify_rights') }}</span>
-                <svgicon name="user-lock" width="12" height="12"></svgicon>
-
-                <div class="new_folder_box" v-if="displayRights" :class="{'bg-overlay': showRemoveRightsActions}">
-                  <base-input-radio
-                    v-for="(right, indexRight) in rights"
-                    :key="indexRight"
-                    :id="user.id"
-                    :option="right"
-                    name="rights"
-                    @input="radioSelected(right)"
-                    :selected="role"
-                    :class="{'open-top': index > 4}"
-                  ></base-input-radio>
-                  <transition name="slide-fade">
-                    <base-valid-delete v-if="showRemoveRightsActions" @on-valid-action="changeUserRights" @on-cancel-action="showRemoveRightsActions = false"></base-valid-delete>
-                  </transition>
-                </div>
+            <li @click.stop="toggleRights()" :class="{'actif': displayRights}" class="arrow-left">
+              <span>{{ $t('users.modify_rights') }}</span>
+              <svgicon name="user-lock" width="12" height="12"></svgicon>
+              <div class="new_folder_box" v-if="displayRights" :class="{'bg-overlay': showRemoveRightsActions}">
+                <base-input-radio
+                  v-for="(right, indexRight) in rights"
+                  :key="indexRight"
+                  :id="user.id"
+                  :option="right"
+                  name="rights"
+                  @input="radioSelected(right)"
+                  :selected="role"
+                  :class="{'open-top': index > 4}"
+                ></base-input-radio>
+                <transition name="slide-fade">
+                  <base-valid-delete v-if="showRemoveRightsActions" @on-valid-action="changeUserRights" @on-cancel-action="showRemoveRightsActions = false"></base-valid-delete>
+                </transition>
+              </div>
             </li>
             <li @click.stop.self="showRemoveActions = true" class="users-list__user__actions">
-                <span>
-                  {{ $t('users.remove') }}
-                </span>
-                <svgicon name="user-cross" width="12" height="12"></svgicon>
-                <transition name="slide-fade">
-                  <base-valid-delete v-if="showRemoveActions" @on-valid-action="removeUser(user.id)" @on-cancel-action="showRemoveActions = false"></base-valid-delete>
-                </transition>
-              </li>
+             {{ $t('users.remove') }}
+              <svgicon name="user-cross" width="12" height="12"></svgicon>
+              <transition name="slide-fade">
+                <base-valid-delete v-if="showRemoveActions" @on-valid-action="removeUser(user.id)" @on-cancel-action="showRemoveActions = false"></base-valid-delete>
+              </transition>
+            </li>
           </ul>
         </base-button-option>
         <template v-else>
