@@ -18,12 +18,10 @@ import { mapGetters, mapMutations } from 'vuex'
 import BimdataViewer from '@bimdata/viewer'
 import bimObjectPlugin from '@bimdata/bimobject-viewer-plugin'
 import gltfExtractorPlugin from '@bimdata/gltf-extractor-viewer-plugin'
-import bimAndCoPlugin from '@bimdata/bim-and-co-viewer-plugin'
 
 const availablePlugins = {
   bimobject: bimObjectPlugin,
-  gltfExtractor: gltfExtractorPlugin,
-  bimAndCo: bimAndCoPlugin
+  gltfExtractor: gltfExtractorPlugin
 }
 
 export default {
@@ -83,6 +81,7 @@ export default {
         .filter(feature => feature.name.startsWith('viewer-plugin-'))
         .map(feature => feature.name.split('viewer-plugin-')[1])
         .map(pluginName => availablePlugins[pluginName])
+        .filter(pluginName => !!pluginName) // remove non existing plugins
     },
     getBimdataPluginConfig () {
       return this.$store.state.currentCloud.features
