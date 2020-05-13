@@ -1,6 +1,9 @@
 FROM node:10
 
 WORKDIR /opt
+ARG NPM_REGISTRY
+RUN if [ "x$NPM_REGISTRY" = "x" ] ; then echo Using npm registry ; else npm config set registry "$NPM_REGISTRY" ; fi
+
 ADD package.json /opt
 ADD package-lock.json /opt
 RUN npm ci
