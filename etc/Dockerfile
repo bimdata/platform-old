@@ -1,8 +1,11 @@
 FROM node:10
 
 WORKDIR /opt
+ARG NODE_EXTRA_CA_CERTS
 ARG NPM_REGISTRY
 RUN if [ "x$NPM_REGISTRY" = "x" ] ; then echo Using npm registry ; else npm config set registry "$NPM_REGISTRY" ; fi
+ARG NPM_STRICT_SSL
+RUN if [ "$NPM_STRICT_SSL" = "false" ] ; then npm config set strict-ssl false; fi
 
 ADD package.json /opt
 ADD package-lock.json /opt
