@@ -400,7 +400,7 @@ export default {
       debug: true,
       autoProceed: true,
       restrictions: {
-        maxFileSize: 1000000000, // 1 Go
+        // maxFileSize: 1000000000, // 1 Go
         maxNumberOfFiles: null,
         minNumberOfFiles: 1
       }

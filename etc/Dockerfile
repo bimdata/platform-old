@@ -2,13 +2,6 @@ FROM node:10
 
 WORKDIR /opt
 
-ARG NPM_REGISTRY
-RUN if [ "x$NPM_REGISTRY" = "x" ] ; then echo Using npm registry ; else npm config set registry "$NPM_REGISTRY" ; fi
-ARG NPM_STRICT_SSL
-RUN if [ "$NPM_STRICT_SSL" = "false" ] ; then npm config set strict-ssl false; fi
-ARG NPM_PROXY
-RUN if [ "x$NPM_PROXY" = "x" ] ; then echo skip proxy config ; else npm config set proxy "$NPM_PROXY"; fi
-
 ADD package.json /opt
 ADD package-lock.json /opt
 RUN npm ci
