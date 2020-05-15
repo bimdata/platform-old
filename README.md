@@ -42,7 +42,7 @@ cp .env.example .env
 
 Edit your `.env` file in a text editor, and change:
 
-- `BD_OIDC_CLIENT_ID` value by the Client ID of your application ([How-to create your application with BIMData Connect](https://developers.bimdata.io/cookbook/create_an_application.html))
+- `BD_OIDC_CLIENT_ID` value by the Client ID of your application ([How-to create your application with BIMData Connect](https://developers.bimdata.io/tutorials/dev_create_an_application.html))
 - `BD_MAPBOX_TOKEN` value by your own Mapbox Token ([How-to create a Temporary token for Mapbox](https://docs.mapbox.com/help/tutorials/get-started-tokens-api/#creating-temporary-tokens))
 
 #### Start your dev server
