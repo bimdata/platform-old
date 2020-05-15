@@ -38,7 +38,7 @@ export default {
       debug: false,
       autoProceed: false,
       restrictions: {
-        // maxFileSize: 1000000000, // 1 Go
+        maxFileSize: process.env.BD_MAX_UPLOAD_SIZE,
         maxNumberOfFiles: null,
         minNumberOfFiles: 1,
         allowedFileTypes: ['.ifc', '.ifczip']
