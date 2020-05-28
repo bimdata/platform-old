@@ -59,10 +59,10 @@ jobs:
       - run:
           name: backup previous image
           command: |
-            if export DOCKER_CLI_EXPERIMENTAL=enabled && docker manifest inspect "bimdata/platform_back:prev-$ENV" > /dev/null; then
-              docker pull "bimdata/platform_back:$ENV"
-              docker image tag "bimdata/platform_back:$ENV" "bimdata/platform_back:prev-$ENV"
-              docker push "bimdata/platform_back:prev-$ENV"
+            if export DOCKER_CLI_EXPERIMENTAL=enabled && docker manifest inspect "bimdata/platform:prev-$ENV" > /dev/null; then
+              docker pull "bimdata/platform:$ENV"
+              docker image tag "bimdata/platform:$ENV" "bimdata/platform:prev-$ENV"
+              docker push "bimdata/platform:prev-$ENV"
             fi
       - run:
           name: prepare build
