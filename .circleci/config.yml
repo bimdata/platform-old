@@ -113,12 +113,6 @@ jobs:
               --extra-vars "ansible_ssh_private_key_file=./files/deploy_rsa" \
               --user deploy  \
               deploy.yml
-      - run:
-          name: sliding tag gitflow
-          command: |
-            git tag --force $ENV
-            echo -e "Host github.com\n  StrictHostKeyChecking no" >> ~/.ssh/config
-            git push --force origin $ENV
 
 workflows:
   test_and_deploy:
