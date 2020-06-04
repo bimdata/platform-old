@@ -3,7 +3,8 @@ docker-sign-in: &docker-sign-in
   command: |
     docker login \
       --username $DOCKER_USER \
-      --password $DOCKER_PASS
+      --password $DOCKER_PASS \
+      https://docker-registry.bimdata.io
 
 mapping-var-env: &mapping-var-env
   name: define var with branch
@@ -15,7 +16,7 @@ mapping-var-env: &mapping-var-env
         ;;
       "develop") ENV=staging
         ;;
-      *) ENV=dev_$(echo $CIRCLE_BRANCH | tr "/" "-")
+      *) ENV=dev_$(echo "$CIRCLE_BRANCH" | iconv -t ascii//TRANSLIT | sed -r s/[^a-zA-Z0-9]+/-/g | sed -r s/^-+\|-+$//g | tr A-Z a-z)
         ;;
     esac
     echo 'export ENV='$ENV >> $BASH_ENV
@@ -59,10 +60,10 @@ jobs:
       - run:
           name: backup previous image
           command: |
-            if export DOCKER_CLI_EXPERIMENTAL=enabled && docker manifest inspect "bimdata/platform:prev-$ENV" > /dev/null; then
-              docker pull "bimdata/platform:$ENV"
-              docker image tag "bimdata/platform:$ENV" "bimdata/platform:prev-$ENV"
-              docker push "bimdata/platform:prev-$ENV"
+            if export DOCKER_CLI_EXPERIMENTAL=enabled && docker manifest inspect "docker-registry.bimdata.io/bimdata/platform:prev-$ENV" > /dev/null; then
+              docker pull "docker-registry.bimdata.io/bimdata/platform:$ENV"
+              docker image tag "docker-registry.bimdata.io/bimdata/platform:$ENV" "docker-registry.bimdata.io/bimdata/platform:prev-$ENV"
+              docker push "docker-registry.bimdata.io/bimdata/platform:prev-$ENV"
             fi
       - run:
           name: prepare build
@@ -72,7 +73,7 @@ jobs:
             docker create \
               --name deployment \
               --volume /var/run/docker.sock:/var/run/docker.sock \
-              bimdata/deployment:latest
+              docker-registry.bimdata.io/bimdata/deployment:latest
             docker cp /home/circleci/repo deployment:/var/repo
             docker start deployment
       - run:
@@ -87,26 +88,25 @@ jobs:
               build.yml
       - run:
           name: push new image
-          command: docker push "bimdata/platform:$ENV"
+          command: docker push "docker-registry.bimdata.io/bimdata/platform:$ENV"
       - run:
           name: push latest tag image
           command: |
             if [[ "$CIRCLE_BRANCH" == "develop" ]]; then
-              docker tag "bimdata/platform:$ENV" bimdata/platform:latest
-              docker push bimdata/platform:latest
+              docker tag "docker-registry.bimdata.io/bimdata/platform:$ENV" docker-registry.bimdata.io/bimdata/platform:latest
+              docker push docker-registry.bimdata.io/bimdata/platform:latest
             fi
 
   deploy:
     <<: *container_config
     steps:
-      - checkout
       - setup_remote_docker
       - run: *docker-sign-in
       - run: *mapping-var-env
       - run:
           name: ansible deployment
           command: |
-            docker run -e ANSIBLE_VAULT_PASSWD bimdata/deployment:latest \
+            docker run -e ANSIBLE_VAULT_PASSWD docker-registry.bimdata.io/bimdata/deployment:latest \
               ansible-playbook \
               --inventory-file inventories/$ENV \
               --tags platform \
