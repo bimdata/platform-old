@@ -1,11 +1,33 @@
-version: 2
+docker-sign-in: &docker-sign-in
+  name: login to doker remote
+  command: |
+    docker login \
+      --username $DOCKER_USER \
+      --password $DOCKER_PASS \
+      https://docker-registry.bimdata.io
+
+mapping-var-env: &mapping-var-env
+  name: define var with branch
+  command: |
+    case "$CIRCLE_BRANCH" in
+      "master") ENV=prod
+        ;;
+      "release") ENV=next
+        ;;
+      "develop") ENV=staging
+        ;;
+      *) ENV=dev_$(echo "$CIRCLE_BRANCH" | iconv -t ascii//TRANSLIT | sed -r s/[^a-zA-Z0-9]+/-/g | sed -r s/^-+\|-+$//g | tr A-Z a-z)
+        ;;
+    esac
+    echo 'export ENV='$ENV >> $BASH_ENV
+
+version: 2.1
 
 references:
   container_config: &container_config
     docker:
       - image: circleci/node:10
     working_directory: /home/circleci/repo
-
 
 jobs:
   test:
@@ -27,45 +49,96 @@ jobs:
             - ~/.npm
             - ~/.cache
 
+  build_and_push:
+    <<: *container_config
+    steps:
+      - checkout
+      - setup_remote_docker
+      - add_ssh_keys
+      - run: *mapping-var-env
+      - run: *docker-sign-in
+      - run:
+          name: backup previous image
+          command: |
+            if export DOCKER_CLI_EXPERIMENTAL=enabled && docker manifest inspect "docker-registry.bimdata.io/bimdata/platform:prev-$ENV" > /dev/null; then
+              docker pull "docker-registry.bimdata.io/bimdata/platform:$ENV"
+              docker image tag "docker-registry.bimdata.io/bimdata/platform:$ENV" "docker-registry.bimdata.io/bimdata/platform:prev-$ENV"
+              docker push "docker-registry.bimdata.io/bimdata/platform:prev-$ENV"
+            fi
+      - run:
+          name: prepare build
+          command: |
+            # We can't mount volumes in docker in circleci (https://discuss.circleci.com/t/why-circleci-2-0-does-not-support-mounting-folders/11605/14)
+            # so we create a container, copy files in it then start it
+            docker create \
+              --name deployment \
+              --volume /var/run/docker.sock:/var/run/docker.sock \
+              docker-registry.bimdata.io/bimdata/deployment:latest
+            docker cp /home/circleci/repo deployment:/var/repo
+            docker start deployment
+      - run:
+          name: build docker image
+          command: |
+            docker exec -e ANSIBLE_VAULT_PASSWD deployment \
+              ansible-playbook \
+              --inventory-file inventories/$ENV \
+              --tags platform \
+              --extra-vars '{"context_dir":"/var/repo","ansible_ssh_private_key_file":"./files/deploy_rsa"}' \
+              --user deploy \
+              build.yml
+      - run:
+          name: push new image
+          command: docker push "docker-registry.bimdata.io/bimdata/platform:$ENV"
+      - run:
+          name: push latest tag image
+          command: |
+            if [[ "$CIRCLE_BRANCH" == "develop" ]]; then
+              docker tag "docker-registry.bimdata.io/bimdata/platform:$ENV" docker-registry.bimdata.io/bimdata/platform:latest
+              docker push docker-registry.bimdata.io/bimdata/platform:latest
+            fi
+
   deploy:
     <<: *container_config
     steps:
       - setup_remote_docker
-      - checkout
+      - run: *docker-sign-in
+      - run: *mapping-var-env
       - run:
-          name: push to docker hub
+          name: ansible deployment
           command: |
-            docker login -u $DOCKER_USER -p $DOCKER_PASS
-            docker pull bimdata/deployment:latest
-
-            # We can't mount volumes in docker in circleci (https://discuss.circleci.com/t/why-circleci-2-0-does-not-support-mounting-folders/11605/14)
-            # so we create a container, copy files in it then start it
-            docker create --name deployment -v /var/run/docker.sock:/var/run/docker.sock bimdata/deployment:latest
-            docker cp /home/circleci/repo deployment:/var/repo
-            docker start deployment
-
-            docker exec -e ANSIBLE_VAULT_PASSWD -it deployment ansible-playbook build.yml -i inventories/staging --tags=platform --extra-vars='{"context_dir":"/var/repo","ansible_ssh_private_key_file":"./files/deploy_rsa"}' --user=deploy
-            docker push bimdata/platform:latest
-
-            docker exec -e ANSIBLE_VAULT_PASSWD -it deployment ansible-playbook build.yml -i inventories/next --tags=platform --extra-vars='{"context_dir":"/var/repo","ansible_ssh_private_key_file":"./files/deploy_rsa"}' --user=deploy
-            docker push bimdata/platform:staging
-
-            docker exec -e ANSIBLE_VAULT_PASSWD -it deployment ansible-playbook build.yml -i inventories/prod --tags=platform --extra-vars='{"context_dir":"/var/repo","ansible_ssh_private_key_file":"./files/deploy_rsa"}' --user=deploy
-            docker push bimdata/platform:next
-
-            # deploy master branch
-            docker exec -e ANSIBLE_VAULT_PASSWD -it deployment ansible-playbook deploy.yml -i inventories/staging --tags=platform --extra-vars "ansible_ssh_private_key_file=./files/deploy_rsa" --user=deploy
-
+            docker run -e ANSIBLE_VAULT_PASSWD docker-registry.bimdata.io/bimdata/deployment:latest \
+              ansible-playbook \
+              --inventory-file inventories/$ENV \
+              --tags platform \
+              --extra-vars "ansible_ssh_private_key_file=./files/deploy_rsa" \
+              --user deploy  \
+              deploy.yml
 
 workflows:
-  version: 2
   test_and_deploy:
     jobs:
       - test
-      - deploy:
+      - deploy_docker_dev:
+          type: approval
+          filters:
+            branches:
+              ignore:
+                - master
+                - release
+                - develop
+      - build_and_push:
           requires:
             - test
           filters:
             branches:
               only:
                 - master
+                - release
+                - develop
+      - deploy:
+          requires:
+            - build_and_push
+      - build_and_push:
+          name: build_and_push_docker_dev
+          requires:
+            - deploy_docker_dev
