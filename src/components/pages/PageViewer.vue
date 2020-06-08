@@ -58,6 +58,8 @@ export default {
         const bimdataPlugins = {
           warning: false,
           split: true,
+          merge: true,
+          allowExport: true,
           ...this.getBimdataPluginConfig()
         }
 
