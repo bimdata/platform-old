@@ -24,7 +24,7 @@
   "license": "MIT",
   "dependencies": {
     "@bimdata/bimdata-api-client": "~6.2.0",
-    "@bimdata/bimobject-viewer-plugin": "^0.2.1",
+    "@bimdata/bimobject-viewer-plugin": "^0.2.4",
     "@bimdata/gltf-extractor-viewer-plugin": "^0.0.2",
     "@bimdata/realiz3d-viewer-plugin": "0.0.1",
     "@bimdata/utils": "0.2.3",
