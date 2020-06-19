@@ -53,7 +53,8 @@ jobs:
     <<: *container_config
     steps:
       - checkout
-      - setup_remote_docker
+      - setup_remote_docker:
+          docker_layer_caching: true
       - add_ssh_keys
       - run: *mapping-var-env
       - run: *docker-sign-in
@@ -100,7 +101,8 @@ jobs:
   deploy:
     <<: *container_config
     steps:
-      - setup_remote_docker
+      - setup_remote_docker:
+          docker_layer_caching: true
       - run: *docker-sign-in
       - run: *mapping-var-env
       - run:
