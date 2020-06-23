@@ -23,6 +23,7 @@
   "author": "Bimdata",
   "license": "MIT",
   "dependencies": {
+    "@bimdata/background-color-viewer-plugin": "0.0.1",
     "@bimdata/bimdata-api-client": "~6.2.0",
     "@bimdata/bimobject-viewer-plugin": "^0.2.1",
     "@bimdata/gltf-extractor-viewer-plugin": "^0.0.2",
