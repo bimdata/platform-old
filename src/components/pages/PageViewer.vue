@@ -17,6 +17,7 @@ file that was distributed with this source code. -->
 import { mapGetters, mapMutations } from 'vuex'
 import BimdataViewer from '@bimdata/viewer'
 import bimObjectPlugin from '@bimdata/bimobject-viewer-plugin'
+import iotPlugin from '@bimdata/iot-viewer-plugin'
 import gltfExtractorPlugin from '@bimdata/gltf-extractor-viewer-plugin'
 import svgExtractorPlugin from '@bimdata/svg-extractor-viewer-plugin'
 import realiz3DPlugin from '@bimdata/realiz3d-viewer-plugin'
@@ -24,6 +25,7 @@ import backgroundColorPlugin from '@bimdata/background-color-viewer-plugin'
 
 const availablePlugins = {
   bimobject: bimObjectPlugin,
+  iot: iotPlugin,
   gltfExtractor: gltfExtractorPlugin,
   svgExtractor: svgExtractorPlugin,
   realiz3D: realiz3DPlugin,
