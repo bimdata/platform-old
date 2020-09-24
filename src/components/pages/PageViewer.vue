@@ -5,17 +5,15 @@ file that was distributed with this source code. -->
 <template>
     <div class="h-100">
         <iframe :src="viewerUrl" width="100%" height="100%" class="no-borders" v-if="iframeViewer === true"></iframe>
-        <BimdataViewer
-          ref="bimdataViewerInstance"
-          v-if="iframeViewer === false"
-          :accessToken="oidcAccessToken"
-          :cfg="cfg"
+        <div
+          :id="viewerId"
+          v-else
         />
     </div>
 </template>
 <script>
 import { mapGetters, mapMutations } from 'vuex'
-import BimdataViewer from '@bimdata/viewer'
+import makeBIMDataViewer from '@bimdata/viewer'
 import bimObjectPlugin from '@bimdata/bimobject-viewer-plugin'
 import iotPlugin from '@bimdata/iot-viewer-plugin'
 import gltfExtractorPlugin from '@bimdata/gltf-extractor-viewer-plugin'
@@ -35,13 +33,11 @@ const availablePlugins = {
 export default {
   data () {
     return {
+      viewerId: 'bimdataViewerId',
       viewerUrl: null,
       iframeViewer: null,
       cfg: null
     }
-  },
-  components: {
-    BimdataViewer
   },
   computed: {
     ...mapGetters(['oidcAccessToken', 'getCloudById', 'getCustomUrl'])
@@ -63,26 +59,31 @@ export default {
         this.viewerUrl = `${this.getCustomUrl}/?cloudId=${params.cloudId}&projectId=${params.projectId}&ifcId=${params.ifcId}&accessToken=${this.oidcAccessToken}`
       } else {
         this.iframeViewer = false
-        const bimdataPlugins = {
-          warning: false,
-          split: true,
-          merge: true,
-          allowExport: true,
-          ...this.getBimdataPluginConfig()
-        }
 
-        this.cfg = {
-          cloudId: params.cloudId,
-          projectId: params.projectId,
-          ifcIds: [params.ifcId],
-          apiUrl: process.env.BD_API_BASE_URL,
-          bimdataPlugins
-        }
-        this.$nextTick(() => {
-          // Register plugin here
-          const pluginsToEnable = this.getPluginList()
-          this.$refs.bimdataViewerInstance.registerPlugins(pluginsToEnable)
+        const bimdataViewer = makeBIMDataViewer({
+          api: {
+            cloudId: params.cloudId,
+            projectId: params.projectId,
+            ifcIds: [params.ifcId],
+            apiUrl: process.env.BD_API_BASE_URL,
+            accessToken: this.oidcAccessToken
+          },
+          plugins: {
+            split: true,
+            warning: false,
+            structure: {
+              merge: true,
+              export: true,
+              editProperties: true
+            },
+            ...this.getBimdataPluginConfig()
+          }
         })
+
+        const pluginsToEnable = this.getPluginList()
+        pluginsToEnable.forEach(bimdataViewer.registerPlugin)
+
+        bimdataViewer.mount(`#${this.viewerId}`)
       }
       callback()
     },
