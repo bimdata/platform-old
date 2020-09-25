@@ -61,6 +61,7 @@ export default {
         this.iframeViewer = false
 
         const bimdataViewer = makeBIMDataViewer({
+          locale: this.$i18n.locale,
           api: {
             cloudId: params.cloudId,
             projectId: params.projectId,
@@ -83,7 +84,9 @@ export default {
         const pluginsToEnable = this.getPluginList()
         pluginsToEnable.forEach(bimdataViewer.registerPlugin)
 
-        bimdataViewer.mount(`#${this.viewerId}`)
+        const viewerVm = bimdataViewer.mount(`#${this.viewerId}`)
+
+        this.$watch(() => this.$i18n.locale, locale => { viewerVm.$i18n.locale = locale })
       }
       callback()
     },
