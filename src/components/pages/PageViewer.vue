@@ -70,6 +70,9 @@ export default {
             accessToken: this.oidcAccessToken
           },
           plugins: {
+            header: {
+              warnings: false
+            },
             split: true,
             warning: false,
             structure: {
