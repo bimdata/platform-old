@@ -95,6 +95,7 @@ export default {
         const viewerVm = bimdataViewer.mount(`#${this.viewerId}`)
 
         this.$watch(() => this.$i18n.locale, locale => { viewerVm.$i18n.locale = locale })
+        this.$watch(() => this.oidcAccessToken, token => bimdataViewer.setAccessToken(token))
       }
       callback()
     },
