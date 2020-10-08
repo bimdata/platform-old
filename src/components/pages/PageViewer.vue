@@ -87,13 +87,14 @@ export default {
         if (this.$store.state.currentCloud.features.find(feature => feature.name === 'viewer-bimdata-plugin-contextSwitch-true')) {
           bimdataViewer.registerWindow({
             name: '2d',
+            label: this.$t('viewer.2d_window'), // This is computed at viewer start and won't be updated later
             plugins: ['viewer2d', 'fullscreen'],
             flyingHeader: true
           })
         }
 
         bimdataViewer.registerWindow({
-          name: 'structure',
+          name: 'Structure',
           plugins: ['structure']
         })
 

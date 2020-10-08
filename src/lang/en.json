@@ -1,99 +1,101 @@
 {
-    "header": {
-        "back_to_project": "Back to project",
-        "clouds_projects": "Cloud's projects"
-    },
-    "dashboard": {
-        "logout": "Logout",
-        "connect_auth": "BIMData Connect",
-        "profile_btn": "Account settings"
-    },
-    "project": {
-        "download": "Download",
-        "name": "Name",
-        "type": "Type",
-        "creator": "Creator",
-        "updated_at": "Updated at",
-        "state": "Status",
-        "view": "View",
-        "size": "Size",
-        "file": "File",
-        "ifc_file": "IFC File",
-        "type_to_search": "Type to search",
-        "move_to": "Move to",
-        "unselect_all": "Unselect all",
-        "create_folder": "Create a folder",
-        "delete": "Delete",
-        "cancel": "Cancel",
-        "validate": "Validate",
-        "folder_name": "Folder's name",
-        "file_name": "File's name",
-        "project_document": "Project's documents",
-        "error_conversion": "Conversion error",
-        "rename": "Rename",
-        "rename_folder": "Rename folder",
-        "rename_file": "Rename file",
-        "fill_in": "Fill in",
-        "missing": "missing",
-        "save": "Save",
-        "confirm": "Confirm",
-        "upload": "Upload",
-        "upload_text": "Upload your first",
-        "loading": "Loading",
-        "new": "New",
-        "new_folder": "New folder",
-        "import_document": "Import a document",
-        "close_tree_view": "Close tree view",
-        "open_tree_view": "Open tree view"
-    },
-    "cloud_list": {
-      "clouds_list": "Clouds list",
-      "rename_cloud": "Rename Cloud",
-      "cloud_name": "Cloud's name",
-      "upload_image": "Upload image",
-      "delete_image": "Delete image"
-    },
-    "project_list": {
-        "new_project": "New Project",
-        "submit": "Submit",
-        "project_name": "Project's name",
-        "remove": "Remove",
-        "rename_project": "Rename Project"
-    },
-    "dms": {
-        "no_creator": "No Creator",
-        "move_here": "Move here",
-        "move_to": "Move to",
-        "choose_destination": "Choose destination"
-    },
-    "ifc": {
-        "open": "Open"
-    },
-    "users": {
-      "users": "Users",
-      "user": "User",
-      "administrator": "Admin",
-      "remove": "Delete user",
-      "rights": "Rights",
-      "modify_rights": "Edit user rights",
-      "resend_invitation": "Resend invitation ?",
-      "invite": "Invite",
-      "guest": "Guest",
-      "without_answer": "without answer",
-      "manage_admin": "Manage administrators",
-      "users_list": "Users list",
-      "invitation_sent": "Invitation sent to {email}",
-      "too_much_invitations_sent": "Too much invitations sent to {email}",
-      "valid_email_attended": "Empty or invalid e-mail provided",
-      "rights_attended": "Role for the user has not been provided",
-      "invitation_text": "Invite your first",
-      "user_member": "Project member",
-      "invitation_btn": "Invitation",
-      "users_already_in_project": "This user is already a member of this project",
-      "users_already_in_cloud": "This user is already a member of this cloud"
-
-    },
-    "layout": {
-        "loading": "Loading"
-    }
+  "header": {
+    "back_to_project": "Back to project",
+    "clouds_projects": "Cloud's projects"
+  },
+  "dashboard": {
+    "logout": "Logout",
+    "connect_auth": "BIMData Connect",
+    "profile_btn": "Account settings"
+  },
+  "project": {
+    "download": "Download",
+    "name": "Name",
+    "type": "Type",
+    "creator": "Creator",
+    "updated_at": "Updated at",
+    "state": "Status",
+    "view": "View",
+    "size": "Size",
+    "file": "File",
+    "ifc_file": "IFC File",
+    "type_to_search": "Type to search",
+    "move_to": "Move to",
+    "unselect_all": "Unselect all",
+    "create_folder": "Create a folder",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "validate": "Validate",
+    "folder_name": "Folder's name",
+    "file_name": "File's name",
+    "project_document": "Project's documents",
+    "error_conversion": "Conversion error",
+    "rename": "Rename",
+    "rename_folder": "Rename folder",
+    "rename_file": "Rename file",
+    "fill_in": "Fill in",
+    "missing": "missing",
+    "save": "Save",
+    "confirm": "Confirm",
+    "upload": "Upload",
+    "upload_text": "Upload your first",
+    "loading": "Loading",
+    "new": "New",
+    "new_folder": "New folder",
+    "import_document": "Import a document",
+    "close_tree_view": "Close tree view",
+    "open_tree_view": "Open tree view"
+  },
+  "cloud_list": {
+    "clouds_list": "Clouds list",
+    "rename_cloud": "Rename Cloud",
+    "cloud_name": "Cloud's name",
+    "upload_image": "Upload image",
+    "delete_image": "Delete image"
+  },
+  "project_list": {
+    "new_project": "New Project",
+    "submit": "Submit",
+    "project_name": "Project's name",
+    "remove": "Remove",
+    "rename_project": "Rename Project"
+  },
+  "dms": {
+    "no_creator": "No Creator",
+    "move_here": "Move here",
+    "move_to": "Move to",
+    "choose_destination": "Choose destination"
+  },
+  "ifc": {
+    "open": "Open"
+  },
+  "users": {
+    "users": "Users",
+    "user": "User",
+    "administrator": "Admin",
+    "remove": "Delete user",
+    "rights": "Rights",
+    "modify_rights": "Edit user rights",
+    "resend_invitation": "Resend invitation ?",
+    "invite": "Invite",
+    "guest": "Guest",
+    "without_answer": "without answer",
+    "manage_admin": "Manage administrators",
+    "users_list": "Users list",
+    "invitation_sent": "Invitation sent to {email}",
+    "too_much_invitations_sent": "Too much invitations sent to {email}",
+    "valid_email_attended": "Empty or invalid e-mail provided",
+    "rights_attended": "Role for the user has not been provided",
+    "invitation_text": "Invite your first",
+    "user_member": "Project member",
+    "invitation_btn": "Invitation",
+    "users_already_in_project": "This user is already a member of this project",
+    "users_already_in_cloud": "This user is already a member of this cloud"
+  },
+  "layout": {
+    "loading": "Loading"
+  },
+  "viewer": {
+    "2d_window": "2D Viewer"
+  }
 }
