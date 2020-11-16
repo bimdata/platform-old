@@ -12,6 +12,8 @@ file that was distributed with this source code. -->
     </div>
 </template>
 <script>
+import { set, merge } from 'lodash'
+
 import { mapGetters, mapMutations } from 'vuex'
 import makeBIMDataViewer from '@bimdata/viewer'
 import bimObjectPlugin from '@bimdata/bimobject-viewer-plugin'
@@ -60,6 +62,20 @@ export default {
       } else {
         this.iframeViewer = false
 
+        const plugins = {
+          header: {
+            warnings: false
+          },
+          split: true,
+          warning: false,
+          'structure-properties': {
+            merge: true,
+            export: true,
+            editProperties: true
+          }
+        }
+        merge(plugins, this.getBimdataPluginConfig())
+
         const bimdataViewer = makeBIMDataViewer({
           locale: this.$i18n.locale,
           api: {
@@ -69,29 +85,15 @@ export default {
             apiUrl: process.env.BD_API_BASE_URL,
             accessToken: this.oidcAccessToken
           },
-          plugins: {
-            header: {
-              warnings: false
-            },
-            split: true,
-            warning: false,
-            'structure-properties': {
-              merge: true,
-              export: true,
-              editProperties: true
-            },
-            ...this.getBimdataPluginConfig()
-          }
+          plugins
         })
 
-        if (this.$store.state.currentCloud.features.find(feature => feature.name === 'viewer-bimdata-plugin-contextSwitch-true')) {
-          bimdataViewer.registerWindow({
-            name: '2d',
-            label: this.$t('viewer.2d_window'), // This is computed at viewer start and won't be updated later
-            plugins: ['viewer2d', 'fullscreen'],
-            flyingHeader: true
-          })
-        }
+        bimdataViewer.registerWindow({
+          name: '2d',
+          label: this.$t('viewer.2d_window'), // This is computed at viewer start and won't be updated later
+          plugins: ['viewer2d', 'fullscreen'],
+          flyingHeader: true
+        })
 
         bimdataViewer.registerWindow({
           name: 'Structure',
@@ -119,9 +121,10 @@ export default {
       return this.$store.state.currentCloud.features
         .filter(feature => feature.name.startsWith('viewer-bimdata-plugin-'))
         .map(feature => feature.name.split('viewer-bimdata-plugin-')[1])
-        .map(name => name.split('-'))
-        .reduce((acc, [feature, state]) => {
-          acc[feature] = (state === 'true')
+        .map(name => name.split(':'))
+        .reduce((acc, [featurePath, state]) => {
+          const path = featurePath.split('.')
+          set(acc, path, (state === 'true'))
           return acc
         }, {})
     }
