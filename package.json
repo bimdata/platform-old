@@ -27,7 +27,7 @@
     "@bimdata/bimdata-api-client": "~6.2.0",
     "@bimdata/bimobject-viewer-plugin": "^1.0.0",
     "@bimdata/gltf-extractor-viewer-plugin": "^1.0.0",
-    "@bimdata/iot-viewer-plugin": "1.0.3",
+    "@bimdata/iot-viewer-plugin": "1.0.4",
     "@bimdata/realiz3d-viewer-plugin": "0.0.2",
     "@bimdata/svg-extractor-viewer-plugin": "1.0.0",
     "@bimdata/utils": "0.2.3",
