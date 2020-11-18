@@ -34,7 +34,7 @@ file that was distributed with this source code. -->
             </span>
         </div>
         <ul
-          v-for="(children, index) in folder.children"
+          v-for="(children, index) in orderedFolders"
           :key="children.id + '-' + index"
           class="collapse-tree"
           v-show="isFolderOpened(folder.id)"
@@ -85,6 +85,12 @@ export default {
     },
     isCurrentFolder () {
       return this.folder.id === this.currentElement.id
+    },
+    orderedFolders () {
+      if (!this.folder.children) { return null }
+      return this.folder.children.slice().sort((a, b) => {
+        return a.name.toLowerCase() > b.name.toLowerCase()
+      })
     }
   },
   methods: {
