@@ -67,7 +67,6 @@ export default {
             warnings: false
           },
           split: true,
-          warning: false,
           'structure-properties': {
             merge: false,
             export: true,
