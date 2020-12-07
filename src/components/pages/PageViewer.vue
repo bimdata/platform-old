@@ -22,6 +22,7 @@ import gltfExtractorPlugin from '@bimdata/gltf-extractor-viewer-plugin'
 import svgExtractorPlugin from '@bimdata/svg-extractor-viewer-plugin'
 import realiz3DPlugin from '@bimdata/realiz3d-viewer-plugin'
 import backgroundColorPlugin from '@bimdata/background-color-viewer-plugin'
+import idexPlugin from '@bimdata/idex-viewer-plugin'
 
 const availablePlugins = {
   bimobject: bimObjectPlugin,
@@ -29,7 +30,8 @@ const availablePlugins = {
   gltfExtractor: gltfExtractorPlugin,
   svgExtractor: svgExtractorPlugin,
   realiz3D: realiz3DPlugin,
-  backgroundColor: backgroundColorPlugin
+  backgroundColor: backgroundColorPlugin,
+  idex: idexPlugin
 }
 
 export default {
