@@ -30,7 +30,7 @@
     "@bimdata/iot-viewer-plugin": "1.0.4",
     "@bimdata/realiz3d-viewer-plugin": "0.0.2",
     "@bimdata/svg-extractor-viewer-plugin": "1.0.0",
-    "@bimdata/idex-viewer-plugin": "0.0.1",
+    "@bimdata/idex-viewer-plugin": "0.0.2",
     "@bimdata/utils": "0.2.3",
     "@bimdata/viewer": "1.0.9",
     "axios": "^0.19.0",
