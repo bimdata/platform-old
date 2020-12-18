@@ -38,21 +38,38 @@ jobs:
           keys:
             - v3-dependencies-npm-{{ checksum "package-lock.json" }}
             - v3-dependencies-npm
-
+      - run: |
+          VIEWER_VERSION=$(node -e "console.log(require('./package.json').dependencies['@bimdata/viewer'])")
+          npm install @bimdata/viewer@$VIEWER_VERSION --package-lock-only --no-save
       - run: npm ci
 
       - run: npm test
+
+      - run: |
+          if [[ $(git diff -- package-lock.json) ]]
+          then
+            git config user.email "circle@bimdata.io"
+            git config user.name "CircleCI Job"
+            git add package-lock.json
+            git commit -m "update @bimdata/viewer form CircleCI [skip ci]"
+            git push origin HEAD
+          fi
 
       - save_cache:
           key: v3-dependencies-npm-{{ checksum "package-lock.json" }}
           paths:
             - ~/.npm
             - ~/.cache
+      - persist_to_workspace:
+          root: .
+          paths: 
+            - '*'
 
   build_and_push:
     <<: *container_config
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
       - setup_remote_docker
       - add_ssh_keys
       - run: *mapping-var-env
@@ -118,15 +135,8 @@ workflows:
   test_and_deploy:
     jobs:
       - test
-      - deploy_docker_dev:
-          type: approval
-          filters:
-            branches:
-              ignore:
-                - master
-                - release
-                - develop
       - build_and_push:
+          context: Ansible deployment
           requires:
             - test
           filters:
@@ -136,9 +146,6 @@ workflows:
                 - release
                 - develop
       - deploy:
+          context: Ansible deployment
           requires:
             - build_and_push
-      - build_and_push:
-          name: build_and_push_docker_dev
-          requires:
-            - deploy_docker_dev
