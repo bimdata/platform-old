@@ -4,7 +4,7 @@
   "description": "BIMData.io Platform",
   "main": "index.js",
   "scripts": {
-    "serve": "node --max_old_space_size=4096 node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --config build/webpack.config.dev.js --port 8081",
+    "serve": "node --max_old_space_size=4096 node_modules/webpack-dev-server/bin/webpack-dev-server.js --progress --config build/webpack.config.dev.js --port 8080",
     "build": "node --max-old-space-size=4000 ./node_modules/.bin/webpack --config build/webpack.config.prod.js",
     "lint": "eslint --ext .js,.vue src",
     "lint:fix": "eslint --ext .js,.vue src --fix",

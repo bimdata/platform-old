@@ -63,52 +63,62 @@ export default {
         this.iframeViewer = true
         this.viewerUrl = `${this.getCustomUrl}/?cloudId=${params.cloudId}&projectId=${params.projectId}&ifcId=${params.ifcId}&accessToken=${this.oidcAccessToken}`
       } else {
-        this.iframeViewer = false
-
-        const plugins = {
-          header: {
-            warnings: false
-          },
-          split: true,
-          'structure-properties': {
-            merge: true,
-            export: true,
-            editProperties: true
+        fetch(
+          `${process.env.BD_API_BASE_URL}/cloud/${params.cloudId}/project/${params.projectId}/ifc/${params.ifcId}`,
+          {
+            headers: {'Authorization': `Bearer ${this.oidcAccessToken}`}
           }
-        }
-        merge(plugins, this.getBimdataPluginConfig())
+        ).then(res => {
+          return res.json()
+        }).then(ifcData => {
+          this.iframeViewer = false
 
-        const bimdataViewer = makeBIMDataViewer({
-          locale: this.$i18n.locale,
-          api: {
-            cloudId: params.cloudId,
-            projectId: params.projectId,
-            ifcIds: [params.ifcId],
-            apiUrl: process.env.BD_API_BASE_URL,
-            accessToken: this.oidcAccessToken
-          },
-          plugins
+          const plugins = {
+            header: {
+              warnings: false
+            },
+            split: true,
+            'structure-properties': {
+              merge: true,
+              export: true,
+              editProperties: true
+            }
+          }
+          merge(plugins, this.getBimdataPluginConfig())
+
+          const bimdataViewer = makeBIMDataViewer({
+            locale: this.$i18n.locale,
+            api: {
+              cloudId: params.cloudId,
+              projectId: params.projectId,
+              ifcIds: [params.ifcId],
+              apiUrl: process.env.BD_API_BASE_URL,
+              accessToken: this.oidcAccessToken
+            },
+            plugins
+          })
+
+          bimdataViewer.registerWindow({
+            name: '2d',
+            label: this.$t('viewer.2d_window'), // This is computed at viewer start and won't be updated later
+            plugins: ['viewer2d', 'fullscreen'],
+            flyingHeader: true
+          })
+
+          bimdataViewer.registerWindow({
+            name: 'Structure',
+            plugins: ['structure']
+          })
+
+          const pluginsToEnable = this.getPluginList()
+          pluginsToEnable.forEach(bimdataViewer.registerPlugin)
+          if (ifcData.world_position) {
+            bimdataViewer.registerPlugin(ChristmasSleighPlugin)
+          }
+          const viewerVm = bimdataViewer.mount(`#${this.viewerId}`)
+          this.$watch(() => this.$i18n.locale, locale => { viewerVm.$i18n.locale = locale })
+          this.$watch(() => this.oidcAccessToken, token => bimdataViewer.setAccessToken(token))
         })
-
-        bimdataViewer.registerWindow({
-          name: '2d',
-          label: this.$t('viewer.2d_window'), // This is computed at viewer start and won't be updated later
-          plugins: ['viewer2d', 'fullscreen'],
-          flyingHeader: true
-        })
-
-        bimdataViewer.registerWindow({
-          name: 'Structure',
-          plugins: ['structure']
-        })
-
-        const pluginsToEnable = this.getPluginList()
-        pluginsToEnable.forEach(bimdataViewer.registerPlugin)
-        bimdataViewer.registerPlugin(ChristmasSleighPlugin)
-        const viewerVm = bimdataViewer.mount(`#${this.viewerId}`)
-
-        this.$watch(() => this.$i18n.locale, locale => { viewerVm.$i18n.locale = locale })
-        this.$watch(() => this.oidcAccessToken, token => bimdataViewer.setAccessToken(token))
       }
       callback()
     },
