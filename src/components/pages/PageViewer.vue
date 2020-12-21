@@ -23,6 +23,7 @@ import svgExtractorPlugin from '@bimdata/svg-extractor-viewer-plugin'
 import realiz3DPlugin from '@bimdata/realiz3d-viewer-plugin'
 import backgroundColorPlugin from '@bimdata/background-color-viewer-plugin'
 import idexPlugin from '@bimdata/idex-viewer-plugin'
+import ChristmasSleighPlugin from '@bimdata/christmas-sleigh-viewer-plugin'
 
 const availablePlugins = {
   bimobject: bimObjectPlugin,
@@ -103,7 +104,7 @@ export default {
 
         const pluginsToEnable = this.getPluginList()
         pluginsToEnable.forEach(bimdataViewer.registerPlugin)
-
+        bimdataViewer.registerPlugin(ChristmasSleighPlugin)
         const viewerVm = bimdataViewer.mount(`#${this.viewerId}`)
 
         this.$watch(() => this.$i18n.locale, locale => { viewerVm.$i18n.locale = locale })
