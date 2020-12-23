@@ -4,10 +4,7 @@ For the full copyright and license information, please view the LICENSE
 file that was distributed with this source code. -->
 <template>
   <div v-if="isPanoramaExist" class="model-preview-slider">
-    <model-preview :imgURL="panoramas[activePanIndex].viewer_360_file" v-if="panoramas[activePanIndex].viewer_360_file"></model-preview>
-    <div class="no-preview" v-else>
-      <svgicon name="preview-icon" height="50" width="50"></svgicon>
-    </div>
+    <model-preview :imgURL="imgURL"></model-preview>
     <div class="model-preview-controls">
       <div
         @click="prevPan"
@@ -65,6 +62,9 @@ export default {
     },
     currentCounter () {
       return this.activePanIndex + 1
+    },
+    imgURL () {
+      return this.panoramas[this.activePanIndex].viewer_360_file || '/static/img/default-preview.png'
     }
   },
   props: {
