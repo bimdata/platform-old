@@ -88,10 +88,12 @@ export default {
           },
           plugins
         })
-
+        const self = this
         bimdataViewer.registerWindow({
           name: '2d',
-          label: this.$t('viewer.2d_window'), // This is computed at viewer start and won't be updated later
+          get label () {
+            return self.$t('viewer.2d_window')
+          },
           plugins: ['viewer2d', 'fullscreen'],
           flyingHeader: true
         })
