@@ -49,6 +49,8 @@ export default {
       if (ifc) {
         this.image = ifc.image
         this.$emit('has-image', ifc.id)
+      } else {
+        this.image = '/static/img/default-preview.png'
       }
     }
   }
