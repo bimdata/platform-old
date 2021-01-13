@@ -90,13 +90,6 @@ export default {
         })
 
         bimdataViewer.registerWindow({
-          name: '2d',
-          label: this.$t('viewer.2d_window'), // This is computed at viewer start and won't be updated later
-          plugins: ['viewer2d', 'fullscreen'],
-          flyingHeader: true
-        })
-
-        bimdataViewer.registerWindow({
           name: 'Structure',
           plugins: ['structure']
         })
