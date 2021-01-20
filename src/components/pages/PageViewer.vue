@@ -88,15 +88,6 @@ export default {
           },
           plugins
         })
-        const self = this
-        bimdataViewer.registerWindow({
-          name: '2d',
-          get label () {
-            return self.$t('viewer.2d_window')
-          },
-          plugins: ['viewer2d', 'fullscreen'],
-          flyingHeader: true
-        })
 
         bimdataViewer.registerWindow({
           name: 'Structure',
