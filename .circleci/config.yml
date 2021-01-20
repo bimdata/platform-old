@@ -40,7 +40,7 @@ jobs:
             - v3-dependencies-npm
       - run:
           name: Wait npm for pull @bimdata/viewer
-          command: sleep 10
+          command: sleep 60
       - run: |
           VIEWER_VERSION=$(node -e "console.log(require('./package.json').dependencies['@bimdata/viewer'])")
           npm install @bimdata/viewer@$VIEWER_VERSION --package-lock-only --no-save
