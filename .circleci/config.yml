@@ -23,6 +23,12 @@ mapping-var-env: &mapping-var-env
 
 version: 2.1
 
+parameters:
+  viewer-version:
+    type: string
+    description: Version of the @bimdata/viewer npm package
+    default: ""
+
 references:
   container_config: &container_config
     docker:
@@ -38,26 +44,26 @@ jobs:
           keys:
             - v3-dependencies-npm-{{ checksum "package-lock.json" }}
             - v3-dependencies-npm
-      - run:
-          name: Wait npm for pull @bimdata/viewer
-          command: sleep 60
-      - run: |
-          VIEWER_VERSION=$(node -e "console.log(require('./package.json').dependencies['@bimdata/viewer'])")
-          npm install @bimdata/viewer@$VIEWER_VERSION --package-lock-only --no-save
-      - run: npm ci
-
-      - run: npm test
-
-      - run: |
-          if [[ $(git diff -- package-lock.json) ]]
-          then
-            git config user.email "circle@bimdata.io"
-            git config user.name "CircleCI Job"
-            git add package-lock.json
-            git commit -m "update @bimdata/viewer form CircleCI [skip ci]"
-            git push origin HEAD
-          fi
-
+      - when:
+          condition: << pipeline.parameters.viewer-version >>
+          steps:
+            - run: npm install @bimdata/viewer@<< pipeline.parameters.viewer-version >> --save
+            - run: npm ci
+            - run: npm test
+            - run: |
+                if [[ $(git diff -- package-lock.json) ]]
+                then
+                  git config user.email "circle@bimdata.io"
+                  git config user.name "CircleCI Job"
+                  git add package-lock.json package.json
+                  git commit -m "bump @bimdata/viewer@<< pipeline.parameters.viewer-version >> from CircleCI [skip ci]"
+                  git push origin HEAD
+                fi
+      - unless:
+          condition: << pipeline.parameters.viewer-version >>
+          steps:
+            - run: npm ci
+            - run: npm test
       - save_cache:
           key: v3-dependencies-npm-{{ checksum "package-lock.json" }}
           paths:
