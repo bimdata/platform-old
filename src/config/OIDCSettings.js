@@ -14,5 +14,6 @@ export const oidcSettings = {
   validateSubOnSilentRenew: true,
   extraQueryParams: {kc_idp_hint: 'bimdataconnect'},
   monitorSession: false,
-  clockSkew: 900
+  clockSkew: 900,
+  logoutUrl: process.env.BD_OIDC_IP + '/auth/realms/bimdata/protocol/openid-connect/logout'
 }

@@ -32,7 +32,7 @@
     "@bimdata/realiz3d-viewer-plugin": "0.0.2",
     "@bimdata/svg-extractor-viewer-plugin": "1.0.0",
     "@bimdata/utils": "0.2.3",
-    "@bimdata/viewer": "^1.4.0",
+    "@bimdata/viewer": "^1.4.1",
     "axios": "^0.21.1",
     "bootstrap-vue": "^2.0.0-rc.28",
     "isemail": "^3.2.0",
@@ -50,7 +50,7 @@
     "vue-select": "^2.6.4",
     "vue-svgicon": "^3.2.6",
     "vuex": "^3.1.1",
-    "vuex-oidc": "^3.2.0"
+    "vuex-oidc": "git+https://github.com/bimdata/vuex-oidc.git#5490a39549467b8efe20ec961776b648effa8a33"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
