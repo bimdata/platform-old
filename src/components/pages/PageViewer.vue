@@ -89,11 +89,6 @@ export default {
           plugins
         })
 
-        bimdataViewer.registerWindow({
-          name: 'Structure',
-          plugins: ['structure']
-        })
-
         const pluginsToEnable = this.getPluginList()
         pluginsToEnable.forEach(bimdataViewer.registerPlugin)
 
