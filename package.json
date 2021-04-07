@@ -32,7 +32,7 @@
     "@bimdata/realiz3d-viewer-plugin": "0.0.2",
     "@bimdata/svg-extractor-viewer-plugin": "1.0.0",
     "@bimdata/utils": "0.2.3",
-    "@bimdata/viewer": "^1.6.0-rc.14",
+    "@bimdata/viewer": "^1.6.0-rc.15",
     "axios": "^0.21.1",
     "bootstrap-vue": "^2.0.0-rc.28",
     "isemail": "^3.2.0",
