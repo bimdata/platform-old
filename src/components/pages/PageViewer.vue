@@ -80,9 +80,9 @@ export default {
         const bimdataViewer = makeBIMDataViewer({
           locale: this.$i18n.locale,
           api: {
-            cloudId: params.cloudId,
-            projectId: params.projectId,
-            ifcIds: [params.ifcId],
+            cloudId: parseInt(params.cloudId),
+            projectId: parseInt(params.projectId),
+            ifcIds: [parseInt(params.ifcId)],
             apiUrl: process.env.BD_API_BASE_URL,
             accessToken: this.oidcAccessToken
           },
