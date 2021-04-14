@@ -147,17 +147,17 @@ jobs:
 workflows:
   test_and_deploy:
     jobs:
-      - test
-      - build_and_push:
-          context: Ansible deployment
-          requires:
-            - test
+      - test:
           filters:
             branches:
               only:
                 - master
                 - release
                 - develop
+      - build_and_push:
+          context: Ansible deployment
+          requires:
+            - test
       - deploy:
           context: Ansible deployment
           requires:
