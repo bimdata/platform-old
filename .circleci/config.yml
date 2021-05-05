@@ -48,6 +48,7 @@ jobs:
           condition: << pipeline.parameters.viewer-version >>
           steps:
 
+            - run: npm install -g npm
             - run: |
                 while ! npm install @bimdata/viewer@<< pipeline.parameters.viewer-version >> --save; do
                   sleep 5
