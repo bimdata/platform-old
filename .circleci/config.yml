@@ -42,8 +42,8 @@ jobs:
       - checkout
       - restore_cache: #Download and cache dependencies
           keys:
-            - v3-dependencies-npm-{{ checksum "package-lock.json" }}
-            - v3-dependencies-npm
+            - v4-dependencies-npm-{{ checksum "package-lock.json" }}
+            - v4-dependencies-npm
       - when:
           condition: << pipeline.parameters.viewer-version >>
           steps:
@@ -68,7 +68,7 @@ jobs:
           steps:
             - run: npm ci
       - save_cache:
-          key: v3-dependencies-npm-{{ checksum "package-lock.json" }}
+          key: v4-dependencies-npm-{{ checksum "package-lock.json" }}
           paths:
             - ~/.npm
             - ~/.cache
