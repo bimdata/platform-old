@@ -153,11 +153,11 @@ file that was distributed with this source code. -->
                   {{ data.value }}
                 </template>
                 <template slot="date" slot-scope="data">
-                  {{ data.item.date|formatDate }}
+                  {{ data.item.date | formatDate }}
                 </template>
                 <template slot="size" slot-scope="data">
                   <template v-if="data.item.size > 0">
-                    {{ data.item.size|getFormattedSize }}
+                    {{ data.item.size | getFormattedSize }}
                   </template>
                 </template>
                 <template slot="action" slot-scope="documentAction">
