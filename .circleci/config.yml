@@ -54,7 +54,6 @@ jobs:
                   sleep 5
                 done
             - run: npm ci
-            - run: npm test
             - run: |
                 if [[ $(git diff -- package-lock.json) ]]
                 then
@@ -68,7 +67,6 @@ jobs:
           condition: << pipeline.parameters.viewer-version >>
           steps:
             - run: npm ci
-            - run: npm test
       - save_cache:
           key: v3-dependencies-npm-{{ checksum "package-lock.json" }}
           paths:
