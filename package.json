@@ -60,7 +60,6 @@
     "@mdi/svg": "^3.9.97",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.3",
-    "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-2": "^6.24.1",
