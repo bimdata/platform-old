@@ -39,7 +39,6 @@ module.exports = merge(baseConfig, {
             loader: 'sass-loader',
             options: {
               sourceMap: true,
-              sourceMapContents: false
             }
           }
         ]
