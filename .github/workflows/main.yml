@@ -2,8 +2,10 @@ name: Platform
 
 on: push
 
-env:
-  app: platform
+on: 
+  push:
+  repository_dispatch:
+    types: [semantic-release]
 
 jobs:
   test:
@@ -58,7 +60,6 @@ jobs:
           inventory: ${{ steps.tag.outputs.tag }}
           app: ${{ env.app }}
           vault-pass: ${{ secrets.ANSIBLE_VAULT_PASSWD }}
-      - run: docker images
       - name: Push image to registry
         run: |
           docker tag docker-registry.bimdata.io/bimdata/${{ env.app }}:${{ steps.tag.outputs.tag }} docker-registry.bimdata.io/bimdata/${{ env.app }}:${{ github.sha }}
