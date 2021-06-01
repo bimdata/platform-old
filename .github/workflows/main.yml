@@ -23,6 +23,7 @@ jobs:
           done
           GITDIFF=$(git diff -- package-lock.json) && echo "::set-output name=gitdiff::$GITDIFF"
       - run: npm ci
+      - run: npm run build
       - name: Commit diff
         if: steps.viewer-install.outputs.gitdiff
         uses: EndBug/add-and-commit@v7
