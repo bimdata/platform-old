@@ -3,13 +3,16 @@
 For the full copyright and license information, please view the LICENSE
 file that was distributed with this source code. -->
 <template>
-    <div class="h-100">
-        <iframe :src="viewerUrl" width="100%" height="100%" class="no-borders" v-if="iframeViewer === true"></iframe>
-        <div
-          :id="viewerId"
-          v-else
-        />
-    </div>
+  <div class="h-100">
+    <iframe
+      :src="viewerUrl"
+      width="100%"
+      height="100%"
+      class="no-borders"
+      v-if="iframeViewer === true"
+    ></iframe>
+    <div :id="viewerId" v-else />
+  </div>
 </template>
 <script>
 import { set, merge } from 'lodash'
@@ -23,6 +26,7 @@ import svgExtractorPlugin from '@bimdata/svg-extractor-viewer-plugin'
 import realiz3DPlugin from '@bimdata/realiz3d-viewer-plugin'
 import backgroundColorPlugin from '@bimdata/background-color-viewer-plugin'
 import idexPlugin from '@bimdata/idex-viewer-plugin'
+import sharePlugin from '@bimdata/iframe-share-viewer-plugin'
 
 const availablePlugins = {
   bimobject: bimObjectPlugin,
@@ -31,7 +35,8 @@ const availablePlugins = {
   svgExtractor: svgExtractorPlugin,
   realiz3D: realiz3DPlugin,
   backgroundColor: backgroundColorPlugin,
-  idex: idexPlugin
+  idex: idexPlugin,
+  share: sharePlugin
 }
 
 export default {
@@ -94,26 +99,34 @@ export default {
 
         const viewerVm = bimdataViewer.mount(`#${this.viewerId}`)
 
-        this.$watch(() => this.$i18n.locale, locale => { viewerVm.$i18n.locale = locale })
-        this.$watch(() => this.oidcAccessToken, token => bimdataViewer.setAccessToken(token))
+        this.$watch(
+          () => this.$i18n.locale,
+          (locale) => {
+            viewerVm.$i18n.locale = locale
+          }
+        )
+        this.$watch(
+          () => this.oidcAccessToken,
+          (token) => bimdataViewer.setAccessToken(token)
+        )
       }
       callback()
     },
     getPluginList () {
       return this.$store.state.currentCloud.features
-        .filter(feature => feature.name.startsWith('viewer-plugin-'))
-        .map(feature => feature.name.split('viewer-plugin-')[1])
-        .map(pluginName => availablePlugins[pluginName])
-        .filter(pluginName => !!pluginName) // remove non existing plugins
+        .filter((feature) => feature.name.startsWith('viewer-plugin-'))
+        .map((feature) => feature.name.split('viewer-plugin-')[1])
+        .map((pluginName) => availablePlugins[pluginName])
+        .filter((pluginName) => !!pluginName) // remove non existing plugins
     },
     getBimdataPluginConfig () {
       return this.$store.state.currentCloud.features
-        .filter(feature => feature.name.startsWith('viewer-bimdata-plugin-'))
-        .map(feature => feature.name.split('viewer-bimdata-plugin-')[1])
-        .map(name => name.split(':'))
+        .filter((feature) => feature.name.startsWith('viewer-bimdata-plugin-'))
+        .map((feature) => feature.name.split('viewer-bimdata-plugin-')[1])
+        .map((name) => name.split(':'))
         .reduce((acc, [featurePath, state]) => {
           const path = featurePath.split('.')
-          set(acc, path, (state === 'true'))
+          set(acc, path, state === 'true')
           return acc
         }, {})
     }
