@@ -5,6 +5,9 @@ on:
   repository_dispatch:
     types: [semantic-release]
 
+env:
+  app: platform
+
 jobs:
   test:
     runs-on: self-hosted
