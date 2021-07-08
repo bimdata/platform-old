@@ -39,7 +39,7 @@ jobs:
     needs: test
     if: contains('
       refs/heads/develop
-      refs/heads/next
+      refs/heads/release
       refs/heads/master
       refs/heads/main'
       , github.ref)
