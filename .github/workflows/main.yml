@@ -1,0 +1,92 @@
+name: Platform
+
+on: 
+  push:
+  repository_dispatch:
+    types: [semantic-release]
+
+env:
+  app: platform_old
+
+jobs:
+  test:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "10"
+      - name: Wait for npm package
+        id: viewer-install
+        if: github.event.client_payload.ref
+        timeout-minutes: 2
+        run: |
+          while ! npm install @bimdata/viewer@${{ github.event.client_payload.viewer-version }} --save; do
+            sleep 5
+          done
+          GITDIFF=$(git diff -- package-lock.json) && echo "::set-output name=gitdiff::$GITDIFF"
+      - run: npm ci
+      - run: npm run build
+      - name: Commit diff
+        if: steps.viewer-install.outputs.gitdiff
+        uses: EndBug/add-and-commit@v7
+        with:
+          add: "package-lock.json package.json"
+          message: "chore: bump @bimdata/viewer@${{ github.event.client_payload.viewer-version }} from Github Actions [skip ci]"
+
+  build-and-push:
+    runs-on: self-hosted
+    needs: test
+    if: contains('
+      refs/heads/develop
+      refs/heads/release
+      refs/heads/master
+      refs/heads/main'
+      , github.ref)
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
+      - name: Login to BIMData Docker Registry
+        uses: docker/login-action@v1
+        with:
+          registry: docker-registry.bimdata.io
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASS }}
+      - id: tag
+        name: Get docker tag
+        uses: bimdata/actions/get-docker-tag@v1
+        with:
+          branch: ${{ github.ref }}
+      - name: Build with ansible
+        uses: bimdata/actions/build-image@v1
+        with:
+          inventory: ${{ steps.tag.outputs.tag }}
+          app: ${{ env.app }}
+          vault-pass: ${{ secrets.ANSIBLE_VAULT_PASSWD }}
+      - name: Push image to registry
+        run: |
+          docker tag docker-registry.bimdata.io/bimdata/${{ env.app }}:${{ steps.tag.outputs.tag }} docker-registry.bimdata.io/bimdata/${{ env.app }}:${{ github.sha }}
+          docker push docker-registry.bimdata.io/bimdata/${{ env.app }}:${{ steps.tag.outputs.tag }}
+          docker push docker-registry.bimdata.io/bimdata/${{ env.app }}:${{ github.sha }}
+  deploy:
+    runs-on: self-hosted
+    needs: build-and-push
+    steps:
+      - name: Login to BIMData Docker Registry
+        uses: docker/login-action@v1
+        with:
+          registry: docker-registry.bimdata.io
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASS }}
+      - id: tag
+        name: Get docker tag
+        uses: bimdata/actions/get-docker-tag@v1
+        with:
+          branch: ${{ github.ref }}
+      - name: Deploy on ${{ steps.tag.outputs.tag }}
+        uses: bimdata/actions/deployment@v1
+        with:
+          inventory: ${{ steps.tag.outputs.tag }}
+          app: ${{ env.app }}
+          vault-pass: ${{ secrets.ANSIBLE_VAULT_PASSWD }}
