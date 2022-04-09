@@ -35,7 +35,7 @@
     "bootstrap-vue": "2.0.0-rc.28",
     "isemail": "^3.2.0",
     "mapbox-gl": "^0.53.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "oidc-client": "^1.9.1",
     "scriptjs": "^2.5.9",
     "seedrandom": "^3.0.5",
