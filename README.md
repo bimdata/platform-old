@@ -1,3 +1,6 @@
+# This repository has been moved to https://github.com/bimdata/platform-next
+
+
 # BIMData Platform
 
 BIMData Platform is a web application to manage your project in the BIM ecosystem. You can manage your projects and your files in relation to your users.
