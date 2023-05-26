@@ -1,4 +1,4 @@
-# This repository has been moved to https://github.com/bimdata/platform-next
+# This repository has been moved to https://github.com/bimdata/platform
 
 
 # BIMData Platform
